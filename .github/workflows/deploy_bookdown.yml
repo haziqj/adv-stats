@@ -1,9 +1,113 @@
+# on:
+#   push:
+#     branches:
+#       master
+#   
+# name: Render-Book-from-master
+# 
+# jobs:
+#   bookdown:
+#     name: Render-Book
+#     runs-on: ubuntu-latest
+#     env:
+#       GITHUB_PAT: ${{ secrets.GH_PAT }}
+#       EMAIL: ${{ secrets.EMAIL }} 
+#     
+#     steps:
+#     
+#       - uses: actions/checkout@v2
+#       
+#       - uses: r-lib/actions/setup-r@master
+#         with:
+#           r-version: 'release'
+#           crayon.enabled: 'FALSE' 
+# 
+#       - uses: r-lib/actions/setup-pandoc@master
+# 
+#       - name: Install rmarkdown
+#         run: Rscript -e 'install.packages(c("rmarkdown","bookdown"))'
+#         
+#       - name: Render Book
+#         run: Rscript -e 'bookdown::render_book("index.Rmd")'
+#         
+#       # - uses: actions/upload-artifact@v1
+#       #   with:
+#       #     name: _book
+#       #     path: _book/
+# 
+#       # - name: Cache R packages
+#       #   uses: actions/cache@v1
+#       #   with:
+#       #     path: ${{ env.R_LIBS_USER }}
+#       #     key: ${{ runner.os }}-r-2-${{ hashFiles('depends.Rds') }}
+#       #     restore-keys: ${{ runner.os }}-r-2-
+#       # 
+#       # - name: Install system dependencies
+#       #   #if: runner.os == 'Linux'
+#       #   #env:
+#       #   #  RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
+#       #   run: |
+#       #     #Rscript -e "remotes::install_github('r-hub/sysreqs')"
+#       #     #sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
+#       #     #sudo -s eval "$sysreqs"
+#       #     # install spatial dependencies
+#       #     sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
+#       #     sudo apt update
+#       #     sudo apt install \
+#       #       libudunits2-dev \
+#       #       libgdal-dev \
+#       #       libgeos-dev \
+#       #       libproj-dev \
+#       #       libv8-dev \
+#       #       libjq-dev \
+#       #       libprotobuf-dev \
+#       #       protobuf-compiler
+#       #     # install database dependencies
+#       #     sudo apt-get -y install bash-completion wget
+#       #     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+#       #     echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+#       #     sudo apt-get update
+#       #     sudo apt-get -y install postgresql-client-12
+#       # - name: Install dependencies
+#       #   run: |
+#       #     install.packages("remotes")
+#       #     remotes::install_deps()
+#       #   shell: Rscript {0}
+# 
+#       # - name: Render Book
+#       #   run: Rscript -e 'bookdown::render_book("index.Rmd")'
+#         
+#       # - name: Deploy 🚀
+#       #   uses: JamesIves/github-pages-deploy-action@releases/v3
+#       #   with:
+#       #     ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+#       #     BRANCH: gh-pages # The branch the action should deploy to.
+#       #     FOLDER: _book # The folder the action should deploy.
+#       
+#       # - name: Deploy
+#       #   uses: peaceiris/actions-gh-pages@v3
+#       #   with:
+#       #     github_token: ${{ secrets.GITHUB_TOKEN }}
+#       #     publish_dir: ./_book
+#           
+# # Commented out failing code
+#       - name: Commit results
+#         if: github.repository == 'haziqj/glm-book'
+#         run: |
+#           cd _book
+#           git init
+#           git config user.name "Haziq Jamil"
+#           git config user.email "haziq.jamil@ubd.edu.bn"
+#           git config --global push.default simple
+#           git add .
+#           git status
+#           git commit -m 'update book'
+#           git push https://${{github.actor}}:${{secrets.GITHUB_TOKEN}}@github.com/${{github.repository}}.git HEAD:gh-pages --force
+
 on:
   push:
      branches:
        - main
-
-  
 
 name: renderbook
 
@@ -11,41 +115,45 @@ jobs:
   bookdown:
     name: Render-Book
     runs-on: macOS-latest
+    
     steps:
       - uses: actions/checkout@v1
+      
       - uses: r-lib/actions/setup-r@v1
+      
       - uses: r-lib/actions/setup-pandoc@v1
+      
       - name: Install rmarkdown
         run: Rscript -e 'install.packages(c("rmarkdown","bookdown"))'
+        
       - name: Render Book
         run: Rscript -e 'bookdown::render_book("index.Rmd")'
+        
       - uses: actions/upload-artifact@v1
         with:
           name: _book
           path: _book/
-  
-# Need to first create an empty gh-pages branch
-# see https://pkgdown.r-lib.org/reference/deploy_site_github.html
-# and also add secrets for a GH_PAT and EMAIL to the repository
-# gh-action from Cecilapp/GitHub-Pages-deploy
+          
   checkout-and-deploy:
    runs-on: ubuntu-latest
    needs: bookdown
+   
    steps:
      - name: Checkout
        uses: actions/checkout@master
+       
      - name: Download artifact
        uses: actions/download-artifact@v1.0.0
        with:
-         # Artifact name
-         name: _book # optional
-         # Destination path
-         path: _book # optional
+         name: _book 
+         path: _book 
+         
      - name: Deploy to GitHub Pages
-       uses: Cecilapp/GitHub-Pages-deploy@master
+       uses: Cecilapp/GitHub-Pages-deploy@v3
        env:
-          EMAIL: ${{ secrets.EMAIL }}               # must be a verified email
-          GH_TOKEN: ${{ secrets.GH_PAT }} # https://github.com/settings/tokens
-          BUILD_DIR: _book/                     # "_site/" by default
-    
- 
+         GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+       with:
+         email: ${{ secrets.EMAIL }}
+         build_dir: _book       
+
+
