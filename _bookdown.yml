@@ -3,7 +3,7 @@ language:
   ui:
     chapter_name: "Chapter "
 book_filename: "bookdown-LR"
-output_dir: docs
+output_dir: _book
 # rmd_files: ["index.Rmd", 
 #   "linear.Rmd"]
 # repo: https://github.com/rstudio/bookdown/
