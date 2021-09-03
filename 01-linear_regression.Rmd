@@ -1,3 +1,10 @@
 # (PART) Linear regression {-}
 
 # The linear regression model
+
+Consider $n$ independent observations of a dependent variable (also called response variable)
+$$
+\mathbf y = \begin{pmatrix}
+y_1 \\ y_2 \\ \vdots \\ y_n
+\end{pmatrix} \in \mathbb R^n
+$$
