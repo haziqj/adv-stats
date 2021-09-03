@@ -2,7 +2,8 @@
 
 # The linear regression model
 
-Consider $n$ independent observations of a dependent variable (also called response variable)
+Consider $n$ independent observations $\{y_1,\dots,y_n\}$ of a dependent variable (also called response variable).
+Collect all of these observations into a vector
 $$
 \mathbf y = \begin{pmatrix}
 y_1 \\ y_2 \\ \vdots \\ y_n
