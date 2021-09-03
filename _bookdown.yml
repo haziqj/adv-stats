@@ -1,0 +1,19 @@
+delete_merged_file: true
+language:
+  ui:
+    chapter_name: "Chapter "
+book_filename: "bookdown-LR"
+output_dir: docs
+# rmd_files: ["index.Rmd", 
+#   "linear.Rmd"]
+# repo: https://github.com/rstudio/bookdown/
+# output_dir: _book
+# clean: [packages.bib, bookdown.bbl]
+# delete_merged_file: true
+# language:
+#   label:
+#     fig: "FIGURE "
+#     tab: "TABLE "
+#   ui:
+#     edit: "Edit"
+#     chapter_name: "Chapter "
