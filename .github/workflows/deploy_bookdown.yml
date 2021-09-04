@@ -124,7 +124,7 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v1
       
       - name: Install rmarkdown
-        run: Rscript -e 'install.packages(c("rmarkdown", "bookdown", "tidyverse", "iprior", "RefManageR", "magick"))'
+        run: Rscript -e 'install.packages(c("rmarkdown", "bookdown", "tidyverse", "iprior", "RefManageR", "magick", "pdftools"))'
         
       - name: Install tinytex
         run: Rscript -e 'tinytex::install_tinytex()'        
