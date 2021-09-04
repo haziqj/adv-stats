@@ -126,6 +126,9 @@ jobs:
       - name: Install rmarkdown
         run: Rscript -e 'install.packages(c("rmarkdown", "bookdown", "tidyverse", "iprior", "RefManageR"))'
         
+      - name: Install tinytex
+        run: Rscript -e 'tinytex::install_tinytex()'        
+        
       - name: Render Book
         run: Rscript -e 'bookdown::render_book("index.Rmd")'
         
