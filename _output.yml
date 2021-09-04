@@ -4,7 +4,7 @@ bookdown::gitbook:
   # split_by: section
   config:
     toc:
-      collapse: none
+      collapse: section
       before: |
         <li><a href="./">SM-4331 Advanced Statistics</a></li>
       after: |
@@ -19,6 +19,7 @@ bookdown::gitbook:
 # bookdown::html_chapters:
 #   css: [css/style.css, css/toc.css]      
 bookdown::pdf_book:
+  # pandoc_args: ["--extract-media", "."]
   includes:
     in_header: preamble.tex
   latex_engine: xelatex
