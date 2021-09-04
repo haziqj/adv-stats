@@ -124,13 +124,7 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v1
       
       - name: Install rmarkdown
-        run: Rscript -e 'install.packages(c("rmarkdown","bookdown"))'
-
-      - name: Install dependencies
-        run: |
-          install.packages("remotes")
-          remotes::install_deps()
-        shell: Rscript {0}
+        run: Rscript -e 'install.packages(c("rmarkdown", "bookdown", "tidyverse", "iprior"))'
         
       - name: Render Book
         run: Rscript -e 'bookdown::render_book("index.Rmd")'
