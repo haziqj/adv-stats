@@ -17,17 +17,6 @@ link-citations: yes
 knitr::asis_output(readLines("maths.tex"))
 ```
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
-  MathJax.Hub.Insert(MathJax.InputJax.TeX.Definitions.macros,{
-    cancel: ["Extension","cancel"],
-    bcancel: ["Extension","cancel"],
-    xcancel: ["Extension","cancel"],
-    cancelto: ["Extension","cancel"]
-  });
-});
-</script>
-
 # About {-}
 
 ```{r setup, include = FALSE}
@@ -38,7 +27,7 @@ knitr::opts_chunk$set(fig.height = 4, fig.width = 7, out.width = "100%")
 Updated for 2021/22 session. 
 
 ```{r, echo = FALSE, include = knitr::is_html_output()}
-knitr::asis_output("![](https://github.com/haziqj/adv-stats-book/actions/workflows/deploy_bookdown.yml/badge.svg)")
+knitr::asis_output("![render bookdown](https://github.com/haziqj/adv-stats-book/actions/workflows/deploy_bookdown.yml/badge.svg)")
 ```
 
 ```{r dates_bib, include = FALSE}
