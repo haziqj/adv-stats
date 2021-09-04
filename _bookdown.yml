@@ -2,7 +2,7 @@ delete_merged_file: true
 language:
   ui:
     chapter_name: "Chapter "
-book_filename: "bookdown-sm4331"
+book_filename: "bookdown-adv-stats"
 output_dir: _book
 # before_chapter_script: "_common.R"
 # rmd_files: ["index.Rmd", 
