@@ -666,7 +666,7 @@ f(x,y) = \begin{cases}
 \end{cases}
 $$  
 This is a well-defined pdf, as $f\geq 0$ and $\int\int f(x,y)\dint x \dint y = 1$.
-Suppose we want to find $\Prob(X<1/2, Y<1/2)$ and $\Prob(X + Y < 1)$.
+Suppose we want to find $\Pr(X<1/2, Y<1/2)$ and $\Pr(X + Y < 1)$.
 
 \begin{align*}
 \bbP(X<1/2, Y<1/2) &= \int_0^{1/2} \int_0^{1/2} \dint x \dint y \\
@@ -1204,3 +1204,136 @@ The mgf has the property that it uniquely defined a distribution.
 That is, if two distributions have identical mgfs then they have the same distribution.
 
 ## Exercises
+
+
+1. Using only the three axioms of probability, prove the following statements:
+
+   (a) $\Pr(\{\})=0$
+   (b) If $A \subseteq B$ then $\Pr(A) \leq \Pr(B)$ *Hint: Write $B = A \cup (B \cap A^c)$*
+   (c) $0 \leq \Pr(A) \leq 1$
+   (d) $\Pr(A^c)=1-\Pr(A)$
+   (e) If $A \cap B = \{\}$, then $\Pr(A\cup B) = \Pr(A) + \Pr(B)$
+  
+
+2. This is called the ``Monty Hall Problem''. A prize is placed at random behind one of three doors. You pick a door. To be concrete, let’s suppose you always pick door 1. Now Monty Hall chooses one of the other two doors, opens it and shows you that it is empty. He then gives you the opportunity to keep your door or switch to the other unopened door. Should you stay or switch? Intuition suggests it doesn’t matter. The correct answer is that you should switch. Prove it. 
+
+   It will help to specify the sample space and the relevant events carefully. Thus write $\Omega = \big\{(\omega_1,\omega_2) \,|\, \omega_i \in \{1,2,3\}\big\}$ where $\omega_1$ is where the prize is and $\omega_2$ is the door Monty opens.
+  
+3. There are three cards. The first is green on both sides, the second is red on both sides and the third is green on one side and red on the other. We choose a card at random and we see one side (also chosen at random). If the side we see is green, what is the probability that the other side is also green? Many people intuitively answer 1/2. Show that the correct answer is 2/3.
+
+4. 
+   
+   (a) For independent events $A_1,\dots,A_n$, show that 
+$$\Pr(A_1 \cup \cdots \cup A_n) = 1 - \prod_{i=1}^n \big(1 - \Pr(A_i)\big).$$
+   
+   (b) A pair of dice is rolled $n$ times. How large must $n$ be so that the probability of rolling at least one double six is more than 1/2?  
+  
+5. The probability that a child has blue eyes is 1/4. Assume independence between children. Consider a family with 3 children.
+
+ 	 (a) If it is known that at least one child has blue eyes, what is the probability that at least two children have blue eyes?
+   (b) If it is known that the youngest child has blue eyes, what is the probability that at least two children have blue eyes?
+
+6. Prove the following statements.
+
+   (a) If $A \perp B$, then $A^c \perp B^c$.
+   (b) $\Pr(A \cap B \cap C) = \Pr(A| B \cap C)\Pr(B|C)\Pr(C)$.
+
+7. Let $X$ be distributed according to
+\[
+f_X(x) = \begin{cases}
+	1/4&0<x<1\\
+	3/8&3<x<5 \\
+	0&\text{otherwise}
+\end{cases}
+\]
+
+   (a) Show that $f_X$ is indeed a probability density function.
+   (b) Find the cumulative distribution function of $X$.
+
+8. Suppose we toss a coin once and let $p$ be the probability of heads. Let $X$ denote the number of heads and let $Y$ denote the number of tails. Prove that $X$ and $Y$ are independent.
+  
+9. Let 
+\[
+f_{X,Y}(x,y) = \begin{cases}
+	c(x+y^2) &0\leq x \leq 1, 0\leq y \leq 1 \\
+	0&\text{otherwise}
+\end{cases}
+\]
+
+   (a) Find the value of $c$.
+   (b) Find $\Pr(X<1/2 | Y=1/2)$.
+
+10. Consider a sequence of independent coin flips, each of which has probability $p$ of being heads. Define a random variable $X$ as the length of the run (of either heads or tails) started by the first trial. For example, $X=3$ if either $TTTH$ or $HHHT$ is observed. Find the distribution of $X$ and find $\E(X)$.
+  
+11. For a random variable $X$ with mean $\mu$ and variance $\Var(X)$ and any given constant $c\in\bbR$, prove that
+
+    (a) $\Var(X) = \E(X^2) - \mu^2$.
+    (b) $\Var(X) = \E\big(X(X-1)\big) +\mu -\mu^2$.
+    (c) $\E\big((X-c)^2\big) = \Var(X) + (\mu-c)^2$ so that the minimum mean squared deviation occurs when $c=\mu$.
+  
+12. Suppose we play a game where we start with $c$ dollars. On each play of the game you either double or halve your money, with equal probability. What is your expected fortune after $n$ trials?
+
+13. Let $X_1,\dots,X_n\iid \Unif(0,1)$ and let $Y_n=\max\{X_1,\dots,X_n\}$. Find $\E(Y_n)$. *Hint: Find out the distribution of $Y_n$ by looking at the cdf of $Y_n$.*
+  
+  
+14. Let $X\Unif(0,1)$. Let $0<a<b<1$. Let
+\[
+ Y = \begin{cases}
+ 	1 & 0<x<b \\
+ 	0 &\text{otherwise}
+ \end{cases}
+\]
+and let 
+\[
+ Z = \begin{cases}
+ 	1 & a<x<1 \\
+ 	0 &\text{otherwise}
+ \end{cases}
+\]
+
+   (a) Are $Y$ and $Z$ independent? Why/why not?	
+   (b) Find $\E(Y|Z)$. *Hint: What values $z$ can $Z$ take? Find first $\E(Y|Z=z)$.*
+
+### Hand-in questions {-}
+
+1. A certain river floors every year. Suppose that the low-water mark is set at 1 and the high-water mark $Y$ has distribution function
+\[
+F_Y(y) = \Pr(Y\leq y) = 1 - \frac{1}{y^2}, \hspace{2em} 1\leq y<\infty
+\]
+
+   (a) Verify that $F_Y(y)$ is a cdf. [1 mark]
+   (b) Find $f_Y(y)$, the pdf of $Y$. [2 marks]
+   (c) If the low-water mark is reset at 0 and we use a unit of measurement that is 1/10 of that given previously, the height water mark becomes $Z=10(Y-1)$. What is the expected value of $Z$? [2 marks]
+
+
+2. A pdf is defined by 
+\[
+f_{X,Y}(x,y) = \begin{cases}
+	c(x+2y) &0\leq x \leq 2, 0\leq y \leq 1 \\
+	0&\text{otherwise}
+\end{cases}
+\]
+
+   (a) Find the value of $c$. [1 mark]
+   (b) Find the marginal distribution of $X$. [2 marks]
+   (c) Find the joint cdf of $X$ and $Y$. [2 marks]
+
+
+3. Suppose we generate a random variable $X$ in the following way. First we flip a fair coin.  If the coin is heads, take $X$ to have a $\Unif(0,1)$ distribution. If the coin is tails, take $X$ to have a $\Unif(3,4)$ distribution.
+
+   (a) Find the mean of $X$. [2 marks]
+   (b) Find the standard deviation of $X$. [3 marks]
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
