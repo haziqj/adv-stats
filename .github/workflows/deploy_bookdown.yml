@@ -131,7 +131,7 @@ jobs:
       - name: Install TinyTeX
         uses: r-lib/actions/setup-tinytex@v1
       
-     - name: Install R packages
+      - name: Install R packages
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}      
         run: |
