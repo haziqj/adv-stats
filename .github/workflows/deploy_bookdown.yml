@@ -136,7 +136,7 @@ jobs:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}      
         run: |
           Rscript -e 'install.packages(c("rmarkdown", "bookdown", "tidyverse", "iprior", "RefManageR", "magick", "pdftools", "ggpubr"))'
-          Rscript -e 'devtools::install_github("nicolash2/ggbrace")'
+          Rscript -e 'remotes::install_github("nicolash2/ggbrace")'
          
       - name: Render Book
         run: |
