@@ -1202,3 +1202,5 @@ $\E(X)=M_X'(t)\big|_{t=0}=\frac{r}{(r-t)^2}\Big|_{t=0}=1/r$.
 
 The mgf has the property that it uniquely defined a distribution.
 That is, if two distributions have identical mgfs then they have the same distribution.
+
+## Exercises
