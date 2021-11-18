@@ -123,15 +123,19 @@ jobs:
       
       - uses: r-lib/actions/setup-pandoc@v1
       
-      - name: Install rmarkdown
-        run: Rscript -e 'install.packages(c("rmarkdown", "bookdown", "tidyverse", "iprior", "RefManageR", "magick", "pdftools", "ggpubr"))'
+      - name: Install packages
+        run: 
+          - Rscript -e 'install.packages(c("rmarkdown", "bookdown", "tidyverse", "iprior", "RefManageR", "magick", "pdftools", "ggpubr"))'
+          - Rscript -e 'devtools::install_github("nicolash2/ggbrace")'
         
       - name: Install tinytex
         run: Rscript -e 'tinytex::install_tinytex()'        
         
       - name: Render Book
-        run: Rscript -e 'bookdown::render_book("index.Rmd")'
-        
+        run: 
+          - Rscript -e 'bookdown::render_book("index.Rmd", "bookdown::gitbook")'
+          - Rscript -e 'bookdown::render_book("index.Rmd", "bookdown::pdf_book")'
+
       - uses: actions/upload-artifact@v1 
         with:
           name: _book

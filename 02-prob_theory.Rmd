@@ -1179,7 +1179,7 @@ We can iterate the steps again to generate the $k$-th moment of $X$ by taking $k
 
 ::: {.theorem}
 If $X$ has mgf $M_X(t)$, then 
-\vspace{-1em}
+
 \[
 \E(X^k) = M_X^{(k)}(0) = \frac{\ddif^k}{\ddif t^k}M_X(t) \bigg|_{t=0}.
 \]
