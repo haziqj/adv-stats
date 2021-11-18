@@ -240,7 +240,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.10.2" data-path="moment-generating-functions.html"><a href="moment-generating-functions.html#generating-moments"><i class="fa fa-check"></i><b>1.10.2</b> Generating moments</a></li>
 <li class="chapter" data-level="1.10.3" data-path="moment-generating-functions.html"><a href="moment-generating-functions.html#properties-of-mgf"><i class="fa fa-check"></i><b>1.10.3</b> Properties of mgf</a></li>
 </ul></li>
-<li class="chapter" data-level="1.11" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.11</b> Exercises</a></li>
+<li class="chapter" data-level="1.11" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.11</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="" data-path="exercises.html"><a href="exercises.html#hand-in-questions"><i class="fa fa-check"></i>Hand-in questions</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="commonly-used-probability-models.html"><a href="commonly-used-probability-models.html"><i class="fa fa-check"></i><b>2</b> Commonly-used probability models</a>
 <ul>
@@ -463,7 +466,118 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="exercises" class="section level2" number="1.11">
 <h2><span class="header-section-number">1.11</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li><p>Using only the three axioms of probability, prove the following statements:</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(\Pr(\{\})=0\)</span></li>
+<li>If <span class="math inline">\(A \subseteq B\)</span> then <span class="math inline">\(\Pr(A) \leq \Pr(B)\)</span> <em>Hint: Write <span class="math inline">\(B = A \cup (B \cap A^c)\)</span></em></li>
+<li><span class="math inline">\(0 \leq \Pr(A) \leq 1\)</span></li>
+<li><span class="math inline">\(\Pr(A^c)=1-\Pr(A)\)</span></li>
+<li>If <span class="math inline">\(A \cap B = \{\}\)</span>, then <span class="math inline">\(\Pr(A\cup B) = \Pr(A) + \Pr(B)\)</span></li>
+</ol></li>
+<li><p>This is called the ``Monty Hall Problem’’. A prize is placed at random behind one of three doors. You pick a door. To be concrete, let’s suppose you always pick door 1. Now Monty Hall chooses one of the other two doors, opens it and shows you that it is empty. He then gives you the opportunity to keep your door or switch to the other unopened door. Should you stay or switch? Intuition suggests it doesn’t matter. The correct answer is that you should switch. Prove it.</p>
+<p>It will help to specify the sample space and the relevant events carefully. Thus write <span class="math inline">\(\Omega = \big\{(\omega_1,\omega_2) \,|\, \omega_i \in \{1,2,3\}\big\}\)</span> where <span class="math inline">\(\omega_1\)</span> is where the prize is and <span class="math inline">\(\omega_2\)</span> is the door Monty opens.</p></li>
+<li><p>There are three cards. The first is green on both sides, the second is red on both sides and the third is green on one side and red on the other. We choose a card at random and we see one side (also chosen at random). If the side we see is green, what is the probability that the other side is also green? Many people intuitively answer 1/2. Show that the correct answer is 2/3.</p></li>
+<li><ol style="list-style-type: lower-alpha">
+<li><p>For independent events <span class="math inline">\(A_1,\dots,A_n\)</span>, show that
+<span class="math display">\[\Pr(A_1 \cup \cdots \cup A_n) = 1 - \prod_{i=1}^n \big(1 - \Pr(A_i)\big).\]</span></p></li>
+<li><p>A pair of dice is rolled <span class="math inline">\(n\)</span> times. How large must <span class="math inline">\(n\)</span> be so that the probability of rolling at least one double six is more than 1/2?</p></li>
+</ol></li>
+<li><p>The probability that a child has blue eyes is 1/4. Assume independence between children. Consider a family with 3 children.</p>
+<ol style="list-style-type: lower-alpha">
+<li>If it is known that at least one child has blue eyes, what is the probability that at least two children have blue eyes?</li>
+<li>If it is known that the youngest child has blue eyes, what is the probability that at least two children have blue eyes?</li>
+</ol></li>
+<li><p>Prove the following statements.</p>
+<ol style="list-style-type: lower-alpha">
+<li>If <span class="math inline">\(A \perp B\)</span>, then <span class="math inline">\(A^c \perp B^c\)</span>.</li>
+<li><span class="math inline">\(\Pr(A \cap B \cap C) = \Pr(A| B \cap C)\Pr(B|C)\Pr(C)\)</span>.</li>
+</ol></li>
+<li><p>Let <span class="math inline">\(X\)</span> be distributed according to
+<span class="math display">\[
+f_X(x) = \begin{cases}
+ 1/4&amp;0&lt;x&lt;1\\
+ 3/8&amp;3&lt;x&lt;5 \\
+ 0&amp;\text{otherwise}
+\end{cases}
+\]</span></p>
+<ol style="list-style-type: lower-alpha">
+<li>Show that <span class="math inline">\(f_X\)</span> is indeed a probability density function.</li>
+<li>Find the cumulative distribution function of <span class="math inline">\(X\)</span>.</li>
+</ol></li>
+<li><p>Suppose we toss a coin once and let <span class="math inline">\(p\)</span> be the probability of heads. Let <span class="math inline">\(X\)</span> denote the number of heads and let <span class="math inline">\(Y\)</span> denote the number of tails. Prove that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent.</p></li>
+<li><p>Let
+<span class="math display">\[
+f_{X,Y}(x,y) = \begin{cases}
+ c(x+y^2) &amp;0\leq x \leq 1, 0\leq y \leq 1 \\
+ 0&amp;\text{otherwise}
+\end{cases}
+\]</span></p>
+<ol style="list-style-type: lower-alpha">
+<li>Find the value of <span class="math inline">\(c\)</span>.</li>
+<li>Find <span class="math inline">\(\Pr(X&lt;1/2 | Y=1/2)\)</span>.</li>
+</ol></li>
+<li><p>Consider a sequence of independent coin flips, each of which has probability <span class="math inline">\(p\)</span> of being heads. Define a random variable <span class="math inline">\(X\)</span> as the length of the run (of either heads or tails) started by the first trial. For example, <span class="math inline">\(X=3\)</span> if either <span class="math inline">\(TTTH\)</span> or <span class="math inline">\(HHHT\)</span> is observed. Find the distribution of <span class="math inline">\(X\)</span> and find <span class="math inline">\(\mathop{\mathrm{E}}(X)\)</span>.</p></li>
+<li><p>For a random variable <span class="math inline">\(X\)</span> with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\mathop{\mathrm{Var}}(X)\)</span> and any given constant <span class="math inline">\(c\in\mathbb{R}\)</span>, prove that</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(\mathop{\mathrm{Var}}(X) = \mathop{\mathrm{E}}(X^2) - \mu^2\)</span>.</li>
+<li><span class="math inline">\(\mathop{\mathrm{Var}}(X) = \mathop{\mathrm{E}}\big(X(X-1)\big) +\mu -\mu^2\)</span>.</li>
+<li><span class="math inline">\(\mathop{\mathrm{E}}\big((X-c)^2\big) = \mathop{\mathrm{Var}}(X) + (\mu-c)^2\)</span> so that the minimum mean squared deviation occurs when <span class="math inline">\(c=\mu\)</span>.</li>
+</ol></li>
+<li><p>Suppose we play a game where we start with <span class="math inline">\(c\)</span> dollars. On each play of the game you either double or halve your money, with equal probability. What is your expected fortune after <span class="math inline">\(n\)</span> trials?</p></li>
+<li><p>Let <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{Unif}}(0,1)\)</span> and let <span class="math inline">\(Y_n=\max\{X_1,\dots,X_n\}\)</span>. Find <span class="math inline">\(\mathop{\mathrm{E}}(Y_n)\)</span>. <em>Hint: Find out the distribution of <span class="math inline">\(Y_n\)</span> by looking at the cdf of <span class="math inline">\(Y_n\)</span>.</em></p></li>
+<li><p>Let <span class="math inline">\(X\mathop{\mathrm{Unif}}(0,1)\)</span>. Let <span class="math inline">\(0&lt;a&lt;b&lt;1\)</span>. Let
+<span class="math display">\[
+ Y = \begin{cases}
+1 &amp; 0&lt;x&lt;b \\
+0 &amp;\text{otherwise}
+ \end{cases}
+\]</span>
+and let
+<span class="math display">\[
+ Z = \begin{cases}
+1 &amp; a&lt;x&lt;1 \\
+0 &amp;\text{otherwise}
+ \end{cases}
+\]</span></p></li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Are <span class="math inline">\(Y\)</span> and <span class="math inline">\(Z\)</span> independent? Why/why not?<br />
+</li>
+<li>Find <span class="math inline">\(\mathop{\mathrm{E}}(Y|Z)\)</span>. <em>Hint: What values <span class="math inline">\(z\)</span> can <span class="math inline">\(Z\)</span> take? Find first <span class="math inline">\(\mathop{\mathrm{E}}(Y|Z=z)\)</span>.</em></li>
+</ol>
+<div id="hand-in-questions" class="section level3 unnumbered">
+<h3>Hand-in questions</h3>
+<ol style="list-style-type: decimal">
+<li><p>A certain river floors every year. Suppose that the low-water mark is set at 1 and the high-water mark <span class="math inline">\(Y\)</span> has distribution function
+<span class="math display">\[
+F_Y(y) = \Pr(Y\leq y) = 1 - \frac{1}{y^2}, \hspace{2em} 1\leq y&lt;\infty
+\]</span></p>
+<ol style="list-style-type: lower-alpha">
+<li>Verify that <span class="math inline">\(F_Y(y)\)</span> is a cdf. [1 mark]</li>
+<li>Find <span class="math inline">\(f_Y(y)\)</span>, the pdf of <span class="math inline">\(Y\)</span>. [2 marks]</li>
+<li>If the low-water mark is reset at 0 and we use a unit of measurement that is 1/10 of that given previously, the height water mark becomes <span class="math inline">\(Z=10(Y-1)\)</span>. What is the expected value of <span class="math inline">\(Z\)</span>? [2 marks]</li>
+</ol></li>
+<li><p>A pdf is defined by
+<span class="math display">\[
+f_{X,Y}(x,y) = \begin{cases}
+ c(x+2y) &amp;0\leq x \leq 2, 0\leq y \leq 1 \\
+ 0&amp;\text{otherwise}
+\end{cases}
+\]</span></p>
+<ol style="list-style-type: lower-alpha">
+<li>Find the value of <span class="math inline">\(c\)</span>. [1 mark]</li>
+<li>Find the marginal distribution of <span class="math inline">\(X\)</span>. [2 marks]</li>
+<li>Find the joint cdf of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. [2 marks]</li>
+</ol></li>
+<li><p>Suppose we generate a random variable <span class="math inline">\(X\)</span> in the following way. First we flip a fair coin. If the coin is heads, take <span class="math inline">\(X\)</span> to have a <span class="math inline">\(\mathop{\mathrm{Unif}}(0,1)\)</span> distribution. If the coin is tails, take <span class="math inline">\(X\)</span> to have a <span class="math inline">\(\mathop{\mathrm{Unif}}(3,4)\)</span> distribution.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Find the mean of <span class="math inline">\(X\)</span>. [2 marks]</li>
+<li>Find the standard deviation of <span class="math inline">\(X\)</span>. [3 marks]</li>
+</ol></li>
+</ol>
 
+</div>
 </div>
 <!-- </div> -->
             </section>
@@ -520,7 +634,7 @@ gitbook.start({
 "options": null
 },
 "toc": {
-"collapse": "subsection"
+"collapse": "section"
 }
 });
 });
