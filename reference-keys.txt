@@ -1,7 +1,0 @@
-probability-theory-primer-1
-commonly-used-probability-models-1
-inequalities-convergences-and-normal-samples
-point-estimation-1
-hypothesis-testing-1
-interval-estimation-1
-linear-models

@@ -1,0 +1,160 @@
+div.theorem, div.lemma, div.corollary, div.proposition, div.conjecture {
+  font-style: italic;
+  padding: 1em 1em 1em 1em;
+  margin-bottom: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+  color: #36454F;
+  border-top: 1px solid #36454F;    /* openintro::COL[1,1] */ 
+  border-bottom: 1px solid #36454F; /* openintro::COL[1,1] */   
+}
+
+div.definition {
+  padding: 1em 1em 1em 1em;
+  margin-bottom: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+  color: #36454F;
+  border-top: 1px solid #36454F;    /* openintro::COL[1,1] */ 
+  border-bottom: 1px solid #36454F; /* openintro::COL[1,1] */   
+}
+
+div.example {
+  padding: 1em 1em 1em 1em;
+  margin-bottom: 10px;
+  background: #edf7f5 5px center/3em no-repeat;  /* lightcyan (85%) CCE8E3 */ 
+  color: #346B61;
+  border-top: 1px solid #346B61;    /* openintro::COL[1,1] */ 
+  border-bottom: 1px solid #346B61; /* openintro::COL[1,1] */ 
+}
+
+.myrtlegreen{
+  color: #346B61;
+}
+.mgbackground{
+  color: whitesmoke;
+  background-color: #53ac9c;
+}
+.solidpink{
+  color: #8E3B46;
+}
+
+.mycheck{
+  margin-top: 5px;
+  margin-bottom: 10px;  
+  font-style: italic;
+  padding: 1em 1em 1em 3.5em;
+  color: #002f5c;  
+  border-top: 1px solid #002f5c;    /* openintro::COL[1,1] */ 
+  border-bottom: 1px solid #002f5c; /* openintro::COL[1,1] */ 
+  background-image: url("icons/check.png");
+  background-repeat: no-repeat;
+  background-position: 0.75em 1em;  
+  background-size: 30px;    
+}
+
+.mywarning, .myalert {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  padding: 1em 1em 1em 3.5em;
+  background: #EAD1D6 5px center/3em no-repeat;  
+  background-image: url("icons/important.png");
+  background-position: 0.75em 1em;  
+  background-size: 30px;  
+  color: #8E3B46;
+  border-top: 1px solid #8E3B46;    /* openintro::COL[1,1] */ 
+  border-bottom: 1px solid #8E3B46; /* openintro::COL[1,1] */ 
+}
+
+.mynote{
+  margin-top: 5px;
+  margin-bottom: 10px;
+  padding: 1em 1em 1em 3.5em;
+  color: #002f5c;
+  border-top: 1px solid #002f5c;    /* openintro::COL[1,1] */ 
+  border-bottom: 1px solid #002f5c; /* openintro::COL[1,1] */   
+  background: #e6f3ff 5px center/3em no-repeat; 
+  background-image: url("icons/to-do.png");
+  background-position: 0.75em 1em;  
+  background-size: 30px;      
+}
+
+.learningobjectives{
+  margin-top: 5px;
+  margin-bottom: 10px;
+  padding: 1em 1em 1em 3.5em;
+  border-top: 1px solid #002f5c;    /* openintro::COL[1,1] */ 
+  border-bottom: 1px solid #002f5c; /* openintro::COL[1,1] */   
+  background: #e6f3ff 5px center/3em no-repeat; 
+  background-image: url("icons/chapterintro.png");
+  background-position: 0.75em 1em;  
+  background-size: 30px;      
+}
+
+
+.rmdcaution, .rmdimportant, .rmdnote, .rmdtip, .rmdwarning {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+.rmdcaution {
+  background-image: url("../images/caution.png");
+}
+.rmdimportant {
+  background-image: url("../images/important.png");
+}
+.rmdnote {
+  background-image: url("../images/note.png");
+}
+.rmdtip {
+  background-image: url("../images/tip.png");
+}
+.rmdwarning {
+  background-image: url("../images/warning.png");
+}
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+p.flushright {
+  text-align: right;
+}
+blockquote > p:last-child {
+  text-align: right;
+}
+blockquote > p:first-child {
+  text-align: inherit;
+}
+.header-section-number {
+  padding-right: .2em;
+  font-weight: 500;
+}
+.level1 .header-section-number {
+  display: inline-block;
+  border-bottom: 3px solid;
+}
+.level1 h1 {
+  border-bottom: 1px solid;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+h1.title {
+  font-weight: 700;
+}
+.smallcaps {
+  font-variant: small-caps;
+}
+.book .book-body .page-wrapper .page-inner section.normal strong {
+  font-weight: 600;
+}
+SupportCancel
+Full-text Access 
