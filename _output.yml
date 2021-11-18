@@ -1,10 +1,9 @@
 bookdown::gitbook:
-  # dev: svglite
-  css: css/style.css
-  # split_by: section
+  split_by: section
+  css: mystyle.css
   config:
     toc:
-      collapse: section
+      # collapse: section
       before: |
         <li><a href="./">SM-4331 Advanced Statistics</a></li>
       after: |
@@ -16,13 +15,10 @@ bookdown::gitbook:
       facebook: no
     search:
       engine: fuse
-# bookdown::html_chapters:
-#   css: [css/style.css, css/toc.css]      
 bookdown::pdf_book:
-  # pandoc_args: ["--extract-media", "."]
   includes:
     in_header: preamble.tex
   latex_engine: xelatex
   citation_package: natbib
   keep_tex: yes
-bookdown::epub_book: default
+# bookdown::epub_book: default

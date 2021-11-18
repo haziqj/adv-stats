@@ -1,0 +1,810 @@
+# Commonly-used probability models
+
+### Learning objectives {-}
+
+::: {.learningobjectives}
+By the end of this chapter, you will be able to:
+
+- do this
+- do that
+- and this
+:::
+
+### Readings {-}
+
+- Casella and Berger (2002)
+    - Chapter 3, sections 3.1 3.2 3.3
+- Wasserman (2004)
+    - Chapter 2, sections 2.3 and 2.4.
+    - Chapter 3, section 3.6.
+- Topics not covered: Cauchy, lognormal and double exponential (Laplace) distributions, exponential families, location and scale families
+
+## Introduction
+
+Distributions in statistics serve two main purposes:
+
+1. To describe the assumed behaviour of the observations made in an experiment, survey or other study;
+2. To calibrate the values of derived statistics used in constructing confidence regions, hypothesis tests, etc.
+
+
+Some distributions are much used for both purposes (the normal distribution being the prime example).
+
+
+In this Part we will focus on some distributions used for the first purpose. 
+Distributions used mainly for the second purpose (these include the $\chi^2$, $t$ and $F$ distributions) will be described later, in Part 3.
+
+We deal with a *family* of distributions.
+This family is indexed by one or more *parameters* (c.f. parametric family), which allow us to vary certain characteristics of the distribution while staying with one functional form.
+
+For example, consider r.v.s $X_k\sim\N(k,1)$.
+These are distinct distributions yet have similar characteristics.
+
+```{r normaldist_param, echo = FALSE, fig.height = 2}
+plot.df <- tibble(x = seq(-10, 13, by = 0.1))
+plot.df$`-5` <- dnorm(plot.df$x, mean = -5, sd = 1)
+plot.df$`1` <- dnorm(plot.df$x, mean = 1, sd = 1)
+plot.df$`3` <- dnorm(plot.df$x, mean = 3, sd = 1)
+plot.df$`9` <- dnorm(plot.df$x, mean = 9, sd = 1)
+plot.df <- reshape2::melt(plot.df, id = "x")
+ggplot(plot.df, aes(x, value, group = variable, col = variable)) +
+  geom_line() +
+  theme_classic() +
+  labs(col = expression(k), y = expression(f[X](x)))
+```
+
+## Discrete models
+
+### Point mass distribution
+
+$X$ has a point mass distribution at $a$, written $X\sim \delta_a$, if $\Pr(X=a) = 1$, in which case
+\[
+F(x) = \begin{cases}
+0 &x<a \\
+1 &x\geq 1.
+\end{cases}
+\]
+
+The probability mass function is $f(x)=1$ for $x=a$, and 0 otherwise.
+
+### Uniform distribution
+
+Let $k>1$ be a given integer. The discrete uniform distribution on $\{1,\dots,k\}$ has pmf
+\[
+f(x) = \frac{1}{k}, \hspace{2em} x=1,\dots,k.
+\]
+We write $X\sim\Unif\{1,\dots,k\}$.
+
+- $\E(X)=\frac{k+1}{2}$.
+- $\Var(X)=\frac{k^2-1}{12}$.
+- If $k=1$, then it is the point mass distribution.
+
+The discrete uniform (and the point mass) is appeallingly simple but has relatively few "real" statistical applications.
+
+### Bernoulli distribution
+
+Suppose we are interested in the outcome of a (single) random trial, which can either be ["success"]{.myrtlegreen} or ["failure"]{.solidpink} only. Examples include
+
+- A coin flip can land either [Heads]{.myrtlegreen} or [Tails]{.solidpink}.
+- The colour of the suit of a randomly drawn card from a pack of playing cards can be either [Red]{.myrtlegreen} or [Black]{.solidpink}
+- A dice roll outcome can  either be an [Even]{.myrtlegreen} or an [Odd]{.solidpink} number.
+- Babies being born being [Girl]{.myrtlegreen}  or [Boy]{.solidpink}.
+
+Typically we assign the value '1' to denote success, and '0' to denote failure.
+This has no qualitative meaning whatsoever, the important thing is that there are only two distinct possible outcomes.
+
+Let $X$ be the r.v. denoting the outcome of success ($X=1$) or failure ($X=0$) of a binary trial.
+Further let the pmf for $X$ be 
+\[
+f(x|p) = \begin{cases}
+p & x=1\text{ (success)}\\
+1-p &x=0 \text{ (failure)}
+\end{cases}
+\]
+We say that $X$ has a Bernoulli distribution written $X\sim\Bern(p)$.
+
+- The pmf can also be written $f(x)=p^x(1-p)^{1-x}$.
+- The expectation is
+\[
+\E(X) = \sum_x xf(x) = 1\cdot p + 0 \cdot (1-p) = p.
+\]
+- The variance is
+\[
+\Var(X) = \sum_x (x-\mu)^2f(x) = (1-p)^2\cdot p + (0-p)^2 \cdot (1-p) = p(1-p).
+\]
+
+::: {.mycheck}
+Consider the pmf for the Bernoulli distribution above. What do you get when you plug in $x=1$ and $x=0$?
+:::
+
+
+### Binomial distribution
+
+The binomial describes the distribution of the number of "successes" in $n$ independent and identical binary "trials". That is, suppose we have a situation such that
+
+- A finite number $n$ trials are carried out.
+- Each trial is independent of each other.
+- The outcome of each trial is either success or failure (binary trials).
+- The probability $0 \leq p\leq 1$ of a successful outcome is the same for each trial.
+
+Let $X$ be the number of success outcomes in $n$ trials. Then $X$ has a binomial distribution, written $X\sim\Bin(n,p)$.
+The pmf of $X$ is
+\[
+f(x|n,p) = {n \choose x}p^x (1-p)^{n-x}.
+\]
+$X$ has support (possible values it can take) over $\{0,1,2,\dots,n\}$.
+
+The mean and variance are $\E(X)=np$ and $\Var(X)=np(1-p)$.
+
+::: {.proof}
+Here's the proof for the mean. 
+\begin{align*}
+\E(X) 
+= \sum_{x=0}^n x \frac{n!}{x!(n-x)!} p^x (1-p)^{n-x} 
+&= \sum_{x=1}^n x \frac{n!}{x!(n-x)!} p^x (1-p)^{n-x} \\
+&=\sum_{x=1}^n n \cdot \overbrace{\frac{(n-1)!}{(x-1)!(n-x)!}}^{{n-1 \choose x-1}} \cdot p^{x-1+1} (1-p)^{(n-1)-(x-1)} \\
+&= np \overbrace{\sum_{x-1=0}^n  {n-1 \choose x-1} p^{x-1} (1-p)^{n-x}}^{=1} \\
+&= np. 
+\end{align*}
+Obtaining the variance follows similar steps.
+:::
+
+::: {.mycheck}
+Try to replicate the proof above and obtain $\E(X^2)$ for the binomial distribution. After that, you may obtain $\Var(X)$ using the usual formula.
+:::
+
+Other properties and results
+
+- If $n=1$ then $X$ is a Bernoulli r.v.
+- $\Pr(X=0)=(1-p)^n$; $\Pr(X=1)=p^n$
+- Let $X_1,\dots,X_n\iid\Bern(p)$, then
+\[
+X = \sum_{i=1}^n X_i \sim \Bin(n,p)
+\]
+
+::: {.mycheck}
+One way to prove the above statement is by using mgfs.
+:::
+
+From this we can more easily derive
+\[
+\E(X) = \E\left(\sum_{i=1}^n X_i \right) = \sum_{i=1}^n \E(X_i) = np
+\]
+and
+\[
+\Var(X) = \Var\left(\sum_{i=1}^n X_i \right) = \sum_{i=1}^n \Var(X_i) = np(1-p)
+\]
+
+### Geometric distribution
+
+The geometric distribution is a type of 'waiting time' distribution. 
+We count the number of Bernoulli trials to get the first success.
+Let $X$ be distributed geometrically, $X\sim\Geom(p)$, where $p$ is the probability of success. Clearly,
+\[
+  f(x|p)=(1-p)^{x-1}p.
+\]
+The support of $X$ is $\{1,2,3,\dots\}$; it is countably infinite.
+
+This is a valid pmf since
+\[
+\sum_{x=1}^\infty f(x|p) = \sum_{x=1}^\infty (1-p)^{x-1}p = \frac{p}{1-(1-p)} = 1.
+\]
+
+- $\E(X)=\frac{1}{p}$. The smaller the $p$, the longer we have to wait for a success.
+- $\Var(X)=\frac{1-p}{p^2}$.
+
+::: {.mywarning}
+There is another formulation for the geometric distribution: Let $Y$ be the number of failures before the first success occurs. Then 
+\[
+f(y|p) = (1-p)^yp.
+\]
+$Y$ has support $\{0,1,2,\dots\}$. $X$ and $Y$ are related through $Y=X-1$. Thus it is easy to check
+that
+\[
+\E(Y) = \frac{1-p}{p} \text{ and } \Var(Y)=\frac{1-p}{p^2}.
+\]
+We shall mainly use the first version of the geometric distribution in this course, but be aware of the alternative version as well.
+:::
+
+### Negative binomial
+
+Suppose we count the number of Bernoulli trials required to get a fixed number of successes, $r$, each with probability of success $p$.
+This leads to the negative binomial distribution.
+Denote this by $X\sim\NBin(r,p)$. The pmf is
+\[
+  f(x|r,p)= {x-1 \choose r-1} p^r (1-p)^{x-r}.
+\]
+
+The pmf is easy to justify: In order to get $X=x$, a total of $r-1$ successes must have occurred in the previous $x-1$ number of trials. Then, the pmf follows directly from the binomial pmf.
+
+Clearly, the support of $X$ is $\{r, r+1, r+2, \dots \}$.
+
+- $\E(X)=\frac{r}{p}$.
+- $\Var(X)=\frac{r(1-p)}{p^2}$.
+- If $r=1$, then $X$ is the geometric distribution.
+
+The name 'negative binomial' comes from noting that $Y=X-r$, the number of failures seen before the $r$th success, has pmf
+\[
+  f(y|r,p) = (-1)^y{-r \choose y} p^r(1-p)^{r-y},
+\]
+which looks suspiciously close to the binomial pmf^[Details in C&B, p.95]. 
+
+### Poisson distribution
+
+The Poisson is the most standard assumption for the distribution of a count of events that occur (separately and independently, by assumption) in time or space. Some examples:
+
+- Amount of e-mails received in 24-hour period.
+- Number of calls received by a call centre per hour.
+- The number of photons hitting a detector in a particular time interval.
+- The number of patients arriving in an emergency room between 10pm and 11pm.
+
+Let $X$ be the number of occurrences in this interval, such that the mean number of occurrences $\lambda$ in the given interval (sometimes called the rate or intensity) is known and is finite. Then $X\sim\Pois(\lambda)$, and
+\[
+f(x|\lambda) = \frac{e^{-\lambda}\lambda^x}{x!},
+\]
+for $x=0,1,2,\dots$
+
+To work out the mean, we make use of the Taylor series expansion.
+Recall that $e^x=\sum_{k=0}^\infty \frac{x^k}{k!}$.
+Using this fact we can derive the moments.
+
+\begin{align*}
+M_X(t)
+&= \sum_{x=0}^\infty \frac{e^{tx} e^{-\lambda}\lambda^x}{x!} \\
+&= e^{-\lambda} \sum_{x=0}^\infty \frac{(\lambda e^t)^x}{x!} \\
+&= e^{-\lambda}e^{\lambda e^t} = \exp\{\lambda(e^t - 1) \}.
+\end{align*}
+
+Hence $\E(X)=M_X'(0)=\lambda$ and $\E(X^2)=M_X''(0)=\lambda^2+\lambda$, so $\Var(X)=\E(X^2)-\E(X)=\lambda$.
+
+The Poisson family is closed under addition.
+If $X$ and $Y$ are independent Poisson r.v. with means $\lambda$ and $\mu$, then
+\[
+X+Y \sim \Pois(\lambda + \mu)
+\]
+
+The proof uses mgf and the characterizing property of the mgf. 
+
+::: {.mycheck}
+Have a go at the proof using properties of the mgf. 
+:::
+
+## Continuous models
+
+### Continuous uniform distribution
+
+The continuous uniform distribution is usually taken to have support on an interval, say $a \leq x \leq b$. Let $X\sim\Unif(a,b)$. The pdf is
+\[
+  f_X(x) = \frac{1}{b-a}
+\]
+for $x\in[a,b]$ and 0 otherwise.
+
+- $\E(X)=\frac{a+b}{2}$.
+- $\Var(X)=\frac{(a-b)^2}{12}$.
+
+The plot of the pdf gives a "rectangular" shape, so probabilities can also be found geometrically, as we previously saw in [Chapter 1](#exm:unitsquare). 
+
+
+### Exponential distribution
+
+The exponential distribution is often used to describe the distribution of measured time intervals 'duration data' or 'waiting-time data'. E.g.
+
+- the amount of time until an earthquake occurs.
+- the time between two lightbulbs failing.
+- the length (in minutes) of faculty staff meetings at UBD.
+- the average waiting time at a hospital's A&E.
+
+Let $X\sim\Exp(\lambda)$.
+The pdf is
+\[
+f_X(x) = \frac{1}{\lambda} e^{-x/\lambda}.
+\]
+
+- $X$ has support over $[0,\infty]$.
+- $\lambda >0$ is known as the "scale" parameter. The value $1/\lambda$ is known as the "rate".
+- $\E(X)=\lambda$.
+- $\Var(X)=\lambda^2$.
+- $aX\sim\Exp(a\lambda)$ for $a>0$.
+
+The pdf experiences "exponential decay"--long wait times between two events occurring becomes more and more unlikely.
+
+```{r expdist, echo = FALSE, fig.height = 3.3}
+plot.df <- tibble(x = seq(-1.5, 6, by = 0.01))
+plot.df$`0.5` <- dexp(plot.df$x, rate = 0.5)
+plot.df$`1` <- dexp(plot.df$x, rate = 1)
+plot.df$`2` <- dexp(plot.df$x, rate = 2)
+plot.df <- reshape2::melt(plot.df, id = "x")
+ggplot() +
+  geom_line(data = subset(plot.df, x > 0), aes(x = x, y = value, col = variable)) +
+  geom_line(data = subset(plot.df, x <= 0), aes(x = x, y = value, col = variable),
+            linetype = "dotted") +
+  geom_line(data = subset(plot.df, x < 0), aes(x = x, y = value, col = variable)) +
+  labs(y = expression(f[X](x)), col = expression(1/lambda))
+```
+
+The exponential distribution has a very special property: it is
+memoryless, in the sense that for all $t>s>0$,
+\[
+\Pr(X > t+s|X>s) = \Pr(X > t)
+\]
+
+> Given that we have been waiting for an event to occur for $s$ units of time, the probability that we wait a further $t$ units of time is independent to the first fact!
+
+For example\footnote{\footnotetext\url{https://perplex.city/memorylessness-at-the-bus-stop-f2c97c59e420?gi=3602158da66b}}, assume that bus waiting times are exponentially distributed. A memoryless wait for a bus would mean that the probability that a bus arrived in the next minute is the same whether you just got to the station or if you’ve been sitting there for twenty minutes already.
+
+We can show that $X$ is a positive r.v. and memoryless if and only if it is exponentially distributed. 
+
+::: {.mycheck}
+You will prove the memoryless fact in one of the exercises for this chapter.
+:::
+
+### Gamma distribution
+
+The gamma distribution generalises the exponential.
+It is also used for modelling durations (lengths of time intervals).
+Let $X\sim\Gamma(\alpha,\beta)$.
+The pdf is 
+\[
+  f_X(x) = \frac{1}{\Gamma(\alpha)\beta^\alpha} x^{\alpha-1} e^{- x/\beta}
+\]
+
+- $X$ has support over $[0,\infty]$.
+- $\alpha>0$ is the "shape" parameter, and $\beta >0$ is the "scale" parameter.
+- $\E(X)=\alpha\beta$.
+- $\Var(X)=\alpha\beta^2$.
+- $\Gamma(\alpha)=\int_0^\infty y^{\alpha-1}e^{-y}\dint y$ is called the Gamma function.
+- $\Gamma(1,\lambda) \equiv \Exp(\lambda)$.
+- $aX\sim\Gamma(\alpha,a\beta)$ for $a>0$.
+- If $X_i\sim\Gamma(\alpha_i,\beta)$, then $\sum_{i=1}^n X_i \sim \Gamma(\sum_{i=1}^n \alpha_i,\beta)$.
+
+::: {.myalert}
+Be aware that there is an alternative parameterisation of the exponential and gamma distribution using "scale" parameters:
+
+- $Y \sim \Exp(\lambda)$, where $f_Y(y)=\frac{1}{\lambda}e^{-y/\lambda}$. Here $\lambda$ is the ...
+- $Y \sim \Gamma(\alpha,s)$, where $f_Y(y)=\frac{1}{\Gamma(\alpha)s^\alpha} y^{\alpha-1} e^{-y/s}$. Here $s$ is the **scale** parameter. The shape parameter is obtained via $\beta=1/s$.
+:::
+
+Looks similar to the exponential pdf, but more generic.
+Effect of changing the shape parameter:
+
+
+```{r gammadist1, echo = FALSE, fig.height = 3.3}
+plot.df <- tibble(x = seq(-1.5, 6, by = 0.01))
+plot.df$`(1,0.5)` <- dgamma(plot.df$x, shape = 1, scale = 0.5)
+plot.df$`(2,0.5)` <- dgamma(plot.df$x, shape = 2, scale = 0.5)
+plot.df$`(4,0.5)` <- dgamma(plot.df$x, shape = 4, scale = 0.5)
+plot.df$`(10,0.5)` <- dgamma(plot.df$x, shape = 10, scale = 0.5)
+plot.df <- reshape2::melt(plot.df, id = "x")
+ggplot() +
+  geom_line(data = subset(plot.df, x > 0), aes(x = x, y = value, col = variable)) +
+  geom_line(data = subset(plot.df, x <= 0), aes(x = x, y = value, col = variable),
+            linetype = "dotted") +
+  geom_line(data = subset(plot.df, x < 0), aes(x = x, y = value, col = variable)) +
+  labs(y = expression(f[X](x)), col = expression("(" * alpha * "," * beta *")"))
+```
+
+### Beta distribution
+
+The beta distributions are distributions on the unit interval $[0,1]$, or on any other interval $[a,b]$ by transformation $X \mapsto aX + b$.
+It is used to model the behaviour of random variables limited to intervals of finite length in a wide variety of disciplines.
+Let $X\sim \Betadist(\alpha,\beta)$.
+The pdf is 
+\[
+  f_X(x) = \frac{1}{B(\alpha,\beta)} x^{\alpha-1} (1-x)^{\beta-1}.
+\]
+
+- $X$ has support over $[0,1]$.
+- $\alpha>0$ and $\beta>0$ are known as the "shape" parameters.
+- $\E(X)=\frac{\alpha}{\alpha+\beta}$.
+- $\Var(X)=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}$.
+- $B(\alpha,\beta)$ is the beta function $B(\alpha,\beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}$.
+- $\Betadist(1,1)\equiv \Unif(0,1)$.
+
+Pdf of beta distribution
+
+```{r betadist, echo = FALSE}
+plot.df <- tibble(x = seq(0, 1, by = 0.01))
+plot.df$`(0.5,0.5)` <- dbeta(plot.df$x, 0.5, 0.5)
+plot.df$`(1,1)` <- dbeta(plot.df$x, 1, 1)
+plot.df$`(2,5)` <- dbeta(plot.df$x, 1, 3)
+plot.df$`(4,1)` <- dbeta(plot.df$x, 4, 1)
+plot.df <- reshape2::melt(plot.df, id = "x")
+ggplot(plot.df, aes(x = x, y = value, col = variable)) +
+  geom_line() +
+  scale_x_continuous(breaks = c(0, 1)) +
+  labs(y = expression(f[X](x)), col = expression("(" * alpha * "," * beta *")"))
+```
+
+## Normal distribution
+
+The normal distribution^[Here's a nice short exploration of the normal distribution: https://bookdown.org/cquirk/LetsExploreStatistics/lets-explore-the-normal-distribution.html] is the most important distribution in statistics.
+
+- Many naturally occurring phenomena can be modelled as following a normal distribution.
+- The central limit theorem (CLT): The distribution of the mean of a sample tends to converge to a normal distribution, as more and more samples are collected.
+- Often, the normal distribution is used for the error term in standard statistical models (e.g. linear regression).
+
+Let $X$ be distributed according to a normal distribution with mean $\mu$ and variance $\sigma^2$. We write $X\sim\N(\mu,\sigma^2)$. 
+The pdf of $X$ is
+\[
+f_X(x|\mu,\sigma^2)= \frac{1}{\sigma\sqrt{2\pi}}\exp\left[-\frac{(x-\mu)^2}{2\sigma^2} \right]
+\]
+
+- $X$ has support over $\bbR$.
+- $\E(X)=\mu$.
+- $\Var(X)=\sigma^2$.
+- The normal distribution is **symmetric** about $\mu$.
+- The mode and median of $X$ is also $\mu$.
+
+```{r normalpdf, echo = FALSE}
+x <- seq(-3.5, 3.5, length = 250)
+y <- dnorm(x)
+dat <- data.frame(
+  x = x,
+  y = y
+)
+ggplot(dat, aes(x, y)) +
+  geom_line() +
+  geom_segment(x = 0, xend = 0, y = 0.02, yend = dnorm(0), 
+               linetype = "dashed") +
+  scale_x_continuous(breaks = 0, labels = expression(mu)) +
+  labs(y = expression(f[X](x)), x = NULL) 
+```
+
+### Location parameter
+
+The $\mu$ parameter is also called the "location" parameter, since it determines where the bell curve is placed.
+
+
+```{r location_param, echo = FALSE, fig.height = 3.3}
+plot.df <- tibble(x = seq(-8, 6, length = 200))
+plot.df$`(-4, 1)` <- dnorm(plot.df$x, mean = -4)
+plot.df$`(0, 1)` <- dnorm(plot.df$x, mean = 0)
+plot.df$`(2, 1)` <- dnorm(plot.df$x, mean = 2)
+ggplot(reshape2::melt(plot.df, id = "x"), 
+       aes(x = x, y = value, col = variable)) +
+  geom_line() +
+  geom_segment(x = 0, xend = 0, y = 0, yend = dnorm(0), 
+               linetype = "dashed",
+               col = iprior::gg_col_hue(3)[2]) +
+  geom_segment(x = -4, xend = -4, y = 0, yend = dnorm(0), 
+               linetype = "dashed", 
+               col = iprior::gg_col_hue(3)[1]) +  
+  geom_segment(x = 2, xend = 2, y = 0, yend = dnorm(0), 
+               linetype = "dashed", 
+               col = iprior::gg_col_hue(3)[3]) +  
+  scale_x_continuous(breaks = c(-4, 0, 2)) +
+  labs(y = expression(f[X](x)), col = expression("("*mu*","*~sigma^2*")"))
+```
+
+
+### Scale parameter
+
+The $\sigma^2$ parameter is also called the "scale" parameter, since it determines how spread out the curve is.
+
+```{r scale_param, echo = FALSE, fig.height = 3.3}
+plot.df <- tibble(x = seq(-12, 12, length = 200))
+plot.df$`(0, 1)` <- dnorm(plot.df$x, sd = 1)
+plot.df$`(0, 4)` <- dnorm(plot.df$x, sd = 2)
+plot.df$`(0, 16)` <- dnorm(plot.df$x, sd = 4)
+ggplot(reshape2::melt(plot.df, id = "x"), 
+       aes(x = x, y = value, col = variable)) +
+  geom_line() +
+  labs(y = expression(f[X](x)), col = expression("("*mu*","*~sigma^2*")"))
+```
+
+
+### Linear transformations of normal random variables
+
+For any constants $c, d \in \bbR$, the r.v. $Y=cX + d$ also has a normal distribution. 
+
+- $\E(Y)=\E(cX+d)=c\mu + d$.
+- $\Var(Y) = \Var(cX+d) = c^2 \sigma^2$.
+
+::: {.mycheck}
+The facts above are proven using mgf. See the exercises at the end of this chapter.
+:::
+
+In particular, a very important transformation is the standardisation 
+\[
+  Z = \frac{X-\mu}{\sigma}
+\]
+resulting in the **standard normal distribution** $Z\sim\N(0,1)$. 
+It has pdf
+\[
+\phi(z) = \frac{1}{\sqrt{2\pi}}e^{-\frac{z^2}{2}},
+\]
+specially denoted by the greek letter '$\phi$'.
+
+```{r gauss, echo = FALSE, fig.align = "center", out.width = "60%", fig.cap = "Carl Friedrich Gauß. 30 April 1777 -- 23 February 1855."}
+knitr::include_graphics("figure/gauss.jpg")
+```
+
+```{r deutschemark, echo = FALSE, fig.align = "center", out.width = "60%", fig.cap = "10 Deustche Mark banknote."}
+knitr::include_graphics("figure/deutschemark.jpg")
+```
+
+
+
+### The normal cdf
+
+The cdf of the normal distribution $X\sim\N(\mu,\sigma^2)$ is
+\[
+F_X(x) = \int_{-\infty}^x 
+\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(\tilde x-\mu)^2}{2\sigma^2}} \dint \tilde x =: \Phi\left(\frac{x-\mu}{\sigma} \right),
+\]
+where $\Phi(z)=\int_{-\infty}^z \phi(\tilde z) \dint \tilde z$ is the cdf of $Z=\frac{X-\mu}{\sigma}$.
+
+
+Values of $\Phi(\cdot)$ must be read from a table, as the integrals above are *intractable* (no closed form solution). Download the statistical tables.
+Some results worth noting:
+
+- $\Pr(Z \leq -a)=\Phi(-a)=1-\Phi(a)$
+- $\Pr(a \leq Z \leq b) = \Phi(b) - \Phi(a)$
+- $P(-a \leq Z \leq b) = \Phi(a) + \Phi(b) - 1$
+- $P(-a \leq Z \leq -b) = \Phi(b) - \Phi(a)$
+- $P(|Z| \leq a) = P(-a \leq Z \leq a) = 2\Phi(a) - 1$
+- $P(|Z| \geq a) = P(\{Z < -a\} \cup \{Z >a\}) = 2\big(1-\Phi(a)\big)$
+
+We can use `R` to calculate probabilities:
+
+```{r normprob}
+pnorm(1.96, mean = 0, sd = 1)
+```
+
+
+Some values of $\Phi(\cdot)$ worth remembering:
+
+- $\Phi(0) = 0.5$
+- $\Phi(1.64) \approx 0.95$
+- $\Phi(1.96) \approx 0.975$
+
+The last one, for example, says that 
+\begin{align*}
+\Pr(\mu- 1.96\sigma \leq X \leq \mu+ 1.96\sigma) 
+&= \Pr\left( \left| \frac{X-\mu}{\sigma} \right| \leq 1.96 \right)\\
+&= 2\Phi(1.96)-1\approx 0.95
+\end{align*}
+
+<!-- - $\Phi(2.33) \approx 0.99$ -->
+<!-- - $\Phi(2.58) \approx 0.995$ -->
+
+### 68--95--99.7 Rule
+
+Incidentally, there is a shorthand to remember the percentage of values that lie within a band around the mean in a normal distribution.
+
+```{r empiricalrule, echo = FALSE, fig.height = 3.4, warning = FALSE}
+plot.df <- tibble(x = seq(-4, 4, length = 250))
+plot.df$ y <- dnorm(plot.df$x)
+ggplot(plot.df, aes(x, y)) +
+  geom_line() +
+  geom_ribbon(data = subset(plot.df, x < 1 & x > -1),
+              aes(x = x, ymax = y), ymin = 0, alpha = 0.5,
+              fill = iprior::gg_col_hue(3)[1]) +
+  geom_ribbon(data = subset(plot.df, x < -1 & x > -2), 
+              aes(x = x, ymax = y), ymin = 0, alpha = 0.5,
+              fill = iprior::gg_col_hue(3)[2]) +
+  geom_ribbon(data = subset(plot.df, x < 2 & x > 1), 
+              aes(x = x, ymax = y), ymin = 0, alpha = 0.5,
+              fill = iprior::gg_col_hue(3)[2]) +
+  geom_ribbon(data = subset(plot.df, x < -2 & x > -3), 
+              aes(x = x, ymax = y), ymin = 0, alpha = 0.5,
+              fill = iprior::gg_col_hue(3)[3]) +
+  geom_ribbon(data = subset(plot.df, x < 3 & x > 2), 
+              aes(x = x, ymax = y), ymin = 0, alpha = 0.5,
+              fill = iprior::gg_col_hue(3)[3]) +
+  geom_segment(aes(x = -3, xend = -3, y = 0, yend = 0.45),
+               linetype = "dashed", col = "grey70") +
+  geom_segment(aes(x = -2, xend = -2, y = 0, yend = 0.45),
+               linetype = "dashed", col = "grey70") +
+  geom_segment(aes(x = -1, xend = -1, y = 0, yend = 0.45),
+               linetype = "dashed", col = "grey70") +
+  geom_segment(aes(x = 3, xend = 3, y = 0, yend = 0.45),
+               linetype = "dashed", col = "grey70") +
+  geom_segment(aes(x = 2, xend = 2, y = 0, yend = 0.45),
+               linetype = "dashed", col = "grey70") +
+  geom_segment(aes(x = 1, xend = 1, y = 0, yend = 0.45),
+               linetype = "dashed", col = "grey70") +
+  geom_segment(aes(x = 0, xend = 0, y = 0, yend = 0.45),
+               linetype = "dashed", col = "grey70") +
+  scale_x_continuous(breaks = c(-3, -2, -1, 0, 1, 2, 3),
+                     labels = c(
+                       expression(mu - 3 * sigma),
+                       expression(mu - 2 * sigma),
+                       expression(mu - 1 * sigma),
+                       expression(mu),
+                       expression(mu + 1 * sigma),
+                       expression(mu + 2 * sigma),
+                       expression(mu + 3 * sigma)
+                     )) + 
+  geom_bracket(xmin = -1, xmax = 1, y.position = 0.47, label = "~68%",
+               col = "grey50") +
+  geom_bracket(xmin = -2, xmax = 2, y.position = 0.51, label = "~95%",
+               tip.length = 0.1, col = "grey50") +  
+  geom_bracket(xmin = -3, xmax = 3, y.position = 0.55, label = "~99.7%",
+               tip.length = 0.175, col = "grey50") +    
+  annotate("text", x = c(-0.5, 0.5), y = c(0.418, 0.418), label = "34.1%", 
+           col = iprior::gg_col_hue(3)[1]) +
+  annotate("text", x = c(-1.5, 1.5), y = c(0.418, 0.418), label = "13.6%", 
+           col = iprior::gg_col_hue(3)[2]) +
+  annotate("text", x = c(-2.5, 2.5), y = c(0.418, 0.418), label = "2.14%", 
+           col = iprior::gg_col_hue(3)[3]) +
+  labs(x = NULL, y = expression(f[X](x)), y = NULL)
+```
+
+## Some relationships
+
+### Poisson-Binomial relationship
+
+The Poisson distribution plays a useful approximation role for some of the other main discrete distributions. 
+Let $X\sim\Bin(n,p)$.
+Then
+\[
+X \approx \Pois(np)
+\]
+when $n$ is large and $p$ is small.
+Typically the rule of thumb is $n>20$ and $np<5$ or $n(1-p)<5$.
+
+
+```{r poisbin1, echo = FALSE}
+n <- 8
+p <- 0.5
+the.title <- paste0("n = ", n, ", p = ", p)
+plot.df <- tibble(x = 0:10)
+plot.df$bin <- dbinom(plot.df$x, size = n, prob = p)
+plot.df$poi <- dpois(plot.df$x, lambda = n * p)
+plot.df <- reshape2::melt(plot.df, id = "x")
+ggplot(plot.df, aes(x = x, y = value, col = variable, fill = variable)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_x_continuous(breaks = plot.df$x) +
+  labs(y = "P(X=x)", col = NULL, fill = NULL, title = the.title)
+```
+
+
+```{r poisbin2, echo = FALSE}
+n <- 100
+p <- 0.5
+the.title <- paste0("n = ", n, ", p = ", p)
+plot.df <- tibble(x = 0:10)
+plot.df$bin <- dbinom(plot.df$x, size = n, prob = p)
+plot.df$poi <- dpois(plot.df$x, lambda = n * p)
+plot.df <- reshape2::melt(plot.df, id = "x")
+ggplot(plot.df, aes(x = x, y = value, col = variable, fill = variable)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_x_continuous(breaks = plot.df$x) +
+  labs(y = "P(X=x)", col = "", fill = "", title = the.title)
+```
+
+
+
+```{r poisbin3, echo = FALSE}
+n <- 100
+p <- 0.01
+the.title <- paste0("n = ", n, ", p = ", p)
+plot.df <- tibble(x = 0:10)
+plot.df$bin <- dbinom(plot.df$x, size = n, prob = p)
+plot.df$poi <- dpois(plot.df$x, lambda = n * p)
+plot.df <- reshape2::melt(plot.df, id = "x")
+ggplot(plot.df, aes(x = x, y = value, col = variable, fill = variable)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_x_continuous(breaks = plot.df$x) +
+  labs(y = "P(X=x)", col = "", fill = "", title = the.title)
+```
+
+
+Let $\lambda=np$. Consider the limit of as $n\to\infty$ of the binomial pmf:
+
+\begin{align*}
+\lim_{n\to\infty} \Pr(X=x) 
+&= \lim_{n\to\infty} \frac{n!}{x!(n-x)!}\left(\frac{\lambda}{n} \right)^x \left(1 - \frac{\lambda}{n} \right)^{n-x} \\
+&= \frac{\lambda^x}{x!} \lim_{n\to\infty} 
+\underbrace{\frac{n!}{n^x(n-x)!}}_{\to 1}
+\,
+\underbrace{\left(1 - \frac{\lambda}{n} \right)^n}_{\to e^{-\lambda}}
+\,
+\underbrace{\left(1 - \frac{\lambda}{n} \right)^{-x}}_{\to 1} \\
+&=  \frac{e^{-\lambda}\lambda^x}{x!} \\
+&= \Pr(Y=x), Y\sim\Pois(\lambda).
+\end{align*}
+
+Some details...
+
+\begin{align*}
+\frac{n!}{n^x(n-x)!}
+&= \frac{n(n-1)(n-2)\cdots 3\cdot 2 \cdot 1}{n \cdot n \cdots n \cdot (n-x)(n-x-1)\cdots 3\cdot 2 \cdot 1} \\
+&= \frac{n}{n}\frac{n-1}{n} \cdots \frac{n-x+1}{n}
+\end{align*}
+
+and each term converges to 1 as $n\to\infty$.
+Also by definition,
+
+\[
+e^a = \lim_{n\to\infty }\left(1 + \frac{a}{n} \right)^n.
+\]
+
+### Poisson-Exponential
+
+The exponential distribution is the probability distribution of the time between events in a Poisson point process, i.e., a process in which events occur continuously and independently at a constant average rate.
+
+
+```{r exppoissonprocess, echo = FALSE, fig.align = "center", out.width = "90%", fig.cap = "Poisson-exponential process."}
+knitr::include_graphics("figure/exp_poisson_process.png")
+```
+
+Let 
+
+- $N_t$ be the number of phone calls during time period $t$; and
+- $X_t$ be the waiting time until the next phone call from one at $t$.
+
+By definition, the two events are equivalent: $\{X_t > x \} \equiv \{N_t = N_{t+x}\}$.
+Then $\Pr(X_t \leq x) = 1 - \Pr(N_t - N_{t+x}=0)$.
+
+- $\Pr(N_t - N_{t+x}=0)$ is the probability of no calls between time period $t+x$ and $t$, which is also the same as saying that there are no calls in $x$ amount of time, $\Pr(N_x=0)$.
+- Assume that $N_t$ is a Poisson process with rate $\lambda$ per unit time $t$. So $N_x \sim \Pois(\lambda x)$ and $\Pr(N_x=0) = e^{-\lambda x}$.
+- Substituting this into the above, we get
+\[
+  \Pr(X_t \leq x) = 1 - e^{-\lambda x}
+\]
+which is the cdf of an $\Exp(\lambda)$ distribution.
+
+### Poisson-Gamma 
+
+More generally, the Poisson and gamma (which includes exponential) are closely related when the gamma \underline{shape parameter is an integer}.
+
+Specifically, if $X\sim\Gamma(\alpha,\beta)$, then for any $x>0$,
+\[
+\Pr(X>x) = \Pr(Y<\alpha),
+\]
+where $Y\sim\Pois(x/\beta)$.
+The special case for the exponential distribution is easily seen: Set $\alpha=1$, then
+\[
+\Pr(X>x) = \Pr(Y<1) = \Pr(Y=0) = e^{-x/\beta}.
+\]
+
+
+### Normal approximations
+
+The normal family can be used--largely on account of the Central Limit Theorem--to approximate various other distributions.
+
+- $\Pois(\lambda) \approx \N(\lambda,\lambda)$, for large values of $\lambda$.
+- $\Bin(np) \approx \N(np,np(1-p))$, for large $n$ (and $p$ not too close to 0 or 1).
+- $\Gamma(\alpha,\beta) \approx \N(\alpha\beta, \alpha\beta^2)$ for large values of $\alpha$.
+
+::: {.mycheck}
+We will officially cover the central limit theorem in detail in the next chapter. For now, you may think of it as follows. Suppose that we're interested in the distribution of the sample mean (which, by now, you will agree is a random variable and hence has a distribution). The central limit theorem tells us precisely what the distribution of the sample mean will be when the number of samples we collect increases. It turns out to be the normal distribution! 
+:::
+
+When approximating a discrete distribution, the normal approximation is *much improved* by use of a 'continuity correction'.
+
+::: {.example}
+Let $X\sim\Bin(25, 0.6)$. So $\E(X)=25\times 0.6=15$ and $\Var(X)$ $=25\times0.6\times 0.4=6$. The normal approximation is $X \approx \N(15, 6)$.
+A binomial probability such as
+\[
+\Pr(X\leq 13)=\sum_{x=0}^{13} {25 \choose x} 0.6^x0.4^{25-x}=0.267
+\]
+can be approximated as
+\[
+\Pr(X\leq 13)\approx \Pr\left(Z \leq \frac{13-15}{\sqrt 6}\right)=0.207, \hspace{1em} Z\sim\N(0,1)
+\]
+
+Evidently this is not a very good approximation. However, for discrete $X$, $\Pr(X\leq 13)$ and $\Pr(X\leq 13.5)$ are identical, and approximating the latter gives a better result:
+\[
+\Pr(X\leq 13.5)\approx \Pr\left(Z \leq \frac{13.5-15}{\sqrt 6}\right)=0.270, \hspace{1em} Z\sim\N(0,1).
+\]
+:::
+
+```{r contcorr}
+pbinom(13, size = 25, prob = 0.6)
+pnorm(13.5, mean = 25 * 0.6, sd = sqrt(25 * 0.6 * 0.4))
+
+```
+
+::: {.myalert}
+Apply these continuity corrections in your calculations!
+
+| Discrete | Continous |
+|:-----:|:-----:|
+| $X=c$ | $c-0.5 < X < c + 0.5$ |
+| $X<c$ | $X < c + 0.5$ |
+| $X\leq c$ | $X < c + 0.5$ |
+| $X>c$ | $X>c-0.5$ |
+| $X\geq c$ | $X>c-0.5$ |
+:::

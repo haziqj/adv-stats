@@ -1,0 +1,1204 @@
+# (PART) Prepare {-}
+
+# Probability theory primer
+
+### Learning objectives {-}
+
+::: {.learningobjectives}
+By the end of this chapter, you will be able to:
+
+- do this
+- do that
+- and this
+:::
+
+### Readings {-}
+
+- Casella and Berger (2002)
+    - All of Chapter 1 (skip sections 1.2.3 and 1.2.4).
+    - Chapter 2, section 2.2 and 2.3 only.
+    - Chapter 4, section 4.1, 4.2 and 4.5 only.
+- Wasserman (2004)
+    - All of Chapter 1.
+    - Chapter 2, sections 2.1--2.2, 2.5--2.8.
+    - Chapter 3, sections 3.1--3.5.
+- Topics not covered: Counting and enumerating outcomes, moment generating functions (to be covered in the next topic), transformations of r.v., multivariate distributions (bivariate only).
+- [YouTube video: The medical test paradox](https://www.youtube.com/watch?v=lG4VkPoG3ko)
+- [YouTube video: Bayes theorem](https://www.youtube.com/watch?v=HZGCoVF3YvM)
+
+## Elementary set theory
+
+### Sample space
+
+In conducting an "experiment"...
+
+- The sample space $\Omega$ is the set of possible outcomes of an experiment.
+- Elements $\omega \in \Omega$ are called sample outcomes or realisations.
+- Subsets of $E \subseteq \Omega$ are called events.
+
+::: {.example}
+In tossing a coin $n \geq 2$ times, let $H$ denote 'heads', while $T$ denote 'tails'. 
+Let $\bomega = (\omega_1,\dots,\omega_n)$. 
+Then \[
+\Omega = \Big\{ \bomega \, \big|\, \omega_i \in \{H,T\} \Big\}.
+\]
+Let $E$ be the event that the first head appears on the second toss. Then
+\[
+E = \Big\{ \bomega \, \big|\, \omega_1 = T, \omega_2 = H, \omega_i \in \{H,T\} \text{ for } i > 2 \Big\}.
+\]
+:::
+
+### Set operations
+
+- The **complement** of an event $A$, written $A^c$, is the set of all elements that are not in $A$: $A^c = \{\omega | \omega\not\in A \}$.
+- The complement of $\Omega$ is the empty set $\emptyset = \{\}$.
+- The  **union** of events $A$ and $B$ (thought of as "A or B or both") is defined
+\[
+A \cup B = \{\omega \in \Omega \,|\, \omega \in A \text{ or } \omega \in B \}.
+\]
+- The  **intersection** of events $A$ and $B$ (thought of as "A *and* B") is defined
+\[
+A \cap B = \{\omega \in \Omega \,|\, \omega \in A \text{ and } \omega \in B \}.
+\]
+- Unions and intersections on sets are **commutative**, **associative**, and **distributive** (see C\&B Thm 1.14).
+
+
+The operations of unions and intersections can be extended to infinite collections of sets as well. 
+If $A_1,A_2,A_3,\dots$ is collection of sets, all defined on a sample space $\Omega$, then
+\begin{gather*}
+\bigcup_{i=1}^\infty A_i = \{x \in \Omega \,|\, x\in A_i \text{ for some } i \}, \\
+\bigcap_{i=1}^\infty A_i = \{x \in \Omega \,|\, x\in A_i \text{ for all } i \}.
+\end{gather*}
+
+
+::: {.example}
+Let $\Omega=(0,1]$ and define $A_i=[1/i, 1]$. Then,
+\begin{align*}
+\bigcup_{i=1}^\infty A_i
+&= \{1\} \cup [1/2, 1] \cup [1/3, 1] \cup \cdots = (0,1], \\
+\bigcap_{i=1}^\infty A_i
+&= \{1\} \cap [1/2, 1] \cap [1/3, 1] \cap \cdots = \{1\}.
+\end{align*}
+:::
+
+### Partitions
+
+We say that two events $A$ and $B$ are **disjoint** or **mutually exclusive** if $A \cap B = \{ \}$. Disjoint sets have no points in common.
+Suppose that $A_1,A_2,\dots$ are events defined on $\Omega$ such that they are (pairwise) disjoint, i.e. 
+$$
+A_i \cap A_j = \{ \}, \text{ for } i \neq j.
+$$
+Then the collection $A_1,A_2,\dots$ forms a **partition** of $\Omega$.
+Partitions divide the sample space into non-overlapping pieces.
+
+ 
+
+::: {.example}
+A deck of playing cards has four suits: $\clubsuit, \diamondsuit, \spadesuit, \heartsuit$. Let $A=\{\clubsuit,\diamondsuit\}$ and $B=\{\spadesuit, \heartsuit\}$. Then $A$ and $B$ form a partition of the sample space.
+:::
+
+## Axiomatic probability
+
+### Probability as a measure
+
+We understand probability to mean the "frequency of an event occurring". 
+If we can assign probabilities to (random) events in an experiment, then we can start to analyse them statistically. 
+
+We take an *axiomatic approach* to defining probabilities, rooted in *measure theory* (due to Kolmogorov, 1933). 
+Let $(\Omega,\cB,\bbP)$ be a measure space.
+
+- $\cB$ is a $\sigma$-algebra on $\Omega$, the subsets of $\Omega$ that are feasible for measuring.
+- $\bbP$ is a measure on $(\Omega,\cB)$, i.e. the method that is used for measuring.
+
+![Andrey Nikolaevich Kolmogorov. 25 April 1903 -- 20 October 1987.](figure/kolmogorov.jpg)
+
+::: {.remark}
+See Defn 1.2.1 in C&B and the following examples, as well as §1.9 in Wasserman.
+:::
+::: {.remark}
+There are alternative formulations/approaches to defining probabilities, e.g. Cox's Theorem (logical probabilities).
+:::
+
+[Further explanation of measure theory]
+
+Why do we bother with measure theory?
+
+
+> The Banach–Tarski paradox states that a ball in the ordinary Euclidean space can be doubled using only the operations of partitioning into subsets, replacing a set with a congruent set, and reassembly.
+
+![](figure/banach_tarski.png)
+
+If we don't lay out the foundations for measuring probabilities rigorously, we can end up with nonsensical answers!
+
+### Axioms of probability
+
+$\bbP:\cB\to[0,1]$ is a **probability measure** on $(\Omega, \cB)$ if it satisfies the the following three axioms:
+
+- Axiom 1: $\bbP(A) \geq 0, \forall A \in \Omega$.
+- Axiom 2: $\bbP(\Omega) = 1$.
+- Axiom 3: For pairwise disjoint events $A_1,A_2,\dots$,
+\[
+\bbP\bigg( \bigcup_{i=1}^\infty A_i  \bigg) = \sum_{i=1}^\infty A_i.
+\]
+
+::: {.remark}
+There are two main interpretation of probabilities. 
+
+1. The **frequentist** interpretation is that if we flip the coin many times, then the proportion of heads that is observed will be 50\% in the long run.
+
+2. The **subjectivist** interpretation is that the probability measures an observer's strength of belief that the event is true.
+
+In either interpretation, the three axioms must be satisfied.
+:::
+
+### Derived probability results
+
+Let $A$ and $B$ be measurable events from the sample space $\Omega$. 
+The following results can be derived using only the three axioms:
+
+- $\bbP(\{ \}) = 0$
+- $0\leq\bbP(A)\leq 1$
+- $\bbP(A^c)=1-\bbP(A)$
+- $\bbP(A \cup B) = \bbP(A) + \bbP(B) - \bbP(A \cap B)$
+- If $A \subseteq B$, then $\bbP(A) \leq \bbP(B)$
+- $\bbP(A) = \sum_{i=1}^\infty \bbP(A \cap C_i)$ for any partition $C_1,C_2,\dots$ of $\Omega$ (*Law of Total Probability*)
+
+## Conditional probabilities
+
+
+### Conditional probability 
+
+Update the sample space based on new information, and thus update probability calculations.
+
+::: {.definition name="Conditional probabilities"}
+If $A$ and $B$ are events in $\Omega$, and $\bbP(B)>0$, then the *conditional probability* of $A$ given $B$ is
+\[
+  \bbP(A | B) = \frac{\bbP(A \cap B)}{\bbP(B)}.
+\]
+:::
+
+- The given information is now the "new" sample space: $\bbP(B | B) = 1$. *All further occurrences are calibrated with respect to their relation to $B$*. Think of $\bbP(A | B)$ as *the fraction of times $A$ occurs among those in which $B$ occurs*.
+- For mutually exclusive events $A$ and $B$, $\bbP(A | B)=\bbP(B | A)=0$.
+- In general, $\bbP(A | B) \neq \bbP(A)$ and $\bbP(A | B) \neq \bbP(B | A)$.
+
+::: {.example}
+A medical test for a disease $D$ has outcomes '$+$' and '$-$'. The probabilities are:
+
+|     | $D$ | $D^c$ |
+|-----|:-----:|:-------:|
+| $+$ | 0.009 | 0.099 |
+| $-$ | 0.001 | 0.891 |
+
+From the definition of conditional probability,
+\[
+  \bbP(+|D) = \frac{\bbP(+ \cap D)}{\bbP(D)} = \frac{0.009}{0.009 + 0.001} = 0.90
+\]
+and
+\[
+  \bbP(-|D^c) = \frac{\bbP(- \cap D^c)}{\bbP(D^c)} = \frac{0.891}{0.099 + 0.891} \approx 0.90.
+\]
+
+Suppose you go for a test and get a positive result.
+What is the probability you have the disease? 
+Most will answer 0.90. 
+Actually,
+\[
+  \bbP(D|+) = \frac{\bbP(D \cap +)}{\bbP(+)} = \frac{0.009}{0.009 + 0.099} = 0.08.
+\]
+:::
+
+Notice that 
+
+- $\bbP(D \cap +) = \bbP(+|D)\bbP(D)$ after some rearranging; and
+- $\bbP(+) = \bbP(+ \cap D) + \bbP(+ \cap D^c)$ since $D$ and $D^c$ are disjoint.
+
+We can write
+\[
+\bbP(D|+) = \frac{\bbP(+|D)\bbP(D)}{\bbP(+|D)\bbP(D) + \bbP(+|D^c)\bbP(D^c)}.
+\]
+For $\bbP(D|+)$ to be large, it seems $\bbP(D)$ needs to be large in addition to $\bbP(+|D)$, i.e. disease is prevalent.
+
+### Bayes Theorem
+
+::: {.theorem name="Bayes' Rule"}
+Let $A_1,A_2,\dots$ be a partition of the sample space, and let $B$ be any set. 
+Then, for each $i=1,2,\dots$,
+\[
+  \bbP(A_i|B) = \frac{\bbP(B|A_i)\bbP(A_i)}{\sum_{j=1}^\infty \bbP(B|A_j)\bbP(A_j)}.
+\]
+:::
+
+This is easily proven using definitions of conditional probabilities, as well as the law of total probability.
+
+::: {.remark}
+Some will call $\bbP(A_i)$ the **prior probability**, and the $\bbP(A_i|B)$ **posterior probability**.
+:::
+
+## Independent events
+
+### Independence
+
+In some cases, the occurrence of a particular event $B$ has *no effect* on the probability of another event $A$:
+\[
+  \bbP(A | B) = \bbP(A).
+\]
+If this is true, we can use the relationship $\bbP(A \cap B) = \bbP(A | B)\bbP(B)$ to derive the following definition.
+
+::: {.definition}
+Two events $A$ and $B$ are *statistically independent* if and only if
+\[
+  \bbP(A \cap B) = \bbP(A)\bbP(B).
+\]
+:::
+
+If $A$ and $B$ are independent then so too are
+
+- $A$ and $B^c$;
+- $A^c$ and $B$; and
+- $A^c$ and $B^c$.
+
+![(Probably not) Rev. Thomas Bayes c. 1701 -- 7 April 1761](figure/bayes.jpg)
+
+Here's an experiment we can do to examine the concept of independent events. 
+Consider tossing a fair die.
+Let $A = \{2, 4, 6\}$ and $B = \{1,2,3,4\}$.
+You should be able to work out, using the above probability results and the definition of conditional probabilities, that  $\bbP(A)=1/2$, $\bbP(B)=2/3$, and $\bbP(A \cap B)=1/3$.
+Hence, we deduce that $A$ and $B$ are independent, since the product of each probability event is the probability of their intersection.
+
+If you were feeling bored and had a lot of time to spare, you could verify this empirically using an actual die. 
+While this would be an afternoon well spent, let's use `R` to simulate some draws from the sample space $\Omega = \{1,2,3,4,5,6\}$, and count the number of times each events $A$, $B$ and $A \cap B$ occurs.
+
+```{r diceexp1, echo = -1}
+set.seed(123)
+# Throw a dice 10 times
+sample(1:6, size = 10, replace = TRUE)
+```
+
+From the above, $n(A) = 6$, $n(B)=6$, and $n(A \cap B)=3$.
+Do this 1,000 times, and count events automatically.
+
+```{r diceexp2, echo = TRUE}
+x <- sample(1:6, size = 1000, replace = TRUE)
+head(x, 100)
+```
+
+```{r diceexp3, echo = TRUE}
+nA <- sum(x %in% c(2, 4, 6))  # counts the frequency of 2, 4, 6
+nB <- sum(x %in% c(1, 2, 3, 4))  # counts the frequency of 1, 2, 3, 4
+nAB <- sum(x %in% c(2, 4))  # counts the frequency of 2, 4
+
+# Results
+c(A = nA, B = nB, AnB = nAB) / 1000
+```
+
+Empirically, we have $\hat{\bbP}(A)\hat{\bbP}(B) =$ `r nA/1000` $\times$  `r nB/1000`$=$ `r nA * nB / 1000 ^ 2`.
+This matches with the value of $\hat{\bbP}(A \cap B)$ in the table, as well as the theoretical value of 1/3.
+
+## Random variables
+
+Ask (randomly) 50 people whether they like ("1") or dislike ("0") learning statistics.
+What is the sample space for this experiment?
+This would be all 1/0 combinations such as
+
+\begin{align*}
+\overbrace{1000101\cdots 10001}^{50}
+\end{align*}
+Specifically, $\Omega = \big\{(X_1,X_2,\dots,X_{50}) \,|\, X_i \in \{0,1\} \big\}$. Realise that $|\Omega| = 2^{50}$. This is huge! 
+
+```{r}
+2 ^ {50}
+```
+
+For context, the average American, working full-time, would have to work 25 billion years to earn 1 quadrillion dollars.
+
+What if we defined $Y = \sum_{i=1}^{50} X_i$?
+
+- $Y$ is the count of the number of people who like learning statistics from this sample of 50.
+- The minimum value for $Y$ is 0, and the maximum is 50. So the new sample space for $Y$ is $S = \{0,1,2,\dots,50\}$. Much easier to deal with!
+
+$Y$ was defined by *mapping a function* from the original sample space $\Omega$ to the new space $S$ (usually a set of real numbers).
+$Y$ is called a **random variable**.
+
+
+::: {.remark}
+Random variables (r.v.) are conventionally denoted with uppercase letters, and the realised values of the variable will be denoted by the corresponding lowercase letters. Thus, the r.v. $X$ can take the value $x$.
+:::
+
+::: {.example}
+
+Flip a coin twice and let $X$ be the number of heads.
+The sample space of the coin flips is $\Omega = \{\text{HH}, \text{HT}, \text{TH}, \text{TT} \}$.
+The sample space of $X$ is $S = \{0,1,2 \}$.
+The mapping of the r.v. is illustrated as follows:
+
+```{r, echo=FALSE, engine='tikz', out.width ="48%"}
+\usetikzlibrary{shapes.geometric,fit}
+
+\begin{tikzpicture}
+
+\node[inner sep=.5pt] (TT) at (0,1) {TT};
+\node[inner sep=.5pt] (TH) at (0,1.5) {TH};
+\node[inner sep=.5pt] (HT) at (0,2) {HT};
+\node[inner sep=.5pt] (HH) at (0,2.5) {HH};
+\node[inner sep=.5pt] (Omega) at (0,-0.1) {$\Omega$};
+\node[fit=(HH) (HT) (TH) (TT),ellipse,draw,minimum width=1cm] {}; 
+
+\node[inner sep=.5pt] (zero) at (3,1.25) {0};
+\node[inner sep=.5pt] (one) at (3,1.75) {1};
+\node[inner sep=.5pt] (two) at (3,2.25) {2};
+\node[inner sep=.5pt] (SS) at (3,0.25) {$S$};
+\node[fit=(zero) (one) (two),ellipse,draw,minimum width=1cm] {}; 
+
+\node[inner sep=.5pt] (X) at (1.5,2.7) {$X$};
+
+\draw[-latex] (HH) -- (two);
+\draw[-latex] (TT) -- (zero);
+\draw[-latex] (HT) -- (one);
+\draw[-latex] (TH) -- (one);
+\end{tikzpicture}
+
+```
+
+
+:::
+
+We can see that a r.v. $X$ is a *mapping*^[Technically, a measurable function. See Wasserman (2004, Appendix 2.13).] $X:\Omega \to \bbR$ that assigns a real number $X(\omega)$ to each outcome $\omega$. Then,
+
+\[
+  \bbP(X=x) = \bbP\big(X^{-1}(x)\big) = \bbP\big(\{ \omega \in \Omega \,|\, X(\omega) = x\} \big)
+\]
+
+::: {.example #coinflip}
+The r.v. $X$ can be summarised as follows:
+
+| $\omega$ | $\bbP(\{\omega\})$ | $X(\omega)$ |
+|:--------:|:------------------:|:-----------:|
+| TT | 1/4 | 0 |
+| TH | 1/4 | 1 |
+| HT | 1/4 | 1 |
+| HH | 1/4 | 2 |
+
+| $x$ | $\bbP(X = x)$ | $X^{-1}(x)$|
+|:--------:|:------------------:|:-----------:|
+| 0 | 1/4 | TT |
+| 1 | 1/2 | TH, HT |
+| 2 | 1/4 | HH |
+:::
+
+
+## Distribution functions
+
+With every random variable $X$, we associate a function called the cumulative distribution function of $X$.
+
+::: {.definition}
+The cumulative distribution function (cdf) of a r.v. $X$, is the function $F_X:\bbR\to[0,1]$ defined by
+\[
+  F_X(x) = \bbP(X \leq x), \text{ for all } x.
+\]
+:::
+
+::: {.example}
+From Example \@ref(exm:coinflip), we have that 
+\[
+F_X(x)=
+\begin{cases}
+0   &x < 0 \\
+0.25  &0 \leq x < 1 \\
+0.75  &1 \leq x < 2 \\
+1  &x \geq 2 \\
+\end{cases}
+\]
+
+This can be sketched as follows: 
+
+```{r distfn, echo = FALSE, warning = FALSE, fig.cap = "Distribution function of the random variable $X$"}
+plot.df <- tibble(
+  x = c(-1.5, 0,   1, 2, 3.5),
+  y = c(0, 0.25, 0.75, 1, 1)
+)
+plot.df$xend <- c(plot.df$x[2:nrow(plot.df)], NA)
+plot.df$yend <- plot.df$y
+ggplot(plot.df, aes(x, y, xend = xend, yend = yend)) +
+  geom_segment() +
+  geom_point(data = plot.df[-c(1, 5), ]) +
+  geom_point(data = plot.df[-c(4, 5), ], aes(x = xend, y = y), shape = 1) +
+  labs(y = expression(F[x](x)))
+```
+
+:::
+
+### Properties of cdfs
+
+- $\lim_{x\to-\infty} F(x) = 0$ and $\lim_{x\to+\infty} F(x) = 1$.
+- $F(x)$ is non-decreasing: $x_1 < x_2 \Rightarrow F(x_1) \leq F(x_2)$.
+    - Drawing the function from left to right, it must either increase or stay the same value, but not decrease in value.
+- $F(x)$ is right-continuous: for every $x_0$, $\lim_{x \downarrow x_0} F(x) = F(x_0)$.
+    - This means "the solid dots will be on the left of the step function".
+
+In fact, any function satisfying the above properties is a cdf.
+For proofs of these facts, see the reference textbooks. 
+
+Clearly, $F$ itself *can be discontinuous* (we saw this in the previous example). 
+This is associated with whether the r.v. $X$ is continuous or not. That is,
+
+- $F_X(x)$ is a continuous function $\Rightarrow$ $X$ is continuous.
+- $F_X(x)$ is a step function $\Rightarrow$ $X$ is discrete.
+
+### Identically distributed r.v.
+
+Let $X$ have cdf $F$ and let $Y$ have cdf $G$.
+If $F(x)=G(x)$ for all $x$, then $\bbP(X\in A) = \bbP(Y \in A)$ for all (measurable) sets.
+$X$ and $Y$ are said to be **identically distributed**.
+
+::: {.remark}
+Note that two identically distributed r.v. are not necessarily equal in value, only the probabilities of observing the same values are identical.
+Think about two independent coin flips. The probability of H/T in each flip is the same, but the outcome may not be.
+:::
+
+## Probability functions
+
+### Probability mass function
+
+Associated with a r.v. $X$ and its cdf $F_X$ is another function, called either the probability density function (pdf) if it is continuous, or the probability mass function (pmf) if it is discrete.
+
+
+
+::: {.definition name="Probability mass function"}
+A discrete r.v. $X$ only take countably many values $\cX = \{x_1, x_2,\dots \}$.
+Its probability mass function (pmf) is
+\[
+f_X(x) = \bbP(X=x), \text{ for all } x \in \cX.
+\]
+:::
+
+::: {.example}
+The pmf from Example \@ref(exm:coinflip) is given by
+\vspace{-0.5em}
+\[
+f_X(x) = \begin{cases}
+1/4&x=0 \\
+1/2&x=1 \\
+1/4& x=2\\
+0 &\text{otherwise}\\
+\end{cases}
+\]
+
+```{r, echo = FALSE, fig.height = 1.6}
+plot.df <- tibble(
+  x = c(0, 1, 2),
+  y = c(0.25, 0.5, 0.25)
+)
+ggplot(plot.df, aes(x, y = 0, xend = x, yend = y)) +
+  geom_segment() +
+  geom_point(aes(x = x, y = y)) +
+  labs(y = expression(f[X](x)))
+```
+
+:::
+
+Pmfs measure "point probabilities". Since outcomes of discrete r.v.s are countable, we can add up probabilities over all the points in the event.
+For any $a$, $b$ both in $\cX$ such that $a \leq b$, we have that 
+\[
+  \bbP(a \leq X \leq b) = \sum_{x=a}^b f_X(x).
+\]
+
+As a special case we get
+\[
+  \bbP(X \leq b) = \sum_{x\leq b} f_X(x) = F_X(b).
+\]
+
+Consequently, 
+
+- Each $f_x(x) \geq 0$ for all $x$; and
+- $\sum_{x} f_x(x) = 1$.
+
+### Probability density functions
+
+We want to translate the same idea of "point probabilities" over to the continuous case, but must be more careful here.
+Let $X$ be a continuous r.v. (i.e., its cdf is continuous).
+The analogous procedure would be to consider
+\[
+  \bbP(X \leq x) = F_X(x) = \int_{-\infty}^x f_X(x) \dint x,
+\]
+and using the Fundamental Theorem of Calculus, we have that
+\[
+  f_X(x) = \frac{\d}{\d x}F_X(x).
+\]
+We can see that the cdf is like "adding up" the "point probabilities" $f_X(x)$ to obtain interval probabilities.
+
+::: {.definition name="Probability density function"}
+A continuous r.v. $X$ takes any numerical value in an interval or collection of intervals (having an uncountable range).
+Its probability density function (pdf) is the function $f_X(x)$ that satisfies
+\[
+F_X(x) = \int_{-\infty}^x f_X(\tilde x) \dint \tilde x, \text{ for all } x.
+\]
+:::
+
+Note that
+
+- $f_X(x) \geq 0$ for all $x$;
+- $\int_{-\infty}^\infty f_X(x) \dint x = 1$; and
+- $\bbP(X=x) = \int_x^x f(\tilde x) \dint \tilde x = 0$.
+
+Don't think of $f(x)$ as probability functions--this only holds for discrete r.v..
+Read Wasserman (Warning after Example 2.13 on p.24).
+
+::: {.example}
+Suppose that $X$ is uniformly distributed on the interval $(a,b) \subset \bbR$.
+Its pdf is given by
+\[
+f_X(x) = \begin{cases}
+\frac{1}{b-a} & a < x < b \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+When $a < x < b$, the cdf is 
+\begin{align*}
+F_X(x) 
+= \int_{-\infty}^x f_X(\tilde x) \dint \tilde x 
+&=\cancelto{0}{\int_{-\infty}^a f_X(\tilde x) \dint \tilde x}  + \int_{a}^x \frac{1}{b-a} \dint \tilde x \\
+&= \left[ \frac{\tilde x}{b-a} \right]_a^x = \frac{x-a}{b-a},
+\end{align*}
+while $F_X(x) = 0$ for $x<a$, and $F_X(x)=1$ for $x>b$.
+
+```{r, echo = FALSE, fig.height = 2, warning = FALSE, fig.cap = "Plot of pdf"}
+# pdf 
+plot.df <- tibble(
+  x = c(0, 2, 6, 8),
+  y = c(0, 1, 0, 0)
+)
+plot.df$xend <- c(plot.df$x[2:nrow(plot.df)], NA)
+plot.df$yend <- plot.df$y
+ggplot(plot.df, aes(x = x, y = y, xend = xend, yend = yend)) +
+  geom_segment() +
+  geom_segment(x = 2, xend = 2, y = 0, yend = 1, linetype = "dotted", col = "gray") +
+  geom_segment(x = 6, xend = 6, y = 0, yend = 1, linetype = "dotted", col = "gray") +
+  labs(y = expression(f[x](x))) +
+  scale_x_continuous(breaks = c(2, 6), labels = c("a", "b")) +
+  scale_y_continuous(breaks = c(0, 1), labels = c(0, "1/(b-a)")) 
+```
+
+```{r, echo = FALSE, fig.height = 2, fig.cap = "Plot of cdf"}
+# cdf 
+plot.df <- tibble(
+  x = c(0, 2, 6, 8),
+  y = c(0, 0, 1, 1)
+)
+ggplot(plot.df, aes(x = x, y = y)) +
+  geom_line() +
+  labs(y = expression(F[x](x))) +
+  scale_x_continuous(breaks = c(2, 6), labels = c("a", "b")) +
+  scale_y_continuous(breaks = c(0, 1), labels = c(0, "         1")) 
+```
+
+:::
+
+Continuous r.v. miscellanea
+
+- On notation: we write $X \sim F_X(x)$ to mean that "$X$ has a distribution given by $F_X(x)$". The symbol '$\sim$' is read "is distributed as".
+    - Sometimes we write $X \sim f_X(x)$.
+    - Or by their specially given name, e.g. $X\sim \Unif(a,b)$.
+    - If $X$ and $Y$ are identically distributed, then $X\sim Y$.
+
+- Note that since $\bbP(X=0)$ if $X$ is continuous, then
+    - $\bbP(X \leq b) = \bbP(X <b) + \cancelto{0}{\bbP(X=b)}$; and so
+    - $\bbP(a \leq X \leq b) = \bbP(a \leq X < b) = \bbP(a < X \leq b) = \bbP(a < X < b)$.
+    
+- Sometimes we just write $\int f(x) \dint x$ to mean $\int_{-\infty}^{\infty} f(x) \dint x$.
+
+- The following are true:
+    - $\bbP(a<X<b) = F(b) - F(a)$ (be careful, this is not true for discrete r.v.)
+    - $\bbP(X > a) = 1 - F(a)$
+
+- As a side note, mixed discrete and continuous distributed r.v. do exist, but we won't be covering them in this course.
+
+- The Riemann integral is defined as the limit of the \underline{sum} of the areas of these bars, as the number of bars gets larger and larger (and hence the width of the bars get smaller and smaller).
+
+
+![](figure/riemann_integration.png)
+
+## Multiple random variables
+
+### Bivariate distributions
+
+Probability models may involve more than one random variable, known as *multivariate models*.
+Consider the simplest kind, dealing with only two r.v.s in each discrete and continuous case.
+
+::: {.definition name="Joint mass function"}
+Given a pair of discrete r.v. $X$ and $Y$, the joint mass function or joint pmf is defined by
+\[
+f_{X,Y}(x,y) = \bbP(X=x,Y=y).
+\]
+:::
+
+
+::: {.definition name="Joint density function"}
+A function $f_{X,Y}:\bbR^2\to\bbR$ is called a joint probability density function (pdf) of the continuous random vector $(X,Y)$ if for any set  $A\subseteq\bbR^2$,
+\[
+  \bbP((X,Y) \in A) = \iint_{A} f_{X,Y}(x,y)\dint x \dint y.
+\]
+:::
+
+All the univariate properties carry over to the bivariate (and multivariate) case:
+
+- $f_{X,Y}(x,y) \geq 0$ for all $(x,y) \in \bbR^2$
+- $\sum_x\sum_y f(x,y) = 1$ if discrete, $\iint f(x,y)\dint x \dint y = 1$ if continuous
+- The joint cdf is defined $F_{X,Y}(x,y) = \bbP(X\leq x, Y\leq y)$
+
+::: {.example}
+A bivariate distribution for two discrete r.v. $X$ and $Y$ each taking values 0 or 1:
+
+|       | $Y=0$ | $Y=1$ |
+|-------|-------:|-------:|
+| $X=0$ | 1/9   | 2/9   |
+| $X=1$ | 2/9   | 4/9   |
+
+For e.g., $\bbP(X=1,Y=1) = f(1,1) = 4/9$.
+:::
+
+::: {.example #unitsquare}
+Consider a uniform distribution on the unit square $[0,1] \times [0,1]$. It has pdf given by
+$$
+f(x,y) = \begin{cases}
+  1 &0\leq x \leq 1, 0\leq y \leq 1 \\
+  0 &\text{otherwise}
+\end{cases}
+$$  
+This is a well-defined pdf, as $f\geq 0$ and $\int\int f(x,y)\dint x \dint y = 1$.
+Suppose we want to find $\Prob(X<1/2, Y<1/2)$ and $\Prob(X + Y < 1)$.
+
+\begin{align*}
+\bbP(X<1/2, Y<1/2) &= \int_0^{1/2} \int_0^{1/2} \dint x \dint y \\
+&= \left[ \left[ xy \right]_{0}^{1/2} \right]_{0}^{1/2} = 1/4.
+\end{align*}
+
+For the second probability, note that the set $\{x+y<1\}$ corresponds to $\{0<y<1, 0<x < 1-y\}$.
+\begin{align*}
+  \bbP(X+Y<1) &= \int_0^{1} \dint y \int_0^{1-y}  \dint x \\
+  &= \int_0^{1} \dint y [x]_0^{1-y} \\
+  &= \int_0^{1} (1-y) \dint y = \big[y - y^2/2\big]_0^1 = 1/2.
+\end{align*}
+
+```{r, echo = FALSE, fig.align = "center", out.width = "80%"}
+knitr::include_graphics("figure/bivariateunif.png")
+```
+
+This is the view from above. What is the volume of this wedge? It is the area of the shaded region multiplied by height 1.
+
+```{r bivariateprob, echo = FALSE, fig.height = 3, fig.width = 3.1, fig.align = "center", out.height = "0.7\\textheight"}
+ggplot() +
+  geom_rect(aes(xmin = 0, xmax = 1, ymin = 0, ymax = 1), fill = NA, col = "black") +
+  geom_abline(slope = -1, intercept = 1, linetype = "dashed") +
+  geom_polygon(aes(x = c(0, 1, 0), y = c(0, 0, 1)), alpha = 0.3) +
+  labs(x = "x", y = "y") + 
+  scale_x_continuous(breaks = c(0, 0.5, 1), limits = c(-0.2, 1.2)) +
+  scale_y_continuous(breaks = c(0, 0.5, 1), limits = c(-0.2, 1.2)) 
+```
+
+:::
+
+### Marginal distributions
+
+We can recover the distribution for one of the r.v. in a bivariate (or multivariate) model by summing/integrating over the remaining probibility distribution.
+
+::: {.definition name="Marginal distribution"}
+For a bivariate r.v. $(X,Y)$, the marginal distributions may be obtained as
+$$
+f_X(x) = 
+\begin{cases}
+  \sum_y f_{X,Y}(x,y) &\text{if $Y$ is discrete} \\
+  \int_y f_{X,Y}(x,y) \dint y &\text{if $Y$ is continuous} \\    
+\end{cases}
+$$
+$$
+f_Y(y) = 
+\begin{cases}
+  \sum_x f_{X,Y}(x,y) &\text{if $X$ is discrete} \\
+  \int_x f_{X,Y}(x,y) \dint x &\text{if $X$ is continuous} \\    
+\end{cases}
+$$
+:::
+
+See the textbooks for some examples.
+
+A note to say that since the joint cdf is defined to be
+\[
+  F(x,y) = \bbP(X \leq x, Y\leq y),
+\]
+the marginal cdfs can be obtained from the joint cdf for $X$ as
+\begin{align*}
+F_X(x) 
+&= \sum_{k\leq x} \left( \sum_y f_{X,Y}(k,y) \right) \\
+&= \bbP(X \leq x, Y \leq \infty) \\
+&=F_{X,Y}(x,\infty)
+\end{align*}
+and similarly $F_Y(y)=F_{X,Y}(\infty,y)$ for $Y$.
+Note that for continuous random variables, $\int_{-\infty}^x \left(\int  f_{X,Y}(\tilde x,y) \dint y \right) \dint \tilde x$.
+
+### Conditional distributions
+
+Oftentimes when two r.v. $(X,Y)$ are observed, the values of the two variables are related.
+Some examples:
+
+- Height ($X$) and weight ($Y$) of a person;
+- A level points score ($X$) and socio-economic status ($Y$);
+- Heart rate ($X$) and oxygen saturation levels ($Y$).
+
+Knowledge about the value of $Y$ gives us some information about the value of $Y$. This should sound familiar.
+
+:::{.definition name="Conditional distributions, discrete"}
+If $X$ and $Y$ are discrete, the conditional pmf of $X$ given $Y=y$ is
+\[
+  f_{X|Y}(x|y) = \bbP(X=x|Y=y) = \frac{\bbP(X=x, Y=y)}{\bbP(Y=y)} = \frac{f_{X,Y}(x, y)}{f_Y(y)},
+\]
+:::
+
+:::{.definition name="Conditional distributions, continuous"}
+If $X$ and $Y$ are discrete, the conditional of of $X$ given $Y=y$ is
+\[
+  f_{X|Y}(x|y) =  \frac{f_{X,Y}(x, y)}{f_Y(y)}.
+\]
+:::
+
+- As a function of $x$, $f_{X|Y}(x|y)$ is indeed a pdf, since
+\[
+\int f_{X|Y}(x|y) \dint x = \int \frac{f_{X,Y}(x, y)}{f_Y(y)} \dint x = \frac{f_Y(y)}{f_Y(y)} = 1.
+\]
+- The probability of $X$ given $Y=y$ is computed as
+\[
+\bbP(X \in A|Y=y) = \int_A f_{X|Y}(x|y) \dint x. 
+\]
+- We can rearrange the equations to yield $$f_{X|Y}(x|y)f_Y(y)=f_{Y|X}(y|x)f_X(x).$$
+
+::: {.example}
+Let $X$ and $Y$ have the joint pdf $f(x,y)=x+y$ for $0\leq x,y\leq 1$.
+Suppose $Y=a$ has been observed, where $a\in[0,1]$.
+Firstly, the the pdf of $Y$ is
+\[
+f_Y(y) = \int_0^1 (x+y) \dint x = \left[xy +y^2/2\right]_0^1 = y + 1/2.
+\]
+
+The conditional pdf for $X$ is
+\[
+f_{X|Y}(x|Y=a) = \frac{f_{X,Y}(x,Y=a)}{f_Y(a)} = \frac{x+a}{a + 1/2}.
+\]
+
+We can compute $\bbP(X<1/4|Y=1/3)$ by
+\begin{align*}
+\bbP(X<1/4|Y=1/3) = (1/3 + 1/2)^{-1} \int_{0}^{1/4} (x+1/3) \dint x = 11/80.
+\end{align*}
+
+:::
+
+### Independent random variables
+
+Previously we came across the concept of independence of probabilistic events.
+We can extend this notion to random variables.
+
+:::{.definition name="Independece of r.v."}
+Two r.v. $X$ and $Y$ are independent if and only if for every $x\in\bbR$ and $y\in\bbR$, 
+\[
+  f_{X,Y}(x,y) = f_X(x)f_Y(y).
+\]
+We write $X \perp Y$.
+:::
+
+- Apparently, if there exists functions $g(x)$ and $h(y)$ (not necessarily pdfs) such that $f(x,y)=g(x)h(y)$ for all $x,y$, then $X$ and $Y$ are independent.
+- The assumption of independence is used very often in statistical inference as it simplifies calculations quite a lot.
+
+::: {.example}
+
+Recall the bivariate distribution on the unit square (c.f. Example \@ref(exm:unitsquare)).
+Note that the pdf of $X$ is $f_X(x) = \int_0^1 \dint y = 1$, and similarly $f_Y(y)=1$.
+It is easy to see that $X$ and $Y$ are independent, since
+\[
+f_{X,Y}(x,y) = 1 = f_X(x)f_Y(y).
+\]
+As a consequence, to generate a random sample from $(X,Y)$, one can randomly sample values $X\sim\Unif(0,1)$, and independently sample $Y\sim\Unif(0,1)$.
+:::
+
+## Expectations
+
+### Expected values
+
+The expected value, or expectation, of a random variable is merely its *average value* _weighted_ according to the probability distribution.
+It signifies the **typical value** of an observation of a random variable.
+
+
+\begin{definition}[Expectation]
+The expected value or mean of a r.v. of $X$, denoted $\E(X)$ is defined to be
+\[
+\E(X) = \begin{cases}
+  \sum_x x f_X(x) = \sum_x x \bbP(X=x) &\text{if $X$ is discrete} \\
+  \int x f_X(x) \dint x &\text{if $X$ is continuous} \\  
+\end{cases}
+\]
+provided that the integral or sum exists (is finite). 
+\end{definition}
+
+- The symbol '$\mu$' is often used to denote the expected value. Other symbols used are $\E X$ and $\E[X]$.
+- The expectation is **not to be confused** with the sample mean of a set of observations $\{x_1,\dots,x_n \}$, i.e. $\bar x_n = \frac{1}{n} \sum_{i=1}^n x_i$.
+
+::: {.example}
+Let $X \in \{0,1\}$ take value 1 with probability $p$, and 0 with probability $1-p$.
+$X$ is a Bernoulli r.v., and we write $X \sim \Bern(p)$.
+Then,
+
+\[
+\E(X) = \sum_x x\bbP(X = x) = 1\cdot p + 0 \cdot (1-p) = p.
+\]
+:::
+
+
+::: {.example}
+Let $X$ be a cts. r.v. such that $X\sim\Unif(a,b)$. Then
+
+\[
+\E(X) = \int_a^b  \frac{x}{b-a} = \frac{a+b}{2}.
+\]
+:::
+
+::: {.example}
+
+
+```{r cauchy, echo = FALSE, fig.height = 2}
+plot.df <- tibble(x = seq(-3, 3, by = 0.01))
+plot.df$y <- dcauchy(plot.df$x)
+ggplot(plot.df, aes(x, y)) +
+  geom_line() +
+  labs(y = expression(f[X](x)))
+```
+
+Let $X$ be a cts. r.v. with pdf $f(x)=\{ \pi(1+x^2) \}^{-1}$ with support over $\bbR$. 
+This is the Cauchy distribution\footnote{Named after the French mathematician Augustin Cauchy, although in physics, it is often known by the Lorentz distribution after the Dutch Nobel Laureate Hendrik Lorentz.} with location and scale parameter 0 and 1 respectively.
+
+Using the substitution $u = x^2 + 1$ and $\dint u/2 = x \dint x$, we find that
+\begin{align*}
+\E(X) 
+&= \int_{-\infty}^\infty \frac{x \dint x}{\pi(1+x^2)} \\
+&= \int_{-\infty}^0 \frac{x \dint x}{\pi(1+x^2)} + \int_{0}^\infty \frac{x \dint x}{\pi(1+x^2)} \\
+&= \frac{1}{2\pi} \int_{u=\infty}^{u=1} \frac{\dint u}{u} + \frac{1}{2\pi} \int_{u=1}^{u=\infty} \frac{\dint u}{u} \\
+&= \frac{1}{2\pi} \left[\log u \right]_{\infty}^{1} + \frac{1}{2\pi} \left[\log u \right]^{\infty}_{1} \\
+&= \frac{1}{2\pi} (\infty - \infty) = \ ???
+\end{align*}
+so the mean is undefined.
+
+:::
+
+
+### Expectations of functions of r.v.
+
+Realise that if $X$ is a r.v., then any function of $X$, $g(X)$, is also a random variable^[We can even describe the distribution for any transformation of $X$, see  C\&B Sec 2.1.].
+Often time we will want to know the mean of $g(X)$.
+
+::: {.theorem}
+Let $X$ be a r.v. with pdf $f_X(x)$, and let $Y=g(X)$. Then
+\vspace{-.5em}
+\[
+\E(Y) = \int g(x)f_X(x)\dint x.
+\]
+:::
+
+In particular, the $k$th **moment** of $X$ for $k\in\bbZ$ is defined to be
+\[
+\E(X^k) = \int x^kf_X(x)\dint x.
+\]
+The $k$th central moment is defined as $\E((X-\mu)^k)$, where $\mu:=\E(X)$.
+
+### Properties of expectations
+
+Let $X$ be a r.v., and $a,b,c\in\bbR$ be constants.
+Here are some important properties of expectations [you should really know these!]. They also work for $g(X)$ too.
+
+- $\E(aX +bX +c) = a\E(X) + b\E(X) + c$ (linearity of expectations)
+- If $Y$ is a r.v. s.t. $X\perp Y$, then $\E(XY) = \E(X)\E(Y)$
+- If $X\geq 0$ for all $x$, then $\E(X)\geq 0$
+- If $a \leq X \leq b$ for all $x$, then $a \leq \E(X) \leq b$
+- $\E(X) = \min_b \E((X-b)^2)$ (see Example 2.2.6 C\&B)
+
+As a corollary, if $X_1,\dots,X_n$ are r.v. and $a_1,\dots,a_n$ are constants, then
+\[
+\E\left(\sum_{i=1}^n a_iX_i \right) = \sum_{i=1}^n a_i\E(X_i).
+\]
+Additionally, if $X_1,\dots,X_n$ are independent,
+\[
+\E\left(\prod_{i=1}^n a_iX_i \right) = \prod_{i=1}^n \E(X_i).
+\]
+
+### Variance
+
+Aside from the mean of a r.v., perhaps the most important moment is the second central moment, more commonly known as the variance.
+
+::: {.definition name="Variance"}
+Let $X$ be a r.v. with mean $\mu$. The variance of $X$ is defined
+\[
+\Var(X) = \E\big[(X-\mu)^2\big],
+\]
+assuming this expectation exists. The standard deviation is $\text{sd}(X) = \sqrt{\Var(X)}$.
+:::
+
+- The symbol $\sigma^2$ is often used to denote the variance, and $\sigma$ the standard deviation.
+- An alternative formula is $\sigma^2 = \E(X^2) - \{\E(X)\}^2$.
+- This variance is **not to be confused** with the sample variance of a set of observations $\{x_1,\dots,x_n\}$, i.e. $s^2 = \frac{1}{n}\sum_{i=1}^n (x_i-\bar x_n)^2$ (although, inspect the two formulae for similarities!).
+
+The variance measures the spread of a distribution. That is, how far apart or close together the "mass" of a distribution are.
+To illustrate this, have a look at the following $\N(0,\sigma^2)$ pdfs for different values of $\sigma^2$.
+
+```{r normaldist, echo = FALSE, fig.height = 3}
+plot.df <- tibble(x = seq(-15, 15, by = 0.1))
+plot.df$`1` <- dnorm(plot.df$x, sd = 1)
+plot.df$`5` <- dnorm(plot.df$x, sd = sqrt(5))
+plot.df$`10` <- dnorm(plot.df$x, sd = sqrt(20))
+plot.df <- reshape2::melt(plot.df, id = "x")
+ggplot(plot.df, aes(x, value, group = variable, col = variable)) +
+  geom_line() +
+  labs(col = expression(sigma^2), y = expression(f[X](x)))
+```
+
+### Covariance and correlation
+
+The covariance and correlation between $X$ and $Y$ measure how strong the linear relationship is between $X$ and $Y$.
+
+::: {.definition name="Covariance and correlation"}
+For two r.v. $X$ and $Y$ with finite means $\mu_X$ and $\mu_Y$ resp., and variances $\sigma^2_X$ and $\sigma^2_Y$ resp., the covariance between $X$ and $Y$ is 
+
+\[
+\Cov(X,Y) = \E\big[(X-\mu_X)(Y-\mu_Y) \big].
+\]
+
+Their correlation is the number defined by 
+
+\[
+\rho_{XY} :=  \frac{\Cov(X,Y)}{\sigma_X\sigma_Y}
+\]
+:::
+
+- An alternative formula is $\E(XY) -\E(X)\E(Y)$.
+- The covariance of $X$ with itself is $\sigma^2$, while the correlation of $X$ with itself is 1. Try and work this out yourself!
+
+The magnitude of the covariance by itself does not reflect how strong the relationship between $X$ and $Y$ is, so this is where the correlation comes in.
+
+- $\rho_{XY}$ takes values between -1 and 1.
+- $\rho_{XY}=0$ implies that there is no linear relationship at all between $X$ and $Y$.
+- On the other hand, $\rho_{XY}=1$  ($\rho_{XY}=-1$) implies a perfect  positive (negative) linear relationship.
+- In fact, $|\rho_{XY}=1|$ iff $\exists a\neq 0,b\in\bbR$ s.t. $\bbP(Y=aX+b)=1$. If $a>0$ then $\rho_{XY}=1$, and if $a<0$ then $\rho_{XY}=-1$.
+- If $X$ and $Y$ are independent, then $\Cov(X,Y) =\rho_{XY}=0$. Ttry and prove this!
+
+::: {.remark}
+If $\Cov(X,Y)=\rho_{XY}=0$, then $X$ and $Y$ are \textbf{not necessarily} independent.
+:::
+
+Let $X,Y\iid\N(0,1)$.
+We can draw some random values in `R`, and produce a scatterplot to see the relationship between them.
+
+```{r corr1, echo = -1, fig.height = 3, fig.width = 3, out.height = ".55\\textheight", fig.align = "center"}
+set.seed(789)
+X <- rnorm(n = 100, mean = 0, sd = 1)
+Y <- rnorm(n = 100, mean = 0, sd = 1)
+qplot(X, Y, geom = "point")
+```
+
+Now suppose $Y=2X + Z$, where $Z\sim\N(0,1)$.
+Now, $\Cov(X,Y)= 2$, and $\Var(Y)=2$.
+Theoretically, $\rho_{XY}=2/\sqrt{1\cdot 2}\approx 0.71$. 
+
+```{r corr2, fig.height = 3, fig.width = 3, out.height = ".55\\textheight", fig.align = "center"}
+Z <- rnorm(n = 100, mean = 0, sd = 1)
+Y <- 2 * X + Z
+qplot(X, Y, geom = "point")
+```
+
+### Properties of variances and covariances
+
+Let $X$ and $Y$ be random variables, and $a\neq0,b\in\bbR$ be constants.
+
+- $\Var(aX + b) = a^2\Var(X)$
+- $\Var(X \pm Y) = \Var(X) + \Var(Y) \pm 2\Cov(X,Y)$
+- If $X$ and $Y$ are independent, then $\Var(X \pm Y) = \Var(X) + \Var(Y)$
+
+
+As a corollary, let $X_1,\dots,X_n$ be r.v. Then,
+\[
+\Var \left(\sum_{i=1}^nX_i \right) = \sum_{i=1}^n \Var(X_i) + \sum_{i\neq j}\Cov(X_i,X_j)
+\]
+
+Let $X,Y,W,V$ be r.v., and $a,b,c,d\in\bbR$. Then
+
+- $\Cov(X,Y) = \Cov(Y,X)$
+- $\Cov(X,b) = 0$
+- $\Cov(aX,Y) = a\Cov(X,Y)$
+- $\Cov(aX+b,cY+d)=ac\Cov(X,Y)$
+- $\Cov(X+Y,W+V)=\Cov(X,Y) + \Cov(X, V) + \Cov(Y,W) + \Cov(Y,V)$
+
+::: {.example}
+Let $X\sim\N(0,1)$, and $Y=2X+1$. Then $$\Var(Y)=\Var(2X+1)=4\Var(X) = 4$$. Further, $$\Cov(X,Y)=\Cov(X,2X+1)=2\Cov(X,X)=2\Var(X)=2$$.
+:::
+
+### Variance-covariance matrix
+
+Consider a random vector $(X_1,\dots,X_n)^\top$ whose mean is $(\mu_1,\dots,\mu_n)^\top$.
+The variance-covariance matrix, usually denoted $\bSigma\in\bbR^{n\times n}$, is defined to be
+
+\[
+\bSigma = \begin{pmatrix}
+\Var(X_1)   &\Cov(X_1,X_2) &\cdots &\Cov(X_1,X_n) \\
+\Cov(X_2,X_1)   &\Var(X_2) &\cdots &\Cov(X_2,X_n) \\
+\vdots &\vdots &\ddots&\vdots \\
+\Cov(X_n,X_1)   &\Cov(X_n,X_2) &\cdots &\Var(X_n) \\
+\end{pmatrix}
+\]
+
+The correlation matrix is similar in structure to the above, except the off-diagonals are filled with $\rho_{X_iX_j}$ and the diagonals are all 1. Can you figure out why this is?
+
+### Conditional expectations
+
+Conditional pmfs/pdfs are also useful for calculating *conditional expectations*, i.e. the average value of a random variable $X$ given some information about another r.v. $Y$ which might affect it.
+
+::: {.definition name="Conditional expectation"}
+The conditional expectation of a function of a r.v. $X$, $g(X)$ say, given a value of a nother r.v. $Y=y$, is
+\[
+\E\left[g(X)|Y=y\right] =
+\begin{cases}
+\sum_x g(x)\overbrace{\bbP(X=x|Y=y)}^{f_{X|Y}(x|y)} &\text{if $X$ is discrete}\\
+\int g(x)f_{X|Y}(x|y)\dint x &\text{if $X$ is continuous}\\
+\end{cases}
+\]
+:::
+
+- All of the properties of the usual expectations are applicable.
+- However, whereas $\E(X)$ is a number (non-random), $\E(X|Y=y)$ is a function of $y$. If we have not observed $Y$, then $\E(X|Y)$ is a random variable.
+
+::: {.example}
+
+Suppose we draw $Y\sim\Unif(0,1)$. 
+After we observe $Y=y\in[0,1]$, we draw $X|(Y=y) \sim \Unif(y,1)$.
+Intuitively, we expect that $\E(X|Y=y)$ to be half-way between $y$ and 1, i.e. $(1+y)/2$.
+
+In fact, $f_{X|Y}(x|y) = (1-y)^{-1}$, so
+\begin{align*}
+\E(X|Y=y) &= \int_y^1 xf_{X|Y}(x|y) \dint x \\ &= \frac{1}{1-y} \int_y^1  x \dint x  
+=\frac{1-y^2}{2(1-y)} = \frac{(1-y)(1+y)}{2(1-y)} =\frac{1+y}{2}.
+\end{align*}
+
+However, if $Y$ has not been observed yet, then $\E(X|Y)=(1+Y)/2$ is a r.v. whose value is $\E(X|Y=y)=(1+y)/2$ once observed.
+
+:::
+
+If $\E(X|Y)$ is a r.v., what is its mean?
+
+::: {.theorem name="Rule of iterated expectations/Law of total expectations"}
+If $X$ and $Y$ are two r.v., then
+\[
+{\E}_Y\left[\E(X|Y)\right] = \E(X),
+\]
+provided the expectation exists.
+More generally, $\E(g(X)) = \E\left[\E(g(X)|Y)\right]$ for any function $g$.
+:::
+
+The total average $\E(X)$ is the average $\E_Y(\cdot)$ of the case-by-case averages $\E(X|Y)$ over $Y$.
+
+::: {.proof}
+\begin{align*}
+{\E}_Y\left[\E(X|Y)\right] 
+&= \int \left( \int x f_{X|Y}(x|y)\dint x \right) f_Y(y)\dint y \\
+&= \int \int x \cdot \overbrace{f_{X|Y}(x|y) f_Y(y)}^{f_{X,Y}(x,y)}  \dint y \dint x  \\
+&= \int  x \cdot \overbrace{\int f_{X,Y}(x,y) \dint y}^{f_X(x)}   \dint x  \\
+&= \E(X)
+\end{align*}
+:::
+
+### Conditional variance
+
+::: {.definition name="Conditional variance"}
+The conditional variance of a r.v. $X$ given $Y=y$ is
+\[
+\Var(X|Y=y) = \E \left[ \left(X - \E(X|Y=y)\right)^2 \,\Big|\, Y=y\right].
+\]
+:::
+
+- An alternative formula: 
+\[
+\Var(X|Y=y) = \E \left(X^2 | Y=y\right) - \left\{ \E(X|Y=y) \right\}^2.
+\]
+
+The law of total variance states that
+\[
+\Var(X) = {\E}_Y\left[\Var(X|Y) \right] + {\Var}_Y\left[\E(X|Y) \right].
+\]
+
+Note that, in this context, both $\Var(X|Y)$ and $\E(X|Y)$ are random variables.
+The variance of $X$ is the sum of two parts:
+
+1. The average of the variance of $X$ over all possible values of the r.v. $Y$. This is called the average *within-sample variance*.
+2. The variance of the conditional expectation of $X$ given $Y$. This is called the *between-sample variance* (of the conditional averages).
+
+See also: https://math.stackexchange.com/a/3377007
+
+
+```{r, echo = FALSE, fig.align = "center", out.width = "80%"}
+knitr::include_graphics("figure/lawoftotalvariance.png")
+```
+
+
+## Moment generating functions
+
+### Moment generating functions
+
+As the name implies, the moment generating function (mgf) is used for finding *moments* of a r.v..
+Other uses:
+
+- Characterising a distribution
+- Finding distributions of *sums of r.v.*
+- As a tool in statistical proofs
+
+\begin{definition}[Moment generating function]
+Let $X\sim f_X(x)$. For $t\in\bbR$, the moment generating function (mgf) of $X$ is defined by
+\[
+M_X(t) = \E(e^{tX}) = \begin{cases}
+\sum_x e^{tx} f_X(x) &\text{if $X$ discrete} \\
+\int e^{tx} f_X(x) \dint x &\text{if $X$ continuous} \\
+\end{cases}
+\]
+provided this expectation exists in ``some neighbourhood of 0''.
+\end{definition}
+
+### Generating moments
+
+Consider the following:
+
+\begin{align*}
+\frac{\d}{\d t}M_X(t) \bigg|_{t=0}
+&= \frac{\d}{\d t}  \E(e^{tX}) \bigg|_{t=0} \\
+&=  \E\left[  \frac{\d}{\d t}e^{tX} \right]\bigg|_{t=0} \\
+&= \E[Xe^{tX}] \Big|_{t=0} \\ 
+&= \E(X).
+\end{align*}
+
+We can iterate the steps again to generate the $k$-th moment of $X$ by taking $k$ derivatives and setting $t=0$. Note that this relies on being able to *interchange the order of differentiation and integration*. See §2.4 C&B. For "nice distributions" generally there are no problems.
+
+::: {.theorem}
+If $X$ has mgf $M_X(t)$, then 
+\vspace{-1em}
+\[
+\E(X^k) = M_X^{(k)}(0) = \frac{\d^k}{\d t^k}M_X(t) \bigg|_{t=0}.
+\]
+That is, the $k$-th moment is equal to the $k$-th derivative of $M_X(t)$ evaluated at $t=0$.
+:::
+
+::: {.example}
+Let $X\sim\Exp(1/r)$ with $f_X(x)=r e^{-r x}$ for $x\in[0,\infty)$. Then for $t<r$,
+\[
+M_X(t) = \int_0^\infty e^{tx}\cdot r e^{- r x} \dint x = r \int_0^\infty e^{(t- r)x} \dint x = \frac{ r}{ r-  t}.
+\]
+$\E(X)=M_X'(t)\big|_{t=0}=\frac{r}{(r-t)^2}\Big|_{t=0}=1/r$.
+:::
+
+### Properties of mgf
+
+- If $Y=aX+b$, then $M_Y(t)=e^{bt}M_X(at)$.
+- If $X_1,\dots,X_n$ are independent and $Y=\sum_{i=1}^n X_i$, then $M_Y(t)=\prod_{i=1}^n M_{X_i}(t)$.
+- If $X$ and $Y$ are r.v. s.t. $M_X(t)=M_Y(t)$ for all $t$ in an open interval around 0, then $F_X(x)=F_Y(x)$ for all $x$.
+
+The mgf has the property that it uniquely defined a distribution.
+That is, if two distributions have identical mgfs then they have the same distribution.

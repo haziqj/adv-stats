@@ -1,5 +1,6 @@
 # (PART) Introduction {-}
 
+
 # What is statistics? {-}
 
 **Statistics** is a [scientific]{.ul} subject on
@@ -8,23 +9,21 @@ collecting and analysing data.
 -   **Collecting** means designing experiments, designing
     questionnaires, designing sampling schemes, administration of data
     collection.
-
 -   **Analysing** means modelling, estimation, testing, forecasting.
 
 Statistics is an [application-oriented]{.ul} mathematical subject; it is
 particularly useful or helpful in answering questions such as:
 
 -   Does a certain new drug prolong life for AIDS sufferers?
-
 -   Is global warming really happening?
-
 -   Are O-level and A-level examinations standard declining?
-
 -   Is the house market in Brunei oversaturated?
-
 -   Is the Chinese yuan undervalued? If so, by how much?
 
-![Data science](figure/00-ds2.png)
+```{r datascience, echo = FALSE, out.width = "60%", fig.cap = "Data science."}
+knitr::include_graphics("figure/00-ds2.png")
+```
+
 
 ##  Learning statistics {-}
 
@@ -46,12 +45,15 @@ In this course, there is an emphasis on the **theory** aspect of statistics.
 
 ### Two practical situations {-}
 
-![](figure/00-g80.jpg)
-
+```{r bmwm3, echo = FALSE, out.width = "60%", fig.cap = "Data science."}
+knitr::include_graphics("figure/00-g80.jpg")
+```
 
 1. BMW M Division has proudly unveiled the successor to their current "king of sedans", the new BMW M3 Competition (G80), sporting a 503 bhp twin-turbo 3.0 litre inline-six S58 engine with a claimed acceleration rate of 0-100 km/h in 3.9 seconds.
 
-![](figure/00-aiti.png)
+```{r aiti, echo = FALSE, out.width = "60%", fig.cap = "Data science."}
+knitr::include_graphics("figure/00-aiti.png")
+```
 
 2. The Authority for Info-communications Technology Industry of Brunei Darussalam (AITI) conducted the Household ICT Survey in 2018 and reported that 95% percent of individuals personally use the internet on a daily basis, a slight decrease from 97% in the year 2016. Estimates are accurate within 2% margin of error with 95% confidence.
 
@@ -71,7 +73,9 @@ a subset of the population).
 The *population* is an entire set of the objects concerned, and those objects are typically represented by some numbers. We [do not know]{.ul} the entire population in practice.
 A *sample* is a randomly selected subset of a population, and is a set of [known data]{.ul} in practice.
 
-![](figure/00-popsample.png)
+```{r popsample, echo = FALSE, out.width = "60%", fig.cap = "Data science."}
+knitr::include_graphics("figure/00-popsample.png")
+```
 
 ### Parametric models {-}
 
@@ -85,7 +89,7 @@ to follow a *probability distribution* with pdf/pmf $f(x|\theta)$.
     known**, but potentially knowable if data were available.
 
 
-The unknown characteristics of the distribution are represented by $\theta$ (such as the mean, variance, rate, etc.). 
+The unknown characteristics of the distribution are represented by $\theta$ (such as the mean, variance, rate, etc.).
 We call $\theta$ the parameter(s) of the model.
 Such an assumed distribution is called a **parametric model**.
 For the two earlier examples,
@@ -94,7 +98,10 @@ For the two earlier examples,
 
 2. Let $\{0,1\} \ni X =$ someone in Brunei uses the internet daily. Assume $X\sim\Bern(p)$. Here $\theta = p$, the 'true' proportion of daily internet users in Brunei.
 
-![](figure/00-theoreticaldataplane.png)
+
+```{r theoreticaldataplane, echo = FALSE, out.width = "80%"}
+knitr::include_graphics("figure/00-theoreticaldataplane.png")
+```
 
 ### A sample: a set of data or random variables?--A duality {-}
 
@@ -165,8 +172,6 @@ We've just implicitly described the three main activities concerning [statistica
 These three activities will be the main focus of this course, and we will formalise the notion of each one in turn.
 Hopefully you can now appreciate how statistics is an inherently applied subject, making use of mathematics (probability in particular) to answer problems across a variety of fields.
 
-### Probability vs statistics {-}
-
 ```{r, echo=FALSE, engine='tikz', out.width ="48%"}
 \definecolor{navyblue}{RGB}{0, 47, 92}
 \definecolor{charcoal}{RGB}{54,69,79}
@@ -233,14 +238,16 @@ Whereas in statistics, we are interested in questions like
 - Is $\theta$ larger than $\theta_0$?
 - How confident am I that $\theta \in (\theta_l,\theta_u)$?
 
-![](figure/00-probstats.jpeg)
 
-## Explore more {-}
-
-
-Really recommended:
-
-- [All About that Bayes: Probability, Statistics, and the Quest to Quantify Uncertainty](https://youtu.be/eDMGDhyDxuY). Talk by Dr. Kristin Lennox on YouTube.
+```{r probstats, echo = FALSE, fig.align = "center", out.width = "60%"}
+knitr::include_graphics("figure/00-probstats.jpeg")
+```
 
 
-- https://www.qualitydigest.com/inside/standards-column/secret-foundation-statistical-inference-120115.html
+
+
+
+
+
+
+

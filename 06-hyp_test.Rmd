@@ -1,0 +1,804 @@
+# Hypothesis testing
+
+Hello
+
+### Learning objectives {-}
+
+::: {.learningobjectives}
+By the end of this chapter, you will be able to:
+
+- do this
+- do that
+- and this
+:::
+
+### Readings {-}
+
+- Casella and Berger (2002)
+    - Chapter 8, sections 8.1, 8.2 (8.2.1 only), and 8.3 (8.3.1, 8.3.2 and 8.3.4 only).
+    - Chapter 10, section 10.3.
+- Wasserman (2004)
+    - All of Chapter 10 
+- Topics not covered here: Bayesian tests, union-intersection and intersection-union tests, score test
+
+## Introduction
+
+The task: to assess what the data say about the plausibility of a specific hypothesis about $\theta$, e.g. a [simple hypothesis]{.ul} of the form 
+$$
+H_0: \theta = \theta_0
+$$
+where $\theta_0$ is a specified candidate value for $\theta$, typically corresponding to an underlying subject-matter theory. 
+Some examples:
+
+- In tossing a coin, $\theta = 1/2$ means that the coin is 'fair'
+- Is the true average height of males in Brunei truly $\mu=1.65$?
+- In linear regression, test the significance of the slope parameter $\beta_1=0$
+
+A hypothesis under test is often called the *null hypothesis*, because it often relates to the absence (or nullity) of some conceivable **effect**. In the coin hypothesis example, $\theta=1/2$ corresponds to absence of bias towards heads or tails.
+
+The null hypothesis is often more complex than this, specifying a *set* of $\theta$ values, say $\theta\in\Theta_0$, rather than a single value. This is known as a [composite hypothesis]{.ul}.
+
+From Chapter 4, we already have a notion of *relative* plausibility for two candidate parameter values $\theta_1$ and $\theta_2$, namely the likelihood ratio
+\[
+\frac{L(\theta_1|\bx)}{L(\theta_2|\bx)}.
+\]
+Plainly, the use of the LR boils down to either "accepting" the $\theta_1$ value, or rejecting it in favour of $\theta_2$.
+For instance, if this ratio is found to be much larger than 1, then $\theta_1$ is much more plausible than $\theta_2$ on the basis of the data $\bx$. 
+
+We will see how likelihood ratios are the key to an *optimal* assessment of the plausibility of a hypothesis.
+
+### A general paradigm
+
+A general paradigm:
+
+- Identify, somehow, a *test statistic* $W(\bX)$, which is such that larger values of $W$ represent stronger evidence against $H_0$;
+
+- Measure the *strength* of the evidence against $H_0$ in any realised value $W(\bx)$ by calculating the $p$-value (see next slide).
+
+::: {.mycheck}
+If the $p$-value is very small, then evidence as strong as $W(\bx)$ (or stronger) is found only rarely under $H_0$, and so $W(\bx)$ represents strong evidence against $H_0$.
+:::
+
+### $p$-values
+
+::: {.definition #pval name="\\(p\\)-value"}
+Let $W(\bX)$ be a test statistic such that large values of $W$ give evidence that $H_1$ is true. For each sample point $\bx$, define the $p$-value to be
+$$
+p_\theta(\bx) = \sup_{\theta\in\Theta_0} \Pr\!{}_\theta\left(W(\bX) \geq W(\bx) \right).
+$$
+:::
+
+In statistical hypothesis testing, the $p$-value (or probability value) is the probability of obtaining test results at least as extreme as the results actually observed during the test, assuming that the null hypothesis is correct. Some general remarks:
+
+- The $p$-value is a statistic.
+- The $p$-value is indeed a [**p**]{.ul}robability value which lies between 0 and 1.
+- The $p$-value reports the result of a test on a more continuous scale, rather than just the dichotomous decision "Reject/Do not reject $H_0$".
+
+::: {.example #binom}
+Let $X_1,\dots,X_{20} \in \{T,H\}$ be the outcomes of an experiment of tossing a coin 20 times, i.e.
+$$\Pr(X = H) = \pi = 1 - \Pr(X=T), \ \ \ \pi \in (0,1).$$ 
+Let $W= [X_1=H] + \cdots + [X_{20}=H]$. 
+Then $W\sim\Bin(20,\pi)$, and an estimate of $\pi$ is $\hat\pi=\bar X$. 
+We would like to assess whether or not the hypothesis that "the coin is fair" is true. 
+That is,
+
+$$H_0: \ \pi = 0.5 \hspace{2em}\text{v.s.}\hspace{2em} H_1: \ \pi \neq 0.5$$
+
+
+Let $W$ be the test statistic, and suppose we observe $W=17$. 
+Intuitively, large values of $W$ indicate evidence against the coin being fair, and would favour the `Heads' outcome more than `Tails'.
+
+Under the assumption $H_0:\pi=0.5$ is true, then
+\begin{align*}
+p(\bX) = \Pr_{\pi=0.5} (W \geq 17) = \sum_{w=17}^{20} \frac{20!}{w!(20-w)!} 0.5^w(1-0.5)^{20-w} = 0.0013
+\end{align*}
+
+This is the (one-sided) $p$-value favouring the 'Heads' outcome. 
+
+On the other hand, small values of $W$ \emph{also} indicate evidence against the coin being fair; evidence in favour of a 'Tails' outcome being more likely than a 'Heads'. 
+Let $Y$ be the number of Tails observed, so $Y=20-W$, which has a $\Bin(20,1-\pi)$ distribution.
+
+The $p$-value for the observed $Y=20-17=3$ observation would be
+\begin{align*}
+p(\bX) = \Pr_{\pi=0.5} (Y \leq 3) = \sum_{y=0}^{3} \frac{20!}{y!(20-y)!} 0.5^y(1-0.5)^{20-y} = 0.0013
+\end{align*}
+
+This is the (one-sided) $p$-value favouring the 'Tails' outcome, which is the same as above due to symmetry.
+Combining the two $p$-values together gives the two-sided $p$-value, $p(\bX)=0.0026$.
+This gives a measure of how unlikely $H_0:\pi=0.5$ holds given the observed 17 out of 20 `Heads' outcome.
+
+:::
+
+::: {.mycheck}
+As a remark, the answer cannot possibly be resulted from the estimator $\hat\pi$, for
+
+- if $\hat\pi=0.9$, then $H_0$ is unlikely to be true.
+- if $\hat\pi=0.45$, then $H_0$ is may be true (but also may be untrue).
+- if $\hat\pi=0.7$, then what?
+
+Furthermore, $\hat\pi=\bar X$ is a random variable, so will vary from sample to sample!
+:::
+
+
+### Accept $H_0$?
+
+It is not possible to "prove" a negative. When the $p$-value is large, it means that there is a lack of evidence to prove something exists--it does not prove something does not exist!
+
+::: {.myalert}
+**Not reject $\neq$ Accept**
+
+A statistical test is \underline{incapable} to accept a hypothesis. A large $p$-value is indeed  indicative of the null hypothesis being likely, but the philosophically correct attitude would be to conclude that \textbf{there is insufficient evidence to reject the null} (as opposed to accepting the null).
+:::
+
+With this in mind, note that for the most part we will be viewing the statistical testing problem as a problem in which one of two actions is going to be taken: the assertion of $H_0$ or $H_1$.
+
+At the end of the day, we can never know for certain what the truth is; we can only act on probability and likelihood based on the observed data. 
+
+### Uniformity of $p$-values
+
+Here's an interesting fact:
+
+::: {.theorem name="Uniformity of \\(p\\)-values"}
+If $\theta_0$ is a point null hypothesis for the parameter of continuous $\bX$, then a correctly calculated $p$-value $p_W(\bX)$ based on any test statistic $W$, is such that 
+$$
+p_w(\bX) \sim \Unif(0,1)
+$$
+in repeated sampling under $H_0$.
+:::
+
+This result is useful especially for *checking the validity* of a complicated $p$-value calculation:
+
+1. Simulate (on a computer) several new data sets from the null distribution.
+2. For each simulated data set, apply the $p$-value calculation and save the result.
+3. Assess the collection of resulting $p$-values--do they seem to be uniformly distributed?
+
+
+::: {.proof}
+This is a consequence of the *probability integral transform*: Suppose that a continuous r.v. $T$ has cdf $F_T(t), \forall t$. Then the r.v. $Y=F_T(T)\sim\Unif(0,1)$ because:
+$$
+F_Y(y)=\Pr(Y\leq y) = \Pr(F_T(T)\leq y) = \Pr\big(T \leq F^{-1}_T(y)\big) = F_T\left(F^{-1}_T(y) \right) = y,
+$$
+which is the cdf of a $\Unif(0,1)$ distribution.
+
+For any data $\bx$,
+$$
+p_W(\bx) =  \Pr\!{}_{\theta_0}\left(W(\bX) \geq W(\bx) \right) = 1 - F\big( W(\bx) \big),
+$$
+where $F$ is the cdf (under $H_0$) of $W(\bX)$. Hence, $p_W(\bx)=1-Y$ where $Y\sim\Unif(0,1)$ by the probability integral transform. But clearly if $Y\sim\Unif(0,1)$, then so is $1-Y$.
+
+:::
+
+::: {.mycheck}
+**Probability Integral Transform**
+::: 
+
+## Likelihood ratio test
+
+The likelihood ratio test (LRT) is a general approach to finding a test statistic. 
+
+::: {.definition name="Likelihood ratio test"}
+For a model with parameter space $\Theta$, the likelihood ratio test statistic for testing a specified null hypothesis
+$$
+H_0: \theta \in \Theta_0
+$$
+where $\Theta_0\subset \Theta$, is
+$$
+W_{LR}(\bX) = \frac{\sup_{\theta\in\Theta} L(\theta|\bX)}{\sup_{\theta\in\Theta_0} L(\theta|\bX)}.
+$$
+:::
+
+
+The statistic $W_{LR}(\bX)$ measures the *implausibility* of the most plausibile $\theta$ value in $\Theta_0$, relative to the most plausible value in the whole of $\Theta$.
+Thus, **larger values** of $W_{LR}(\bX)$ represent **stronger evidence** \underline{against} $H_0$, i.e. large values $\Rightarrow$ reject $H_0$.
+
+Note that 
+$$
+\hat \theta = \sup_{\theta\in\Theta} L(\theta|\bX)
+$$
+is the (unconstrainted) ML estimator for $\theta$. 
+Further, define
+$$
+\tilde \theta = \sup_{\theta\in\Theta_0} L(\theta|\bX)
+$$
+as the constrained ML estimator under $H_0$. Then the LRT statistic can be written
+$$
+W_{LR}(\bX) = \frac{f(\hat\theta|\bX)}{f(\tilde\theta|\bX)},
+$$
+where $\bX = (X_1,\dots,X_n)^\top \sim f(\bx|\theta)$. 
+
+::: {.mycheck}
+Remark: It is easy to see that $W_{LR}(\bX) \geq 1$. 
+:::
+
+### Log likelihood ratio test statistic
+
+As with the likelihood, it is often more convenient to consider the logarithm of the likelihood ratio test statistic:
+\begin{align*}
+\log W_{LR}(\bX) 
+= \log \frac{L(\hat\theta|\bX)}{L(\tilde\theta|\bX)} 
+&= l(\hat\theta|\bX) - l(\tilde \theta|\bX)\\ 
+&= \log  f(\hat\theta|\bX) - \log f(\tilde\theta|\bX)
+\end{align*}
+
+::: {.myalert}
+The sampling distribution is of interest, but usually unknown, except in a few special cases. Two strategies:
+
+- Identify a different statistic with an ``easy'' distribution in the (log) LR statistic, which is an increasing function of the actual (log) LR statistic, and use this to instead.
+- Use asymptotic results to find an approximate distribution. We'll cover this in later sections.
+:::
+
+### Example: Normal with known variance
+
+::: {.example #normalknownvariance}
+Suppose that $n$ patients use a new drug for hypertention, and we wish to assess the drug's effectiveness. 
+Measurements of blood pressure are taken before and after treatment, resulting in the measured different $X_i$ for patient $i$.
+
+Let's assume that
+
+- The BP measurements are all iid: $X_1,\dots,X_n\iid\N(\mu,\sigma^2)$ with known variance.
+- The effect of the drug is the same improvement $\mu$ for all patients.
+
+
+We wish to test the null hypothesis $H_0:\mu=0$.
+
+The log-likelihood is 
+$$
+l(\mu|\bX) = \const - \frac{1}{2\sigma^2}\sum_{i=1}^n (X_i-\mu)^2
+$$
+and so, recalling that $\hat\mu=\bar X$, the log of the LR statistic is
+\begin{align*}
+\log W_{LR} 
+&= l(\hat\mu|\bX) - l(\tilde \mu|\bX) \\
+&= - \frac{1}{2\sigma^2}\sum_{i=1}^n (X_i-\bar X)^2 +  \frac{1}{2\sigma^2}\sum_{i=1}^n X_i^2 \\
+&= \frac{n\bar X^2}{2\sigma^2}.
+\end{align*}
+
+Now notice that this statistic is an increasing function of $|\bar X|$.
+
+We use the distribution of the sample mean statistic, $\bar X \sim \N(\mu,\sigma^2/n)$.
+So for a given data vector $\bX=\bx$, the $p$-value is
+\begin{align*}
+\Pr_{\mu=0} \left( | \bar X | \geq | \bar x | \right) 
+&= 2\Pr_{\mu=0} \left( \bar X  \geq | \bar x | \right) \\ 
+&=2\Pr \left( \frac{\bar X-0}{\sigma/\sqrt n}  \geq  \frac{|\bar x|-0}{\sigma/\sqrt n}  \right) \\
+&= 2\big(1-\Phi(\sqrt n |\bar x|/\sigma)\big)
+\end{align*}
+
+Let's put in some numbers:
+
+- $n=10$ patients
+- $\sigma=4.3$ mmHg
+- $\bar x = -12.8$ mmHg
+
+--an apparent reduction in average blood pressure after treatment. Now compute the $p$-value:
+\begin{align*}
+p(\bar x) 
+&= 2\left(1-\Phi\left( \frac{\sqrt n |\bar x|}{\sigma} \right)\right) 
+= 2\left(1-\Phi\left( \frac{\sqrt{10} \times 12.8}{4.3} \right)\right) 
+\approx 10^{-11}
+\end{align*}
+A very small value indeed, indicating very strong evidence against the null hypothesis (i.e. clear evidence the drug has an effect).
+:::
+
+However, note the assumptions above. Are they realistic?
+
+### Example: Normal with unknown variance ($t$-test)
+
+::: {.example}
+Suppose that $\bX=(X_1,\dots,X_n)^\top$ is a random sample from $\N(\mu,\sigma^2)$. We are interested in testing hypotheses
+$$H_0: \ \mu = \mu_0 \hspace{1em}\text{v.s.}\hspace{1em} H_1: \ \mu \neq \mu_0,$$
+where $\mu_0$ is given, and $\sigma^2$ is unknown and is a nuisance parameter. 
+Recall the log-likelihood function as being
+
+
+$$l(\mu,\sigma^2|\bX) = \const -\frac{n}{2}\log\sigma^2 -\frac{1}{2\sigma^2}\sum_{i=1}^n (X_i-\mu)^2,$$
+and maximising this without restriction yields
+$$\hat\mu = \bar X \hspace{1em}\text{and}\hspace{1em} \hat\sigma^2 = \frac{1}{n}\sum_{i=1}^n(X_i-\bar X)^2$$
+
+On the other hand, under $H_0$, $\mu$ is fixed at $\mu_0$, while the constrained MLE for $\sigma^2$ is
+$$\tilde\sigma^2 = \frac{1}{n}\sum_{i=1}^n(X_i-\mu_0)^2.$$ The LR statistic (after simplification) is then 
+$$W_{LR} = \frac{L(\hat\mu,\hat\sigma^2)}{L(\mu_0,\tilde\sigma^2)} = \left( \frac{\tilde\sigma^2}{\hat\sigma^2}\right)^{n/2}.$$
+
+Since $\tilde\sigma^2 = \hat\sigma^2 + (\bar X - \mu_0)^2$, it holds
+that $\tilde\sigma^2/\hat\sigma^2 = 1 + T^2/(n-1)$, where
+$$T = \frac{\bar X - \mu_0}{\sqrt{\frac{1}{n-1}\sum_{i=1}^n (X_i-\bar X)^2 \Big/ n}} = \frac{\bar X - \mu_0}{S/\sqrt n} \sim t_{n-1}.$$
+We thus see that $W_{LR}$ is an increasing function of $|T|$, and hence the $p$-value in this case is obtained from a table of the $t_{n-1}$ distribution rather than the standard normal.
+:::
+
+This, the so-called $t$-test, is probably the most commonly used of all procedures in statistical practice! Now you know how it is derived...
+
+For the $t$-test, under $H_0$, $X_i\iid\N(\mu_0,\sigma^2)$. So we simulate a data set $\{X_1,\dots,X_{n}\}$ using these parameters: $n=15, \sigma=2, \mu_0=2$.
+
+```{r binomp1}
+X <- rnorm(n = 15, mean = 2, sd = 2)
+round(X, 3)
+```
+
+The $p$-value for the $t$-test is $\Pr\big(|Y|> |\sqrt n(\bar x - \mu_0)/s|\big)$, where $Y\sim t_{n-1}$ (the two-tail probability of "extreme events"). For instance,
+
+```{r binomp2}
+test.stat.obs <- abs(sqrt(15) * (mean(X) - 2) / sd(X))
+pval <- 2 * pt(test.stat.obs, df = 15 - 1, lower.tail = FALSE)
+pval
+```
+
+
+Simulate this `B=10000` times in a `for` loop:
+
+```{r binomp3}
+B <- 10000
+res <- rep(NA, B)  # create a vector to collect the p-values
+for (i in 1:B) {
+  X <- rnorm(n = 15, mean = 2, sd = 2)
+  test.stat.obs <- abs(sqrt(15) * (mean(X) - 2) / sd(X))
+  pval <- 2 * pt(test.stat.obs, df = 15 - 1, lower.tail = FALSE)
+  res[i] <- pval
+}
+
+head(res)
+```
+
+
+Plot a histogram of the simulated $p$-values. We should observe uniformity:
+
+
+```{r binomp4, echo = FALSE, fig.height = 3.5}
+ggplot(data.frame(x = res), aes(x = x, y = stat(density))) +
+  geom_histogram(binwidth = 0.1, boundary = 0, col = "gray30", fill = NA) +
+  geom_hline(yintercept = 1, linetype = "dashed", col = "gray") +
+  scale_y_continuous(breaks = seq(0, 1, by = 0.25)) +
+  labs(x = "p")
+```
+
+## The Neyman-Pearson approach
+
+The 'Neyman-Pearson' approach to testing hypotheses is to reject $H_0$ if $W(\bX)\in R$, where $R$ is a suitably defined *critical region*. If $W$ is designed to measure the evidence against $H_0$, then most often $R$ takes the form
+$$
+R = \{\bx \mid W(\bx) \geq c \}
+$$
+for some constant $c$.
+
+::: {.example #normalrejregion}
+From Example \@ref(exm:normalknownvariance), we saw that $W = \exp(n\bar X^2/2\sigma^2)$ for testing $H_0:\mu=0$ from a normal sample with known variance. The rejection region is therefore
+\begin{align*}
+R 
+&= \{\bx \mid \exp(n\bar X^2/2\sigma^2) \geq c \} \\
+&=  \left\{\bx \,\Big|\, |\bar X| \geq \sqrt {2\sigma^2\log c /n} \right\} 
+\end{align*}
+So the LR test rejects $H_0:\mu=0$ if the sample mean exceeds a specified amount.
+:::
+
+### Performance of a test
+
+In deciding to "accept" or reject the null hypothesis $H_0$, an experimenter might be making a mistake.
+The performance of a test is measured by two criteria: the size and power of a test.
+
+::: {.definition name="Size of a test"}
+For $0\leq\alpha\leq 1$, the size $\alpha$ of a test is defined as
+$$
+\alpha := \sup_{\theta\in\Theta_0} \Pr\!{}_\theta\left( W(\bX) \in R \right)
+$$
+:::
+
+The size of a test measures the probability of rejecting the null hypothesis under the assumption that the null hypothesis is true.
+
+::: {.definition name="Power of a test"}
+For $0\leq B(\theta)\leq 1$, the power $B(\theta)$ of a test is defined as
+$$
+B(\theta) :=  \Pr\!{}_\theta\left( W(\bX) \in R \right), \hspace{2em} \theta\not\in\Theta_0
+$$
+:::
+
+The power function of a test is defined as the probability of rejecting the null hypothesis *correctly* (i.e. $\theta\not\in\Theta_0$) in favour of the alternative.
+
+::: {.myalert}
+A *good* test $(W,R)$ has \underline{small} size $\alpha$ and \underline{large} power $B(\theta)$ at all values of $\theta$ outside of the null hypothesis.
+:::
+
+::: {.example}
+Continuation of normal example with known variance: $X_1,\dots,X_n\iid\N(\mu,\sigma^2)$ with $\sigma^2$ known and null hypothesis $H_0:\mu=0$.
+
+The rejection region from Example \@ref(exm:normalrejregion) is alternatively written as
+$$
+R 
+= \{\bx \mid \exp(n\bar X^2/2\sigma^2) \geq c \} 
+=  \bigg\{\bx \,\Big|\, \left| \frac{\bar X}{\sigma/\sqrt n} \right| \geq \sqrt {2\log c } \bigg\}.
+$$
+So for instance, $R=\{\bx \mid |\sqrt n \bar X/\sigma| \geq 1.96 \}$ is a critical region of size 0.05. 
+
+
+For our illustrative data, with $\sigma=4.3$ and $\bar x = -12.8$,
+$$
+\left| \frac{\bar X}{\sigma/\sqrt n} \right|  = \left| \frac{-12.8}{4.3/\sqrt 10} \right| = 9.413 > 1.96. 
+$$
+
+
+For a test of size $\alpha=0.05$, the power of the test is 
+\begin{align*}
+B(\mu) 
+&= \Pr\bigg\{\left| \frac{\bar X {\color{gray}-\mu +\mu}}{\sigma/\sqrt n} \right| \geq 1.96 \bigg\}  \\
+&= 
+\Pr\bigg\{\frac{\bar X -\mu}{\sigma/\sqrt n}  \leq -1.96 -\frac{\mu}{\sigma/\sqrt n} \bigg\}
++
+\Pr\bigg\{\frac{\bar X -\mu}{\sigma/\sqrt n}  \geq 1.96 -\frac{\mu}{\sigma/\sqrt n} \bigg\} \\
+&=\Phi\left(-1.96 -\sqrt n \mu / \sigma \right) + \left[1 - \Phi\left(1.96 -\sqrt n \mu / \sigma \right)\right]
+\end{align*}
+This represents the two tail probabilities based on the rejection region.
+
+
+
+```{r powerfun2, echo = FALSE, fig.height = 3, fig.width = 6, fig.align = "center", message = FALSE, warning = FALSE}
+x <- seq(-4, 4, length = 1000)
+mu0 <- 0
+mu1 <- 1
+plot.df1 <- data.frame(x = x, y = dnorm(x, mean = mu0))
+plot.df2 <- data.frame(x = x, y = dnorm(x, mean = mu1))
+plot.df <- rbind(
+  cbind(plot.df1, mean = "mu0"),
+  cbind(plot.df2, mean = "mu1")
+)
+ggplot(plot.df, aes(x, y, group = mean)) +
+  geom_line() +
+  geom_segment(aes(x = mu0, xend = mu0, y = 0, yend = dnorm(mu0, mean = mu0)),
+               linetype = "dashed", col = iprior::gg_col_hue(2)[1],
+               alpha = 0.5) +
+  geom_segment(aes(x = mu1, xend = mu1, y = 0, yend = dnorm(mu1, mean = mu1)),
+               linetype = "dashed", col = iprior::gg_col_hue(2)[2],
+               alpha = 0.3) +
+  geom_ribbon(data = subset(plot.df, x < -1.96),  alpha = 0.5,
+              mapping = aes(x, y, ymin = 0, ymax = y, fill = mean)) +
+  geom_ribbon(data = subset(plot.df, x > 1.96),  alpha = 0.5,
+              mapping = aes(x, y, ymin = 0, ymax = y, fill = mean)) +
+  annotate("text", x = mu0 - 0.3, y = 0.1, label = expression(mu[0]), 
+           col = iprior::gg_col_hue(2)[1]) +
+  annotate("text", x = mu1 + 0.3, y = 0.1, label = expression(mu[1]), 
+           col = iprior::gg_col_hue(2)[2]) +
+  theme(legend.position = "none")
+```
+
+:::
+
+
+For our illustrated example ($\sigma=4.3, n=10$), the power function is plotted below.
+This plots the power of the test assuming some value of $\mu$ is true. 
+If $\mu=-12.8$ (as observed in the data) then the power is almost 1!
+
+
+```{r powerfun1, echo = FALSE, fig.height = 3}
+mu <- seq(-12, 12, length = 100)
+sigma <- 4.3
+n <- 10
+powerfun <- function(x) {
+  lower.tail <- pnorm(-1.96 - sqrt(n) * x / sigma)
+  upper.tail <- 1 - pnorm(1.96 - sqrt(n) * x / sigma)
+  lower.tail + upper.tail
+}
+plot.df <- data.frame(x = mu, y = powerfun(mu))
+ggplot(plot.df, aes(x, y)) +
+  geom_line() +
+  scale_x_continuous(breaks = seq(-12, 12, by = 2)) +
+  scale_y_continuous(breaks = seq(0, 1, length = 5), 
+                     limits = c(0, 1)) +
+  labs(y = expression(B(mu)), x = expression(mu))
+```
+
+### Relation to $p$-values
+
+The conclusion of the test (with the illustrated data) is that "$H_0$ is rejected at the 5\% level (of significance)". This is interpeted to mean
+\vspace{.5em}
+
+> If $H_0$ were true, we would reject $H_0$ using this test only 5\% of the time in repeated sampling. So this is fairly strong evidence against $H_0$.
+
+But that is not a very informative summary of the evidence! In fact, with these data, we would *also* reject $H_0$ at the 1\% level, and at the 0.1\% level, etc.
+
+It would be much more informative to ask: "What is the *smallest* size of test based on $W$ that would reject $H_0$ based on the data $\bx$?" The answer is precisely the $p$-value, $p_W(\bx)$.
+
+So the two approaches are closely linked, with the $p$-value giving the most informative assessment of the strength of evidence against $H_0$.
+
+## Type I and II errors
+
+The quantities $\alpha$ and $\beta(\theta):= 1-B(\theta)$ are called the probability of a 'Type I error' and a 'Type II error' respectively. 
+
+::: {.definition name="Type I and II error"}
+The Type I error (false positive) is defined to be
+$$
+\alpha = \Pr(\text{Reject } H_0 \mid H_0 \text{ is true}).
+$$
+
+The Type II error (false negative) is defined to be
+$$
+\beta(\theta) =  \Pr(\text{Fail to reject } H_0 \mid H_0 \text{ is false}) = 1 - B(\theta).
+$$
+
+:::
+
+```{r type12error, echo = FALSE, fig.align = "center", out.width = "80%", fig.cap = "Summary of Type I and II errors."}
+knitr::include_graphics("figure/type12error.jpg")
+```
+
+|                  | $H_0$ is true        | $H_1$ is false       |
+|------------------|:-----------------:|:-----------------:|
+| **Do not reject $H_0$** | [Correct inference]{.mgbackground} <br/> (true negative) <br/> prob. = $1-\alpha$ |  [Type II error]{.solidpink}   <br/> (false positive) <br/> prob. = $\alpha$     |
+| **Reject $H_0$**        | [Type I error]{.solidpink}  <br/> (false positive) <br/> prob. = $\alpha$   | [Correct inference]{.mgbackground} <br/> (true negative) <br/> prob. = $1-\beta(\theta)$ |
+
+### Minimising errors
+
+The aim is to make both Type I and II errors as small as possible, simultaneously.
+However, for a large value of $c$ in the rejection region will give small $\alpha$ and large $\beta$, and vice versa for a small value of $c$.
+
+```{r minerror, echo = FALSE, fig.height = 3, out.width = "100%"}
+x <- seq(-4, 4, length = 1000)
+mu0 <- 0
+mu1 <- 1
+plot.df1 <- data.frame(x = x, y = dnorm(x, mean = mu0))
+plot.df2 <- data.frame(x = x, y = dnorm(x, mean = mu1))
+plot.df <- rbind(
+  cbind(plot.df1, mean = "mu[0]", alpha = 1, typo = 1),
+  cbind(plot.df2, mean = "mu[1]", alpha = 1, typo = 2),
+  cbind(plot.df1, mean = "mu[0]", alpha = 2, typo = 1),
+  cbind(plot.df2, mean = "mu[1]", alpha = 2, typo = 2)
+)
+plot.df$alpha <- factor(plot.df$alpha, labels = c(expression(c * " large"),
+                                                  expression(c * " small")))
+plot.df$typo <- factor(plot.df$typo)
+
+ggplot(plot.df, aes(x, y)) +
+  geom_line() +
+  geom_segment(data = subset(plot.df, mean == "mu[0]"),
+               aes(x = mu0, xend = mu0, y = 0, yend = dnorm(mu0, mean = mu0)),
+               linetype = "dashed", col = "gray") +
+  geom_segment(data = subset(plot.df, mean == "mu[1]"),
+               aes(x = mu1, xend = mu1, y = 0, yend = dnorm(mu1, mean = mu1)),
+               linetype = "dashed", col = "gray") +  
+  geom_ribbon(data = subset(plot.df, x < 1.96 & as.numeric(alpha) == 1 & 
+                              mean == "mu[1]"), alpha = 0.4,
+              mapping = aes(x, y, ymin = 0, ymax = y, fill = typo)) +    
+  geom_ribbon(data = subset(plot.df, x > 1.96 & as.numeric(alpha) == 1 & 
+                              mean == "mu[0]"), alpha = 0.5,
+              mapping = aes(x, y, ymin = 0, ymax = y, fill = typo)) +  
+  scale_fill_manual(values = iprior::gg_col_hue(2),
+                    labels = c(expression(alpha), expression(beta))) +
+  geom_ribbon(data = subset(plot.df, x < 0 & as.numeric(alpha) == 2 & 
+                              mean == "mu[1]"), alpha = 0.4,
+              mapping = aes(x, y, ymin = 0, ymax = y, fill = typo)) +    
+  geom_ribbon(data = subset(plot.df, x > 0 & as.numeric(alpha) == 2 & 
+                              mean == "mu[0]"), alpha = 0.5,
+              mapping = aes(x, y, ymin = 0, ymax = y, fill = typo)) +  
+  facet_grid(mean ~ alpha, labeller = label_parsed) +
+  scale_x_continuous(breaks = c(mu0, mu1), 
+                     labels = c(expression(mu[0]), expression(mu[1]))) +
+  labs(fill = NULL, y = NULL, x = NULL) +
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+```
+
+This conflict is usually resolved by *fixing* $\alpha$, say at 0.05 or 0.01, and then using a test $(W,R)$ that makes $\beta(\theta)$ as small as possible for all $\theta\not\in\Theta_0$. Some remarks:
+
+1. Suppose that $H_0$ is true, rejection of the null hypothesis occurs if $p$-value is small. But the probability of this error (Type I) is not greater than the size of the test $\alpha$. Hence, it is under control.
+
+2. Unfortunately, we do not have explicit control on the probability $\beta$ of making a Type II error. But we can certainly gauge the conditions resulting in large $\beta$ and try to avoid them.
+
+3. It is more conclusive to end a test with $H_0$ rejected, as the decision "Not reject" does not imply that $H_0$ is accepted.
+
+### Optimality of the LR test
+
+If we can't control the Type II error of a test, are we out of luck?
+The Neyman-Pearson approach provides some neat theory!
+
+::: {.lemma name="Neyman-Pearson"}
+Consider testing the simple hypothesis $H_0:\theta=\theta_0$, suppose that 
+
+- $\theta_1$ is any other candidate value of $\theta$;
+- $W_{LR}(\bX) = \frac{L(\theta_1|\bX)}{L(\theta_0|\bX)}$;
+- $R_{LR} = \{\bx \mid W_{LR}(\bX) \geq c \}$ s.t. $\Pr_{\theta_0}(W_{LR} \in R_{LR})=\alpha$.
+
+
+Then **no** other size $\alpha$ test pair $(W,R)$ has $\Pr_{\theta_1}(W \in R)$ [greater than]{.ul}  $\Pr_{\theta_1}(W_{LR} \in R_{LR})$.
+:::
+
+The proof is omitted (see for e.g. C\&B Thm 8.3.12 or on Wikipedia). 
+The implication is that since this result applies for every possible value of $\theta_1$, the LR test $(W_{LR}, C_{LR})$ is said to be the *uniformly most powerful* (UMP) test of size $\alpha$. This makes the use of $W_{LR}$ very compelling for hypothesis testing, whether via the $p$-value approach or the critical-region approach.
+
+## One-sided tests
+
+Sometimes we wish to measure the evidence (against $H_0$) in one direction only.
+
+::: {.example}
+Suppose $X_1,\dots,X_n\iid\N(\mu,\sigma^2)$ with $\sigma^2$ known. Consider testing 
+$$
+H_0: \mu \leq 0 \hspace{1em}\text{v.s.}\hspace{1em} H_1: \mu > 0
+$$
+The unrestricted MLE is $\hat\mu=\bar X$, while the restricted MLE is $\tilde\mu=0$ if $\bar X>0$. So for $\bar X > 0$, we have (as before)
+$$
+W_{LR}(\bX) = \frac{L(\hat\mu|\bX)}{L(0|\bX)} = \exp\left(n\bar X^2/2\sigma^2\right).
+$$
+But if $\bar X\leq 0$, $W_{LR}(\bX)=1$, because $\hat\mu=0$ in such a case. 
+
+
+The $p$-value from data $\bx$ is (using the monotonicity of $\bar X$ in the LRT statistic)
+$$
+p(\bx) = \begin{cases}
+\Pr(\bar X > \bar x) = 1-\Phi(\sqrt n \bar x / \sigma) &\bar x > 0 \\
+1 &\bar x \leq 0
+\end{cases}
+$$
+Hence, relative to the 'two-sided' test that we saw previously, the $p$-value is \emph{halved} if $\bar x > 0$, and ignores the precise value of $\bar x$ if $\bar x \leq 0$.
+:::
+
+::: {.mycheck}
+It's a good idea to sketch the likelihood function above.
+:::
+
+
+Further remarks:
+
+1. Performing a one-sided test instead of a two-sided test thus makes any apparent evidence against $H_0$ seem stronger (since the $p$-value is halved).
+
+2. In practice there are rather few situations where performing a one-sided test, which assumes that we know in advance that departures from $H_0$ are in one direction only, can be justified. When assessing the effect of a new drug, for example, the convention is to assess evidence for an effect in either direction, positive or negative.
+
+3. The two-sided test is said to be more *conservative* than the one-sided test: The one-sided test risks over-stating the strength of evidence against $H_0$ if the underlying assumption--that evidence against $H_0$ counts in one direction only--is actually false.
+
+## Approximate tests
+
+### Asymptotic distribution of LRTs
+
+We cannot always derive easily the distribution of $W_{LR}$ under $H_0$. But a general *large-sample approximation* to the null distribution of $W_{LR}$ comes from the following result
+
+::: {.theorem}
+For testing $H_0:\theta=\theta_0$ against $H_1:\theta \neq\theta_0$, suppose $X_1,\dots,X_n\iid f(x|\theta)$, and $f(x|\theta)$ satisfies the usual regularity conditions. Let $\hat\theta_n$ be the MLE for $\theta$. Then under $H_0$, as $n\to\infty$,
+$$
+-2\log \left[ \frac{L(\theta_0|\bX)}{L(\hat\theta_n|\bX)} \right]= 2\log W_{LR}(\bX)  \xrightarrow{\text{D}} \chi^2_1.
+$$
+:::
+
+- For the two-sided testing situation, we can always get an approximate $p$-value for the observed data as $p(\bx) = \Pr\big(Y\geq 2\log W_{LR}(\bx)\big)$, where $Y\sim\chi^2_1$.
+
+- Remarkably, this result applies *whatever* the distribution of the $X_i$s are. It is partly a result of the asymptotic normality of $\hat\theta$ (see proof).
+
+
+
+::: {.proof}
+
+Taylor expanding $l(\theta|bX)$ around $\hat\theta$ gives
+$$
+l(\theta|\bX) = l(\hat\theta|\bX) + \cancel{(\theta-\hat\theta)l'(\hat\theta|\bX)} + \frac{(\theta-\hat\theta)^2}{2!}l''(\hat\theta|\bX) + \cdots
+$$
+Consider then quantity $2\log W_{LR}$ under the assumption that $H_0:\theta=\theta_0$ is true:
+\begin{align*}
+2\log W_{LR} 
+&= 2l(\hat\theta|\bX) - 2l(\theta_0|\bX) \\
+&\approx \cancel{2l(\hat\theta|\bX)} - \cancel{2l(\hat\theta|\bX)} - (\theta_0-\hat\theta)^2 l''(\hat\theta|\bX)
+\end{align*}
+Recall that $-l''(\hat\theta|\bX)$ is the so-called \emph{observed Fisher information} (Part 4 slides, p.71), and that $-\frac{1}{n}l''(\hat\theta|\bX) \xrightarrow{\text P} \cI_1(\theta_0)$ (Ex. sheet 4, Q14b).
+
+Since MLEs are, under certain regularity conditions, asymptotically efficient, we have that as $n\to\infty$ under $H_0$,
+$$
+\sqrt n(\hat\theta - \theta_0) \xrightarrow{\text D} \N\big(0,\cI_1(\theta_0)^{-1}\big).
+$$
+It follows that $\sqrt{\cI_1(\theta_0)}\cdot \sqrt n(\hat\theta - \theta_0) \xrightarrow{\text D} \N(0,1)$ and that
+$$
+\cI_1(\theta_0) \cdot n(\hat\theta - \theta_0)^2 \xrightarrow{\text D} \chi^2_1,
+$$
+and hence
+$$
+2\log W_{LR} = -\frac{l''(\hat\theta|\bX)}{n}\cdot  n(\hat\theta - \theta_0)^2  \xrightarrow{\text D} \chi^2_1
+$$
+by application of Slutzky's theorem.
+
+:::
+
+### Wilk's theorem
+
+The above theorem can be extended to cases where the null hypothesis concerns vectors of parameters, i.e. $\Theta\subseteq \bbR^p$. We state it here without proof.
+
+\begin{theorem}[Wilk's theorem]
+Let $X_1,\dots,X_n\iid f(x|\theta)$ with $f(x|\theta)$ satisfying the usual regularity conditions. Consider testing the composite hypothesis for $\theta\in\bbR^p$
+$$H_0: \theta \in \Theta_0 \hspace{1em}\text{v.s.}\hspace{1em} H_1: \theta \in \Theta\setminus\Theta_0.$$
+Then
+$$
+-2\log \left[ \frac{\sup_{\theta\in\Theta_0}L(\theta|\bX)}{\sup_{\theta\in\Theta}  L(\theta|\bX)} \right]= 2\log W_{LR}(\bX)  \xrightarrow{\text{D}} \chi^2_k,\vspace{.5em}
+$$
+as $n\to\infty$, where $k=\dim(\Theta)-\dim(\Theta_0)$. The degrees of freedom $k$ of this limiting distribution is the difference between the number of free parameters specified by $\theta\in\Theta_0$ and the number of free parameters specified by $\theta\in\Theta$.
+\end{theorem}
+
+::: {.example}
+Let $X_1,\dots,X_n$ be independent, and $X_i\sim\N(\mu_i,1)$. Consider
+the null hypothesis 
+$$H_0: \mu_1 = \cdots = \mu_n.$$ 
+The likelihood function (up to a constant of proportionality) is
+$$L(\mu_1,\dots,\mu_n) \propto \exp\left\{-\half \sum_{i=1}^n (X_i-\mu_i)^2 \right\},$$
+Then, the unconstrained MLE are $\hat\mu_i=X_i$, while the constrained MLE is
+$\tilde\mu=\bar X$. 
+Hence,
+$$W_{LR} = \frac{L(\hat\mu_1,\dots,\hat\mu_n)}{L(\tilde\mu,\dots,\tilde\mu)} = \exp\left\{\half \sum_{i=1}^n (X_i-\bar X)^2 \right\}.$$
+
+The asymptotic distribution of $2\log W_{LR}$ is
+$$2\log W_{LR} = \sum_{i=1}^n (X_i-\bar X)^2  \xrightarrow{\text{D}} \chi^2_{n-1}$$
+as $n\to\infty$ by Wilk's theorem. 
+Thus, the null hypothesis is rejected for large values of $2\log W_{LR}$ as compared to the $\chi^2_{n-1}$ distribution. 
+The (approximate) $p$-value is
+$$
+p(\bx) = \Pr\left(Y > \sum_{i=1}^n (x_i-\bar x)^2 \right), \hspace{2em} Y\sim\chi^2_{n-1}
+$$
+It turns out that $2\log W_{LR}$ has an \textbf{exact} $\chi^2_{n-1}$ distribution since
+$(n-1)^{-1}2\log W_{LR}=S^2$ (the unbiased sample variance), and we saw previously that
+$(n-1)S^2/\sigma^2 \sim\chi^2_{n-1}$.
+:::
+
+### The Wald test
+
+Another common method of constructing a large-sample test statistic is based on an estimator that has an asymptotic normal distribution (e.g. the MLE).
+
+::: {.definition name="Wald test"}
+Let $X_1,\dots,X_n \iid f(x|\theta)$ and suppose we would like to test $H_0:\theta=\theta_0$.
+Let $\hat\theta_n$ be an estimator for $\theta$ which is asymptotically normal, i.e. as $n\to\infty$,
+$$
+\sqrt n (\hat\theta_n - \theta) \xrightarrow{\text D} \N\left(0,\cI_1(\theta)^{-1}\right),
+$$
+where $\cI_1(\theta)$ is the (unit) Fisher information about $\theta$. 
+Write $\text{se}(\hat\theta_n)$ as the estimate of the s.d. of $\hat\theta_n$, $n/\sqrt{\cI_1(\theta)^{-1}}$. 
+A Wald test is a test based on a statistic of the form
+$$
+Z_n := \frac{\hat\theta_n - \theta_0}{\text{se}(\hat\theta_n)} \approx \N(0,1) 
+$$
+where $\theta_0$ is the hypothesised value of $\theta$ (under $H_0$).
+:::
+
+Some remarks regarding the Wald test:
+
+- The asymptotic efficiency property actually affords us
+  $$
+  Z_n := \frac{\hat\theta_n - \theta_0}{\text{sd}(\hat\theta_n)} \approx \N(0,1) 
+  $$
+  but $\text{sd}(\hat\theta_n)$ may depend on some unknown parameters. If $\text{sd}(\hat\theta_n) / \text{se}(\hat\theta_n) \xrightarrow{\text P} 1$ then we may use the standard error instead.
+  
+- As discussed in Chapter 4, there are two versions of obtaining the standard error:
+    
+    - Using the plug-in estimator: $\text{se}(\hat\theta_n) = 1\Big/\sqrt{\cI(\hat\theta_n)}$
+    
+    - Using the observed Fisher information: $\text{se}(\hat\theta_n) = 1\Big/\sqrt{-l''(\hat\theta_n|\bX)}$
+
+- The Wald test is very practical since there are no assumptions made on the distribution of the data $X_i$. Of course, it is an approximate test and the "reliability" of the test depends on the sample size. In fact, the Wald test can be shown to have an asymptotic size $\alpha$ and power 1
+^[Check out §10.3.2 in C\&B].
+
+There are some disadvantages to the Wald test:
+
+- The Wald test is  **not** invariant to  a non-linear transformation/reparameterisation of the hypothesis. One might get different answers to the test of $H_0:\theta=1$ and $H_0:\log\theta=0$ (although they ask the same thing). The reason for this is there is no relationship (in general) between the two standard errors (e.g. $\text{se}(\hat\theta_n)$ and $\text{se}(\log \hat\theta_n)$) so they need to be approximated somewhat independently.
+
+- The Wald test actually uses two approximations: 1) the normality from the asymptotic efficiency property; and 2) the use of (approximate) standard errors. In contrast, the LRT only uses "one" approximation, and that is the large-sample $\chi^2$ distribution of $2\log W_{LR}$.
+
+::: {.example #coffee}
+To deal with a coffee shop's customer complaint that the amount of chilled coffee in their bottled drinks is less than the advertised 300ml, 20 bottles were decanted and the coffee measured, yielding data $X_i$ as follows:
+
+|     |     |     |     |     |     |     |     |     |     |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 282 | 301 | 311 | 271 | 293 | 268 | 302 | 301 | 293 | 256 |
+| 278 | 301 | 309 | 294 | 282 | 281 | 305 | 301 | 285 | 279 |
+
+
+The sample mean and the (unbiased) sample standard deviation are 
+$$
+\bar x = 289.7 \text{ ml} \hspace{3em} s = 14.8. 
+$$
+which are taken as estimates of the population mean and standard deviation $\mu$ and $\sigma$ respectively. 
+
+
+By the CLT, the sample mean estimator is asymptotically efficient: $\sqrt{n} \, (\bar X-\mu) \xrightarrow{\text D}\N\left(0, \sigma^2\right)$.
+From this, an (approximate) standard error of the estimator $\bar X$ is $\text{se}(\bar X)=s/\sqrt n$.
+To test 
+$$
+H_0: \ \mu = 300 \hspace{1em}\text{v.s.}\hspace{1em} H_1: \ \mu < 300,
+$$
+we apply the Wald test with an observed test statistic value of
+$$
+z = \frac{\bar X - 300}{14.8/\sqrt{20}} = -3.121.
+$$
+The critical region for a test of size $\alpha=0.01$ is $\left\{\bx \mid Z \leq  -2.326 \right\}$. Thus the test rejects $H_0:\mu=300$ at the 1\% significance level.
+
+Alternatively, the $p$-value can be calculated:
+$$
+p(\bx) = \Pr_{\mu=300}\left(\frac{\bar X - \mu}{\text{se}(\bar X)} \leq \frac{\bar x - \mu}{\text{se}(\bar X)}\right) = \Phi\left(-3.121 \right) = 0.0009
+$$
+
+Either way, the conclusion is that there is significant evidence which supports the claim that the bottled coffee is less than the advertised value of 300 ml.
+:::
+
