@@ -317,7 +317,7 @@
 
 \title{SM-4331 Advanced Statistics}
 \author{Dr Haziq Jamil}
-\date{2021-11-18}
+\date{2021-11-19}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -2523,11 +2523,11 @@ That is, if two distributions have identical mgfs then they have the same distri
   \def\labelenumii{(\alph{enumii})}
   \tightlist
   \item
-    Verify that \(F_Y(y)\) is a cdf. {[}1 mark{]}
+    Verify that \(F_Y(y)\) is a cdf. \textbf{{[}1 mark{]}}
   \item
-    Find \(f_Y(y)\), the pdf of \(Y\). {[}2 marks{]}
+    Find \(f_Y(y)\), the pdf of \(Y\). \textbf{{[}2 marks{]}}
   \item
-    If the low-water mark is reset at 0 and we use a unit of measurement that is 1/10 of that given previously, the height water mark becomes \(Z=10(Y-1)\). What is the expected value of \(Z\)? {[}2 marks{]}
+    If the low-water mark is reset at 0 and we use a unit of measurement that is 1/10 of that given previously, the height water mark becomes \(Z=10(Y-1)\). What is the expected value of \(Z\)? \textbf{{[}2 marks{]}}
   \end{enumerate}
 \item
   A pdf is defined by
@@ -2542,11 +2542,11 @@ That is, if two distributions have identical mgfs then they have the same distri
   \def\labelenumii{(\alph{enumii})}
   \tightlist
   \item
-    Find the value of \(c\). {[}1 mark{]}
+    Find the value of \(c\). \textbf{{[}1 mark{]}}
   \item
-    Find the marginal distribution of \(X\). {[}2 marks{]}
+    Find the marginal distribution of \(X\). \textbf{{[}2 marks{]}}
   \item
-    Find the joint cdf of \(X\) and \(Y\). {[}2 marks{]}
+    Find the joint cdf of \(X\) and \(Y\). \textbf{{[}2 marks{]}}
   \end{enumerate}
 \item
   Suppose we generate a random variable \(X\) in the following way. First we flip a fair coin. If the coin is heads, take \(X\) to have a \(\Unif(0,1)\) distribution. If the coin is tails, take \(X\) to have a \(\Unif(3,4)\) distribution.
@@ -2555,9 +2555,9 @@ That is, if two distributions have identical mgfs then they have the same distri
   \def\labelenumii{(\alph{enumii})}
   \tightlist
   \item
-    Find the mean of \(X\). {[}2 marks{]}
+    Find the mean of \(X\). \textbf{{[}12 marks{]}}
   \item
-    Find the standard deviation of \(X\). {[}3 marks{]}
+    Find the standard deviation of \(X\). \textbf{{[}3 marks{]}}
   \end{enumerate}
 \end{enumerate}
 
@@ -3393,6 +3393,133 @@ Discrete & Continous \\
 \(X\geq c\) & \(X>c-0.5\) \\
 \bottomrule
 \end{longtable}
+
+\hypertarget{exercises-1}{%
+\section{Exercises}\label{exercises-1}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  The flow of traffic at certain street corners can sometimes be modelled as a sequence of Bernoulli trials by assuming that the probability of a car passing during any given second is a constant \(p\) and that there is no interaction between the passing of cars at different seconds. If we treat seconds as indivisible time units (trials), the Bernoulli model applies. Suppose a pedestrian can cross the street only if no car is to pass during the next 3 seconds. Find the probability that the pedestrian has to wait for exactly 4 seconds before starting to cross.
+\item
+  A standard drug is known to be effective in 80\% of cases. A new drug is tested on 100 patients and found to be effective in 85 cases. Evaluate this apparent evidence that the new drug is superior. \emph{Hint: calculate, using a normal approximation, the probability of getting 85 or more successes if in fact the new and old drugs are equally effective.}
+\item
+  Suppose that the number of chocolate chips in a certain type of cookie follows a Poisson distribution, and that we want the proportion of cookies containing at least two chocolate chips to be greater than 0.99. Find the smallest value of the mean of the distribution that ensures this probability.
+\item
+  A truncated discrete distribution is one in which a particular outcome or set of outcomes cannot be observed and is eliminated from the sample space. In particular, if \(X\) has sample space \(\{0,1,2,\dots\}\) but \(0\) cannot be observed (e.g, \(X\) might be the size of a group making a booking for the theatre, or the number of vehicles involved in a road accident) the zero-truncated random variable \(X_T\) has pmf
+  \[
+    \Pr(X_T=x) = \frac{\Pr(X=x)}{\Pr(X>0)}
+  \]
+  for \(x=1,2,\dots\).
+  If \(X\sim\Pois(\lambda)\), find the pmf, mean and variance of \(X_T\).
+\item
+  Show that
+  \[
+    \int_x^\infty {\frac{1}{\Gamma(\alpha)}} z^{\alpha-1}e^{-z} \dint z = \sum_{y=0}^{\alpha-1} \frac{x^ye^{-x}}{y!}, \hspace{2em} \alpha=1,2,3,\dots
+  \]
+  \emph{Hint: Use integration by parts, and the fact that \(\Gamma(n)=(n-1)!\) for positive integers \(n\).} Express this formula as a probabilistic relationship between Poisson and gamma random variables.
+\item
+  The \emph{Pareto distribution}, with parameters \(\alpha\) and \(\beta\), has pdf
+  \[
+   f(x) = \frac{\beta\alpha^\beta}{x^{\beta+1}}, \hspace{2em} 0<\alpha < x < \infty, \ \ \ \beta >0.
+   \]
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Verify that \(f(x)\) is a pdf.
+  \item
+    Derive the mean and variance of this distribution.
+  \item
+    Prove that the variance does not exist if \(\beta \leq 2\).
+  \end{enumerate}
+\item
+  Show, using the mgf \(M_X(t)=\exp[\lambda(e^t-1)]\), that if \(X\sim\Pois(\lambda)\) then \(\E(X)=\Var(X)=\lambda\).
+\item
+  Let \(N\sim\Pois(\lambda)\) and suppose we toss a coin \(N\) times, where \(p\) is the probability that the coin lands heads up. Let \(X\) and \(Y\) be the number of heads and tails respectively. Show that \(X\) and \(Y\) are independent.
+\item
+  Let \(X\sim\Pois(\lambda)\) and \(Y\sim\Pois(\mu)\) and assume that \(X\) and \(Y\) are independent. Show that the distribution of \(X\) given that \(X+Y=n\) is \(\Bin(n,\pi)\), where \(\pi=\frac{\lambda}{\lambda + \mu}\).
+  \emph{Use the following hints:}
+
+  \begin{itemize}
+  \item
+    \emph{If \(X\sim\Pois(\lambda)\) and \(Y\sim\Pois(\mu)\), and \(X\) and \(Y\) are independent, then \(X+Y\sim\Pois(\lambda + \mu)\).}
+  \item
+    \emph{\(\{X=x,X+Y=n \}=\{X=x,Y=n-x \}\).}
+  \end{itemize}
+\item
+  Let \(X_1,\dots,X_n\iid \Exp(\beta)\). Let \(Y=\max\{X_1,\dots,X_n\}\). Find the pdf of \(Y\). \emph{Hint: \(Y\leq y\) iff \(X_i\leq y\) for \(i=1,\dots,n\).}
+\item
+  In each of the following cases verify the expression given for the mgf, and in each case, use the mgf to calculate \(\E(X)\) and \(\Var(X)\).
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    \(\Pr(X=x)=\frac{e^{-\lambda}\lambda^x}{x!}\), \(M_X(t)=e^{\lambda(e^t - 1)}\), \(x=0,1,2,\dots\), \(\lambda>0\).
+  \item
+    \(\Pr(X=x)=p(1-p)^x\), \(M_X(t)=\frac{p}{1-e^t(1-p)}\), \(x=0,1,2,\dots\), \(0<p<1\).
+  \item
+    \(f_X(x)=\frac{e^{-(x-\mu)^2/2\sigma^2}}{\sigma\sqrt{2\pi}}\), \(M_X(t)=e^{\mu t+ \sigma^2t^2/2}\), \(x\in\bbR\), \(\mu\in\bbR\), \(\sigma\in\bbR_{> 0}\).
+  \end{enumerate}
+\item
+  Suppose the random variable \(T\) is the length of life of an object (possibly the lifetime of an electrical component or of a subject given a particular treatment). The \emph{hazard function} \(h_T(t)\) associated with the random variable \(T\) is defined by
+  \[
+  h_T(t) = \lim_{\delta \to 0} \frac{\Pr(t \leq T < t+\delta | T \geq t)}{\delta}.
+  \]
+  It is meant to denote the ``event rate at time \(t\), conditional on survival until time \(t\) or later''.
+  Thus, we can interpret \(h_T(t)\) as the rate of chance of the probability that the object survives a little past time \(t\), given that the object survives to time \(t\). Show that if \(T\) is a continuous random variable, then
+  \[
+  h_T(t) = \frac{f_T(t)}{1-F_T(t)}=-\frac{\ddif }{\ddif t} \log(1-F_T(t)).
+  \]
+  \emph{Hints:}
+
+  \begin{itemize}
+  \item
+    \emph{Use the definition of conditional probability.}
+  \item
+    \emph{The derivative of a function \(g\) at \(x\) is defined as}
+    \[
+    g'(x) = \lim_{\delta \to 0} \frac{g(x+\delta) - g(x)}{\delta }.
+    \]
+  \item
+    \emph{The derivative of the cdf is the pdf.}
+  \end{itemize}
+\item
+  Evidence concerning the guilt or innocence of a defendant in a criminal investigation can be summarized by the value of an exponential random variable \(X\) whose mean \(\mu\) depends on whether the defendant is guilty. If innocent, \(\mu=1\); if guilty, \(\mu=2\). The deciding judge will rule the defendant guilty if \(X > c\) for some suitably chosen value of \(c\).
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    If the judge wants to be 95 percent certain that an innocent man will not be convicted, what should be the value of \(c\)?
+  \item
+    Using the value of \(c\) found in part a., what is the probability that a guilty defendant will be convicted?
+  \end{enumerate}
+\item
+  An image is partitioned into two regions, one white and the other black. A reading taken from a randomly chosen point in the white section will give a reading that is normally distributed with \(\mu=4\) and \(\sigma^2=4\), whereas one taken from a randomly chosen point in the black region will have a normally distributed reading with parameters \((6, 9)\). A point is randomly chosen on the image and has a reading of 5. If the fraction of the image that is black is \(\alpha\), for what value of \(\alpha\) would the probability of making an error be the same, regardless of whether one concluded that the point was in the black region or in the white region?
+  \emph{Hint: For \(X\sim\N(\mu,\sigma^2)\), express \(\Pr(X=c)\) as \(\lim_{\epsilon\to 0} \Pr(c<X<X+\epsilon)\). Then use the definition of derivatives and the fact that \(F'(x)=f(x)\).}
+\end{enumerate}
+
+\hypertarget{hand-in-questions-1}{%
+\subsection*{Hand-in questions}\label{hand-in-questions-1}}
+\addcontentsline{toc}{subsection}{Hand-in questions}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Let \(M_X(t)\) be the mgf of \(X\), and define \(S(t) = \log M_X(t)\). Show that \(S'(0)= \E(X)\) and \(S''(0)= \Var(X)\). \emph{Remark: \(S(t)\) is called the cumulant-generating function of \(X\).} \textbf{{[}3 marks{]}}
+\item
+  A model for the movement of a stock supposes that if the present price of the stock is \(s\), then, after one period, it will be either \(us\) with probability \(p\) or \(ds\) with probability \(1-p\). Assuming that successive movements are independent, approximate the probability that the stock's price will be up at least 30 percent after the next 1000 periods if \(u = 1.012\), \(d = 0.990\), and \(p = 0.52\). \textbf{{[}5 marks{]}}
+\item
+  Abu goes fishing every Sunday. The number of fish he catches follows a Poisson distribution. On a proportion \(\pi\) of the days he goes fishing, he does not catch anything. He makes it a rule to take home the first and then every other fish that he catches (i.e.~the first, third, fifth, and so on).
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Using a Poisson distribution, find the mean number of fish he catches. \textbf{{[}3 marks{]}}
+  \item
+    Show that the probability that he takes home the last fish he catches is \((1-\pi^2)/2\). \emph{Hint: Use the fact that \(\sum_{k=0}^\infty\frac{e^{-\lambda}\lambda^{2k+1}}{(2k+1)!}=(1-e^{-2\lambda})/2\).} \textbf{{[}3 marks{]}}
+  \end{enumerate}
+\end{enumerate}
 
 \hypertarget{inequalities-convergences-and-normal-random-samples}{%
 \chapter{Inequalities, convergences, and normal random samples}\label{inequalities-convergences-and-normal-random-samples}}
@@ -4661,6 +4788,205 @@ freedom.
 \caption{Sir Ronald Aylmer Fisher. 17 February 1890 -- 29 July 1962.}\label{fig:fisher}
 \end{figure}
 
+\hypertarget{exercises-2}{%
+\section{Exercises}\label{exercises-2}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  In this exercise, you will prove the central limit theorem using moment generating functions. Let \(X_1,X_2,\dots\) be a sequence of iid random variables with mean \(\E(X_i)=\mu\) and variance \(\Var(X_i)=\sigma^2>0\), and whose mgfs exist in a neighbourhood of 0 (i.e., \(M_{X_i}(t)\) exists for \(|t|<h\) for some positive \(h\)).
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Define \(Y_i=(X_i-\mu)/\sigma\), and let \(M_Y(t)\) denote the common mgf of the \(Y_i\)s. Show that \(M_Y^{(0)} = 1\), \(M_Y^{(1)} = 0\), and \(M_Y^{(2)} = 1\).
+  \item
+    Using the properties of mgfs, show that the mgf of \(Z := \frac{\sqrt n(\bar X_n - \mu)}{\sigma}\) is given by
+    \begin{equation}\label{eq:clt}
+       M_Z(t) = \big(M_Y(t/\sqrt n) \big)^n.
+     \end{equation}
+  \item
+    Recall that the Taylor series expansion of a real function \(g(x)\) around \(a\in\bbR\) is given by the power series
+    \[
+       g(x) = \sum_{k=0}^\infty \frac{g^{(k)}}{k!}(x-a)^k = g(a) + \frac{g'(a)}{1!}(x-a) + \frac{g''(a)}{2!}(x-a)^2 + \cdots .
+     \]\\
+    By Taylor expanding \(M_Y(t/\sqrt n)\) about 0, show that
+    \[
+     M_Y(t/\sqrt n)  = 1 + \frac{(t/\sqrt n)^2}{2!} + R_n
+     \]
+    where \(R_n\) is a remainder term from the Taylor series.
+  \item
+    Hence, using the fact that \(nR_n\to 0\) as \(n\to\infty\), show that the limiting distribution of \(Z\) is \(\N(0,1)\).
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Suppose we have a sequence \(X_1,X_2,\dots\) of iid random variables with \(\E(X_i)=\mu\) and \(\Var(X_i)=\sigma^2<\infty\). Show that the statistic \(S_n^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i-\bar X_n)^2\), where \(\bar X_n\) is the sample mean, is an \textbf{unbiased} and \textbf{consistent} estimator for \(\sigma^2\) (i.e.~it converges in probability to \(\sigma^2\)). \emph{Hint: Show that \(S_n^2 = c_n n^{-1}\sum_{i=1}^n X_i^2 - d_n \bar X_n^2\) where \(c_n,d_n \to 1\) as \(n\to\infty\). Apply the LLN to \(n^{-1}\sum_{i=1}^n X_i^2\) and to \(\bar X_n^2\). Then use Slutzky's theorem.}
+  \item
+    Using Slutzky's theorem, show that
+    \[
+       \frac{\sqrt n(\bar X_n - \mu)}{S_n} \xrightarrow{\text{ D }} \N(0,1).
+     \]
+    \emph{Hint: First argue that \(\sigma/S_n \xrightarrow{\text{P}} 1\) using Slutzky's theorem. You may use the fact that \(g(x)=c/\sqrt{x}\) is continuous for \(x>0\), where \(c\in\bbR_{>0}\) is a constant. Then use the CLT.}
+  \end{enumerate}
+\item
+  Suppose that \(\bar X\) and \(S^2\) are calculate from an iid random sample \(X_1,\dots,X_n\) with \(\Var(X_i)=\sigma^2\). We know that \(\E(S^2)=\sigma^2\) from Q2(a). Prove that \(\E(S)\leq \sigma\). \emph{Hint: Use Jensen's inequality.}
+\item
+  Fill in the details of the proof of the delta method: Suppose that \(X_n\) is a sequence of r.v.s satisfying \(\sqrt n (X_n-\mu)/\sigma \xrightarrow{\text{D}}\N(0,1)\), and let \(g\) be a differentiable function s.t. \(g'(\mu)\neq 0\).
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Show that \(X_n \xrightarrow{\text{P}} \mu\) in probability.
+  \item
+    Show, using Slutzky's theorem, that
+    \[
+       \frac{\sqrt n(g(X_n) - g(\mu))  }{|g'(\mu)|\sigma} \xrightarrow{\text{ D }} \N(0,1).
+     \]
+    \emph{Hint: Use the Taylor approximation \(g(X_n)\approx g(\mu)+g'(\mu)(X_n-\mu)\).}
+  \end{enumerate}
+\item
+  Let \(\{X_1,\dots,X_n\}\) be a random sample from a \(\N(\mu,\sigma^2)\) population.
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Let \(M=\sum_{i=1}^n (X_i - \bar X)^2\), where \(\bar X\) is the sample mean. Work out the distribution of \(M/\sigma^2\).
+  \item
+    Let \(\alpha = 0.05\). Using the \(\chi^2\) probability tables, determine the values of \(\chi^2_{14}(\alpha/2)\) and \(\chi^2_{14}(1-\alpha/2)\), i.e.~the top and bottom \(\alpha/2\) point of the \(\chi^2_{14}\) distribution where \(\Pr\big(Y > \chi^2_{k}(a)\big) = a\) when \(Y\sim\chi^2_k\).
+  \end{enumerate}
+\item
+  Suppose that we plan to take a random sample of size \(n\) from a normal distribution with mean \(\mu\) and standard deviation \(\sigma=2\).
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Suppose \(\mu=4\) and \(n=20\).
+
+    \begin{enumerate}
+    \def\labelenumiii{\roman{enumiii}.}
+    \item
+      What is the probability that the mean \(\bar X\) of the sample is greater than 5?
+    \item
+      What is the probability that \(\bar X\) is smaller than 3?
+    \item
+      What is \(\Pr(|\bar X - \mu| \leq 1)\) in this case?
+    \end{enumerate}
+  \item
+    How large should \(n\) be in order that \(\Pr(|\bar X - \mu| \leq 0.5) \geq 0.95\) for every possibly value of \(\mu\)?
+  \item
+    It is claimed that the true value of \(\mu\) is 5 in a population. A random sample of size \(n=100\) is collected from this population, and the mean for this sample is \(\bar X=5.8\). Based on the result in (b), what would you conclude from this value of \(\bar X\)?
+  \end{enumerate}
+\item
+  In all of the following sub-questions, use only probability tables and distributional properties of the relevant random variables to calculate the required probabilities.
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    If \(Z\) is a random variable with a standard normal distribution, what is \(\Pr(Z^2 < 3.841)\)?
+  \item
+    Suppose that \(X_1\) and \(X_2\) are independent \(\N(0,4)\) random variables. Compute \(\Pr(X_1^2 < 36.84 - X_2^2)\).
+  \item
+    Suppose that \(X_1,X_2,X_3\iid\N(0,1)\), while \(Y\) independently follows a \(\chi^2_5\) distribution. Compute \(\Prob(X_1^2+X_2^2 < 7.236Y - X_3^2)\).
+  \end{enumerate}
+\item
+  Let \(X_i\), \(i=1,2,3\) be independent with \(\N(i,i^2)\) distributions.
+  For each of the following situations, use the \(X_i\)s to construct a statistic with the indicated distribution:
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    \(\chi^2\)-distribution with 3 degrees of freedom;
+  \item
+    \(t\)-distribution with 2 degrees of freedom; and
+  \item
+    \(F\)-distribution with 1 and 2 degrees of freedom.
+  \end{enumerate}
+\item
+  Let \(\{Y_{ij}\}\) be sample from \(\N(\mu_j,\sigma^2)\), \(i=1,\dots,n_j\) and \(j=1,\dots,m\). In total there are \(n=\sum_{j=1}^m n_j\) samples. Further, let \(S = \sum_{i=1}^{n_j}\sum_{j=1}^m (Y_{ij} - \bar Y)^2\), where \(\bar Y = \frac{1}{n}\sum_{i=1}\sum_{j=1}^m Y_{ij}\).
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Define the sample group means to be \(\bar Y_j = \frac{1}{n_j}\sum_{i=1}^{n_j} Y_{ij}\). Add and subtract the sample group mean \(\bar Y_j\) into the squared sum in \(S\) to show that
+    \[
+     \sum_{i=1}^{n_j}\sum_{j=1}^m (Y_{ij} - \bar Y)^2 = \sum_{i=1}^{n_j}\sum_{j=1}^m (Y_{ij} - \bar Y_j)^2 + \sum_{j=1}^m n_j (\bar Y_j-\bar Y)^2
+     \]
+  \item
+    What is the distribution of \(\bar Y\) and \(\bar Y_j\)?
+  \item
+    Assuming that \(\mu_j=\mu\), for all \(j=1,\dots,m\) and using your answer to (b), determine then the following distributions
+
+    \begin{enumerate}
+    \def\labelenumiii{\roman{enumiii}.}
+    \item
+      \(\frac{1}{\sigma^2}\sum_{i=1}^{n_j}\sum_{j=1}^m (Y_{ij} - \mu)^2\)
+    \item
+      \(\frac{n}{\sigma^2}(\bar Y - \mu)^2\)
+    \item
+      \(\frac{1}{\sigma^2}\sum_{i=1}^{n_j}\sum_{j=1}^m (Y_{ij} - \bar Y)^2\)
+    \item
+      \(\frac{1}{\sigma^2}\sum_{j=1}^m n_j (\bar Y_j-\mu)^2\)
+    \item
+      \(\frac{1}{\sigma^2}\sum_{i=1}^{n_j}\sum_{j=1}^m (Y_{ij} - \bar Y_j)^2\)
+    \end{enumerate}
+  \end{enumerate}
+
+  \emph{Hint: Use the sum of squares decomposition with \(\bar Y\) and \(\bar Y_j\), and then use the properties of \(\chi^2\)-distributions.}
+\item
+  This question relates to the normal approximations of several commonly used distributions.
+  Let \(X_1,\dots,X_n\iid f(x)\). Answer the following questions in cases where \(f(x)\) is the pmf/pdf of \(\Bern(p)\), \(\Pois(\lambda/n)\), and \(\Gamma(\alpha/n,\beta)\):
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    What is the distribution of \(Y=\sum_{i=1}^n X_i\)?
+  \item
+    Using the CLT, what is the (approximate) distribution of \(Y/n\)?
+  \item
+    What can you then say about the distribution of \(Y\) as \(n\to\infty\)?
+  \end{enumerate}
+\end{enumerate}
+
+\hypertarget{hand-in-questions-2}{%
+\subsection*{Hand-in questions}\label{hand-in-questions-2}}
+\addcontentsline{toc}{subsection}{Hand-in questions}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  State and prove Chebyshev's inequality for a random variable \(X\). \textbf{{[}3 marks{]}}
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Let \(X\sim\chi^2_k\). Prove that \(\E(X) = k\) and \(\Var(X)=2k\). \textbf{{[}2 marks{]}}
+  \item
+    If \(X_1\sim\chi^2_{k_1}\), \(X_2\sim\chi^2_{k_2}\), and \(X_1 \perp X_2\), show that \(X_1+X_2 \sim \chi^2_{k_1+k_2}\). \textbf{{[}2 marks{]}}
+  \end{enumerate}
+\item
+  Let \(\lambda_n=1/n\) for \(n=1,2,\dots\). Let \(X_n\sim\Pois(\lambda_n)\).
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Show that \(X_n\xrightarrow{\text P}0\) as \(n\to\infty\). \textbf{{[}2 marks{]}}
+  \item
+    Let \(Y_n=nX_n\). Show that \(Y_n\xrightarrow{\text P}0\) as \(n\to\infty\). \textbf{{[}2 marks{]}}
+  \end{enumerate}
+\item
+  Let \(\bar X_n\) and \(S_n^2\) be the usual mean and variance statistics for the sample \(X_1,\dots,X_n\). Suppose that a new observation \(X_{n+1}\) becomes available, show that
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    \(\bar X_{n+1}=(X_{n+1} + n\bar X_n) / (n+1)\). \textbf{{[}1 mark{]}}
+  \item
+    \(nS_{n+1}^2=(n-1)S_n^2 + n(X_{n+1}-\bar X_n)^2 / (n+1)\) \textbf{{[}3 marks{]}}
+  \end{enumerate}
+\end{enumerate}
+
 \hypertarget{part-inference}{%
 \part{Inference}\label{part-inference}}
 
@@ -5893,6 +6219,205 @@ The estimated standard error for \(\hat\lambda_n\) is
 
 In this example, the plug-in estimator for \(\cI(\theta)\) happens to be the same as the observed information \(-l''(\hat\theta)\). Sometimes this happens, sometimes they are different.
 
+\hypertarget{exercises-3}{%
+\section{Exercises}\label{exercises-3}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Let \(X\) be a sample of size 1 from a \(\N(0,\sigma^2)\) population. Is \(|X|\) a sufficient statistic for \(\sigma\)?
+\item
+  Let \(X_1,\dots,X_n\) be independent random variables with pdf
+  \[
+  f_{X_i}(x|\theta) = \begin{cases}
+   \exp(i\theta - x) &x\geq i\theta \\
+   0   &\text{otherwise}
+  \end{cases}
+  \]
+  for \(i=1,\dots,n\). Prove that \(T=\min(X_i/i)\) is a sufficient statistic for \(\theta\).
+\item
+  Let \(X_1,\dots,X_n\) be a random sample from a distribution whose pdf is \(f(x|\theta)=(2\pi)^{-1/2}\exp(-(x-\theta)^2/2)\) for \(x,\theta\in\bbR\). Find a minimal sufficient statistic for \(\theta\). \textit{Hint: Use Theorem 10 in the lecture slides}.
+\item
+  Show that
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    the statistic \((\sum_i X_i, \sum_i X_i^2)\) is sufficient, but not minimal sufficient, in the \(\N(\mu,\mu)\) family;
+  \item
+    the statistic \(\sum_i X_i^2\) is minimal sufficient in the \(\N(\mu,\mu)\) family; and
+  \item
+    the statistic \((\sum_i X_i, \sum_i X_i^2)\) is minimal sufficient in the \(\N(\mu,\mu^2)\) family.
+  \end{enumerate}
+\item
+  One observation is taken on a discrete random variable \(X\) with pmf \(f(x|\theta)\) where \(\theta\in\{1,2,3\}.\) Find the MLE of \(\theta\).
+\end{enumerate}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+\(x\) & \(f(x|\theta=1)\) & \(f(x|\theta=2)\) & \(f(x|\theta=3)\) \\
+\midrule
+\endhead
+0 & 1/3 & 1/4 & 0 \\
+1 & 1/3 & 1/4 & 0 \\
+2 & 0 & 1/4 & 1/4 \\
+3 & 1/6 & 1/4 & 1/2 \\
+4 & 1/6 & 0 & 1/4 \\
+\bottomrule
+\end{longtable}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\item
+  Let \(X_1,\dots,X_n\) be iid with one of two pdfs. If \(\theta=0\), then
+  \[
+  f(x|\theta) = \begin{cases}
+   1 & 0<x<1 \\
+   0 &\text{otherwise}
+  \end{cases}
+  \]
+  while if \(\theta=1\),
+  \[
+  f(x|\theta) = \begin{cases}
+   1/(2\sqrt x) & 0<x<1 \\
+   0 &\text{otherwise}.
+  \end{cases}
+  \]
+  Find the MLE of \(\theta\).
+\item
+  Let \(X_1,\dots,X_n\) be iid with pmf
+  \[
+  f(x|\theta) = \theta^x (1-\theta)^{1-x}
+  \]
+  for \(x\in\{0,1\}\) and \(0<\theta<1/2\).
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Find the MLE of \(\theta\), and the MOM estimator based on \(\bar X\).
+  \item
+    Find the mean squared error of each of the estimators.
+  \item
+    Which estimator is preferred? Justify your choice.
+  \end{enumerate}
+\item
+  If \(X_1,\dots,X_n\) are iid \(\N(\mu,\sigma^2)\), show that the MLEs are
+  \[
+  \hat\mu =\bar X \hspace{2em}\text{and}\hspace{2em} \hat\sigma^2 = \frac{n-1}{n}S^2,
+  \]
+  and obtain the bias, variance and mean squared error of each estimator.
+\item
+  Let \(Y_1,\dots,Y_n\) be a sample from a Poisson distribution with mean \(\theta>0\) unknown.
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Let \(Y=Y_1+\dots+Y_n\). Find the mean and variance of the distribution of \(Y\). \emph{Hint: Find out the mgf of \(Y\).}
+  \item
+    Obtain the MLE for \(\theta\) and its standard error.
+  \item
+    Suppose now that only the first \(m\) (\(m<n\)) observations of the sample are known explicitly, while for the other \(n-m\) only their sum, \(Z\) say, is known. Determine the MLE of \(\theta\).
+  \end{enumerate}
+\item
+  Let \(X_1,\dots,X_n\) be a sample from \(\Unif(0,\theta)\) where \(\theta>0\) is an unknown parameter. Find the MLE \(\hat\theta\) for \(\theta\). Derive the distribution for \(\hat\theta\) and therefore show that \(\hat\theta\) is a consistent estimator in the sense that \(\hat\theta \xrightarrow{\text P}\theta\) when \(n\to\infty\). \emph{Hint: \(\Pr(\max_i X_i \leq y)=\prod_{i} \Pr(X_i\leq y)\).}
+\item
+  Let \(X_1,\dots,X_n\) be a random sample from a Bernoulli distribution, i.e.~\(\Pr(X_i=1)=p=1-\Pr(X_i=0)\) for \(i=1,\dots,n\) where \(p\in(0,1)\) is unknown. Let \(\theta=p^2.\)
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Find the Cramér-Rao lower bound for the variance of unbiased estimators for \(\theta\).
+  \item
+    Find the MLE \(\hat\theta\) for the parameter \(\theta\).
+  \item
+    Show that \(\E(\hat\theta) \neq \theta\).
+  \end{enumerate}
+\item
+  Prove Lemma 28 in the lecture slides: Let \(\bX\sim f(\bx|\theta)\), where \(\theta\in\bbR\), and \(S(\theta)=\frac{\partial}{\partial \theta} \log f(\bX|\theta)\). Prove that under certain regularity conditions (which you may assume to hold),
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    \(\E [S(\theta)] = 0\)
+  \item
+    \(\cI(\theta) = \Var[S(\theta)]\)
+  \item
+    \(\cI(\theta) = -\E[S'(\theta)]\)
+  \end{enumerate}
+\item
+  Suppose that \(X_1,\dots,X_n\sim\Pois(\lambda)\). Let \(\theta=e^{-\lambda}=\Pr(X_i=0)\). Consider two estimators for \(\theta\):
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \item
+    \[
+     U(\bX) = \begin{cases}
+         1 &X_1=0 \\
+         0 & \text{otherwise}
+     \end{cases}
+     \]
+  \item
+    \[\phi(\bX)=\left(1-\frac{1}{n} \right)^{\sum_{i=1}^n X_i}\]
+  \end{enumerate}
+
+  Using the fact that \(S=\sum_{i=1}^n X_i\sim\Pois(n\lambda)\), show that \(\Var(\phi)<\Var(U)\).
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Show that
+    \[
+    \frac{1}{\sqrt n} l'(\theta|\bX) = \sqrt n\left(\frac{1}{n} \sum_{i=1}^n W_i \right)
+    \]\\
+    where \(W=\frac{\partial f(X_i|\theta)/\partial\theta }{f(X_i|\theta)}\) has mean 0 and variance \(\cI_1(\theta)\). Here \(\cI_1(\theta)\) is the unit Fisher information, i.e.~the Fisher information obtained from a single observation \(X_1\). Now use the central limit theorem to establish the convergence to \(\N(0,\cI_1(\theta))\).
+  \item
+    Show that
+    \[
+      -\frac{1}{n} l''(\theta|\bX) = \frac{1}{n} \sum_{i=1}^n W_i^2 - \frac{1}{n} \sum_{i=1}^n\frac{\partial^2 f(X_i|\theta)/\partial\theta^2 }{f(X_i|\theta)}
+      \]
+    and that the mean of the first piece is \(\cI_1(\theta)\) and the mean of second piece is 0. Apply the WLLN.
+  \end{enumerate}
+\item
+  Let \(X_1,\dots,X_n\iid\Unif(0,\theta)\). In the lectures, we found the MLE \(\hat\theta=\max\{X_1,\dots,X_n\}\) to be a biased estimator, with \(\text{Bias}(\hat\theta)=-\theta/(n+1)\neq 0\).
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Find a \textbf{bias-corrected} version of \(\hat\theta\) (call it \(\hat\phi\)), of the form \(\hat\phi=c\hat\theta\) for a suitably chosen constant \(c\).
+  \item
+    What is the variance of the estimator \(\hat\phi\)?
+  \item
+    In the lectures we found that
+    \[
+      \text{MSE}(\hat\theta)=\theta^2\left(\frac{n}{(n+1)^2(n+2)} + \frac{1}{(n+1)^2} \right).
+      \]
+    Find the mse of \(\hat\phi\) and compare it with the mse of \(\hat\theta\).
+  \end{enumerate}
+\end{enumerate}
+
+\hypertarget{hand-in-questions-3}{%
+\subsection*{Hand-in questions}\label{hand-in-questions-3}}
+\addcontentsline{toc}{subsection}{Hand-in questions}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  If \(X_1,\dots,X_n\) is a random sample from the \(\Gamma(\alpha,\beta)\) distribution, with \(\alpha\) known, find the MLE of \(\beta\). \textbf{{[}3 marks{]}}
+\item
+  Let \(X_1,\dots,X_n\) be a random sample from the pdf \(f(x|\theta)=\theta x^{-2}\) for \(0 < \theta \leq x < \infty\).
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    What is a sufficient statistic for \(\theta\)? \textbf{{[}3 marks{]}}
+  \item
+    Find the MLE of \(\theta\). \textbf{{[}4 marks{]}}
+  \end{enumerate}
+\item
+  Let \(X_1,\dots,X_n\) be a random sample from \(\N(\mu,\sigma^2)\). Find the Fisher information for \(\mu\) and \(\sigma^2\). \emph{Hint: It may be easier to consider \(\theta=\sigma^2\) in your calculations.} \textbf{{[}4 marks{]}}
+\end{enumerate}
+
 \hypertarget{hypothesis-testing}{%
 \chapter{Hypothesis testing}\label{hypothesis-testing}}
 
@@ -6720,6 +7245,215 @@ p(\bx) = \Pr_{\mu=300}\left(\frac{\bar X - \mu}{\text{se}(\bar X)} \leq \frac{\b
 
 Either way, the conclusion is that there is significant evidence which supports the claim that the bottled coffee is less than the advertised value of 300 ml.
 \end{example}
+
+\hypertarget{exercises-4}{%
+\section{Exercises}\label{exercises-4}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Suppose we observe \(n\) iid \(\Bern(\theta)\) random variables, denoted by \(Y_1,\dots,Y_n\). Show that the LRT of \(H_0:\theta \leq \theta_0\) versus \(H_1:\theta>\theta_0\) will reject \(H_0\) if \(\sum_{i=1}^n Y_i > c\).
+\item
+  A sample \(X\) of size 1 was obtained where \(X\) has one of the following distributions:
+
+  \begin{longtable}[]{@{}lll@{}}
+  \toprule
+  \(X\) & \(H_0\) & \(H_1\) \\
+  \midrule
+  \endhead
+  \(x_1\) & 0.2 & 0.1 \\
+  \(x_2\) & 0.3 & 0.4 \\
+  \(x_3\) & 0.3 & 0.1 \\
+  \(x_4\) & 0.2 & 0.4 \\
+  \bottomrule
+  \end{longtable}
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Compare the likelihood ratio \(W\) for each possible value \(X\), and order the \(x_i\) according to \(W\).
+  \item
+    What is the likelihood ratio test of \(H_0\) versus \(H_1\) at level \(\alpha=0.2\)? What is the test at level \(\alpha=0.5\)?
+  \end{enumerate}
+\item
+  A random sample, \(X_1,\dots,X_n\) is drawn from a Pareto population with pdf
+  \[
+  f(x|\theta,\nu) = \frac{\theta \nu^\theta}{x^{\theta + 1}} \ind_{[\nu,\infty)}(x), \theta,\nu >0.
+  \]
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Find the MLEs of \(\theta\) and \(\nu\).
+  \item
+    Show that the LRT of
+    \[
+       H_0:\theta=1, \nu \text{ unknown} \hspace{2em}\text{v.s.}\hspace{2em}H_1:\theta\neq1, \nu \text{ unknown}
+       \]
+    has critical region of the form \(\{\bx \mid T(\bx) \leq c_1 \text{ or } T(\bx)\geq c_2 \}\), where \(0<c_1<c_2\) and
+    \[
+       T = \log \left[ \frac{\prod_{i=1}^n X_i}{\left\{\min_i X_i \right\}^n}\right].
+       \]
+  \end{enumerate}
+\item
+  We will derive the distribution of the test statistic for comparing two normal means from two independent samples with unknown variances. Let
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(X_1,\dots,X_n \iid \N(\mu_x,\sigma^2)\); and
+  \item
+    \(Y_1,\dots,Y_m\iid \N(\mu_y,\sigma^2)\) independently of the \(X\)s.
+  \end{itemize}
+
+  Denote by \(\bar X\) and \(\bar Y\) the sample mean of the \(X\)s and \(Y\)s respectively. Further let \(S_x^2\) and \(S_y^2\) denote the unbiased sample variance for \(X\) and \(Y\) respectively, and let
+  \[S^2 = \frac{(n-1)S^2_x+(m-1)S^2_y}{n+m-2}\]
+  be the \textbf{pooled sample variance} of the data.
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Write down the distribution of
+
+    \begin{enumerate}
+    \def\labelenumiii{\roman{enumiii}.}
+    \tightlist
+    \item
+      \(\bar X - \bar Y\)
+    \item
+      \((n-1)S^2_x/\sigma^2 + (m-1)S^2_y/\sigma^2\)
+    \end{enumerate}
+  \item
+    Based on your answers to part (a), derive the distribution of the statistic
+    \[
+     T = \frac{(\bar X - \bar Y) - (\mu_x - \mu_y)}{S\sqrt{\frac{1}{n}+\frac{1}{m}}} 
+     \]
+  \item
+    Explain how you would use the above statistic to conduct a test of the hypothesis \(H_0:\mu_x=\mu_y\).
+  \end{enumerate}
+\item
+  Let \(X_1,\dots,X_n\) be an independent random sample from \(\N(\mu,\sigma^2)\), where both the mean and variance parameters are unknown. We shall derive a statistical test for \(\sigma^2\).
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Let \(X_1,\dots,X_n\) be an independent random sample from \(\N(\mu,\sigma^2)\), where both the mean and variance parameters are unknown. We shall derive a statistical test for \(\sigma^2\).
+  \item
+    For testing \(H_0:\sigma^2=\sigma_0^2\) against \(H_1:\sigma^2 \neq \sigma_0^2\), write down the likelihood ratio test statistic and show that the rejection region of this test simplifies to, for some constant \(k\),
+    \[
+     R = \left\{\bx \ \bigg| \left(\frac{\hat\sigma^2}{\sigma^2_0}\right)^{n/2} \exp\left( -\frac{n}{2}\cdot\frac{\hat\sigma^2}{\sigma^2_0} \right) \leq k \right\}.
+     \]
+  \item
+    By considering the function \(f(x)=x^ae^{-ax}\), argue that the corresponding rejection regions are
+    \[
+     \frac{\hat\sigma^2}{\sigma^2_0} \leq k_1 \hspace{2em}\text{or}\hspace{2em} \frac{\hat\sigma^2}{\sigma^2_0} \geq k_2
+     \]
+    for some constants \(k_1\) and \(k_2\).
+  \item
+    Find \(k_1\) and \(k_2\) that makes the size of test 0.05.
+  \end{enumerate}
+
+  Remark: this test is \textbf{exact} for normal samples and we do not require the use of asymptotics.
+\item
+  Let \(X_1,\dots,X_n\iid \N(\theta,1)\). Consider testing
+  \[
+  H_0: \theta = 0 \hspace{2em}\text{v.s.}\hspace{2em} H_1:\theta =1
+  \]
+  Let the rejection region be \(R=\{\bx \mid T(\bx) > c \}\) where \(T(\bx) = n^{-1}\sum_{i=1}^n X_i\).
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \tightlist
+  \item
+    Find \(c\) so that the test has size \(\alpha\).
+  \item
+    Find the power under \(H_1\), i.e.~find \(B(1)\).
+  \item
+    Show that \(B(1)\to 1\) as \(n\to \infty\).
+  \end{enumerate}
+\item
+  Let \(\hat\theta_n\) be the MLE of a parameter \(\theta\) and let \(\text{se}(\hat\theta_n)\) be the standard error for the parameter \(\theta\). Consider testing
+  \[
+  H_0: \theta = \theta_0 \hspace{2em}\text{v.s.}\hspace{2em} H_1:\theta \neq\theta_0.
+  \]
+  Using the Wald test with rejection region \(R= \left\{ \bx \mid |Z_n| > z(\alpha/2) \right\}\), where
+  \[
+  Z_n = \frac{\hat\theta_n - \theta_0}{\text{se}(\hat\theta_n)},
+  \]
+  and \(z(a)\) is the top \(a\)-th point, \(0\leq a\leq 1\), of the standard normal distribution, show that the power of the test \(B(\theta)\to 1\) as \(n\to\infty\) for any value of \(\theta>\theta_0\).
+\item
+  A survey of the use a particular product was conducted in four areas, and a random sample of 200 potential users was interviewed in each area. In area \(i\), for \(i = 1, 2, 3, 4\), \(X_i\) of the 200 said that they used the product. Construct a likelihood ratio test to test whether the proportion of the population using the product is the same in each of the four areas. Carry out the test at 5\% level for the case \(X_1 = 76\), \(X_2 = 53\), \(X_3 = 59\) and \(X_4 = 48\).
+\item
+  In a given city it is assumed that the number of automobile accidents in a given year follows a Poisson distribution. In past years, the average number of accidents per year was 15, and this year it was 10. Is it justified to claim that the accident rate has dropped? \emph{Hint: Cast this into a statistical testing problem: Define the null hypothesis, calculate the \(p\)-value of observing the data under the null, and give your conclusion.}
+\item
+  The number of chocolate chips in a packet of Chipsmore cookies is well described by a Poisson distribution with mean 130 (chocolate chips per packet). Following the Kraft takeover of Cadbury (who produces Chipsmore cookies), the mean number of chocolate chips per packet reduced to 75. Fans of the beloved cookie bellowed in anger at the apparent evidence that Kraft has reduced the number of chocolate chips in Chipsmore cookies. Assess the apparent evidence and come to your own conclusion. \emph{Hint: Set up a hypothesis, calculate the likelihood ratio, and obtain an approximate \(p\)-value.}
+\item
+  In 1861, 10 essays appeared in the New Orleans Daily Crescent. They were signed ``Quintus Curtius Snodgrass'' and some people suspected they were actually written by Mark Twain. To investigate this, we will consider the proportion of three letter words found in an author's work. From 8 of Twain's essays, the proportions are:
+
+  \begin{longtable}[]{@{}llllllll@{}}
+  \toprule
+  \endhead
+  0.225 & 0.262 & 0.217 & 0.240 & 0.230 & 0.229 & 0.235 & 0.217 \\
+  \bottomrule
+  \end{longtable}
+
+  From 10 Snodgrass essays, the proportions are:
+
+  \begin{longtable}[]{@{}llllllllll@{}}
+  \toprule
+  \endhead
+  0.209 & 0.205 & 0.196 & 0.210 & 0.202 & 0.207 & 0.224 & 0.223 & 0.220 & 0.201 \\
+  \bottomrule
+  \end{longtable}
+
+  Perform a Wald test for equality of the means. Report the \(p\)-value and a 95\% confidence interval for the difference of means. What do you conclude?
+\end{enumerate}
+
+\hypertarget{hand-in-questions-4}{%
+\subsection*{Hand-in questions}\label{hand-in-questions-4}}
+\addcontentsline{toc}{subsection}{Hand-in questions}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Suppose that \(X_1,\dots,X_n\) and \(Y_1,\dots,Y_m\) are two independent random samples from two exponential distributions with mean \(\theta\) and \(\mu\) respectively.
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Find the LRT of \(H_0:\theta = \mu\) versus \(H_1:\theta\neq\mu\). \textbf{{[}4 marks{]}}
+  \item
+    Show that the test in part (a) can be based on the statistic
+    \[
+     T = \frac{\sum_{i=1}^n X_i}{\sum_{i=1}^n X_i + \sum_{j=1}^m Y_j}.
+     \]
+    \textbf{{[}2 marks{]}}
+  \item
+    Specify the asymptotic distribution of the LRT statistic under \(H_0\) found in a. \textbf{{[}1 mark{]}}
+  \end{enumerate}
+\item
+  Let \(X_1,\dots,X_n\iid\Unif(0,\theta)\) and let \(Y=\max\{X_1,\dots,X_n\}\). We want to test \(H_0:\theta = 1/2\) versus \(H_1:\theta > 1/2\).
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \tightlist
+  \item
+    Explain briefly why the Wald test would not be appropriate in this case. \textbf{{[}1 mark{]}}
+  \end{enumerate}
+
+  Suppose we decide to test this hypothesis by rejecting \(H_0\) when \(Y > c\).
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \setcounter{enumii}{1}
+  \item
+    Derive an expression for the power function \(B(\theta)\). \textbf{{[}2 marks{]}}
+  \item
+    What choice of \(c\) will make the size of the test 0.05? \textbf{{[}2 marks{]}}
+  \item
+    In a sample of size \(n=20\) with \(Y=0.48\), what conclusion about \(H_0\) would you make? \textbf{{[}2 marks{]}}
+  \end{enumerate}
+\end{enumerate}
 
 \hypertarget{interval-estimation}{%
 \chapter{Interval estimation}\label{interval-estimation}}
@@ -7909,6 +8643,139 @@ The three methods are not too far off each other, but with a larger sample size 
 \begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/bootstrap_ci_eg_Efron3-1} \end{center}
 
 \end{example}
+
+\hypertarget{exercises-5}{%
+\section{Exercises}\label{exercises-5}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Let \(X_1,\dots,X_n\) be iid \(N(\theta,1)\). A 95\% confidence interval for \(\theta\) is \(\bar x\pm 1.96/\sqrt n\). Let \(p\) denote the probability that an additional independent observation, \(X_{n+1}\), will fall in this interval. Is \(p\) greater than, less than, or equal to 0.95? Prove your answer. \textit{Hint: Consider the distribution of $X_{n-1}-\bar X$.}
+\item
+  The length (in millimetres) \(X_i\) of cuckoos' eggs found in hedge sparrow nests can be modelled with the distribution\[\Pr(X_i\leq x\mid \alpha,\beta) = \begin{cases}0 &x <0 \\(x/\beta)^\alpha &0\leq x \leq \beta \\1&x > \beta\end{cases}\]
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Find a two-dimensional sufficient statistic for \((\alpha,\beta)\).
+  \item
+    The following data for the length of cuckoo's eggs were collected:
+  \end{enumerate}
+
+  \begin{longtable}[]{@{}lllllll@{}}
+  \toprule
+  \endhead
+  22.0 & 23.9 & 20.9 & 23.8 & 25.0 & 24.0 & 21.7 \\
+  23.8 & 22.8 & 23.1 & 23.1 & 23.5 & 23.0 & 23.0 \\
+  \bottomrule
+  \end{longtable}
+
+  Find the MLEs of \(\alpha\) and \(\beta\).
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \setcounter{enumii}{2}
+  \tightlist
+  \item
+    Construct 95\% confidence interval estimate for \(\beta\) based on this data set, assuming that \(\alpha\) is known and equal to its MLE. \emph{Hint: The parameter \(\beta\) is a scale parameter, so each \(X_i/\beta\) is a pivot.}
+  \end{enumerate}
+\item
+  Derive a confidence interval for a binomial \(p\) by inverting the LRT of \(H_0:p=p_0\) versus \(H_1:p\neq p_0\).
+\item
+  Let \(X_1,\dots,X_n\) be iid \(\N(\theta,\sigma^2)\) where \(\sigma^2\) is known. For each of the following hypotheses, write out the acceptance region of a level \(\alpha\) test, and the \(1-\alpha\) confidence interval that results from inverting the test.
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    \(H_0:\theta=\theta_0\) v.s. \(H_1:\theta \neq \theta_0\).
+  \item
+    \(H_0:\theta\geq\theta_0\) v.s. \(H_1:\theta < \theta_0\).
+  \end{enumerate}
+
+  (c)\(H_0:\theta\leq\theta_0\) v.s. \(H_1:\theta > \theta_0\).
+\item
+  Suppose that \(X_1,\dots,X_{30}\) is a random sample from \(\N(\mu,\sigma^2)\) where both parameters are unknown. If the observed values of \(\bar X\) and \(S^2\) are respectively \(\bar x = 12.9\) and \(s^2=4.6\), calculate a 99\% confidence interval for \(\mu\) and \(\sigma\).
+\item
+  We saw previously (Example \ref{exm:normvar}) that a 95\% confidence interval for the normal variance is rather wide when \(n=20\)--the ratio of the upper to lower limits was \(10.24/2.78=3.7\). How large a value of \(n\) would be needed in order for the interval \([L(\bX),U(\bX)]\) to be short enough that \((U-L)/L\leq 0.2\)? I.e., roughly, short enough that the interval puts bounds \(\pm 10\)\% on the point estimate \(S^2\).
+\item
+  Suppose that \(Y_1,\dots,Y_{6}\) are iid from the gamma distribution whose pdf is
+  \[
+    f(y|\alpha,\beta)\propto \frac{1}{\beta^\alpha}y^{\alpha-1}e^{-y/\beta} \hspace{2em}y,\alpha,\beta>0,
+    \]
+  with known shape \(\alpha=6\) and unknown scale parameter \(\beta\). Find a pivot based on \(Y_1,\dots,Y_6\). If the observed value of \(\sum_{i=1}^6 Y_i\) is \(\sum_{i=1}^6 y_i=6.6\), calculate a 99\% confidence interval for \(\E(Y_i)\). \emph{Hint: Using the properties of the gamma distribution would really help out here.}
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    If \(X_1,\dots,X_n\) are iid exponential random variable with mean \(\mu\), show that \(Y = \min(X_1,\dots,X_n)\) is also exponentially distributed.
+  \item
+    Compare the lengths of 95\% confidence intervals for \(\mu\) based on the two different pivots \(\bar X/\mu\) and \(Y/\mu\) when \(n=3\) and \(n=10\).
+  \end{enumerate}
+\item
+  Suppose that \(Y_1,\dots,Y_{12}\) are monthly counts of insurance claims, assumed independently Poisson distributed with (monthly) mean \(\mu\).
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Show that the annual count \(T=Y_1+\cdots + Y_{12}\) is sufficient for \(\mu\).
+  \item
+    If the observed value of \(T\) is \(t=96\), calculate two approximate 99\% confidence intervals for \(\mu\) based on
+  \end{enumerate}
+
+  \begin{enumerate}
+  \def\labelenumii{\roman{enumii}.}
+  \tightlist
+  \item
+    the MLE.
+  \item
+    the likelihood ratio.
+  \end{enumerate}
+\item
+  Let \(X_1,\dots,X_n\) be distinct observations. Let \(X_1^*,\dots,X_n^*\) denote a bootstrap sample, and let \(\bar X_n^*=\frac{1}{n}\sum_{i=1}^n X_i^*.\) Find
+
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \tightlist
+  \item
+    \(\E(\bar X_n^* \mid X_1,\dots,X_n)\).
+  \item
+    \(\Var(\bar X_n^* \mid X_1,\dots,X_n)\).
+  \item
+    \(\Var(\bar X_n^* )\).
+  \end{enumerate}
+\item
+  Let \(X_1,\dots,X_n\) be a random sample from \(\Bern(p)\) where \(p\in(0,1)\) is unknown. Let \(\theta=p^2\).
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  Show that the MLE \(\hat\theta\) for the parameter \(\theta\) is biased.
+\item
+  Outline a bootstrap procedure for estimating the bias of \(\hat\theta\).
+\end{enumerate}
+
+\hypertarget{hand-in-questions-5}{%
+\subsection*{Hand-in questions}\label{hand-in-questions-5}}
+\addcontentsline{toc}{subsection}{Hand-in questions}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Find a \(1-\alpha\) confidence interval for \(\theta\), given \(X_1,\dots,X_n\) iid with pdf \(f(x|\theta)=1\) for \(x\in(\theta-1/2,\theta+1/2)\). \textbf{{[}3 marks{]}}
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\alph{enumii})}
+  \item
+    Let \(X_1,\dots,X_n\) be a sample from \(\Bern(p)\), and \(Y_1,\dots,Y_m\) a sample from \(\Bern(q)\). The two samples are independent of each other. \textbf{{[}3 marks{]}}
+  \item
+    Find an approximate 95\% confidence interval for \(p-q\) when both \(n\) and \(m\) are large. \textbf{{[}2 marks{]}}
+  \item
+    100 people are given a standard antibiotic to treat an infection and another 100 are given a new antibiotic. In the first group, 90 people recover; in the second group, 85 people recover. Let \(p\) be the probability of recovery with the standard antibiotic and \(q\) the probability of recovery with the new antibiotic. Provide an 80\% confidence interval for the difference \(\theta = p-q\). \textbf{{[}3 marks{]}}
+  \end{enumerate}
+\item
+  Let \(X_1,\dots,X_n\) be a sample from \(\N(\mu,1)\). Let \(\theta = e^\mu\), and we estimate \(\theta\) by \(\hat\theta=e^{\bar X}\), where \(\bar X = n^{-1}\sum_{i=1}^n X_i\). Describe how to obtain a bootstrap estimator \(v_{boot}=\widehat{\Var}(\hat{\theta})\) for \(\Var(\hat{\theta})\). \textbf{{[}3 marks{]}}
+\end{enumerate}
 
 \hypertarget{appendix-appendix}{%
 \appendix}

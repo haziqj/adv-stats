@@ -80,6 +80,7 @@ poisson-binomial-relationship
 poisson-exponential
 poisson-gamma
 normal-approximations
+exercises-1
 inequalities-convergences-and-normal-random-samples
 introduction-1
 random-sampling
@@ -110,6 +111,7 @@ students-t-distribution
 proof-of-theorem-refthmpropertynormalsamp
 f-distribution
 the-analysis-of-variance
+exercises-2
 point-estimation
 the-likelihood
 calculating-the-likelihood
@@ -139,6 +141,7 @@ asymptotic-normality-and-consistency
 efficiency-of-mle
 efficiency-of-transformations-of-mle
 application-of-asymptotic-normality
+exercises-3
 hypothesis-testing
 introduction-2
 a-general-paradigm
@@ -160,6 +163,7 @@ approximate-tests
 asymptotic-distribution-of-lrts
 wilks-theorem
 the-wald-test
+exercises-4
 interval-estimation
 introduction-3
 coverage-probability
@@ -182,4 +186,5 @@ normal-bootstrap-interval
 bootstrap-percentile-interval
 bootstrap-pivotal-interval
 which-one-to-use
+exercises-5
 exam-tips
