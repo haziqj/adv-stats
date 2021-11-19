@@ -802,3 +802,143 @@ $$
 Either way, the conclusion is that there is significant evidence which supports the claim that the bottled coffee is less than the advertised value of 300 ml.
 :::
 
+## Exercises
+
+1. Suppose we observe $n$ iid $\Bern(\theta)$ random variables, denoted by $Y_1,\dots,Y_n$. Show that the LRT of $H_0:\theta \leq \theta_0$ versus $H_1:\theta>\theta_0$ will reject $H_0$ if $\sum_{i=1}^n Y_i > c$.
+
+2. A sample $X$ of size 1 was obtained where $X$ has one of the following distributions:
+
+   | $X$   | $H_0$ | $H_1$ |
+   |-------|-------|-------|
+   | $x_1$ | 0.2   | 0.1   |
+   | $x_2$ | 0.3   | 0.4   |
+   | $x_3$ | 0.3   | 0.1   |
+   | $x_4$ | 0.2   | 0.4   |
+ 
+   (a) Compare the likelihood ratio $W$ for each possible value $X$, and order the $x_i$ according to $W$.
+   
+   (b) What is the likelihood ratio test of $H_0$ versus $H_1$ at level $\alpha=0.2$? What is the test at level $\alpha=0.5$?
+	
+
+3. A random sample, $X_1,\dots,X_n$ is drawn from a Pareto population with pdf 
+$$
+f(x|\theta,\nu) = \frac{\theta \nu^\theta}{x^{\theta + 1}} \ind_{[\nu,\infty)}(x), \theta,\nu >0.
+$$
+   (a) Find the MLEs of $\theta$ and $\nu$.
+   
+   (b) Show that the LRT of 
+      $$
+      H_0:\theta=1, \nu \text{ unknown} \hspace{2em}\text{v.s.}\hspace{2em}H_1:\theta\neq1, \nu \text{ unknown}
+      $$
+      has critical region of the form $\{\bx \mid T(\bx) \leq c_1 \text{ or } T(\bx)\geq c_2 \}$, where $0<c_1<c_2$ and 
+      $$
+      T = \log \left[ \frac{\prod_{i=1}^n X_i}{\left\{\min_i X_i \right\}^n}\right].
+      $$
+
+4. We will derive the distribution of the test statistic for comparing two normal means from two independent samples with unknown variances. Let
+	
+	- $X_1,\dots,X_n \iid \N(\mu_x,\sigma^2)$; and
+	- $Y_1,\dots,Y_m\iid \N(\mu_y,\sigma^2)$ independently of the $X$s.
+
+   Denote by $\bar X$ and $\bar Y$ the sample mean of the $X$s and $Y$s respectively. Further let $S_x^2$ and $S_y^2$ denote the unbiased sample variance for $X$ and $Y$ respectively, and let
+   $$S^2 = \frac{(n-1)S^2_x+(m-1)S^2_y}{n+m-2}$$
+   be the **pooled sample variance** of the data.
+
+   (a)  Write down the distribution of
+   
+         i. $\bar X - \bar Y$
+         ii. $(n-1)S^2_x/\sigma^2 + (m-1)S^2_y/\sigma^2$
+
+    (b) Based on your answers to part (a), derive the distribution of the statistic
+    $$
+    T = \frac{(\bar X - \bar Y) - (\mu_x - \mu_y)}{S\sqrt{\frac{1}{n}+\frac{1}{m}}} 
+    $$
+    
+    (c) Explain how you would use the above statistic to conduct a test of the hypothesis $H_0:\mu_x=\mu_y$.
+
+5. Let $X_1,\dots,X_n$ be an independent random sample from $\N(\mu,\sigma^2)$, where both the mean and variance parameters are unknown. We shall derive a statistical test for $\sigma^2$.
+
+   (a) Let $X_1,\dots,X_n$ be an independent random sample from $\N(\mu,\sigma^2)$, where both the mean and variance parameters are unknown. We shall derive a statistical test for $\sigma^2$.
+   
+   (b) For testing $H_0:\sigma^2=\sigma_0^2$ against $H_1:\sigma^2 \neq \sigma_0^2$, write down the likelihood ratio test statistic and show that the rejection region of this test simplifies to, for some constant $k$,
+    $$
+    R = \left\{\bx \ \bigg| \left(\frac{\hat\sigma^2}{\sigma^2_0}\right)^{n/2} \exp\left( -\frac{n}{2}\cdot\frac{\hat\sigma^2}{\sigma^2_0} \right) \leq k \right\}.
+    $$
+    (c) By considering the function $f(x)=x^ae^{-ax}$, argue that the corresponding rejection regions are
+    $$
+    \frac{\hat\sigma^2}{\sigma^2_0} \leq k_1 \hspace{2em}\text{or}\hspace{2em} \frac{\hat\sigma^2}{\sigma^2_0} \geq k_2
+    $$
+    for some constants $k_1$ and $k_2$.
+    
+    (d) Find $k_1$ and $k_2$ that makes the size of test 0.05.
+    
+    Remark: this test is **exact** for normal samples and we do not require the use of asymptotics.
+
+6. Let $X_1,\dots,X_n\iid \N(\theta,1)$. Consider testing
+$$
+H_0: \theta = 0 \hspace{2em}\text{v.s.}\hspace{2em} H_1:\theta =1
+$$
+Let the rejection region be $R=\{\bx \mid T(\bx) > c \}$ where $T(\bx) = n^{-1}\sum_{i=1}^n X_i$.
+
+   (a) Find $c$ so that the test has size $\alpha$.
+   (b) Find the power under $H_1$, i.e. find $B(1)$.
+   (c) Show that $B(1)\to 1$ as $n\to \infty$.
+
+7. Let $\hat\theta_n$ be the MLE of a parameter $\theta$ and let $\text{se}(\hat\theta_n)$ be the standard error for the parameter $\theta$. Consider testing 
+$$
+H_0: \theta = \theta_0 \hspace{2em}\text{v.s.}\hspace{2em} H_1:\theta \neq\theta_0.
+$$
+Using the Wald test with rejection region $R= \left\{ \bx \mid |Z_n| > z(\alpha/2) \right\}$, where 
+$$
+Z_n = \frac{\hat\theta_n - \theta_0}{\text{se}(\hat\theta_n)},
+$$
+and $z(a)$ is the top $a$-th point, $0\leq a\leq 1$, of the standard normal distribution, show that the power of the test $B(\theta)\to 1$ as $n\to\infty$ for any value of $\theta>\theta_0$.
+
+8. A survey of the use a particular product was conducted in four areas, and a random sample of 200 potential users was interviewed in each area. In area $i$, for $i = 1, 2, 3, 4$, $X_i$ of the 200 said that they used the product. Construct a likelihood ratio test to test whether the proportion of the population using the product is the same in each of the four areas. Carry out the test at 5\% level for the case $X_1 = 76$, $X_2 = 53$, $X_3 = 59$ and $X_4 = 48$.
+
+9. In a given city it is assumed that the number of automobile accidents in a given year follows a Poisson distribution. In past years, the average number of accidents per year was 15, and this year it was 10. Is it justified to claim that the accident rate has dropped? *Hint: Cast this into a statistical testing problem: Define the null hypothesis, calculate the $p$-value of observing the data under the null, and give your conclusion.*
+
+10. The number of chocolate chips in a packet of Chipsmore cookies is well described by a Poisson distribution with mean 130 (chocolate chips per packet). Following the Kraft takeover of Cadbury (who produces Chipsmore cookies), the mean number of chocolate chips per packet reduced to 75. Fans of the beloved cookie bellowed in anger at the apparent evidence that Kraft has reduced the number of chocolate chips in Chipsmore cookies. Assess the apparent evidence and come to your own conclusion. *Hint: Set up a hypothesis, calculate the likelihood ratio, and obtain an approximate $p$-value.*
+
+11. In 1861, 10 essays appeared in the New Orleans Daily Crescent. They were signed "Quintus Curtius Snodgrass" and some people suspected they were actually written by Mark Twain. To investigate this, we will consider the proportion of three letter words found in an author’s work. From 8 of Twain’s essays, the proportions are:
+
+    |       |       |       |       |       |       |       |       |
+    |-------|-------|-------|-------|-------|-------|-------|-------|
+    | 0.225 | 0.262 | 0.217 | 0.240 | 0.230 | 0.229 | 0.235 | 0.217 |
+    
+    From 10 Snodgrass essays, the proportions are:
+    
+    |       |       |       |       |       |       |       |       |       |       |
+    |-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
+    | 0.209 | 0.205 | 0.196 | 0.210 | 0.202 | 0.207 | 0.224 | 0.223 | 0.220 | 0.201 |
+    
+    
+    Perform a Wald test for equality of the means. Report the $p$-value and a 95\% confidence interval for the difference of means. What do you conclude?
+
+
+### Hand-in questions {-}
+
+1. Suppose that $X_1,\dots,X_n$ and $Y_1,\dots,Y_m$ are two independent random samples from two exponential distributions with mean $\theta$ and $\mu$ respectively.
+
+   (a) Find the LRT of $H_0:\theta = \mu$ versus $H_1:\theta\neq\mu$. **[4 marks]**
+
+   (b) Show that the test in part (a) can be based on the statistic
+    $$
+    T = \frac{\sum_{i=1}^n X_i}{\sum_{i=1}^n X_i + \sum_{j=1}^m Y_j}.
+    $$
+   **[2 marks]**
+
+    (c) Specify the asymptotic distribution of the LRT statistic under $H_0$ found in a. **[1 mark]**
+
+2. Let $X_1,\dots,X_n\iid\Unif(0,\theta)$ and let $Y=\max\{X_1,\dots,X_n\}$. We want to test $H_0:\theta = 1/2$ versus $H_1:\theta > 1/2$. 
+
+   (a) Explain briefly why the Wald test would not be appropriate in this case. **[1 mark]**
+   
+   
+   Suppose we decide to test this hypothesis by rejecting $H_0$ when $Y > c$.
+ 
+   (b) Derive an expression for the power function $B(\theta)$.  **[2 marks]**
+   
+   (c) What choice of $c$ will make the size of the test 0.05? **[2 marks]**
+
+   (d) In a sample of size $n=20$ with $Y=0.48$, what conclusion about $H_0$ would you make?  **[2 marks]**

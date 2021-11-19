@@ -1210,11 +1210,83 @@ ggplot() +
 
 :::
 
+## Exercises
+
+1. Let $X_1,\dots,X_n$ be iid $N(\theta,1)$. A 95\% confidence interval for $\theta$ is $\bar x\pm 1.96/\sqrt n$. Let $p$ denote the probability that an additional independent observation, $X_{n+1}$, will fall in this interval. Is $p$ greater than, less than, or equal to 0.95? Prove your answer. \textit{Hint: Consider the distribution of $X_{n-1}-\bar X$.}
+
+2. The length (in millimetres) $X_i$ of cuckoos' eggs found in hedge sparrow nests can be modelled with the distribution$$\Pr(X_i\leq x\mid \alpha,\beta) = \begin{cases}0 &x <0 \\(x/\beta)^\alpha &0\leq x \leq \beta \\1&x > \beta\end{cases}$$ 
+
+   (a) Find a two-dimensional sufficient statistic for $(\alpha,\beta)$.
+   
+   (b) The following data for the length of cuckoo's eggs were collected:
+   
+   |      |      |      |      |      |      |      |
+   |------|------|------|------|------|------|------|
+   | 22.0 | 23.9 | 20.9 | 23.8 | 25.0 | 24.0 | 21.7 |
+   | 23.8 | 22.8 | 23.1 | 23.1 | 23.5 | 23.0 | 23.0 |
+    
+      Find the MLEs of $\alpha$ and $\beta$.
+    
+   (c) Construct 95\% confidence interval estimate for $\beta$ based on this data set, assuming that $\alpha$ is known and equal to its MLE. *Hint: The parameter $\beta$ is a scale parameter, so each $X_i/\beta$ is a pivot.*
 
 
+3. Derive a confidence interval for a binomial $p$ by inverting the LRT of $H_0:p=p_0$ versus $H_1:p\neq p_0$.
 
+4. Let $X_1,\dots,X_n$ be iid $\N(\theta,\sigma^2)$ where $\sigma^2$ is known. For each of the following hypotheses, write out the acceptance region of a level $\alpha$ test, and the $1-\alpha$ confidence interval that results from inverting the test.
 
+   (a) $H_0:\theta=\theta_0$ v.s. $H_1:\theta \neq \theta_0$.	
+   
+   (b) $H_0:\theta\geq\theta_0$ v.s. $H_1:\theta < \theta_0$.	
+   
+   (c)$H_0:\theta\leq\theta_0$ v.s. $H_1:\theta > \theta_0$.	
 
+5. Suppose that $X_1,\dots,X_{30}$ is a random sample from $\N(\mu,\sigma^2)$ where both parameters are unknown. If the observed values of $\bar X$ and $S^2$ are respectively $\bar x = 12.9$ and $s^2=4.6$, calculate a 99\% confidence interval for $\mu$ and $\sigma$.
+
+6. We saw previously (Example \@ref(exm:normvar)) that a 95\% confidence interval for the normal variance is rather wide when $n=20$--the ratio of the upper to lower limits was $10.24/2.78=3.7$. How large a value of $n$ would be needed in order for the interval $[L(\bX),U(\bX)]$ to be short enough that $(U-L)/L\leq 0.2$? I.e., roughly, short enough that the interval puts bounds $\pm 10$\% on the point estimate $S^2$.
+
+7. Suppose that $Y_1,\dots,Y_{6}$ are iid from the gamma distribution whose pdf is
+  $$
+  f(y|\alpha,\beta)\propto \frac{1}{\beta^\alpha}y^{\alpha-1}e^{-y/\beta} \hspace{2em}y,\alpha,\beta>0,
+  $$ 
+  with known shape $\alpha=6$ and unknown scale parameter $\beta$. Find a pivot based on $Y_1,\dots,Y_6$. If the observed value of $\sum_{i=1}^6 Y_i$ is $\sum_{i=1}^6 y_i=6.6$, calculate a 99\% confidence interval for $\E(Y_i)$. *Hint: Using the properties of the gamma distribution would really help out here.*
+
+8. (a) If $X_1,\dots,X_n$ are iid exponential random variable with mean $\mu$, show that $Y = \min(X_1,\dots,X_n)$ is also exponentially distributed.
+
+   (b) Compare the lengths of 95\% confidence intervals for $\mu$ based on the two different pivots $\bar X/\mu$ and $Y/\mu$ when $n=3$ and $n=10$.
+   
+9. Suppose that $Y_1,\dots,Y_{12}$ are monthly counts of insurance claims, assumed independently Poisson distributed with (monthly) mean $\mu$. 
+
+   (a) Show that the annual count $T=Y_1+\cdots + Y_{12}$ is sufficient for $\mu$.
+   
+   (b) If the observed value of $T$ is $t=96$, calculate two approximate 99\% confidence intervals for $\mu$ based on
+   
+      i. the MLE.
+      ii.  the likelihood ratio.
+      
+10. Let $X_1,\dots,X_n$ be distinct observations. Let $X_1^*,\dots,X_n^*$ denote a bootstrap sample, and let $\bar X_n^*=\frac{1}{n}\sum_{i=1}^n X_i^*.$ Find 
+
+    (a) $\E(\bar X_n^* \mid X_1,\dots,X_n)$.
+    (b) $\Var(\bar X_n^* \mid X_1,\dots,X_n)$.
+    (c) $\Var(\bar X_n^* )$. 
+
+11. Let $X_1,\dots,X_n$ be a random sample from $\Bern(p)$ where $p\in(0,1)$ is unknown. Let $\theta=p^2$. 
+
+   (a) Show that the MLE $\hat\theta$ for the parameter $\theta$ is biased.
+
+   (b) Outline a bootstrap procedure for estimating the bias of $\hat\theta$.
+	
+
+### Hand-in questions {-}
+
+1. Find a $1-\alpha$ confidence interval for $\theta$, given $X_1,\dots,X_n$ iid with pdf $f(x|\theta)=1$ for $x\in(\theta-1/2,\theta+1/2)$. **[3 marks]**
+
+2. (a) Let $X_1,\dots,X_n$ be a sample from $\Bern(p)$, and $Y_1,\dots,Y_m$ a sample from $\Bern(q)$. The two samples are independent of each other. **[3 marks]**
+
+   (b) Find an approximate 95\% confidence interval for $p-q$ when both $n$ and $m$ are large. **[2 marks]**
+
+   (c) 100 people are given a standard antibiotic to treat an infection and another 100 are given a new antibiotic. In the first group, 90 people recover; in the second group, 85 people recover. Let $p$ be the probability of recovery with the standard antibiotic and $q$ the probability of recovery with the new antibiotic. Provide an 80\% confidence interval for the difference $\theta = p-q$. **[3 marks]**
+
+4. Let $X_1,\dots,X_n$ be a sample from $\N(\mu,1)$. Let $\theta = e^\mu$, and we estimate $\theta$ by $\hat\theta=e^{\bar X}$, where $\bar X = n^{-1}\sum_{i=1}^n X_i$. Describe how to obtain a bootstrap estimator $v_{boot}=\widehat{\Var}(\hat{\theta})$ for $\Var(\hat{\theta})$. **[3 marks]**
 
 
 

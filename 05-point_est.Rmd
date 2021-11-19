@@ -1102,7 +1102,150 @@ The estimated standard error for $\hat\lambda_n$ is
 In this example, the plug-in estimator for $\cI(\theta)$ happens to be the same as the observed information $-l''(\hat\theta)$. Sometimes this happens, sometimes they are different.
 :::
 
+## Exercises
 
+1. Let $X$ be a sample of size 1 from a $\N(0,\sigma^2)$ population. Is $|X|$ a sufficient statistic for $\sigma$?
+
+2. Let $X_1,\dots,X_n$ be independent random variables with pdf
+$$
+f_{X_i}(x|\theta) = \begin{cases}
+	\exp(i\theta - x) &x\geq i\theta \\
+	0	&\text{otherwise}
+\end{cases}
+$$
+for $i=1,\dots,n$. Prove that $T=\min(X_i/i)$ is a sufficient statistic for $\theta$.
+
+3. Let $X_1,\dots,X_n$ be a random sample from a distribution whose pdf is $f(x|\theta)=(2\pi)^{-1/2}\exp(-(x-\theta)^2/2)$ for $x,\theta\in\bbR$. Find a minimal sufficient statistic for $\theta$. \textit{Hint: Use Theorem 10 in the lecture slides}.
+
+4. Show that 
+
+   (a) the statistic $(\sum_i X_i, \sum_i X_i^2)$ is sufficient, but not minimal sufficient, in the $\N(\mu,\mu)$ family;
+   
+   (b) the statistic $\sum_i X_i^2$ is minimal sufficient in the  $\N(\mu,\mu)$ family; and
+   
+   (c) the statistic $(\sum_i X_i, \sum_i X_i^2)$ is minimal sufficient in the $\N(\mu,\mu^2)$ family.
+
+5. One observation is taken on a discrete random variable $X$ with pmf $f(x|\theta)$ where $\theta\in\{1,2,3\}.$ Find the MLE of $\theta$.
+
+| $x$ | $f(x|\theta=1)$ | $f(x|\theta=2)$ | $f(x|\theta=3)$ |
+|-----|-----------------|-----------------|-----------------|
+| 0   | 1/3             | 1/4             | 0               |
+| 1   | 1/3             | 1/4             | 0               |
+| 2   | 0               | 1/4             | 1/4             |
+| 3   | 1/6             | 1/4             | 1/2             |
+| 4   | 1/6             | 0               | 1/4             |
+
+6. Let $X_1,\dots,X_n$ be iid with one of two pdfs. If $\theta=0$, then
+$$
+f(x|\theta) = \begin{cases}
+	1 & 0<x<1 \\
+	0 &\text{otherwise}
+\end{cases}
+$$
+while if $\theta=1$,
+$$
+f(x|\theta) = \begin{cases}
+	1/(2\sqrt x) & 0<x<1 \\
+	0 &\text{otherwise}.
+\end{cases}
+$$
+Find the MLE of $\theta$.
+
+7. Let $X_1,\dots,X_n$ be iid with pmf 
+$$
+f(x|\theta) = \theta^x (1-\theta)^{1-x}
+$$
+for $x\in\{0,1\}$ and $0<\theta<1/2$.
+
+
+	(a) Find the MLE of $\theta$, and the MOM estimator based on $\bar X$.
+	
+	(b) Find the mean squared error of each of the estimators.
+	
+	(c) Which estimator is preferred? Justify your choice.
+
+8. If $X_1,\dots,X_n$ are iid $\N(\mu,\sigma^2)$, show that the MLEs are 
+$$
+\hat\mu =\bar X \hspace{2em}\text{and}\hspace{2em} \hat\sigma^2 = \frac{n-1}{n}S^2,
+$$
+and obtain the bias, variance and mean squared error of each estimator.
+
+9. Let $Y_1,\dots,Y_n$ be a sample from a Poisson distribution with mean $\theta>0$ unknown.
+
+   (a) Let $Y=Y_1+\dots+Y_n$. Find the mean and variance of the distribution of $Y$. *Hint: Find out the mgf of $Y$.*
+   
+   (b) Obtain the MLE for $\theta$ and its standard error.
+   
+   (c) Suppose now that only the first $m$ ($m<n$) observations of the sample are known explicitly, while for the other $n-m$ only their sum, $Z$ say, is known. Determine the MLE of $\theta$.
+
+10. Let $X_1,\dots,X_n$ be a sample from $\Unif(0,\theta)$ where $\theta>0$ is an unknown parameter. Find the MLE $\hat\theta$ for $\theta$. Derive the distribution for $\hat\theta$ and therefore show that $\hat\theta$ is a consistent estimator in the sense that $\hat\theta \xrightarrow{\text P}\theta$ when $n\to\infty$. *Hint: $\Pr(\max_i X_i \leq y)=\prod_{i} \Pr(X_i\leq y)$.*
+
+11. Let $X_1,\dots,X_n$ be a random sample from a Bernoulli distribution, i.e. $\Pr(X_i=1)=p=1-\Pr(X_i=0)$ for $i=1,\dots,n$ where $p\in(0,1)$ is unknown. Let $\theta=p^2.$
+
+    (a) Find the Cramér-Rao lower bound for the variance of unbiased estimators for $\theta$.
+    
+    (b) Find the MLE $\hat\theta$ for the parameter $\theta$.
+   
+    (c) Show that $\E(\hat\theta) \neq \theta$.	
+    
+12. Prove Lemma 28 in the lecture slides: Let $\bX\sim f(\bx|\theta)$, where $\theta\in\bbR$, and $S(\theta)=\frac{\partial}{\partial \theta} \log f(\bX|\theta)$. Prove that under certain regularity conditions (which you may assume to hold),
+
+    (a) $\E [S(\theta)] = 0$
+    
+    (b) $\cI(\theta) = \Var[S(\theta)]$
+    
+    (c) $\cI(\theta) = -\E[S'(\theta)]$
+    
+13. Suppose that $X_1,\dots,X_n\sim\Pois(\lambda)$. Let $\theta=e^{-\lambda}=\Pr(X_i=0)$. Consider two estimators for $\theta$:
+
+    a. $$
+        U(\bX) = \begin{cases}
+        	1 &X_1=0 \\
+        	0 & \text{otherwise}
+        \end{cases}
+        $$
+    
+    b. $$\phi(\bX)=\left(1-\frac{1}{n} \right)^{\sum_{i=1}^n X_i}$$
+
+    Using the fact that $S=\sum_{i=1}^n X_i\sim\Pois(n\lambda)$, show that $\Var(\phi)<\Var(U)$.
+
+14. (a) Show that 
+    $$
+    \frac{1}{\sqrt n} l'(\theta|\bX) = \sqrt n\left(\frac{1}{n} \sum_{i=1}^n W_i \right)
+    $$	
+    where $W=\frac{\partial f(X_i|\theta)/\partial\theta }{f(X_i|\theta)}$ has mean 0 and variance $\cI_1(\theta)$. Here $\cI_1(\theta)$ is the unit Fisher information, i.e. the Fisher information obtained from a single observation $X_1$. Now use the central limit theorem to establish the convergence to $\N(0,\cI_1(\theta))$.
+    
+    (b) Show that 
+      $$
+      -\frac{1}{n} l''(\theta|\bX) = \frac{1}{n} \sum_{i=1}^n W_i^2 - \frac{1}{n} \sum_{i=1}^n\frac{\partial^2 f(X_i|\theta)/\partial\theta^2 }{f(X_i|\theta)}
+      $$
+      and that the mean of the first piece is $\cI_1(\theta)$ and the mean of second piece is 0. Apply the WLLN.
+
+15. Let $X_1,\dots,X_n\iid\Unif(0,\theta)$. In the lectures, we found the MLE $\hat\theta=\max\{X_1,\dots,X_n\}$ to be a biased estimator, with $\text{Bias}(\hat\theta)=-\theta/(n+1)\neq 0$.
+
+    (a) Find a **bias-corrected** version of $\hat\theta$ (call it $\hat\phi$), of the form $\hat\phi=c\hat\theta$ for a suitably chosen constant $c$.
+    
+    (b) What is the variance of the estimator $\hat\phi$?
+    
+    (c) In the lectures we found that 
+      $$
+      \text{MSE}(\hat\theta)=\theta^2\left(\frac{n}{(n+1)^2(n+2)} + \frac{1}{(n+1)^2} \right).
+      $$
+        Find the mse of $\hat\phi$ and compare it with the mse of $\hat\theta$.
+
+    
+
+### Hand-in questions {-}
+
+1. If $X_1,\dots,X_n$ is a random sample from the $\Gamma(\alpha,\beta)$ distribution, with $\alpha$ known, find the MLE of $\beta$. **[3 marks]**
+
+2.  Let $X_1,\dots,X_n$ be a random sample from the pdf $f(x|\theta)=\theta x^{-2}$ for $0 < \theta \leq x < \infty$.
+
+    (a) What is a sufficient statistic for $\theta$? **[3 marks]**
+    
+    (b) Find the MLE of $\theta$. **[4 marks]**
+    
+3. Let $X_1,\dots,X_n$ be a random sample from $\N(\mu,\sigma^2)$. Find the Fisher information for $\mu$ and $\sigma^2$. *Hint: It may be easier to consider $\theta=\sigma^2$ in your calculations.* **[4 marks]**
 
 
 

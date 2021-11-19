@@ -893,7 +893,7 @@ h_T(t) = \frac{f_T(t)}{1-F_T(t)}=-\frac{\ddif }{\ddif t} \log(1-F_T(t)).
 
 ### Hand-in questions {-}
 
-1. Let $M_X(t)$ be the mgf of $X$, and define $S(t) = \log M_X(t) $. Show that $S'(0)= \E(X)$ and $S''(0)=  \Var(X)$. *Remark: $S(t)$ is called the cumulant-generating function of $X$.* **[3 marks]**
+1. Let $M_X(t)$ be the mgf of $X$, and define $S(t) = \log M_X(t)$. Show that $S'(0)= \E(X)$ and $S''(0)= \Var(X)$. *Remark: $S(t)$ is called the cumulant-generating function of $X$.* **[3 marks]**
 
 2. A model for the movement of a stock supposes that if the present price of the stock is $s$, then, after one period, it will be either $us$ with probability $p$ or $ds$ with probability $1-p$. Assuming that successive movements are independent, approximate the probability that the stock's price will be up at least 30 percent after the next 1000 periods if $u = 1.012$, $d = 0.990$, and $p = 0.52$. **[5 marks]**
 
