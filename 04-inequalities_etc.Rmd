@@ -1253,10 +1253,137 @@ freedom.
 knitr::include_graphics("figure/fisher.jpg")
 ```
 
+## Exercises
+
+1. In this exercise, you will prove the central limit theorem using moment generating functions. Let $X_1,X_2,\dots$ be a sequence of iid random variables with mean $\E(X_i)=\mu$ and variance $\Var(X_i)=\sigma^2>0$, and whose mgfs exist in a neighbourhood of 0 (i.e., $M_{X_i}(t)$ exists for $|t|<h$ for some positive $h$).
+
+   (a) Define $Y_i=(X_i-\mu)/\sigma$, and let $M_Y(t)$ denote the common mgf of the $Y_i$s. Show that $M_Y^{(0)} = 1$, $M_Y^{(1)} = 0$, and $M_Y^{(2)} = 1$.
+   
+   (b) Using the properties of mgfs, show that the mgf of $Z := \frac{\sqrt n(\bar X_n - \mu)}{\sigma}$ is given by
+    \begin{equation}\label{eq:clt}
+    	  M_Z(t) = \big(M_Y(t/\sqrt n) \big)^n.
+    \end{equation}
+    
+   (c) Recall that the Taylor series expansion of a real function $g(x)$ around $a\in\bbR$ is given by the power series
+    \[
+      g(x) = \sum_{k=0}^\infty \frac{g^{(k)}}{k!}(x-a)^k = g(a) + \frac{g'(a)}{1!}(x-a) + \frac{g''(a)}{2!}(x-a)^2 + \cdots .
+    \]  	
+    By Taylor expanding $M_Y(t/\sqrt n)$ about 0, show that 
+    \[
+    M_Y(t/\sqrt n)  = 1 + \frac{(t/\sqrt n)^2}{2!} + R_n
+    \]
+    where $R_n$ is a remainder term from the Taylor series. 
+    
+   (d) Hence, using the fact that $nR_n\to 0$ as $n\to\infty$, show that the limiting distribution of $Z$ is $\N(0,1)$.
+
+2. (a) Suppose we have a sequence $X_1,X_2,\dots$ of iid random variables with $\E(X_i)=\mu$ and $\Var(X_i)=\sigma^2<\infty$. Show that the statistic $S_n^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i-\bar X_n)^2$, where $\bar X_n$ is the sample mean, is an **unbiased** and **consistent** estimator for $\sigma^2$ (i.e. it converges in probability to $\sigma^2$). *Hint: Show that $S_n^2 = c_n n^{-1}\sum_{i=1}^n X_i^2 - d_n \bar X_n^2$ where $c_n,d_n \to 1$ as $n\to\infty$. Apply the LLN to $n^{-1}\sum_{i=1}^n X_i^2$ and to $\bar X_n^2$. Then use Slutzky's theorem.*
+
+   (b) Using Slutzky's theorem, show that
+    \[
+      \frac{\sqrt n(\bar X_n - \mu)}{S_n} \xrightarrow{\text{ D }} \N(0,1).
+    \]
+   *Hint: First argue that $\sigma/S_n  \xrightarrow{\text{P}} 1$ using Slutzky's theorem. You may use the fact that $g(x)=c/\sqrt{x}$ is continuous for $x>0$, where $c\in\bbR_{>0}$ is a constant. Then use the CLT.*
+
+3. Suppose that $\bar X$ and $S^2$ are calculate from an iid random sample $X_1,\dots,X_n$ with $\Var(X_i)=\sigma^2$. We know that $\E(S^2)=\sigma^2$ from Q2(a). Prove that $\E(S)\leq \sigma$. *Hint: Use Jensen's inequality.*
+
+4. Fill in the details of the proof of the delta method: Suppose that $X_n$ is a sequence of r.v.s satisfying $\sqrt n (X_n-\mu)/\sigma \xrightarrow{\text{D}}\N(0,1)$, and let $g$ be a differentiable function s.t. $g'(\mu)\neq 0$.
+
+   (a) Show that $X_n \xrightarrow{\text{P}} \mu$ in probability.
+   
+   (b) Show, using Slutzky's theorem, that 
+    \[
+      \frac{\sqrt n(g(X_n) - g(\mu))  }{|g'(\mu)|\sigma} \xrightarrow{\text{ D }} \N(0,1).
+    \]
+   *Hint: Use the Taylor approximation $g(X_n)\approx g(\mu)+g'(\mu)(X_n-\mu)$.*
+
+5. Let $\{X_1,\dots,X_n\}$ be a random sample from a $\N(\mu,\sigma^2)$ population.
+
+   (a) Let $M=\sum_{i=1}^n (X_i - \bar X)^2$, where $\bar X$ is the sample mean. Work out the distribution of $M/\sigma^2$.
+   
+   (b) Let $\alpha = 0.05$. Using the $\chi^2$ probability tables, determine the values of $\chi^2_{14}(\alpha/2)$ and  $\chi^2_{14}(1-\alpha/2)$, i.e. the top and bottom $\alpha/2$ point of the $\chi^2_{14}$ distribution where $\Pr\big(Y > \chi^2_{k}(a)\big) = a$ when $Y\sim\chi^2_k$.
+   
+6. Suppose that we plan to take a random sample of size $n$ from a normal distribution with mean $\mu$ and standard deviation $\sigma=2$.
+
+   (a) Suppose $\mu=4$ and $n=20$. 
+   
+       i. What is the probability that the mean $\bar X$ of the sample is greater than 5? 
+      
+       ii. What is the probability that $\bar X$ is smaller than 3? 
+       
+       iii. What is $\Pr(|\bar X - \mu| \leq 1)$ in this case?
+   
+   (b) How large should $n$ be in order that $\Pr(|\bar X - \mu| \leq 0.5) \geq 0.95$ for every possibly value of $\mu$?
+   
+   (c) It is claimed that the true value of $\mu$ is 5 in a population. A random sample of size $n=100$ is collected from this population, and the mean for this sample is $\bar X=5.8$. Based on the result in (b), what would you conclude from this value of $\bar X$?
+   
+7. In all of the following sub-questions, use only probability tables and distributional properties of the relevant random variables to calculate the required probabilities.
+
+   (a) If $Z$ is a random variable with a standard normal distribution, what is $\Pr(Z^2 < 3.841)$?
+
+   (b) Suppose that $X_1$ and $X_2$ are independent $\N(0,4)$ random variables. Compute $\Pr(X_1^2 < 36.84 - X_2^2)$.
+ 
+   (c) Suppose that $X_1,X_2,X_3\iid\N(0,1)$, while $Y$ independently follows a $\chi^2_5$ distribution. Compute $\Prob(X_1^2+X_2^2 < 7.236Y - X_3^2)$.
+   
+8. Let $X_i$, $i=1,2,3$ be independent with $\N(i,i^2)$ distributions.
+For each of the following situations, use the $X_i$s to construct a statistic with the indicated distribution:
+
+   (a) $\chi^2$-distribution with 3 degrees of freedom;
+   
+   (b) $t$-distribution with 2 degrees of freedom; and
+   
+   (c) $F$-distribution with 1 and 2 degrees of freedom.  
+   
+9. Let $\{Y_{ij}\}$ be sample from $\N(\mu_j,\sigma^2)$, $i=1,\dots,n_j$ and $j=1,\dots,m$. In total there are $n=\sum_{j=1}^m n_j$ samples. Further, let $S = \sum_{i=1}^{n_j}\sum_{j=1}^m (Y_{ij} - \bar Y)^2$, where $\bar Y = \frac{1}{n}\sum_{i=1}\sum_{j=1}^m Y_{ij}$.
+
+   (a) Define the sample group means to be $\bar Y_j = \frac{1}{n_j}\sum_{i=1}^{n_j} Y_{ij}$. Add and subtract the sample group mean $\bar Y_j$ into the squared sum in $S$ to show that
+    $$
+    \sum_{i=1}^{n_j}\sum_{j=1}^m (Y_{ij} - \bar Y)^2 = \sum_{i=1}^{n_j}\sum_{j=1}^m (Y_{ij} - \bar Y_j)^2 + \sum_{j=1}^m n_j (\bar Y_j-\bar Y)^2
+    $$
+   (b) What is the distribution of $\bar Y$ and $\bar Y_j$? 
+   
+   (c) Assuming that $\mu_j=\mu$, for all $j=1,\dots,m$ and using your answer to (b), determine then the following distributions
+       
+       i. $\frac{1}{\sigma^2}\sum_{i=1}^{n_j}\sum_{j=1}^m (Y_{ij} - \mu)^2$  
+       
+       ii. $\frac{n}{\sigma^2}(\bar Y - \mu)^2$ 
+       
+       iii. $\frac{1}{\sigma^2}\sum_{i=1}^{n_j}\sum_{j=1}^m (Y_{ij} - \bar Y)^2$
+       
+       iv. $\frac{1}{\sigma^2}\sum_{j=1}^m n_j (\bar Y_j-\mu)^2$  
+       
+       v. $\frac{1}{\sigma^2}\sum_{i=1}^{n_j}\sum_{j=1}^m (Y_{ij} - \bar Y_j)^2$
+       
+      *Hint: Use the sum of squares decomposition with $\bar Y$ and $\bar Y_j$, and then use the properties of $\chi^2$-distributions.*
+    
+10. This question relates to the normal approximations of several commonly used distributions.
+Let $X_1,\dots,X_n\iid f(x)$. Answer the following questions in cases where $f(x)$ is the pmf/pdf of $\Bern(p)$, $\Pois(\lambda/n)$, and $\Gamma(\alpha/n,\beta)$:
+
+    (a) What is the distribution of $Y=\sum_{i=1}^n X_i$?
+   
+    (b) Using the CLT, what is the (approximate) distribution of $Y/n$?
+   
+    (c) What can you then say about the distribution of $Y$ as $n\to\infty$?	
 
 
+### Hand-in questions {-}
 
+1. State and prove Chebyshev's inequality for a random variable $X$. **[3 marks]**
 
+2. (a) Let $X\sim\chi^2_k$. Prove that $\E(X) = k$ and $\Var(X)=2k$. **[2 marks]**
+
+   (b) If $X_1\sim\chi^2_{k_1}$, $X_2\sim\chi^2_{k_2}$, and $X_1 \perp X_2$, show that $X_1+X_2 \sim \chi^2_{k_1+k_2}$. **[2 marks]**
+   
+3. Let $\lambda_n=1/n$ for $n=1,2,\dots$. Let $X_n\sim\Pois(\lambda_n)$.
+
+   (a) Show that $X_n\xrightarrow{\text P}0$ as $n\to\infty$. **[2 marks]**
+   
+   (b) Let $Y_n=nX_n$. Show that $Y_n\xrightarrow{\text P}0$ as $n\to\infty$. **[2 marks]**
+   
+4. Let $\bar X_n$ and $S_n^2$ be the usual mean and variance statistics for the sample $X_1,\dots,X_n$. Suppose that a new observation $X_{n+1}$ becomes available, show that
+
+   (a) $\bar X_{n+1}=(X_{n+1} + n\bar X_n) / (n+1)$. **[1 mark]**
+   
+   (b) $nS_{n+1}^2=(n-1)S_n^2 + n(X_{n+1}-\bar X_n)^2 / (n+1)$ **[3 marks]**
 
 
 

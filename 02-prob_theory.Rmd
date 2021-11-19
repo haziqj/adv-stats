@@ -1275,7 +1275,6 @@ f_{X,Y}(x,y) = \begin{cases}
 
 13. Let $X_1,\dots,X_n\iid \Unif(0,1)$ and let $Y_n=\max\{X_1,\dots,X_n\}$. Find $\E(Y_n)$. *Hint: Find out the distribution of $Y_n$ by looking at the cdf of $Y_n$.*
   
-  
 14. Let $X\Unif(0,1)$. Let $0<a<b<1$. Let
 \[
  Y = \begin{cases}
@@ -1301,9 +1300,9 @@ and let
 F_Y(y) = \Pr(Y\leq y) = 1 - \frac{1}{y^2}, \hspace{2em} 1\leq y<\infty
 \]
 
-   (a) Verify that $F_Y(y)$ is a cdf. [1 mark]
-   (b) Find $f_Y(y)$, the pdf of $Y$. [2 marks]
-   (c) If the low-water mark is reset at 0 and we use a unit of measurement that is 1/10 of that given previously, the height water mark becomes $Z=10(Y-1)$. What is the expected value of $Z$? [2 marks]
+   (a) Verify that $F_Y(y)$ is a cdf. **[1 mark]**
+   (b) Find $f_Y(y)$, the pdf of $Y$. **[2 marks]**
+   (c) If the low-water mark is reset at 0 and we use a unit of measurement that is 1/10 of that given previously, the height water mark becomes $Z=10(Y-1)$. What is the expected value of $Z$? **[2 marks]**
 
 
 2. A pdf is defined by 
@@ -1314,15 +1313,15 @@ f_{X,Y}(x,y) = \begin{cases}
 \end{cases}
 \]
 
-   (a) Find the value of $c$. [1 mark]
-   (b) Find the marginal distribution of $X$. [2 marks]
-   (c) Find the joint cdf of $X$ and $Y$. [2 marks]
+   (a) Find the value of $c$. **[1 mark]**
+   (b) Find the marginal distribution of $X$. **[2 marks]**
+   (c) Find the joint cdf of $X$ and $Y$. **[2 marks]**
 
 
 3. Suppose we generate a random variable $X$ in the following way. First we flip a fair coin.  If the coin is heads, take $X$ to have a $\Unif(0,1)$ distribution. If the coin is tails, take $X$ to have a $\Unif(3,4)$ distribution.
 
-   (a) Find the mean of $X$. [2 marks]
-   (b) Find the standard deviation of $X$. [3 marks]
+   (a) Find the mean of $X$. **[12 marks]**
+   (b) Find the standard deviation of $X$. **[3 marks]**
 
 
   

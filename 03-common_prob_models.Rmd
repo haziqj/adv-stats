@@ -808,3 +808,116 @@ Apply these continuity corrections in your calculations!
 | $X>c$ | $X>c-0.5$ |
 | $X\geq c$ | $X>c-0.5$ |
 :::
+
+## Exercises
+
+1. The flow of traffic at certain street corners can sometimes be modelled as a sequence of Bernoulli trials by assuming that the probability of a car passing during any given second is a constant $p$ and that there is no interaction between the passing of cars at different seconds. If we treat seconds as indivisible time units (trials), the Bernoulli model applies. Suppose a pedestrian can cross the street only if no car is to pass during the next 3 seconds. Find the probability that the pedestrian has to wait for exactly 4 seconds before starting to cross.
+
+2. A standard drug is known to be effective in 80\% of cases. A new drug is tested on 100 patients and found to be effective in 85 cases. Evaluate this apparent evidence that the new drug is superior. *Hint: calculate, using a normal approximation, the probability of getting 85 or more successes if in fact the new and old drugs are equally effective.*
+
+3. Suppose that the number of chocolate chips in a certain type of cookie follows a Poisson distribution, and that we want the proportion of cookies containing at least two chocolate chips to be greater than 0.99. Find the smallest value of the mean of the distribution that ensures this probability.
+
+4. A truncated discrete distribution is one in which a particular outcome or set of outcomes cannot be observed and is eliminated from the sample space. In particular, if $X$ has sample space $\{0,1,2,\dots\}$ but $0$ cannot be observed (e.g, $X$ might be the size of a group making a booking for the theatre, or the number of vehicles involved in a road accident) the zero-truncated random variable $X_T$ has pmf
+\[
+  \Pr(X_T=x) = \frac{\Pr(X=x)}{\Pr(X>0)}
+\]
+for $x=1,2,\dots$.
+If $X\sim\Pois(\lambda)$, find the pmf, mean and variance of $X_T$.
+
+5. Show that 
+\[
+  \int_x^\infty {\frac{1}{\Gamma(\alpha)}} z^{\alpha-1}e^{-z} \dint z = \sum_{y=0}^{\alpha-1} \frac{x^ye^{-x}}{y!}, \hspace{2em} \alpha=1,2,3,\dots
+\]
+*Hint: Use integration by parts, and the fact that $\Gamma(n)=(n-1)!$ for positive integers $n$.* Express this formula as a probabilistic relationship between Poisson and gamma random variables.
+
+6. The *Pareto distribution*, with parameters $\alpha$ and $\beta$, has pdf
+    \[
+    f(x) = \frac{\beta\alpha^\beta}{x^{\beta+1}}, \hspace{2em} 0<\alpha < x < \infty, \ \ \ \beta >0.
+    \]
+
+   (a) Verify that $f(x)$ is a pdf.
+   
+	 (b) Derive the mean and variance of this distribution.
+	 
+	 (c) Prove that the variance does not exist if $\beta \leq 2$.
+
+7. Show, using the mgf $M_X(t)=\exp[\lambda(e^t-1)]$, that if $X\sim\Pois(\lambda)$ then $\E(X)=\Var(X)=\lambda$.
+
+8. Let $N\sim\Pois(\lambda)$ and suppose we toss a coin $N$ times, where $p$ is the probability that the coin lands heads up. Let $X$ and $Y$ be the number of heads and tails respectively. Show that $X$ and $Y$ are independent.
+
+9. Let $X\sim\Pois(\lambda)$ and $Y\sim\Pois(\mu)$ and assume that $X$ and $Y$ are independent. Show that the distribution of $X$ given that $X+Y=n$ is $\Bin(n,\pi)$, where $\pi=\frac{\lambda}{\lambda + \mu}$.
+*Use the following hints:*
+
+	- *If $X\sim\Pois(\lambda)$ and $Y\sim\Pois(\mu)$, and $X$ and $Y$ are independent, then $X+Y\sim\Pois(\lambda + \mu)$.*
+	
+	- *$\{X=x,X+Y=n \}=\{X=x,Y=n-x \}$.*
+
+10. Let $X_1,\dots,X_n\iid \Exp(\beta)$. Let $Y=\max\{X_1,\dots,X_n\}$. Find the pdf of $Y$. *Hint: $Y\leq y$ iff $X_i\leq y$ for $i=1,\dots,n$.*
+
+11. In each of the following cases verify the expression given for the mgf, and in each case, use the mgf to calculate $\E(X)$ and $\Var(X)$.
+
+	(a) $\Pr(X=x)=\frac{e^{-\lambda}\lambda^x}{x!}$, $M_X(t)=e^{\lambda(e^t - 1)}$, $x=0,1,2,\dots$, $\lambda>0$.
+	
+	(b) $\Pr(X=x)=p(1-p)^x$, $M_X(t)=\frac{p}{1-e^t(1-p)}$, $x=0,1,2,\dots$, $0<p<1$.
+	
+	(c) $f_X(x)=\frac{e^{-(x-\mu)^2/2\sigma^2}}{\sigma\sqrt{2\pi}}$, $M_X(t)=e^{\mu t+ \sigma^2t^2/2}$, $x\in\bbR$, $\mu\in\bbR$, $\sigma\in\bbR_{> 0}$.
+
+12. Suppose the random variable $T$ is the length of life of an object (possibly the lifetime of an electrical component or of a subject given a particular treatment). The *hazard function* $h_T(t)$ associated with the random variable $T$ is defined by
+\[
+h_T(t) = \lim_{\delta \to 0} \frac{\Pr(t \leq T < t+\delta | T \geq t)}{\delta}.
+\] 
+It is meant to denote the "event rate at time $t$, conditional on survival until time $t$ or later".
+Thus, we can interpret $h_T(t)$ as the rate of chance of the probability that the object survives a little past time $t$, given that the object survives to time $t$. Show that if $T$ is a continuous random variable, then
+\[
+h_T(t) = \frac{f_T(t)}{1-F_T(t)}=-\frac{\ddif }{\ddif t} \log(1-F_T(t)).
+\] 
+*Hints:*
+
+	- *Use the definition of conditional probability.*
+	
+	- *The derivative of a function $g$ at $x$ is defined as*
+  	\[
+  	  g'(x) = \lim_{\delta \to 0} \frac{g(x+\delta) - g(x)}{\delta }.
+  	\]
+	
+	- *The derivative of the cdf is the pdf.*
+
+13. Evidence concerning the guilt or innocence of a defendant in a criminal investigation can be summarized by the value of an exponential random variable $X$ whose mean $\mu$ depends on whether the defendant is guilty. If innocent, $\mu=1$; if guilty, $\mu=2$. The deciding judge will rule the defendant guilty if $X > c$ for some suitably chosen value of $c$.
+
+	  (a) If the judge wants to be 95 percent certain that an innocent man will not be convicted, what should be the value of $c$?
+	
+	  (b) Using the value of $c$ found in part a., what is the probability that a guilty defendant will be convicted? 
+
+14. An image is partitioned into two regions, one white and the other black. A reading taken from a randomly chosen point in the white section will give a reading that is normally distributed with $\mu=4$ and $\sigma^2=4$, whereas one taken from a randomly chosen point in the black region will have a normally distributed reading with parameters $(6, 9)$. A point is randomly chosen on the image and has a reading of 5. If the fraction of the image that is black is $\alpha$, for what value of $\alpha$ would the probability of making an error be the same, regardless of whether one concluded that the point was in the black region or in the white region?
+*Hint: For $X\sim\N(\mu,\sigma^2)$, express $\Pr(X=c)$ as $\lim_{\epsilon\to 0} \Pr(c<X<X+\epsilon)$. Then use the definition of derivatives and the fact that $F'(x)=f(x)$.*
+
+### Hand-in questions {-}
+
+1. Let $M_X(t)$ be the mgf of $X$, and define $S(t) = \log M_X(t) $. Show that $S'(0)= \E(X)$ and $S''(0)=  \Var(X)$. *Remark: $S(t)$ is called the cumulant-generating function of $X$.* **[3 marks]**
+
+2. A model for the movement of a stock supposes that if the present price of the stock is $s$, then, after one period, it will be either $us$ with probability $p$ or $ds$ with probability $1-p$. Assuming that successive movements are independent, approximate the probability that the stock's price will be up at least 30 percent after the next 1000 periods if $u = 1.012$, $d = 0.990$, and $p = 0.52$. **[5 marks]**
+
+3.  Abu goes fishing every Sunday. The number of fish he catches follows a Poisson distribution. On a proportion $\pi$ of the days he goes fishing, he does not catch anything. He makes it a rule to take home the first and then every other fish that he catches (i.e. the first, third, fifth, and so on).
+
+    (a) Using a Poisson distribution, find the mean number of fish he catches. **[3 marks]**
+   
+    (b) Show that the probability that he takes home the last fish he catches is $(1-\pi^2)/2$. *Hint: Use the fact that $\sum_{k=0}^\infty\frac{e^{-\lambda}\lambda^{2k+1}}{(2k+1)!}=(1-e^{-2\lambda})/2$.* **[3 marks]**
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

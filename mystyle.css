@@ -72,7 +72,7 @@ div.example {
   border-top: 1px solid #002f5c;    /* openintro::COL[1,1] */ 
   border-bottom: 1px solid #002f5c; /* openintro::COL[1,1] */   
   background: #e6f3ff 5px center/3em no-repeat; 
-  background-image: url("icons/to-do.png");
+  background-image: url("icons/tip.png");
   background-position: 0.75em 1em;  
   background-size: 30px;      
 }
