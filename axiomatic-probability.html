@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-19" />
+<meta name="date" content="2021-11-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -170,7 +170,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="learning-statistics.html"><a href="learning-statistics.html"><i class="fa fa-check"></i>Learning statistics</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html"><i class="fa fa-check"></i>Population, sample and parametric models</a>
 <ul>
-<li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#two-practical-situations"><i class="fa fa-check"></i>Two practical situations</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#population-vs-sample"><i class="fa fa-check"></i>Population vs sample</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#parametric-models"><i class="fa fa-check"></i>Parametric models</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#a-sample-a-set-of-data-or-random-variablesa-duality"><i class="fa fa-check"></i>A sample: a set of data or random variables?–A duality</a></li>
@@ -185,15 +184,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="probability-theory-primer.html"><a href="probability-theory-primer.html#readings"><i class="fa fa-check"></i>Readings</a></li>
 <li class="chapter" data-level="1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html"><i class="fa fa-check"></i><b>1.1</b> Elementary set theory</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#sample-space"><i class="fa fa-check"></i><b>1.1.1</b> Sample space</a></li>
-<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.2</b> Set operations</a></li>
-<li class="chapter" data-level="1.1.3" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.3</b> Partitions</a></li>
+<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.1</b> Set operations</a></li>
+<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.2</b> Partitions</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html"><i class="fa fa-check"></i><b>1.2</b> Axiomatic probability</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#probability-as-a-measure"><i class="fa fa-check"></i><b>1.2.1</b> Probability as a measure</a></li>
 <li class="chapter" data-level="1.2.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>1.2.2</b> Axioms of probability</a></li>
 <li class="chapter" data-level="1.2.3" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#derived-probability-results"><i class="fa fa-check"></i><b>1.2.3</b> Derived probability results</a></li>
+<li class="chapter" data-level="1.2.4" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#why-measure-theory"><i class="fa fa-check"></i><b>1.2.4</b> Why measure theory?</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="conditional-probabilities.html"><a href="conditional-probabilities.html"><i class="fa fa-check"></i><b>1.3</b> Conditional probabilities</a>
 <ul>
@@ -486,33 +485,104 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="axiomatic-probability" class="section level2" number="1.2">
 <h2><span class="header-section-number">1.2</span> Axiomatic probability</h2>
+<p>In principle, we can understand and easily grasp the notion of probability as the “frequency of an event occurring”.
+But how do we operationalise this concept? That is, by what rules and mechanisms are we allowed to assign probabilities to events?
+If we can overcome this task and are able to assign probabilities to (random) events in an experiment, then we can start to analyse them statistically!</p>
 <div id="probability-as-a-measure" class="section level3" number="1.2.1">
 <h3><span class="header-section-number">1.2.1</span> Probability as a measure</h3>
-<p>We understand probability to mean the “frequency of an event occurring”.
-If we can assign probabilities to (random) events in an experiment, then we can start to analyse them statistically.</p>
-<p>We take an <em>axiomatic approach</em> to defining probabilities, rooted in <em>measure theory</em> (due to Kolmogorov, 1933).
-Let <span class="math inline">\((\Omega,{\mathcal B},\mathbb{P})\)</span> be a measure space.</p>
+<p>Let us take a measure-theoretic approach to defining probabilities.
+We will dive straight into the rigors of definitions before providing a somewhat apologetic rationale as to why such mathematical difficulties are required for probability theory.</p>
+<p>As the name implies, measure theory is the theory about how we measure things (duh!).
+Measure itself is a fundamental concept in mathematics, and it would be useful to come up with a mathematical framework for how we deal with everyday concepts like length, mass, area, volume, and so on.
+Importantly, such a framework allow us to reliably measure in even higher dimensions or onto more abstract constructs not yet imaginable.</p>
+<p>Intuitively, a measure is simply a function whose input is the thing we want to measure (let’s call it a set), and whose output is a non-negative number.
+Don’t worry, a formal definition will follow, but for now, call this function <span class="math inline">\(\mu\)</span>.
+It would be fair to expect a measure <span class="math inline">\(\mu\)</span> to satisfy</p>
 <ul>
-<li><span class="math inline">\({\mathcal B}\)</span> is a <span class="math inline">\(\sigma\)</span>-algebra on <span class="math inline">\(\Omega\)</span>, the subsets of <span class="math inline">\(\Omega\)</span> that are feasible for measuring.</li>
-<li><span class="math inline">\(\mathbb{P}\)</span> is a measure on <span class="math inline">\((\Omega,{\mathcal B})\)</span>, i.e. the method that is used for measuring.</li>
+<li><span class="math inline">\(A \subseteq B \Rightarrow \mu(A) \leq \mu(B)\)</span></li>
+<li><span class="math inline">\(A \subseteq B \Rightarrow \mu(B-A)= \mu(B) - \mu(A)\)</span></li>
+<li>If <span class="math inline">\(\{A_1,A_2,\dots\}\)</span> are mutually exclusive sets (disjoint), then <span class="math inline">\(\mu\left(\cup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mu(A_i)\)</span></li>
 </ul>
-<div class="figure">
-<img src="figure/kolmogorov.jpg" alt="" />
-<p class="caption">Andrey Nikolaevich Kolmogorov. 25 April 1903 – 20 October 1987.</p>
+<p>The first property simply says that if <span class="math inline">\(A\)</span> is a subset of <span class="math inline">\(B\)</span>, then the measure of <span class="math inline">\(A\)</span> is at most the measure of <span class="math inline">\(B\)</span>.
+The second property follows this up by saying that the measure of the set <span class="math inline">\(B-A\)</span>, that is, the set that is obtained by starting with <span class="math inline">\(B\)</span> and taking away the parts that is contained in <span class="math inline">\(A\)</span>, then the measure of this created set is the difference between the measures of <span class="math inline">\(B\)</span> and <span class="math inline">\(A\)</span>.
+Finally, the third property, also known as <em>countable additivity</em>, simply states that the measure of the whole is equal to the sum of the parts.
+It turns out that the first and second properties follow from the third (and the fact that a measure cannot be negative)–see Definition <a href="axiomatic-probability.html#def:measure">1.2</a>.</p>
+<p>So we have this intuition about what the measure should be, but what about the stuff we want to measure?
+For our purposes, we are interested in measuring subsets of <span class="math inline">\(\Omega\)</span>.
+We ask, are we able to measure all possible subsets of <span class="math inline">\(\Omega\)</span>?
+At a glance, perhaps if <span class="math inline">\(\Omega\)</span> is countable (e.g. <span class="math inline">\(\Omega=\{1,2,3\}\)</span>), it is easy to describe the subsets of <span class="math inline">\(\Omega\)</span> through the power set<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> <span class="math inline">\({\mathcal P}(\Omega)\)</span>, which is the set of all possible subsets of <span class="math inline">\(\Omega\)</span>, but what about when <span class="math inline">\(\Omega\)</span> is uncountable (e.g. an interval <span class="math inline">\(\Omega=[0,1]\in\mathbb{R}\)</span>).
+Given a sample space <span class="math inline">\(\Omega\)</span>, we need to define the largest possible collection of subsets of <span class="math inline">\(\Omega\)</span> that can be observed and on which we can assign valid measure.</p>
+<div class="definition">
+<p><span id="def:sigmaalgebra" class="definition"><strong>Definition 1.1  (\(\sigma\)-algebra) </strong></span>A collection <span class="math inline">\({\mathcal F}\)</span> of subsets of a set <span class="math inline">\(\Omega\)</span> is called a <strong><span class="math inline">\(\sigma\)</span>-algebra</strong> if it satisfies the following conditions:</p>
+<ol style="list-style-type: lower-roman">
+<li>If <span class="math inline">\(A \in {\mathcal F}\)</span>, then <span class="math inline">\(A^c \in cF\)</span> <em>[closed under complementation]</em>.</li>
+<li>If <span class="math inline">\(A_1,A_2,\cdots \in {\mathcal F}\)</span>, then <span class="math inline">\(\cup_{i=1}^\infty A_i \in {\mathcal F}\)</span> <em>[closed under countable unions]</em>.</li>
+<li><span class="math inline">\(\{\} \in {\mathcal F}\)</span> <em>[contains the empty set]</em>.</li>
+</ol>
 </div>
-<div class="remark">
-<p><span id="unlabeled-div-4" class="remark"><em>Remark</em>. </span>See Defn 1.2.1 in C&amp;B and the following examples, as well as §1.9 in Wasserman.</p>
+<p>As a remark, condition iii. can be replaced with <span class="math inline">\(\Omega\in{\mathcal F}\)</span> by virtue of condition i..
+The <span class="math inline">\(\sigma\)</span>-algebra is a collection of events or subsets of the sample space <span class="math inline">\(\Omega\)</span>, including <span class="math inline">\(\Omega\)</span> itself and the empty set <span class="math inline">\(\{\}\)</span>, which is closed under countable applications of set operations.
+This is because DeMorgan’s Law allows us to write the countable union property in iii. also as <em>countable intersections</em>: If <span class="math inline">\(A_1,A_2,\cdots \in {\mathcal F}\)</span>, then by i. <span class="math inline">\(A_1^c,A_2^c,\cdots \in {\mathcal F}\)</span>, and hence <span class="math inline">\(\cup_{i=1}^\infty A_i\in{\mathcal F}\)</span> and also its complement. By DeMorgan’s Law,
+<span class="math display">\[
+\left( \cup_{i=1}^\infty A_i^c \right)^c = \cap_{i=1}^\infty A_i.
+\]</span></p>
+<p>Sets contained in <span class="math inline">\({\mathcal F}\)</span> are called <strong>measurable sets</strong>.</p>
+<div class="mynote">
+<p>The <span class="math inline">\(\sigma\)</span>-algebra is an important condition for measure to not breakdown, because it helps draw a line as to which subsets of the sample space is measurable, and which is not.
+Out of interest, condition iii. in Definition <a href="axiomatic-probability.html#def:sigmaalgebra">1.1</a> is the condition that makes <span class="math inline">\({\mathcal F}\)</span> a <span class="math inline">\(\sigma\)</span>-algebra (the <span class="math inline">\(\sigma\)</span> stands for countable <u><strong>s</strong></u>um).
+Without this condition, one ends up with just an <em>algebra</em> of sets, one that is most likely <em>too small</em>, failing to contain sets that we would like assign a measure.</p>
 </div>
-<div class="remark">
-<p><span id="unlabeled-div-5" class="remark"><em>Remark</em>. </span>There are alternative formulations/approaches to defining probabilities, e.g. Cox’s Theorem (logical probabilities).</p>
+<p>Let’s take a look at some examples of <span class="math inline">\(\sigma\)</span>-algebras.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-5" class="example"><strong>Example 1.5  </strong></span><br></p>
+<ol style="list-style-type: decimal">
+<li><p>The trivial <span class="math inline">\(\sigma\)</span>-algebra: <span class="math display">\[\big\{ \{\}, \Omega \big\}.\]</span> This corresponds the case of no information.</p></li>
+<li><p>The power set of the sample space <span class="math inline">\(\Omega\)</span>: <span class="math display">\[\big\{ A | A \subseteq \Omega \big\}.\]</span> This corresponds the case of full information.</p></li>
+<li><p>The collection <span class="math inline">\(\big\{ \{\}, A, A^c, \Omega \big\}\)</span> is a <span class="math inline">\(\sigma\)</span>-algebra, for any <span class="math inline">\(A\subseteq \Omega\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(\Omega = \{a,b,c,d\}\)</span>. A possible<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> <span class="math inline">\(\sigma\)</span>-algebra is <span class="math display">\[\big\{\{\}, \{a,b,c,d\}, \{a,b\}, \{c,d\} \big\}.\]</span></p></li>
+<li><p>Define <span class="math inline">\(B(s)\)</span> to be a square of side length <span class="math inline">\(s\)</span>. Let <span class="math inline">\(\Omega\)</span> be the collection of points in <span class="math inline">\((0,1)\times(0,1)\subset \mathbb{R}^2\)</span> contained within the a unit square <span class="math inline">\(B(1)\)</span>. Then <span class="math display">\[{\mathcal F}=\{ \text{Collection of points contained in the square } B(s) \text{ with } s \in (0,1) \}.\]</span> It should be clear there are uncountably many such squares that can be fit within the unit square.</p></li>
+</ol>
 </div>
-<p>[Further explanation of measure theory]</p>
-<p>Why do we bother with measure theory?</p>
-<blockquote>
-<p>The Banach–Tarski paradox states that a ball in the ordinary Euclidean space can be doubled using only the operations of partitioning into subsets, replacing a set with a congruent set, and reassembly.</p>
-</blockquote>
-<p><img src="figure/banach_tarski.png" /></p>
-<p>If we don’t lay out the foundations for measuring probabilities rigorously, we can end up with nonsensical answers!</p>
+<p>Just as a remark, most introduction to probability measure will deal with finite or countable sets when introducing <span class="math inline">\(\sigma\)</span>-algebras, giving readers an impression that it’s only possible to define <span class="math inline">\(\sigma\)</span>-algebras on such sets. The fifth example above gives an example of a <span class="math inline">\(\sigma\)</span>-algebra which is uncountable.</p>
+<p>The twin <span class="math inline">\((\Omega,{\mathcal F})\)</span> is called a <em>measurable space</em>. This sort of defines the “parts” of our problem which are measurable, as per Definition <a href="axiomatic-probability.html#def:sigmaalgebra">1.1</a>. What’s missing is a measure, i.e. the thing that actually tells us ‘how long a piece of string is’, so to speak<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>. We now define a measure as follows.</p>
+<div class="definition">
+<p><span id="def:measure" class="definition"><strong>Definition 1.2  (Measure) </strong></span>A <em>measure</em> <span class="math inline">\(\mu\)</span> is a non-negative real valued function defined on a <span class="math inline">\(\sigma\)</span>-algebra, i.e. <span class="math inline">\(\mu:{\mathcal F}\to\mathbb{R}_{\geq 0}\)</span>, where <span class="math inline">\(\mathbb{R}_{\geq 0}\)</span> are the non-negative real numbers and <span class="math inline">\({\mathcal F}\)</span> a <span class="math inline">\(\sigma\)</span>-algebra of subsets of <span class="math inline">\(\Omega\)</span>. The measure <span class="math inline">\(\mu\)</span> satisfies the following properties:</p>
+<ol style="list-style-type: lower-roman">
+<li><span class="math inline">\(\mu(\{\})=0\)</span>.</li>
+<li><span class="math inline">\(\mu\)</span> is countably additive, i.e. if <span class="math inline">\(A_1,A_2,\dots\)</span> are disjoint events, then <span class="math display">\[\mu\left( \cup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mu(A_i).\]</span></li>
+</ol>
+</div>
+<p>If, in addition the measure of the entire sample space is normalised (i.e. <span class="math inline">\(\mu(\Omega)=1\)</span>), then <span class="math inline">\(\mu\)</span> is called a <strong>probability measure</strong>. We will see this in the next section.</p>
+<p>The triplet <span class="math inline">\((\Omega,{\mathcal F},\mu)\)</span> is called a <em>measure space</em> (note that without the measure it is called a measurable space).
+This space simply tells us the parts needed for well-defined measure to take place on the subsets of <span class="math inline">\(\Omega\)</span>.</p>
+<!-- ![Andrey Nikolaevich Kolmogorov. 25 April 1903 -- 20 October 1987.](figure/kolmogorov.jpg) -->
+<!-- ::: {.remark} -->
+<!-- See Defn 1.2.1 in C&B and the following examples, as well as §1.9 in Wasserman. -->
+<!-- ::: -->
+<!-- ::: {.remark} -->
+<!-- There are alternative formulations/approaches to defining probabilities, e.g. Cox's Theorem (logical probabilities). -->
+<!-- ::: -->
+<div class="example">
+<p><span id="exm:unlabeled-div-6" class="example"><strong>Example 1.6  </strong></span><br></p>
+<ol style="list-style-type: decimal">
+<li><p>The counting measure. Let <span class="math inline">\(\Omega\)</span> be a countable set [You may be creative as you like here to make this less abstract, e.g. the books on your shelf or the members of your family, although the set need not be finite]. Let <span class="math inline">\({\mathcal F}={\mathcal P}(\Omega)\)</span> be the power set of <span class="math inline">\(\Omega\)</span>. For all sets <span class="math inline">\(A\in{\mathcal A}\)</span>, define <span class="math display">\[\mu(A) = \begin{cases} |A| &amp; A \text{ has finitely many elements}\\ \infty &amp;\text{otherwise} \end{cases}\]</span> where the operator <span class="math inline">\(|\cdot|\)</span> represents the <em>cardinality</em> of the set, i.e. the number of elements it contains (its size).</p></li>
+<li><p>The Lebesgue measure in one dimension. Let <span class="math inline">\(\Omega=\mathbb{R}\)</span>, and define <span class="math inline">\({\mathcal F}\)</span> to contain all sets of the form</p>
+<ul>
+<li>[a,b], i.e. closed intervals,</li>
+<li>(a,b), i.e. open intervals,</li>
+<li>(a,b], i.e. open-closed intervals; and</li>
+<li>[a,b), i.e. closed-open intervals.</li>
+</ul>
+<p>for all real numbers <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. We can deduce that the <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\({\mathcal F}\)</span> contains all possible “nice” intervals of the real line, including unbounded intervals and even singletons, which means any continuous partition of the real line can be measured (including a point, which should have measure zero). To see this, using the properties of <span class="math inline">\(\sigma\)</span>-algebras,</p>
+<ul>
+<li><p>unbounded intervals are in <span class="math inline">\({\mathcal F}\)</span>, since, for instance <span class="math display">\[(x,+\infty)=\cup_{i=1}^\infty(x,x+i).\]</span></p></li>
+<li><p>singletons are in <span class="math inline">\({\mathcal F}\)</span>, since <span class="math display">\[\{x\}=\cap_{i=1}^\infty (x-1/i,x+1/i).\]</span></p></li>
+</ul>
+<p>This set <span class="math inline">\({\mathcal F}\)</span> has a special name, called the Borel <span class="math inline">\(\sigma\)</span>-algebra.</p>
+<p>All that’s left is to define the measure. The Lebesgue measure <span class="math inline">\(\mu\)</span> assigns the usual concept of length to any continuous interval on <span class="math inline">\(\mathbb{R}\)</span> (to be precise, the Borel <span class="math inline">\(\sigma\)</span>-algebra on <span class="math inline">\(\mathbb{R}\)</span>): <span class="math display">\[\mu\left(A\right)=b-a\]</span>
+where <span class="math inline">\(A\)</span> is any interval of <span class="math inline">\(\mathbb{R}\)</span> of the above forms (closed, open, open-closed, closed-open). This measure works even for singleton sets or unbounded intervals.</p></li>
+</ol>
+</div>
 </div>
 <div id="axioms-of-probability" class="section level3" number="1.2.2">
 <h3><span class="header-section-number">1.2.2</span> Axioms of probability</h3>
@@ -526,7 +596,7 @@ Let <span class="math inline">\((\Omega,{\mathcal B},\mathbb{P})\)</span> be a m
 \]</span></li>
 </ul>
 <div class="remark">
-<p><span id="unlabeled-div-6" class="remark"><em>Remark</em>. </span>There are two main interpretation of probabilities.</p>
+<p><span id="unlabeled-div-7" class="remark"><em>Remark</em>. </span>There are two main interpretation of probabilities.</p>
 <ol style="list-style-type: decimal">
 <li><p>The <strong>frequentist</strong> interpretation is that if we flip the coin many times, then the proportion of heads that is observed will be 50% in the long run.</p></li>
 <li><p>The <strong>subjectivist</strong> interpretation is that the probability measures an observer’s strength of belief that the event is true.</p></li>
@@ -547,6 +617,127 @@ The following results can be derived using only the three axioms:</p>
 <li><span class="math inline">\(\mathbb{P}(A) = \sum_{i=1}^\infty \mathbb{P}(A \cap C_i)\)</span> for any partition <span class="math inline">\(C_1,C_2,\dots\)</span> of <span class="math inline">\(\Omega\)</span> (<em>Law of Total Probability</em>)</li>
 </ul>
 </div>
+<div id="why-measure-theory" class="section level3" number="1.2.4">
+<h3><span class="header-section-number">1.2.4</span> Why measure theory?</h3>
+<p>Consider the uniform distribution on a random variable <span class="math inline">\(X\)</span> on the unit interval, denoted <span class="math inline">\(X\sim\mathop{\mathrm{Unif}}(0,1)\)</span>. You may have come across this before, and know that the probability that <span class="math inline">\(X\)</span> lies in any interval contained in <span class="math inline">\([0,1]\)</span> is simply the length of the interval, i.e.
+<span class="math display" id="eq:meas1">\[\begin{equation}
+\mathbb{P}\big([a,b]\big) = \mathbb{P}\big([a,b)\big) = \mathbb{P}\big((a,b]\big) = \mathbb{P}\big((a,b)\big) = b-a, \tag{1.1}
+\end{equation}\]</span>
+for <span class="math inline">\(0 \leq a \leq b \leq 1\)</span>. This definition works fine for the degenerate case <span class="math inline">\(\mathbb{P}(\{a\})=0\)</span> for the singleton set <span class="math inline">\(\{a|a\in(0,1)\}\)</span>.
+In general, if <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are disjoint subsets of <span class="math inline">\([0,1]\)</span> then
+<span class="math display">\[\begin{equation}
+\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B),
+\end{equation}\]</span>
+and we can even extend this notion to that of <em>countable additivity</em>
+<span class="math display" id="eq:meas2">\[\begin{equation}
+\mathbb{P}\left( \cup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mathbb{P}(A_i), \tag{1.2}
+\end{equation}\]</span>
+for disjoint sets <span class="math inline">\(\{A_1,A_2,\dots\}\)</span><a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>.</p>
+<p>For a uniform measure on <span class="math inline">\([0,1]\)</span>, one expects that the measure of some subset <span class="math inline">\(A \subseteq [0,1]\)</span> to be unaffected by “shifting” (with wrap-around) of that subset by some fixed amount <span class="math inline">\(r\in[0,1]\)</span>.
+Define the <em><span class="math inline">\(r\)</span>-shift</em> of <span class="math inline">\(A\subseteq [0,1]\)</span> by
+<span class="math display">\[
+A \oplus r := \left\{ a + r \mid a \in A, a+r \leq 1 \right\} \cup \left\{ a + r - 1 \mid a \in A, a+r &gt; 1 \right\}.
+\]</span>
+Then we should have
+<span class="math display" id="eq:meas3">\[\begin{equation}
+\mathbb{P}(A \oplus r) = \mathbb{P}(A). \tag{1.3}
+\end{equation}\]</span></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:wraparoundmeasureanim"></span>
+<img src="bookdown-adv-stats_files/figure-html/wraparoundmeasureanim-1.gif" alt="An interval in [0,1] shifted by some fixed amount, with wrap-around, should have consistent length." width="100%" />
+<p class="caption">
+Figure 1.1: An interval in [0,1] shifted by some fixed amount, with wrap-around, should have consistent length.
+</p>
+</div>
+<p>At this point you might notice that all of this resonates with the previous example on the Lebesgue measure, except perhaps the shifting part, and indeed that is the case.
+Suppose that we dispense with measure theory and do not define things like the <span class="math inline">\(\sigma\)</span>-algebra on the <span class="math inline">\([0,1]\)</span> or the triplet <span class="math inline">\((\Omega,{\mathcal F},\mathbb{P})\)</span>, and only use the above probability definitions given in <a href="axiomatic-probability.html#eq:meas1">(1.1)</a>, <a href="axiomatic-probability.html#eq:meas2">(1.2)</a>, and <a href="axiomatic-probability.html#eq:meas3">(1.3)</a>.
+How far can we push the boundaries of such probability definitions before things start to breakdown?</p>
+<p>Consider these questions:</p>
+<ul>
+<li>What is the probability that <span class="math inline">\(X\)</span> is rational?</li>
+<li>What is the probability that <span class="math inline">\(X^n\)</span> is rational for some positive integer <span class="math inline">\(n\)</span>?</li>
+<li>What is the probability that <span class="math inline">\(X\)</span> is <em>algebraic</em><a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>?</li>
+</ul>
+<p>All seemingly fair and interesting questions, but are they well defined? Can we actually measure them and assign probabilities to such events? Taking a step back further, we ask:</p>
+<blockquote>
+<p>Are all possible subsets <span class="math inline">\(A\subseteq [0,1]\)</span> measurable? Does <span class="math inline">\(\mathbb{P}(A)\)</span> even make <em>sense</em> for any event <span class="math inline">\(A\)</span> we can think of?</p>
+</blockquote>
+<p>It turns out the answer is no, and can be proven by contradiction with the help of equivalence relations.
+You may skip this part if you wish, but I’ll try to keep the technicalities to a minimum (or at least provide some helpful intuition where needed).
+This shows the need for the heavy machinery that is measure theory for assigning probabilities to events<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>.</p>
+<!-- Before we go there, there's one helpful property of measures that we should expect it to have (at least, when considering lengths of intervals such as in the uniform distribution above): *translation invariance*. -->
+<!-- What we mean by this is that the measure of a set should remain unchanged even if it is subjected to fixed amount of "shift". -->
+<!-- In particular, this is reflected in a more general form of the uniform distribution on an interval $(c,d)$, where -->
+<!-- \begin{equation} -->
+<!-- \bbP([a,b]) = \frac{b-a}{d-c} = \Pr\big(Y\in[a,b] \big\mid Y\sim\Unif(c,d)\big), (\#eq:uniformshift) -->
+<!-- \end{equation} -->
+<!-- for $c\leq a\leq b\leq d$.  -->
+<!-- If our random variable $X\sim\Unif(0,1)$ is shifted by some amount $k\in\bbR$, then the values of $c$ and $d$ in \@ref(eq:uniformshift) are $c=r$ and $d=1+r$, whence  -->
+<!-- $$ -->
+<!-- \Pr\big(Y\in[a,b]  \big\mid Y\sim\Unif(r,1+r)\big) = b-a = \Pr\big(X\in[a,b]  \big\mid X\sim\Unif(0,1)\big). -->
+<!-- $$ -->
+<div class="proposition">
+<p><span id="prp:unlabeled-div-8" class="proposition"><strong>Proposition 1.1  </strong></span>There does not exist a definition of <span class="math inline">\(\mathbb{P}(A)\)</span>, defined for all subsets <span class="math inline">\(A\subseteq[0,1]\)</span>, satisfying <a href="axiomatic-probability.html#eq:meas1">(1.1)</a>, <a href="axiomatic-probability.html#eq:meas2">(1.2)</a>, and <a href="axiomatic-probability.html#eq:meas3">(1.3)</a>.</p>
+</div>
+<div class="proof">
+<p><span id="unlabeled-div-9" class="proof"><em>Proof</em>. </span>All we need to show is the existence of one such subset of <span class="math inline">\([0,1]\)</span> whose measure is undefined. The set we are about to construct is called the Vitali set<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>, after Giuseppe Vitali who described it in 1905.</p>
+<p>Define an equivalence relation on <span class="math inline">\([0,1]\)</span> by the following:
+<span class="math display">\[x\sim y \Rightarrow x-y \in \mathbb{Q}\]</span>
+That is, two real numbers <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are deemed to be the same if their difference is a rational number. We would like to separate all the real numbers between 0 and 1 inclusive by this equivalence relation, and collect them into groups called equivalence classes. For instance, the numbers 0 and 0.5 will be in the same category, since their difference is rational, but the numbers 0.5 and <span class="math inline">\(\pi^{-1}\)</span> would be in separate categories. There will be infinitely many such equivalence classes, but we’re not concerned so much about how many there are, <em>except</em> that they are countable.</p>
+<p>Construct the Vitali set <span class="math inline">\(V\)</span> as follows: Take precisely one element from each equivalent class, and put it in <span class="math inline">\(V\)</span>. As a remark, such a <span class="math inline">\(V\)</span> must surely exist by the Axiom of Choice<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a>.</p>
+<p>Consider now the union of shifted Vitali sets by some value rational value <span class="math inline">\(r\in[0,1]\)</span>,
+<span class="math display">\[
+\bigcup_{r} (V \oplus r)
+\]</span>
+As a reminder, the set of rational numbers is countably infinite<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a>. We make a few observations:</p>
+<ul>
+<li><p>The equivalence relation partitions the interval <span class="math inline">\([0,1]\)</span> into a disjoint union of equivalence classes. In other words, the sets <span class="math inline">\((V \oplus r)\)</span> and <span class="math inline">\((V \oplus s)\)</span> are disjoint for any rationals <span class="math inline">\(r\neq s\)</span>, such that <span class="math inline">\(r,s\in[0,1]\)</span>. If they were not disjoint, this would mean that there exists some <span class="math inline">\(x,y\in[0,1]\)</span> with <span class="math inline">\(x+r\in(V \oplus r)\)</span> and <span class="math inline">\(y+s\in (V \oplus s)\)</span> such that <span class="math inline">\(x+r=y+s\)</span>. But then this means that <span class="math inline">\(x-y=s-r\in\mathbb{Q}\)</span> so <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are in the same equivalent class, and this is a contradiction.</p></li>
+<li><p>Every point in <span class="math inline">\([0,1]\)</span> is contained in the union <span class="math inline">\(\bigcup_{r} (V \oplus r)\)</span>. This is because each <span class="math inline">\(x\in [0,1]\)</span> belongs to one equivalence class, and is subsequently shifted by some rational value <span class="math inline">\(r\)</span> in the corresponding Vitali set <span class="math inline">\((V \oplus r)\)</span>. Therefore, <span class="math display">\[[0,1] \subseteq  \bigcup_{r} (V \oplus r).\]</span> and we may write <span class="math display">\[1 = \mathbb{P}([0,1]) \leq \mathbb{P}\left(\bigcup_{r} (V \oplus r)\right),\]</span> since the measure of any set contained in another must have smaller measure: <span class="math inline">\(A \subseteq B \Rightarrow \mu(A) \leq \mu(B)\)</span>.</p></li>
+<li><p>The disjoint union <span class="math inline">\(\bigcup_{r} (V \oplus r)\)</span> has probability measure (according to our definitions in <a href="axiomatic-probability.html#eq:meas1">(1.1)</a>, <a href="axiomatic-probability.html#eq:meas2">(1.2)</a>, and <a href="axiomatic-probability.html#eq:meas3">(1.3)</a>)
+<span class="math display">\[\begin{align*}
+ \mathbb{P}\left(\bigcup_{r} (V \oplus r)\right) 
+ &amp;= \sum_r \mathbb{P}(V \oplus r) \\
+ &amp;= \sum_r \mathbb{P}(V)
+ \end{align*}\]</span></p></li>
+</ul>
+<p>Putting these three observations together gives us
+<span class="math display">\[
+1 = \mathbb{P}\left(\bigcup_{r} (V \oplus r)\right)  = \sum_r \mathbb{P}(V).
+\]</span>
+This leads to the desired contradiction: A countably infinite sum of the same quantity repeated can only equal 0, <span class="math inline">\(+\infty\)</span>, or <span class="math inline">\(-\infty\)</span>, but it can never equal 1.</p>
+</div>
+<p>In summary,</p>
+<ul>
+<li>Not all subsets of uncountable sets are measurable. Admitting all subsets of uncountable sets will break mathematics.</li>
+<li><span class="math inline">\(\sigma\)</span>-algebras are the patch that fixes mathematics. It gatekeeps the subsets of uncountable sets and disregards those which are not measurable.</li>
+<li>Actually, if you have been following along, you might realise that we are at risk of breaking mathematics when dealing with uncountable sets. Strictly speaking, we only need <span class="math inline">\(\sigma\)</span>-algebras when working in a set with uncountable cardinality.</li>
+</ul>
+<p>Finally, what on earth is an “unmeasurable” set? Wouldn’t it be (even arbitrarily) possible to just define a measure for whatever set we can think of? If the above example hasn’t convinced you enough, some other mathematicians have tried to resolve this but it seems it is not possible to do so without encountering paradoxes, such as the one below.</p>
+<blockquote>
+<p>The Banach–Tarski paradox states that a ball in the ordinary Euclidean space can be doubled using only the operations of partitioning into subsets, replacing a set with a congruent set, and reassembly.</p>
+</blockquote>
+<p><img src="figure/banach_tarski.png" /></p>
+<p>To be clear, no rule of mathematics are broken in the Banach-Tarski paradox, but the result defies intuition. Another statement of this paradox is that <em>we can chop up a pea into finitely many pieces and reassemble it into the sun</em> (pea-sun paradox). If we don’t lay out the foundations for measuring probabilities rigorously, we can end up with nonsensical answers!</p>
+<p>This section was highly inspired by the following references:</p>
+<ul>
+<li>Rosenthal, J. (2006). A first look at rigorous probability.</li>
+<li>The discussion here: <a href="https://stats.stackexchange.com/q/199280" class="uri">https://stats.stackexchange.com/q/199280</a></li>
+<li>This YouTube video on Vitali Sets: <a href="https://youtu.be/ameugr-wjeI" class="uri">https://youtu.be/ameugr-wjeI</a></li>
+</ul>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="7">
+<li id="fn7"><p>For the example at hand, the power set is <span class="math inline">\({\mathcal P}(\Omega)=\{ \{\}, \{1\}, \{2\}, \{3\}, \{1,2\}, \{1,3\}, \{2,3\}, \{1,2,3\} \}\)</span><a href="axiomatic-probability.html#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>You may notice that other <span class="math inline">\(\sigma\)</span>-algebras are indeed possible, e.g. the power set of <span class="math inline">\(\Omega\)</span> in this case. There is a notion of the <em>smallest</em> <span class="math inline">\(\sigma\)</span>-algebra containing the collection of “basic events”. Luckily for us, the event space that we will usually be working with will be the smallest <span class="math inline">\(\sigma\)</span>-algebra without much technicalities, so we shall not explore this concept any further.<a href="axiomatic-probability.html#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p><a href="https://idioms.thefreedictionary.com/How+long+is+a+piece+of+string%3F" class="uri">https://idioms.thefreedictionary.com/How+long+is+a+piece+of+string%3F</a><a href="axiomatic-probability.html#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>A concrete example of this is for the sets <span class="math inline">\(A_1=(0,1/2)\)</span>, <span class="math inline">\(A_2=(1/2, 3/4)\)</span>, <span class="math inline">\(A_3=(3/4,7/8)\)</span>, and so on (adding half the interval at each iteration). One finds that the measure of the countable union is <span class="math inline">\(\sum_{i=1}^\infty (1/2)^i=1\)</span>.<a href="axiomatic-probability.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p>An algebraic number is a number that is a root of a non-zero polynomial in one variable with integer coefficients.<a href="axiomatic-probability.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>Or at least, for cases where “not so nice” events need to be measured.<a href="axiomatic-probability.html#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p><a href="https://en.wikipedia.org/wiki/Vitali_set" class="uri">https://en.wikipedia.org/wiki/Vitali_set</a><a href="axiomatic-probability.html#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p>Given a collection of some countably many non-empty sets, it is always possible to construct a new set by taking one element from each set in the original collection. See <a href="https://brilliant.org/wiki/axiom-of-choice/" class="uri">https://brilliant.org/wiki/axiom-of-choice/</a><a href="axiomatic-probability.html#fnref14" class="footnote-back">↩︎</a></p></li>
+<li id="fn15"><p><a href="https://www.homeschoolmath.net/teaching/rational-numbers-countable.php" class="uri">https://www.homeschoolmath.net/teaching/rational-numbers-countable.php</a><a href="axiomatic-probability.html#fnref15" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 

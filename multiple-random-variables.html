@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-19" />
+<meta name="date" content="2021-11-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -170,7 +170,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="learning-statistics.html"><a href="learning-statistics.html"><i class="fa fa-check"></i>Learning statistics</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html"><i class="fa fa-check"></i>Population, sample and parametric models</a>
 <ul>
-<li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#two-practical-situations"><i class="fa fa-check"></i>Two practical situations</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#population-vs-sample"><i class="fa fa-check"></i>Population vs sample</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#parametric-models"><i class="fa fa-check"></i>Parametric models</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#a-sample-a-set-of-data-or-random-variablesa-duality"><i class="fa fa-check"></i>A sample: a set of data or random variables?–A duality</a></li>
@@ -185,15 +184,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="probability-theory-primer.html"><a href="probability-theory-primer.html#readings"><i class="fa fa-check"></i>Readings</a></li>
 <li class="chapter" data-level="1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html"><i class="fa fa-check"></i><b>1.1</b> Elementary set theory</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#sample-space"><i class="fa fa-check"></i><b>1.1.1</b> Sample space</a></li>
-<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.2</b> Set operations</a></li>
-<li class="chapter" data-level="1.1.3" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.3</b> Partitions</a></li>
+<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.1</b> Set operations</a></li>
+<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.2</b> Partitions</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html"><i class="fa fa-check"></i><b>1.2</b> Axiomatic probability</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#probability-as-a-measure"><i class="fa fa-check"></i><b>1.2.1</b> Probability as a measure</a></li>
 <li class="chapter" data-level="1.2.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>1.2.2</b> Axioms of probability</a></li>
 <li class="chapter" data-level="1.2.3" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#derived-probability-results"><i class="fa fa-check"></i><b>1.2.3</b> Derived probability results</a></li>
+<li class="chapter" data-level="1.2.4" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#why-measure-theory"><i class="fa fa-check"></i><b>1.2.4</b> Why measure theory?</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="conditional-probabilities.html"><a href="conditional-probabilities.html"><i class="fa fa-check"></i><b>1.3</b> Conditional probabilities</a>
 <ul>
@@ -491,13 +490,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Probability models may involve more than one random variable, known as <em>multivariate models</em>.
 Consider the simplest kind, dealing with only two r.v.s in each discrete and continuous case.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-21" class="definition"><strong>Definition 1.6  (Joint mass function) </strong></span>Given a pair of discrete r.v. <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, the joint mass function or joint pmf is defined by
+<p><span id="def:unlabeled-div-24" class="definition"><strong>Definition 1.8  (Joint mass function) </strong></span>Given a pair of discrete r.v. <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, the joint mass function or joint pmf is defined by
 <span class="math display">\[
 f_{X,Y}(x,y) = \mathbb{P}(X=x,Y=y).
 \]</span></p>
 </div>
 <div class="definition">
-<p><span id="def:unlabeled-div-22" class="definition"><strong>Definition 1.7  (Joint density function) </strong></span>A function <span class="math inline">\(f_{X,Y}:\mathbb{R}^2\to\mathbb{R}\)</span> is called a joint probability density function (pdf) of the continuous random vector <span class="math inline">\((X,Y)\)</span> if for any set <span class="math inline">\(A\subseteq\mathbb{R}^2\)</span>,
+<p><span id="def:unlabeled-div-25" class="definition"><strong>Definition 1.9  (Joint density function) </strong></span>A function <span class="math inline">\(f_{X,Y}:\mathbb{R}^2\to\mathbb{R}\)</span> is called a joint probability density function (pdf) of the continuous random vector <span class="math inline">\((X,Y)\)</span> if for any set <span class="math inline">\(A\subseteq\mathbb{R}^2\)</span>,
 <span class="math display">\[
   \mathbb{P}((X,Y) \in A) = \iint_{A} f_{X,Y}(x,y)\mathop{\mathrm{d}}\hspace{0.5pt}\!x \mathop{\mathrm{d}}\hspace{0.5pt}\!y.
 \]</span></p>
@@ -509,7 +508,7 @@ f_{X,Y}(x,y) = \mathbb{P}(X=x,Y=y).
 <li>The joint cdf is defined <span class="math inline">\(F_{X,Y}(x,y) = \mathbb{P}(X\leq x, Y\leq y)\)</span></li>
 </ul>
 <div class="example">
-<p><span id="exm:unlabeled-div-23" class="example"><strong>Example 1.10  </strong></span>A bivariate distribution for two discrete r.v. <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> each taking values 0 or 1:</p>
+<p><span id="exm:unlabeled-div-26" class="example"><strong>Example 1.13  </strong></span>A bivariate distribution for two discrete r.v. <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> each taking values 0 or 1:</p>
 <table>
 <thead>
 <tr class="header">
@@ -534,7 +533,7 @@ f_{X,Y}(x,y) = \mathbb{P}(X=x,Y=y).
 <p>For e.g., <span class="math inline">\(\mathbb{P}(X=1,Y=1) = f(1,1) = 4/9\)</span>.</p>
 </div>
 <div class="example">
-<p><span id="exm:unitsquare" class="example"><strong>Example 1.11  </strong></span>Consider a uniform distribution on the unit square <span class="math inline">\([0,1] \times [0,1]\)</span>. It has pdf given by
+<p><span id="exm:unitsquare" class="example"><strong>Example 1.14  </strong></span>Consider a uniform distribution on the unit square <span class="math inline">\([0,1] \times [0,1]\)</span>. It has pdf given by
 <span class="math display">\[
 f(x,y) = \begin{cases}
   1 &amp;0\leq x \leq 1, 0\leq y \leq 1 \\
@@ -562,7 +561,7 @@ Suppose we want to find <span class="math inline">\(\Pr(X&lt;1/2, Y&lt;1/2)\)</s
 <h3><span class="header-section-number">1.8.2</span> Marginal distributions</h3>
 <p>We can recover the distribution for one of the r.v. in a bivariate (or multivariate) model by summing/integrating over the remaining probibility distribution.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-24" class="definition"><strong>Definition 1.8  (Marginal distribution) </strong></span>For a bivariate r.v. <span class="math inline">\((X,Y)\)</span>, the marginal distributions may be obtained as
+<p><span id="def:unlabeled-div-27" class="definition"><strong>Definition 1.10  (Marginal distribution) </strong></span>For a bivariate r.v. <span class="math inline">\((X,Y)\)</span>, the marginal distributions may be obtained as
 <span class="math display">\[
 f_X(x) = 
 \begin{cases}
@@ -604,13 +603,13 @@ Some examples:</p>
 </ul>
 <p>Knowledge about the value of <span class="math inline">\(Y\)</span> gives us some information about the value of <span class="math inline">\(Y\)</span>. This should sound familiar.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-25" class="definition"><strong>Definition 1.9  (Conditional distributions, discrete) </strong></span>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are discrete, the conditional pmf of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y=y\)</span> is
+<p><span id="def:unlabeled-div-28" class="definition"><strong>Definition 1.11  (Conditional distributions, discrete) </strong></span>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are discrete, the conditional pmf of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y=y\)</span> is
 <span class="math display">\[
   f_{X|Y}(x|y) = \mathbb{P}(X=x|Y=y) = \frac{\mathbb{P}(X=x, Y=y)}{\mathbb{P}(Y=y)} = \frac{f_{X,Y}(x, y)}{f_Y(y)},
 \]</span></p>
 </div>
 <div class="definition">
-<p><span id="def:unlabeled-div-26" class="definition"><strong>Definition 1.10  (Conditional distributions, continuous) </strong></span>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are discrete, the conditional of of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y=y\)</span> is
+<p><span id="def:unlabeled-div-29" class="definition"><strong>Definition 1.12  (Conditional distributions, continuous) </strong></span>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are discrete, the conditional of of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y=y\)</span> is
 <span class="math display">\[
   f_{X|Y}(x|y) =  \frac{f_{X,Y}(x, y)}{f_Y(y)}.
 \]</span></p>
@@ -627,7 +626,7 @@ Some examples:</p>
 <li>We can rearrange the equations to yield <span class="math display">\[f_{X|Y}(x|y)f_Y(y)=f_{Y|X}(y|x)f_X(x).\]</span></li>
 </ul>
 <div class="example">
-<p><span id="exm:unlabeled-div-27" class="example"><strong>Example 1.12  </strong></span>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have the joint pdf <span class="math inline">\(f(x,y)=x+y\)</span> for <span class="math inline">\(0\leq x,y\leq 1\)</span>.
+<p><span id="exm:unlabeled-div-30" class="example"><strong>Example 1.15  </strong></span>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have the joint pdf <span class="math inline">\(f(x,y)=x+y\)</span> for <span class="math inline">\(0\leq x,y\leq 1\)</span>.
 Suppose <span class="math inline">\(Y=a\)</span> has been observed, where <span class="math inline">\(a\in[0,1]\)</span>.
 Firstly, the the pdf of <span class="math inline">\(Y\)</span> is
 <span class="math display">\[
@@ -648,7 +647,7 @@ f_{X|Y}(x|Y=a) = \frac{f_{X,Y}(x,Y=a)}{f_Y(a)} = \frac{x+a}{a + 1/2}.
 <p>Previously we came across the concept of independence of probabilistic events.
 We can extend this notion to random variables.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-28" class="definition"><strong>Definition 1.11  (Independece of r.v.) </strong></span>Two r.v. <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent if and only if for every <span class="math inline">\(x\in\mathbb{R}\)</span> and <span class="math inline">\(y\in\mathbb{R}\)</span>,
+<p><span id="def:unlabeled-div-31" class="definition"><strong>Definition 1.13  (Independece of r.v.) </strong></span>Two r.v. <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent if and only if for every <span class="math inline">\(x\in\mathbb{R}\)</span> and <span class="math inline">\(y\in\mathbb{R}\)</span>,
 <span class="math display">\[
   f_{X,Y}(x,y) = f_X(x)f_Y(y).
 \]</span>
@@ -659,7 +658,7 @@ We write <span class="math inline">\(X \perp Y\)</span>.</p>
 <li>The assumption of independence is used very often in statistical inference as it simplifies calculations quite a lot.</li>
 </ul>
 <div class="example">
-<p><span id="exm:unlabeled-div-29" class="example"><strong>Example 1.13  </strong></span>Recall the bivariate distribution on the unit square (c.f. Example <a href="multiple-random-variables.html#exm:unitsquare">1.11</a>).
+<p><span id="exm:unlabeled-div-32" class="example"><strong>Example 1.16  </strong></span>Recall the bivariate distribution on the unit square (c.f. Example <a href="multiple-random-variables.html#exm:unitsquare">1.14</a>).
 Note that the pdf of <span class="math inline">\(X\)</span> is <span class="math inline">\(f_X(x) = \int_0^1 \mathop{\mathrm{d}}\hspace{0.5pt}\!y = 1\)</span>, and similarly <span class="math inline">\(f_Y(y)=1\)</span>.
 It is easy to see that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent, since
 <span class="math display">\[

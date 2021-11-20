@@ -260,6 +260,8 @@
 \newcommand{\bbS}{\mathbb{S}}
 \newcommand{\bbH}{\mathbb{H}}
 \newcommand{\bbP}{\mathbb{P}}
+\newcommand{\bbQ}{\mathbb{Q}}
+
 
 % Math calligraphic fonts
 \newcommand{\cA}{{\mathcal A}}
@@ -317,7 +319,7 @@
 
 \title{SM-4331 Advanced Statistics}
 \author{Dr Haziq Jamil}
-\date{2021-11-19}
+\date{2021-11-20}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -633,8 +635,7 @@ Really recommended:
 \chapter*{What is statistics?}\label{what-is-statistics}}
 \addcontentsline{toc}{chapter}{What is statistics?}
 
-\textbf{Statistics} is a \uline{scientific} subject on
-collecting and analysing data.
+\textbf{Statistics} is a \uline{scientific} subject focussed on collecting and analysing data.
 
 \begin{itemize}
 \tightlist
@@ -663,14 +664,8 @@ particularly useful or helpful in answering questions such as:
   Is the Chinese yuan undervalued? If so, by how much?
 \end{itemize}
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.6\linewidth]{figure/00-ds2} 
-
-}
-
-\caption{Data science.}\label{fig:datascience}
-\end{figure}
+Questions that can be answered with statistical analysis are wide-ranging, hence making it useful in a variety of fields and specialties, from the hard sciences (chemistry, geology, physics, etc.) to the social sciences (business, economics, psychology, etc.) and beyond\footnote{\url{https://www.significancemagazine.com/science/458-does-new-york-city-really-have-as-many-rats-as-people?highlight=WyJuZXciLCInbmV3IiwieW9yayIsIm5ldyB5b3JrIl0=}} \footnote{\url{https://thoughtcatalog.com/anonymous/2015/04/what-is-the-statistical-chance-of-finding-the-love-of-my-life/}}.
+Given today's data-centric world that we live in, I posit that numerical literacy is now as important as literacy itself!
 
 \hypertarget{learning-statistics}{%
 \section*{Learning statistics}\label{learning-statistics}}
@@ -688,111 +683,120 @@ There are three aspects to learning statistics:
   \textbf{Theory}. Knowing the ``why'' of statistics and understanding why things are the way they are. Very mathematics focused.
 \end{enumerate}
 
-In this course, there is an emphasis on the \textbf{theory} aspect of statistics.
+In this course, there is an emphasis on the \textbf{theory} aspect of statistics. It is my hope that you are already familiar with basic statistical concepts (covered in SM-2205 Intermediate Statistics!), and for those of you who will be around next semester, the SM-4337 Applied Statistics module is highly recommended to learn about applying statistics in real-life situations. Of course, for those who have taken SM-4337 will find connections between what we will be discussing in this module and what you have come across there.
+
+This course may (at times) feel ``mathematical for the sake of mathematics''. In my defence, having a solid foundation in statistical theory will empower you greatly in your data analysis quest. Yes, there are software out there which seem to automagically generate the statistics of interest and even fit statistical models for the user blindly. Two things:
+
+\begin{itemize}
+\item
+  There is still the matter of \emph{interpretation} of these output. Will you be able to explain to your boss/stakeholder/customer/etc. the meaning of the data you helped them analyse?
+\item
+  Will you be able to spot any \textbf{assumptions} that are fundamental to the model being true/useful? Remember, gargbage in garbage out.
+\end{itemize}
+
+Some words of wisdom:
 
 \begin{quote}
 \emph{Students who analyze data, or who aspire to develop new methods for analyzing data, should be well grounded in basic probability and mathematical statistics. Using fancy tools like neural nets, boosting, and support vector machines without understanding basic statistics is like doing brain surgery before knowing how to use a band-aid. ---Larry Wasserman (in All of Statistics)}
 \end{quote}
 
+In the grand scheme of things, mastery of statistical theory is just one part of the equation to be a practical data analyst. Given how popular the term `data science' these days, it is worth noting the figure\footnote{\url{https://towardsdatascience.com/introduction-to-statistics-e9d72d818745}} below. Data science is seen as the intersection between Mathematics and Statistics, Computer Science, and Domain Knowledge.
+
+Given the importance of the computer science (read: coding and programming skills) as the enabler of data science activities, I try as much as I can to encourage you to these skills up yourself. Wherever appropriate you might see \texttt{R} code embedded within the text. As a side note, \texttt{R} programming is not examinable.
+
+\begin{center}\includegraphics[width=0.6\linewidth]{figure/00-ds2} \end{center}
+
 \hypertarget{population-sample-and-parametric-models}{%
 \section*{Population, sample and parametric models}\label{population-sample-and-parametric-models}}
 \addcontentsline{toc}{section}{Population, sample and parametric models}
 
-\hypertarget{two-practical-situations}{%
-\subsection*{Two practical situations}\label{two-practical-situations}}
-\addcontentsline{toc}{subsection}{Two practical situations}
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.6\linewidth]{figure/00-g80} 
-
-}
-
-\caption{Data science.}\label{fig:bmwm3}
-\end{figure}
+To motivate the use of statistics in everyday life, let us consider two practical situations where you might employ statistical methods:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
   BMW M Division has proudly unveiled the successor to their current ``king of sedans'', the new BMW M3 Competition (G80), sporting a 503 bhp twin-turbo 3.0 litre inline-six S58 engine with a claimed acceleration rate of 0-100 km/h in 3.9 seconds.
-\end{enumerate}
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.6\linewidth]{figure/00-aiti} 
-
-}
-
-\caption{Data science.}\label{fig:aiti}
-\end{figure}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
+  \begin{center}\includegraphics[width=0.6\linewidth]{figure/00-g80} \end{center}
 \item
   The Authority for Info-communications Technology Industry of Brunei Darussalam (AITI) conducted the Household ICT Survey in 2018 and reported that 95\% percent of individuals personally use the internet on a daily basis, a slight decrease from 97\% in the year 2016. Estimates are accurate within 2\% margin of error with 95\% confidence.
+
+  \begin{center}\includegraphics[width=0.6\linewidth]{figure/00-aiti} \end{center}
 \end{enumerate}
 
-Your immediate thought should be ``how can I trust these figures?''
+Your immediate thought should be ``how can I trust these figures?''. In general, it's always good to approach life with a healthy dose of skepticism. We certainly don't want to be duped by people claiming to present a version of the truth, when in reality it is a skewed version of the truth (or worse yet, false). In data we trust! But only if we are mathematically-savvy\ldots{}
 
 \hypertarget{population-vs-sample}{%
 \subsection*{Population vs sample}\label{population-vs-sample}}
 \addcontentsline{toc}{subsection}{Population vs sample}
 
-In both cases, the conclusion is drawn on a \emph{population} (i.e.~all of
-the subjects concerned) based on the information from a \emph{sample} (i.e.
-a subset of the population).
+In both cases, the conclusion is drawn on a \emph{population} (i.e.~all of the subjects concerned) based on the information from a \emph{sample} (i.e.~a subset of the population).
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  For BMW M Division, it is \textbf{impossible} to measure the entire population (obtain the acceleration rates), constituting all BMW M3 (G80) cars that have been made and are yet to be made.
+  For BMW M Division, it is \textbf{impossible} to measure the entire population (obtain the acceleration rates), constituting \uline{all} BMW M3 (G80) cars that have been made and are yet to be made in the future. Often this is referred to as an \emph{infinite population} model.
 \item
-  For AITI, while possible, it is (economically) infeasible to measure the entire population, i.e.~to ask everyone in Brunei whether or not they use the internet on a daily basis.
+  For AITI, while possible, it is (economically) unfeasible to measure the entire population, i.e.~to ask everyone in Brunei whether or not they use the internet on a daily basis. It would be very difficult to knock on everybody's door and obtain responses in a timely manner (what if they're out of the country? what if they're sick? what if they just don't want to respond?). Anyone who has done any form of survey work will understand the intricate problems that might arise.
 \end{enumerate}
 
-The \emph{population} is an entire set of the objects concerned, and those objects are typically represented by some numbers. We \uline{do not know} the entire population in practice.
-A \emph{sample} is a randomly selected subset of a population, and is a set of \uline{known data} in practice.
+In any case, it is important to make the distinction between population and sample.
+The \emph{population} is defined to be the entire set of the objects concerned, and those objects are typically represented by some numbers. We \uline{do not know} the entire population in practice.
+A \emph{sample} is a (randomly selected) subset of a population, and is a set of \uline{known data} in practice.
 
-\begin{figure}
+\begin{center}\includegraphics[width=0.9\linewidth]{figure/00-popsample} \end{center}
 
-{\centering \includegraphics[width=0.6\linewidth]{figure/00-popsample} 
+When people claim to have data (about some phenomenon), they typically imply that they have a \emph{sample} of the population, and not the population data itself. There are exceptions of course, for instance, a country's \emph{census} captures population data every 10 years. Another example is when the population itself is small such that all data can be collected easily.
 
-}
+A question that you might be thinking to yourself is the following:
 
-\caption{Data science.}\label{fig:popsample}
-\end{figure}
+\begin{quote}
+Is doing analysis on the sample good enough? Will it reveal the same insights as if we're analysing the population data?
+\end{quote}
+
+The answer to this is that it depends on how you perform the sample! Things to look out for is definitely \emph{bias} in data collection methods. Here are some examples:
+
+\begin{itemize}
+\item
+  Asking the question ``Can you live without the internet?'' via \textbf{an online poll} of adults. Think about it. How exactly can you ask people \emph{without} internet whether they can live without the internet? Clearly, the sample that you collect is biased towards those who are privileged enough to have access. And if you were wondering, yes this really \href{https://www.forbes.com/sites/niallmccarthy/2017/08/29/where-people-cant-live-without-the-internet-infographic/?sh=430d133643aa}{happened}.
+\item
+  Asking people to volunteer their responses typically lead to bias. It is suggested that those who has something to complain about will voice their opinions more than those who do not.
+\item
+  Other errors can crop up during data collection process which may skew the representation of the data (e.g.~duplicate data, missing data, substituted data, etc.)
+\end{itemize}
+
+It is certainly important that data be collected in a methodological manner, in order for valid inferences to be drawn.
+Sampling methodology is beyond the scope of this course, however!
 
 \hypertarget{parametric-models}{%
 \subsection*{Parametric models}\label{parametric-models}}
 \addcontentsline{toc}{subsection}{Parametric models}
 
-For a given problem, we typically assume a population
-to follow a \emph{probability distribution} with pdf/pmf \(f(x|\theta)\).
+For a given problem, it is quite advantagous to \textbf{assume} that a population obeys some \emph{probability distribution} law.
+To be a little bit more concrete, suppose we assign the variable \(x\) to be the quantity of interest. Then we assume that the quantity of interest has a distribution function \(f(x|\theta)\) (we will recap the concept of distribution functions in the next chapter!).
+Furthermore,
 
 \begin{itemize}
 \item
-  The form of the distribution i.e.~\(f(\cdot|\theta)\) is known (e.g.
-  normal, Poisson, exponential, etc.).
+  The form of the distribution i.e.~\(f(\cdot|\theta)\) is known (e.g.~normal, Poisson, exponential, etc.).
 \item
-  The ``specifics'' of the distribution is (assumed to be) \textbf{not
-  known}, but potentially knowable if data were available.
+  The ``specifics'' of the distribution is (assumed to be) \textbf{not known}, but potentially knowable if data were available.
 \end{itemize}
 
-The unknown characteristics of the distribution are represented by \(\theta\) (such as the mean, variance, rate, etc.).
-We call \(\theta\) the parameter(s) of the model.
+The unknown characteristics of the distribution are traditionally represented by \(\theta\) (such as the mean, variance, rate, etc.--any quantity that characterises how the distribution behaves).
+We call \(\theta\) the \emph{parameter(s)} of the model.
 Such an assumed distribution is called a \textbf{parametric model}.
 For the two earlier examples,
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Let \(X =\) acceleration of BMW M3 G80 vehicles. Assume \(X\sim\N(\mu,\sigma^2)\). Here \(\btheta = (\mu,\sigma^2)^\top\), where \(\mu\) is the `true' acceleration rate.
+  Let \(X =\) acceleration of BMW M3 G80 vehicles. Assume \(X\sim\N(\mu,\sigma^2)\). Here \(\btheta = (\mu,\sigma^2)^\top\), where \(\mu\) is the `true' acceleration rate. In this example, the parameter is 2-dimensional instead of unidimensional.
 \item
   Let \(\{0,1\} \ni X =\) someone in Brunei uses the internet daily. Assume \(X\sim\Bern(p)\). Here \(\theta = p\), the `true' proportion of daily internet users in Brunei.
 \end{enumerate}
+
+There is no god-given right for your quantity of interest \(X\) to follow a particular distribution! These are simply assumptions, in order to make it easy to model reality. Parametric assumptions may be correct, or they may not. In fact, strictly speaking, \textbf{all models are wrong}, but some are useful (quote attributed to the British statistician George Box).
 
 \begin{center}\includegraphics[width=0.8\linewidth]{figure/00-theoreticaldataplane} \end{center}
 
@@ -801,52 +805,62 @@ For the two earlier examples,
 \addcontentsline{toc}{subsection}{A sample: a set of data or random variables?--A duality}
 
 A sample of size \(n\), \(\{X_1,\dots,X_n\}\), is also called a \emph{random} sample. It consists of \(n\) concrete numbers in a practical problem.
-The word `random' captures the characteristic of the sample (of the same
-size) being different.
+When I say `concrete' here, it means numbers that you can play around with--you can add them up, subtract them, plot them, take averages, and so on.
+These would be numbers that you collect into a spreadsheet, say.
+
+The more contentious part of the term `random sample' is the word `random' itself.
+The word `random' encapsulates the possibility of the concrete numbers collected in the samples being different, by virtue of:
 
 \begin{itemize}
 \tightlist
 \item
   The sample may be taken by different people or entities.
 \item
-  The sample may be obtained under different circumstances.
+  The sample may be obtained at a different time or location.
+\item
+  The sample may be measured using different instruments (albeit measuring the same thing).
 \item
   etc.
-  Essentially, they would be different subsets of a population.
 \end{itemize}
 
-Furthermore, a sample is also viewed as \(n\) independent and identically
-distributed (iid) random variables, when we assess the performance of a
-statistical method.
+Essentially, different samples may well be different subsets of a population.
+
+With this, a sample may also be viewed as \(n\) (independent and identically distributed) random variables, simply because their values are conceptually not fixed (at least not until you observe them--but even then it is simply one possible realisation of potentially many others).
+
+Now, if a sample is not random then perhaps there would be no need for statistics. But hardly ever would you find this to be the case.
+Rigorous mathematical methods exist to deal with this randomness, and thus viewing samples as random variables allows us to assess the performance of a statistical method.
 
 \hypertarget{variability-of-estimates}{%
 \subsection*{Variability of estimates}\label{variability-of-estimates}}
 \addcontentsline{toc}{subsection}{Variability of estimates}
 
+Suppose you set out to answer questions 1 and 2 above by collecting some data.
+This is what you find:
+
+\hypertarget{bmw-m-example}{%
+\paragraph*{\texorpdfstring{\uline{BMW M example}}{BMW M example}}\label{bmw-m-example}}
+\addcontentsline{toc}{paragraph}{\uline{BMW M example}}
+
+A sample of \(n=38\) gave the sample mean
+\[\bar X_n = \frac{1}{n}\sum_{i=1}^n X_i = 3.9\]
+In words, the average acceleration (0-100 km h-1) of the sample of cars yielded the value 3.9 seconds. But realise that a different sample may well give a different sample mean. For instance, 29 YouTubers and other social media ``influencers'' were given access to the new M3 on a race track, and their sample mean yielded \(\bar X_n = 3.4\).
+
+What do we make of this discrepancy? Whose figure do we trust? It doesn't seem so satisfying to know that different samples will give different results. For instance, what do you tell the public or media about the acceleration figure of the new M3s? Evidently relying on a singular measure (in this case the mean) is not enough. Moreoever, it keeps on changing in value!
+
+The key is to be able to employ \emph{probabilistic statements} about our results. For instance, ``\emph{the acceleration figure is 3.9 plus or minus 0.01 about 95\% of the time when we sample}'' is a much more confident statement to make, rather than providing a figure that keeps on changing.
+
+By treating the data \(X_1,\dots,X_n\) as random variables, it is implied that \(\bar X_n\) is also a random variable. Everything that is random should have a distribution. If the distribution of
+\(\bar X_n\) concentrates closely around the unknown \(\mu\), then it is a good estimator!
+
+\hypertarget{aiti-example}{%
+\paragraph*{\texorpdfstring{\uline{AITI example}}{AITI example}}\label{aiti-example}}
+\addcontentsline{toc}{paragraph}{\uline{AITI example}}
+
+For the AITI example, there is that statement \emph{`\ldots accurate to within 2\% margin of error with 95\% confidence'}. This statement alludes to the variability of the estimate, if another random sample was obtained.
+
 \begin{itemize}
 \item
-  For the BMW M example, suppose a sample of \(n=38\) used gave the sample mean
-  \[\bar X_n = \frac{1}{n}\sum_{i=1}^n X_i = 3.9\]
-\item
-  A different sample may well give a different sample mean.
-  Example: 29 YouTubers and other social media ``influencers'' were given access to the new M3 on a race track, and their sample mean yielded \(\bar X_n = 3.4\).
-\item
-  Is the sample mean \(\bar X_n\) a good estimator for the unknown
-  `true' acceleration \(\mu\)? Obviously, we cannot use the concrete number
-  3.9 to assess how good this estimator is, as a different sample may
-  give a different average value.
-\end{itemize}
-
-By treating \(X_1,\dots,X_n\) as random variables, \(\bar X_n\) is
-also a random variable, so has a distribution. If the distribution of
-\(\bar X_n\) concentrates closely around the unknown \(\mu\), then it is a
-good estimator!
-
-\begin{itemize}
-\item
-  For the AITI example, there is that statement \emph{`\ldots accurate to within 2\% margin of error with 95\% confidence'}. This statement alludes to the variability of the estimate, if another random sample was obtained.
-\item
-  The estimate in this case was also the sample mean,
+  The estimate in this case was also the sample mean (proportion of people who use the internet on a daily basis),
   \[
   \hat p = \bar X_n = \frac{1}{n}\sum_{i=1}^n X_i.
   \]
@@ -862,7 +876,11 @@ good estimator!
 \section*{Probability and statistics}\label{probability-and-statistics}}
 \addcontentsline{toc}{section}{Probability and statistics}
 
-We've just implicitly described the three main activities concerning \uline{statistical inference}.
+Thus far, we have thrown the term `inference' around and maybe we've all taken it for granted.
+Cambridge's dictionary defines \emph{infer} as `to reach an opinion from available information or facts'.
+And indeed that is what we are ultimately interested in when we analyse data.
+Sure, there might be that random element to the data that we have to contend with, but it is about reaching some form of conclusion one way or another using data.
+In the previous section, we've just implicitly described the three main activities concerning \uline{statistical inference}.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -873,31 +891,34 @@ We've just implicitly described the three main activities concerning \uline{stat
 \item
   \textbf{Hypothesis testing}
 
-  \emph{``Is \(p=0.95\) and not \(p=0.97\)?''}
+  \emph{``Is \(\mu=3.4\) and not \(\mu=3.9\)?''}
 \item
   \textbf{Interval estimation}
 
-  \emph{``What's an upper and lower bound estimate for \(p\)?''}
+  \emph{``What's an upper and lower bound estimate for \(\mu\)?''}
 \end{enumerate}
 
 These three activities will be the main focus of this course, and we will formalise the notion of each one in turn.
 Hopefully you can now appreciate how statistics is an inherently applied subject, making use of mathematics (probability in particular) to answer problems across a variety of fields.
 
+What is the difference between probability and statistics? The following figure might be helpful.
+
 \begin{center}\includegraphics[width=0.48\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-3-1} \end{center}
 
 \begin{center}\includegraphics[width=0.48\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
-In probability, we ask questions like
+Probability is a highly mathematical subject (although maybe the name doesn't seem to suggest it, it really has its origin in abstract measure theory). In probability, we ask questions like
 
 \begin{itemize}
 \tightlist
 \item
-  What is \(\E(X)\)?
+  What is \(\E(X)\)? (expectations)
 \item
-  What is \(\Pr(X > a)\)?
+  What is \(\Pr(X > a)\)? (probability calculations)
 \end{itemize}
 
-Whereas in statistics, we are interested in questions like
+for some given value of \(\theta\) in an assumed family of parametric distributions.
+Whereas in statistics, we are more interested in questions like
 
 \begin{itemize}
 \tightlist
@@ -909,13 +930,25 @@ Whereas in statistics, we are interested in questions like
   How confident am I that \(\theta \in (\theta_l,\theta_u)\)?
 \end{itemize}
 
-\begin{center}\includegraphics[width=0.6\linewidth]{figure/00-probstats} \end{center}
+given some observed data. I like to think of the two as reverse processes.
+
+\begin{center}\includegraphics[width=0.8\linewidth]{figure/00-probstats} \end{center}
+
+Statistics definitely needs probability for sure, so we will have to master probability theory before doing any statistical inference. On to the next chapter!
 
 \hypertarget{part-prepare}{%
 \part{Prepare}\label{part-prepare}}
 
 \hypertarget{probability-theory-primer}{%
 \chapter{Probability theory primer}\label{probability-theory-primer}}
+
+As I was looking for a rationale as to why we begin statistical inference with learning about probability theory, I notice that C\&B couldn't have put it better:
+
+\begin{quote}
+The subject of probability theory is the foundation upon which all statistics is built, providing a means for modeling populations, experiments, or almost anouthing else that could be considered a random phenomenon. Through these models, statisticians are able to draw inferences about populations, inferences based on examination of only a part of the whole. --- George Casella \& Roger L. Berger in Statistical Inference
+\end{quote}
+
+By right, probability theory and the mathematics of random events deserves one dedicate module of its own. For our purposes, it suffices to `skim through the surface' as it were, and cover the basic and necessary ideas to move forward with statistical inference.
 
 \hypertarget{learning-objectives}{%
 \subsection*{Learning objectives}\label{learning-objectives}}
@@ -926,11 +959,13 @@ By the end of this chapter, you will be able to:
 \begin{itemize}
 \tightlist
 \item
-  do this
+  Compute probabilities of events by simple counting and application of various known probability results
 \item
-  do that
+  Understand the notion of conditional and independent events, leading up to the application of Bayes' Theorem
 \item
-  and this
+  Formalise mathematically the notion of random variables and make calculations using its distribution function
+\item
+  Compute expectations (and variances) including via the method of moment generating functions
 \end{itemize}
 
 \hypertarget{readings}{%
@@ -974,10 +1009,12 @@ By the end of this chapter, you will be able to:
 \hypertarget{elementary-set-theory}{%
 \section{Elementary set theory}\label{elementary-set-theory}}
 
-\hypertarget{sample-space}{%
-\subsection{Sample space}\label{sample-space}}
+A discussion of probability theory is almost always begun by talking about the concept of `sets'.
+As the term implies, sets are a collection of things.
+You're sure to come across sets before, such as the set of family members in your household, or the set of all natural numbers, or something even more funky like the set of all sets (the universal set\footnote{Which, as it turns out, is a paradox: \url{https://en.wikipedia.org/wiki/Russell\%27s_paradox}}).
 
-In conducting an ``experiment''\ldots{}
+When statisticians talk about sets it is usually in the context of conducting an ``experiment''\footnote{Although, we don't really mean it like how scientists mean experiments to be (we're not fiddling around with buttons or chemicals). I suppose it's more about the process of the (random) data generating mechanism itself.}.
+The important bits are:
 
 \begin{itemize}
 \tightlist
@@ -989,13 +1026,15 @@ In conducting an ``experiment''\ldots{}
   Subsets of \(E \subseteq \Omega\) are called events.
 \end{itemize}
 
+So whatever the context of the random process might be, we should be comfortable identifying what the sample space is, what its elements are, and what possible events might occur.
+
 \begin{example}
-In tossing a coin \(n \geq 2\) times, let \(H\) denote `heads', while \(T\) denote `tails'.
-Let \(\bomega = (\omega_1,\dots,\omega_n)\).
-Then \[
+In tossing a two-sided coin \(n \geq 2\) times, let \(H\) denote `heads', while \(T\) denote `tails'.
+Let \(\bomega = (\omega_1,\dots,\omega_n)\) be the results of these coin tosses.
+Then the sample space is \[
 \Omega = \Big\{ \bomega \, \big|\, \omega_i \in \{H,T\} \Big\}.
 \]
-Let \(E\) be the event that the first head appears on the second toss. Then
+Let \(E\) be the event that the first head appears on the second toss. Then this event can be mathematically described as
 \[
 E = \Big\{ \bomega \, \big|\, \omega_1 = T, \omega_2 = H, \omega_i \in \{H,T\} \text{ for } i > 2 \Big\}.
 \]
@@ -1004,8 +1043,9 @@ E = \Big\{ \bomega \, \big|\, \omega_1 = T, \omega_2 = H, \omega_i \in \{H,T\} \
 \hypertarget{set-operations}{%
 \subsection{Set operations}\label{set-operations}}
 
+There are several things that we can do to sets much like we can do to numbers in arithmetic. Here is an abridged version of set operations.
+
 \begin{itemize}
-\tightlist
 \item
   The \textbf{complement} of an event \(A\), written \(A^c\), is the set of all elements that are not in \(A\): \(A^c = \{\omega | \omega\not\in A \}\).
 \item
@@ -1021,8 +1061,21 @@ E = \Big\{ \bomega \, \big|\, \omega_1 = T, \omega_2 = H, \omega_i \in \{H,T\} \
   A \cap B = \{\omega \in \Omega \,|\, \omega \in A \text{ and } \omega \in B \}.
   \]
 \item
-  Unions and intersections on sets are \textbf{commutative}, \textbf{associative}, and \textbf{distributive} (see C\&B Thm 1.14).
+  Unions and intersections on sets are \textbf{commutative}, \textbf{associative}, and \textbf{distributive}\footnote{See C\&B Thm 1.14}.
+
+  \begin{itemize}
+  \item
+    Commutativity: \(A \cup B = B \cup A\) and \(A \cap B = B \cap A\).
+  \item
+    Associativity: \(A \cup (B \cup C) = (A \cup B) \cup C\) and \(A \cap (B \cap C) = (A \cap B) \cap C\).
+  \item
+    Disributive laws: \(A \cap (B \cup C) = (A \cap B) \cup (A \cap C)\) and \(A \cup (B \cap C) = (A \cup B) \cap (A \cup C)\).
+  \end{itemize}
+\item
+  DeMorgan's Laws: \((A \cup B)^c = A^c \cap B^c\) and \((A \cap B)^c = A^c \cup B^c\)
 \end{itemize}
+
+It's pretty straightforward to prove the commutative, associative, distributive and DeMorgan's properties using the rules that precede them in the list. You may like to try this out yourself. Or you may have come across a kind of ``sketch proof'' involving \textbf{Venn diagrams}.
 
 The operations of unions and intersections can be extended to infinite collections of sets as well.
 If \(A_1,A_2,A_3,\dots\) is collection of sets, all defined on a sample space \(\Omega\), then
@@ -1056,51 +1109,177 @@ Partitions divide the sample space into non-overlapping pieces.
 A deck of playing cards has four suits: \(\clubsuit, \diamondsuit, \spadesuit, \heartsuit\). Let \(A=\{\clubsuit,\diamondsuit\}\) and \(B=\{\spadesuit, \heartsuit\}\). Then \(A\) and \(B\) form a partition of the sample space.
 \end{example}
 
-\hypertarget{axiomatic-probability}{%
-\section{Axiomatic probability}\label{axiomatic-probability}}
-
-\hypertarget{probability-as-a-measure}{%
-\subsection{Probability as a measure}\label{probability-as-a-measure}}
-
-We understand probability to mean the ``frequency of an event occurring''.
-If we can assign probabilities to (random) events in an experiment, then we can start to analyse them statistically.
-
-We take an \emph{axiomatic approach} to defining probabilities, rooted in \emph{measure theory} (due to Kolmogorov, 1933).
-Let \((\Omega,\cB,\bbP)\) be a measure space.
+\begin{example}
+The set \(\{\bbR_+, \bbR_{-}, \{0\}\}\) (ie the set of positive reals, negative reals, and zero respectively) is a partition of the real numbers \(\bbR\) since
 
 \begin{itemize}
 \tightlist
 \item
-  \(\cB\) is a \(\sigma\)-algebra on \(\Omega\), the subsets of \(\Omega\) that are feasible for measuring.
+  \(\bbR_{+} \cup \bbR_{-} \cup \{0\}=\bbR\);
 \item
-  \(\bbP\) is a measure on \((\Omega,\cB)\), i.e.~the method that is used for measuring.
+  \(\bbR_{+} \cap \bbR_{-} = \bbR_{+} \cap \{0\} = \bbR_{-} \cap \{0\} = \{ \}\); and
+\item
+  \(\{\bbR_{+}\), \(\bbR_{-}\), and \(\{0\}\}\) are all non empty.
 \end{itemize}
 
-\begin{figure}
-\centering
-\includegraphics{figure/kolmogorov.jpg}
-\caption{Andrey Nikolaevich Kolmogorov. 25 April 1903 -- 20 October 1987.}
-\end{figure}
+Note that \(\{0\}\) is not an empty set. It contains exactly one element, the number zero.
+\end{example}
 
-\begin{remark}
-See Defn 1.2.1 in C\&B and the following examples, as well as §1.9 in Wasserman.
-\end{remark}
+\hypertarget{axiomatic-probability}{%
+\section{Axiomatic probability}\label{axiomatic-probability}}
 
-\begin{remark}
-There are alternative formulations/approaches to defining probabilities, e.g.~Cox's Theorem (logical probabilities).
-\end{remark}
+In principle, we can understand and easily grasp the notion of probability as the ``frequency of an event occurring''.
+But how do we operationalise this concept? That is, by what rules and mechanisms are we allowed to assign probabilities to events?
+If we can overcome this task and are able to assign probabilities to (random) events in an experiment, then we can start to analyse them statistically!
 
-{[}Further explanation of measure theory{]}
+\hypertarget{probability-as-a-measure}{%
+\subsection{Probability as a measure}\label{probability-as-a-measure}}
 
-Why do we bother with measure theory?
+Let us take a measure-theoretic approach to defining probabilities.
+We will dive straight into the rigors of definitions before providing a somewhat apologetic rationale as to why such mathematical difficulties are required for probability theory.
 
-\begin{quote}
-The Banach--Tarski paradox states that a ball in the ordinary Euclidean space can be doubled using only the operations of partitioning into subsets, replacing a set with a congruent set, and reassembly.
-\end{quote}
+As the name implies, measure theory is the theory about how we measure things (duh!).
+Measure itself is a fundamental concept in mathematics, and it would be useful to come up with a mathematical framework for how we deal with everyday concepts like length, mass, area, volume, and so on.
+Importantly, such a framework allow us to reliably measure in even higher dimensions or onto more abstract constructs not yet imaginable.
 
-\includegraphics{figure/banach_tarski.png}
+Intuitively, a measure is simply a function whose input is the thing we want to measure (let's call it a set), and whose output is a non-negative number.
+Don't worry, a formal definition will follow, but for now, call this function \(\mu\).
+It would be fair to expect a measure \(\mu\) to satisfy
 
-If we don't lay out the foundations for measuring probabilities rigorously, we can end up with nonsensical answers!
+\begin{itemize}
+\tightlist
+\item
+  \(A \subseteq B \Rightarrow \mu(A) \leq \mu(B)\)
+\item
+  \(A \subseteq B \Rightarrow \mu(B-A)= \mu(B) - \mu(A)\)
+\item
+  If \(\{A_1,A_2,\dots\}\) are mutually exclusive sets (disjoint), then \(\mu\left(\cup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mu(A_i)\)
+\end{itemize}
+
+The first property simply says that if \(A\) is a subset of \(B\), then the measure of \(A\) is at most the measure of \(B\).
+The second property follows this up by saying that the measure of the set \(B-A\), that is, the set that is obtained by starting with \(B\) and taking away the parts that is contained in \(A\), then the measure of this created set is the difference between the measures of \(B\) and \(A\).
+Finally, the third property, also known as \emph{countable additivity}, simply states that the measure of the whole is equal to the sum of the parts.
+It turns out that the first and second properties follow from the third (and the fact that a measure cannot be negative)--see Definition \ref{def:measure}.
+
+So we have this intuition about what the measure should be, but what about the stuff we want to measure?
+For our purposes, we are interested in measuring subsets of \(\Omega\).
+We ask, are we able to measure all possible subsets of \(\Omega\)?
+At a glance, perhaps if \(\Omega\) is countable (e.g.~\(\Omega=\{1,2,3\}\)), it is easy to describe the subsets of \(\Omega\) through the power set\footnote{For the example at hand, the power set is \(\cP(\Omega)=\{ \{\}, \{1\}, \{2\}, \{3\}, \{1,2\}, \{1,3\}, \{2,3\}, \{1,2,3\} \}\)} \(\cP(\Omega)\), which is the set of all possible subsets of \(\Omega\), but what about when \(\Omega\) is uncountable (e.g.~an interval \(\Omega=[0,1]\in\bbR\)).
+Given a sample space \(\Omega\), we need to define the largest possible collection of subsets of \(\Omega\) that can be observed and on which we can assign valid measure.
+
+\begin{definition}[\(\sigma\)-algebra]
+\protect\hypertarget{def:sigmaalgebra}{}\label{def:sigmaalgebra}
+
+A collection \(\cF\) of subsets of a set \(\Omega\) is called a \textbf{\(\sigma\)-algebra} if it satisfies the following conditions:
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\tightlist
+\item
+  If \(A \in \cF\), then \(A^c \in cF\) \emph{{[}closed under complementation{]}}.
+\item
+  If \(A_1,A_2,\cdots \in \cF\), then \(\cup_{i=1}^\infty A_i \in \cF\) \emph{{[}closed under countable unions{]}}.
+\item
+  \(\{\} \in \cF\) \emph{{[}contains the empty set{]}}.
+\end{enumerate}
+
+\end{definition}
+
+As a remark, condition iii. can be replaced with \(\Omega\in\cF\) by virtue of condition i..
+The \(\sigma\)-algebra is a collection of events or subsets of the sample space \(\Omega\), including \(\Omega\) itself and the empty set \(\{\}\), which is closed under countable applications of set operations.
+This is because DeMorgan's Law allows us to write the countable union property in iii. also as \emph{countable intersections}: If \(A_1,A_2,\cdots \in \cF\), then by i. \(A_1^c,A_2^c,\cdots \in \cF\), and hence \(\cup_{i=1}^\infty A_i\in\cF\) and also its complement. By DeMorgan's Law,
+\[
+\left( \cup_{i=1}^\infty A_i^c \right)^c = \cap_{i=1}^\infty A_i.
+\]
+
+Sets contained in \(\cF\) are called \textbf{measurable sets}.
+
+The \(\sigma\)-algebra is an important condition for measure to not breakdown, because it helps draw a line as to which subsets of the sample space is measurable, and which is not.
+Out of interest, condition iii. in Definition \ref{def:sigmaalgebra} is the condition that makes \(\cF\) a \(\sigma\)-algebra (the \(\sigma\) stands for countable \uline{\textbf{s}}um).
+Without this condition, one ends up with just an \emph{algebra} of sets, one that is most likely \emph{too small}, failing to contain sets that we would like assign a measure.
+
+Let's take a look at some examples of \(\sigma\)-algebras.
+
+\begin{example}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  The trivial \(\sigma\)-algebra: \[\big\{ \{\}, \Omega \big\}.\] This corresponds the case of no information.
+\item
+  The power set of the sample space \(\Omega\): \[\big\{ A | A \subseteq \Omega \big\}.\] This corresponds the case of full information.
+\item
+  The collection \(\big\{ \{\}, A, A^c, \Omega \big\}\) is a \(\sigma\)-algebra, for any \(A\subseteq \Omega\).
+\item
+  Let \(\Omega = \{a,b,c,d\}\). A possible\footnote{You may notice that other \(\sigma\)-algebras are indeed possible, e.g.~the power set of \(\Omega\) in this case. There is a notion of the \emph{smallest} \(\sigma\)-algebra containing the collection of ``basic events''. Luckily for us, the event space that we will usually be working with will be the smallest \(\sigma\)-algebra without much technicalities, so we shall not explore this concept any further.} \(\sigma\)-algebra is \[\big\{\{\}, \{a,b,c,d\}, \{a,b\}, \{c,d\} \big\}.\]
+\item
+  Define \(B(s)\) to be a square of side length \(s\). Let \(\Omega\) be the collection of points in \((0,1)\times(0,1)\subset \bbR^2\) contained within the a unit square \(B(1)\). Then \[\cF=\{ \text{Collection of points contained in the square } B(s) \text{ with } s \in (0,1) \}.\] It should be clear there are uncountably many such squares that can be fit within the unit square.
+\end{enumerate}
+
+\end{example}
+
+Just as a remark, most introduction to probability measure will deal with finite or countable sets when introducing \(\sigma\)-algebras, giving readers an impression that it's only possible to define \(\sigma\)-algebras on such sets. The fifth example above gives an example of a \(\sigma\)-algebra which is uncountable.
+
+The twin \((\Omega,\cF)\) is called a \emph{measurable space}. This sort of defines the ``parts'' of our problem which are measurable, as per Definition \ref{def:sigmaalgebra}. What's missing is a measure, i.e.~the thing that actually tells us `how long a piece of string is', so to speak\footnote{\url{https://idioms.thefreedictionary.com/How+long+is+a+piece+of+string\%3F}}. We now define a measure as follows.
+
+\begin{definition}[Measure]
+\protect\hypertarget{def:measure}{}\label{def:measure}
+
+A \emph{measure} \(\mu\) is a non-negative real valued function defined on a \(\sigma\)-algebra, i.e.~\(\mu:\cF\to\bbR_{\geq 0}\), where \(\bbR_{\geq 0}\) are the non-negative real numbers and \(\cF\) a \(\sigma\)-algebra of subsets of \(\Omega\). The measure \(\mu\) satisfies the following properties:
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\tightlist
+\item
+  \(\mu(\{\})=0\).
+\item
+  \(\mu\) is countably additive, i.e.~if \(A_1,A_2,\dots\) are disjoint events, then \[\mu\left( \cup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mu(A_i).\]
+\end{enumerate}
+
+\end{definition}
+
+If, in addition the measure of the entire sample space is normalised (i.e.~\(\mu(\Omega)=1\)), then \(\mu\) is called a \textbf{probability measure}. We will see this in the next section.
+
+The triplet \((\Omega,\cF,\mu)\) is called a \emph{measure space} (note that without the measure it is called a measurable space).
+This space simply tells us the parts needed for well-defined measure to take place on the subsets of \(\Omega\).
+
+\begin{example}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  The counting measure. Let \(\Omega\) be a countable set {[}You may be creative as you like here to make this less abstract, e.g.~the books on your shelf or the members of your family, although the set need not be finite{]}. Let \(\cF=\cP(\Omega)\) be the power set of \(\Omega\). For all sets \(A\in\cA\), define \[\mu(A) = \begin{cases} |A| & A \text{ has finitely many elements}\\ \infty &\text{otherwise} \end{cases}\] where the operator \(|\cdot|\) represents the \emph{cardinality} of the set, i.e.~the number of elements it contains (its size).
+\item
+  The Lebesgue measure in one dimension. Let \(\Omega=\bbR\), and define \(\cF\) to contain all sets of the form
+
+  \begin{itemize}
+  \tightlist
+  \item
+    {[}a,b{]}, i.e.~closed intervals,
+  \item
+    (a,b), i.e.~open intervals,
+  \item
+    (a,b{]}, i.e.~open-closed intervals; and
+  \item
+    {[}a,b), i.e.~closed-open intervals.
+  \end{itemize}
+
+  for all real numbers \(a\) and \(b\). We can deduce that the \(\sigma\)-algebra \(\cF\) contains all possible ``nice'' intervals of the real line, including unbounded intervals and even singletons, which means any continuous partition of the real line can be measured (including a point, which should have measure zero). To see this, using the properties of \(\sigma\)-algebras,
+
+  \begin{itemize}
+  \item
+    unbounded intervals are in \(\cF\), since, for instance \[(x,+\infty)=\cup_{i=1}^\infty(x,x+i).\]
+  \item
+    singletons are in \(\cF\), since \[\{x\}=\cap_{i=1}^\infty (x-1/i,x+1/i).\]
+  \end{itemize}
+
+  This set \(\cF\) has a special name, called the Borel \(\sigma\)-algebra.
+
+  All that's left is to define the measure. The Lebesgue measure \(\mu\) assigns the usual concept of length to any continuous interval on \(\bbR\) (to be precise, the Borel \(\sigma\)-algebra on \(\bbR\)): \[\mu\left(A\right)=b-a\]
+  where \(A\) is any interval of \(\bbR\) of the above forms (closed, open, open-closed, closed-open). This measure works even for singleton sets or unbounded intervals.
+\end{enumerate}
+
+\end{example}
 
 \hypertarget{axioms-of-probability}{%
 \subsection{Axioms of probability}\label{axioms-of-probability}}
@@ -1154,6 +1333,143 @@ The following results can be derived using only the three axioms:
   If \(A \subseteq B\), then \(\bbP(A) \leq \bbP(B)\)
 \item
   \(\bbP(A) = \sum_{i=1}^\infty \bbP(A \cap C_i)\) for any partition \(C_1,C_2,\dots\) of \(\Omega\) (\emph{Law of Total Probability})
+\end{itemize}
+
+\hypertarget{why-measure-theory}{%
+\subsection{Why measure theory?}\label{why-measure-theory}}
+
+Consider the uniform distribution on a random variable \(X\) on the unit interval, denoted \(X\sim\Unif(0,1)\). You may have come across this before, and know that the probability that \(X\) lies in any interval contained in \([0,1]\) is simply the length of the interval, i.e.
+\begin{equation}
+\bbP\big([a,b]\big) = \bbP\big([a,b)\big) = \bbP\big((a,b]\big) = \bbP\big((a,b)\big) = b-a, \label{eq:meas1}
+\end{equation}
+for \(0 \leq a \leq b \leq 1\). This definition works fine for the degenerate case \(\bbP(\{a\})=0\) for the singleton set \(\{a|a\in(0,1)\}\).
+In general, if \(A\) and \(B\) are disjoint subsets of \([0,1]\) then
+\begin{equation}
+\bbP(A \cup B) = \bbP(A) + \bbP(B),
+\end{equation}
+and we can even extend this notion to that of \emph{countable additivity}
+\begin{equation}
+\bbP\left( \cup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \bbP(A_i), \label{eq:meas2}
+\end{equation}
+for disjoint sets \(\{A_1,A_2,\dots\}\)\footnote{A concrete example of this is for the sets \(A_1=(0,1/2)\), \(A_2=(1/2, 3/4)\), \(A_3=(3/4,7/8)\), and so on (adding half the interval at each iteration). One finds that the measure of the countable union is \(\sum_{i=1}^\infty (1/2)^i=1\).}.
+
+For a uniform measure on \([0,1]\), one expects that the measure of some subset \(A \subseteq [0,1]\) to be unaffected by ``shifting'' (with wrap-around) of that subset by some fixed amount \(r\in[0,1]\).
+Define the \emph{\(r\)-shift} of \(A\subseteq [0,1]\) by
+\[
+A \oplus r := \left\{ a + r \mid a \in A, a+r \leq 1 \right\} \cup \left\{ a + r - 1 \mid a \in A, a+r > 1 \right\}.
+\]
+Then we should have
+\begin{equation}
+\bbP(A \oplus r) = \bbP(A). \label{eq:meas3}
+\end{equation}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/wraparoundmeasurepdf-1} 
+
+}
+
+\caption{An interval in [0,1] shifted by some fixed amount, with wrap-around, should have consistent length.}\label{fig:wraparoundmeasurepdf}
+\end{figure}
+
+At this point you might notice that all of this resonates with the previous example on the Lebesgue measure, except perhaps the shifting part, and indeed that is the case.
+Suppose that we dispense with measure theory and do not define things like the \(\sigma\)-algebra on the \([0,1]\) or the triplet \((\Omega,\cF,\bbP)\), and only use the above probability definitions given in \eqref{eq:meas1}, \eqref{eq:meas2}, and \eqref{eq:meas3}.
+How far can we push the boundaries of such probability definitions before things start to breakdown?
+
+Consider these questions:
+
+\begin{itemize}
+\tightlist
+\item
+  What is the probability that \(X\) is rational?
+\item
+  What is the probability that \(X^n\) is rational for some positive integer \(n\)?
+\item
+  What is the probability that \(X\) is \emph{algebraic}\footnote{An algebraic number is a number that is a root of a non-zero polynomial in one variable with integer coefficients.}?
+\end{itemize}
+
+All seemingly fair and interesting questions, but are they well defined? Can we actually measure them and assign probabilities to such events? Taking a step back further, we ask:
+
+\begin{quote}
+Are all possible subsets \(A\subseteq [0,1]\) measurable? Does \(\bbP(A)\) even make \emph{sense} for any event \(A\) we can think of?
+\end{quote}
+
+It turns out the answer is no, and can be proven by contradiction with the help of equivalence relations.
+You may skip this part if you wish, but I'll try to keep the technicalities to a minimum (or at least provide some helpful intuition where needed).
+This shows the need for the heavy machinery that is measure theory for assigning probabilities to events\footnote{Or at least, for cases where ``not so nice'' events need to be measured.}.
+
+\begin{proposition}
+There does not exist a definition of \(\bbP(A)\), defined for all subsets \(A\subseteq[0,1]\), satisfying \eqref{eq:meas1}, \eqref{eq:meas2}, and \eqref{eq:meas3}.
+\end{proposition}
+
+\begin{proof}
+All we need to show is the existence of one such subset of \([0,1]\) whose measure is undefined. The set we are about to construct is called the Vitali set\footnote{\url{https://en.wikipedia.org/wiki/Vitali_set}}, after Giuseppe Vitali who described it in 1905.
+
+Define an equivalence relation on \([0,1]\) by the following:
+\[x\sim y \Rightarrow x-y \in \bbQ\]
+That is, two real numbers \(x\) and \(y\) are deemed to be the same if their difference is a rational number. We would like to separate all the real numbers between 0 and 1 inclusive by this equivalence relation, and collect them into groups called equivalence classes. For instance, the numbers 0 and 0.5 will be in the same category, since their difference is rational, but the numbers 0.5 and \(\pi^{-1}\) would be in separate categories. There will be infinitely many such equivalence classes, but we're not concerned so much about how many there are, \emph{except} that they are countable.
+
+Construct the Vitali set \(V\) as follows: Take precisely one element from each equivalent class, and put it in \(V\). As a remark, such a \(V\) must surely exist by the Axiom of Choice\footnote{Given a collection of some countably many non-empty sets, it is always possible to construct a new set by taking one element from each set in the original collection. See \url{https://brilliant.org/wiki/axiom-of-choice/}}.
+
+Consider now the union of shifted Vitali sets by some value rational value \(r\in[0,1]\),
+\[
+\bigcup_{r} (V \oplus r)
+\]
+As a reminder, the set of rational numbers is countably infinite\footnote{\url{https://www.homeschoolmath.net/teaching/rational-numbers-countable.php}}. We make a few observations:
+
+\begin{itemize}
+\item
+  The equivalence relation partitions the interval \([0,1]\) into a disjoint union of equivalence classes. In other words, the sets \((V \oplus r)\) and \((V \oplus s)\) are disjoint for any rationals \(r\neq s\), such that \(r,s\in[0,1]\). If they were not disjoint, this would mean that there exists some \(x,y\in[0,1]\) with \(x+r\in(V \oplus r)\) and \(y+s\in (V \oplus s)\) such that \(x+r=y+s\). But then this means that \(x-y=s-r\in\bbQ\) so \(x\) and \(y\) are in the same equivalent class, and this is a contradiction.
+\item
+  Every point in \([0,1]\) is contained in the union \(\bigcup_{r} (V \oplus r)\). This is because each \(x\in [0,1]\) belongs to one equivalence class, and is subsequently shifted by some rational value \(r\) in the corresponding Vitali set \((V \oplus r)\). Therefore, \[[0,1] \subseteq  \bigcup_{r} (V \oplus r).\] and we may write \[1 = \bbP([0,1]) \leq \bbP\left(\bigcup_{r} (V \oplus r)\right),\] since the measure of any set contained in another must have smaller measure: \(A \subseteq B \Rightarrow \mu(A) \leq \mu(B)\).
+\item
+  The disjoint union \(\bigcup_{r} (V \oplus r)\) has probability measure (according to our definitions in \eqref{eq:meas1}, \eqref{eq:meas2}, and \eqref{eq:meas3})
+  \begin{align*}
+   \bbP\left(\bigcup_{r} (V \oplus r)\right) 
+   &= \sum_r \bbP(V \oplus r) \\
+   &= \sum_r \bbP(V)
+   \end{align*}
+\end{itemize}
+
+Putting these three observations together gives us
+\[
+1 = \bbP\left(\bigcup_{r} (V \oplus r)\right)  = \sum_r \bbP(V).
+\]
+This leads to the desired contradiction: A countably infinite sum of the same quantity repeated can only equal 0, \(+\infty\), or \(-\infty\), but it can never equal 1.
+\end{proof}
+
+In summary,
+
+\begin{itemize}
+\tightlist
+\item
+  Not all subsets of uncountable sets are measurable. Admitting all subsets of uncountable sets will break mathematics.
+\item
+  \(\sigma\)-algebras are the patch that fixes mathematics. It gatekeeps the subsets of uncountable sets and disregards those which are not measurable.
+\item
+  Actually, if you have been following along, you might realise that we are at risk of breaking mathematics when dealing with uncountable sets. Strictly speaking, we only need \(\sigma\)-algebras when working in a set with uncountable cardinality.
+\end{itemize}
+
+Finally, what on earth is an ``unmeasurable'' set? Wouldn't it be (even arbitrarily) possible to just define a measure for whatever set we can think of? If the above example hasn't convinced you enough, some other mathematicians have tried to resolve this but it seems it is not possible to do so without encountering paradoxes, such as the one below.
+
+\begin{quote}
+The Banach--Tarski paradox states that a ball in the ordinary Euclidean space can be doubled using only the operations of partitioning into subsets, replacing a set with a congruent set, and reassembly.
+\end{quote}
+
+\includegraphics{figure/banach_tarski.png}
+
+To be clear, no rule of mathematics are broken in the Banach-Tarski paradox, but the result defies intuition. Another statement of this paradox is that \emph{we can chop up a pea into finitely many pieces and reassemble it into the sun} (pea-sun paradox). If we don't lay out the foundations for measuring probabilities rigorously, we can end up with nonsensical answers!
+
+This section was highly inspired by the following references:
+
+\begin{itemize}
+\tightlist
+\item
+  Rosenthal, J. (2006). A first look at rigorous probability.
+\item
+  The discussion here: \url{https://stats.stackexchange.com/q/199280}
+\item
+  This YouTube video on Vitali Sets: \url{https://youtu.be/ameugr-wjeI}
 \end{itemize}
 
 \hypertarget{conditional-probabilities}{%

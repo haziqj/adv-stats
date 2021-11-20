@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-19" />
+<meta name="date" content="2021-11-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -170,7 +170,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="learning-statistics.html"><a href="learning-statistics.html"><i class="fa fa-check"></i>Learning statistics</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html"><i class="fa fa-check"></i>Population, sample and parametric models</a>
 <ul>
-<li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#two-practical-situations"><i class="fa fa-check"></i>Two practical situations</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#population-vs-sample"><i class="fa fa-check"></i>Population vs sample</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#parametric-models"><i class="fa fa-check"></i>Parametric models</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#a-sample-a-set-of-data-or-random-variablesa-duality"><i class="fa fa-check"></i>A sample: a set of data or random variables?–A duality</a></li>
@@ -185,15 +184,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="probability-theory-primer.html"><a href="probability-theory-primer.html#readings"><i class="fa fa-check"></i>Readings</a></li>
 <li class="chapter" data-level="1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html"><i class="fa fa-check"></i><b>1.1</b> Elementary set theory</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#sample-space"><i class="fa fa-check"></i><b>1.1.1</b> Sample space</a></li>
-<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.2</b> Set operations</a></li>
-<li class="chapter" data-level="1.1.3" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.3</b> Partitions</a></li>
+<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.1</b> Set operations</a></li>
+<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.2</b> Partitions</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html"><i class="fa fa-check"></i><b>1.2</b> Axiomatic probability</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#probability-as-a-measure"><i class="fa fa-check"></i><b>1.2.1</b> Probability as a measure</a></li>
 <li class="chapter" data-level="1.2.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>1.2.2</b> Axioms of probability</a></li>
 <li class="chapter" data-level="1.2.3" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#derived-probability-results"><i class="fa fa-check"></i><b>1.2.3</b> Derived probability results</a></li>
+<li class="chapter" data-level="1.2.4" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#why-measure-theory"><i class="fa fa-check"></i><b>1.2.4</b> Why measure theory?</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="conditional-probabilities.html"><a href="conditional-probabilities.html"><i class="fa fa-check"></i><b>1.3</b> Conditional probabilities</a>
 <ul>
@@ -487,7 +486,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="method-of-moments" class="section level2" number="4.4">
 <h2><span class="header-section-number">4.4</span> Method of moments</h2>
 <div class="definition">
-<p><span id="def:unlabeled-div-92" class="definition"><strong>Definition 4.4  (Method of moments estimator) </strong></span>Suppose that <span class="math inline">\(U({\boldsymbol X})\)</span> is any statistic such that
+<p><span id="def:unlabeled-div-95" class="definition"><strong>Definition 4.4  (Method of moments estimator) </strong></span>Suppose that <span class="math inline">\(U({\boldsymbol X})\)</span> is any statistic such that
 <span class="math display">\[
   \mathop{\mathrm{E}}\big(U({\boldsymbol X})\big) = m(\theta)
 \]</span>
@@ -504,7 +503,7 @@ is called the method of moments (MOM) estimator of <span class="math inline">\(\
 <li><p><strong>When <span class="math inline">\(\theta=(\theta_1,\dots,\theta_p)^\top\)</span> is a vector.</strong> I.e., there is more than one unknown parameter. The number of moments used (the number of equations to solve) must be equal to the dimensionality of <span class="math inline">\(\theta\)</span> (the number of unknowns).</p></li>
 </ol>
 <div class="example">
-<p><span id="exm:unlabeled-div-93" class="example"><strong>Example 4.8  </strong></span>Let <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{Unif}}(0,\theta)\)</span>. Consider <span class="math inline">\(U({\boldsymbol X}) = \bar X_n = n^{-1}\sum_{i=1}^n X_i\)</span>, the sample mean. Then, since <span class="math inline">\(\mathop{\mathrm{E}}(X_i)=\theta/2\)</span>, we have
+<p><span id="exm:unlabeled-div-96" class="example"><strong>Example 4.8  </strong></span>Let <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{Unif}}(0,\theta)\)</span>. Consider <span class="math inline">\(U({\boldsymbol X}) = \bar X_n = n^{-1}\sum_{i=1}^n X_i\)</span>, the sample mean. Then, since <span class="math inline">\(\mathop{\mathrm{E}}(X_i)=\theta/2\)</span>, we have
 <span class="math display">\[\begin{align*}
 \mathop{\mathrm{E}}\big(U({\boldsymbol X}) \big) 
 &amp;= \mathop{\mathrm{E}}\left(\frac{1}{n} \sum_{i=1}^n X_i \right) \\
@@ -523,7 +522,7 @@ is called the method of moments (MOM) estimator of <span class="math inline">\(\
 <pre><code>## [1] 2.945851</code></pre>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-94" class="example"><strong>Example 4.9  </strong></span>Let <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{Poi}}(\lambda)\)</span>. Consider, for example, <span class="math inline">\(U({\boldsymbol X})=\sum_{i=1}^n [X_i=0]\)</span>, the number of zeroes found in the sample. Then, since
+<p><span id="exm:unlabeled-div-97" class="example"><strong>Example 4.9  </strong></span>Let <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{Poi}}(\lambda)\)</span>. Consider, for example, <span class="math inline">\(U({\boldsymbol X})=\sum_{i=1}^n [X_i=0]\)</span>, the number of zeroes found in the sample. Then, since
 <span class="math display">\[\begin{align*}
 \mathop{\mathrm{E}}([X_i=0]) 
 &amp;= \sum_{k=0}^\infty [k=0]\Pr(X_i=k) \\

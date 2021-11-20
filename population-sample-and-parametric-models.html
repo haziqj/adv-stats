@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-19" />
+<meta name="date" content="2021-11-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -170,7 +170,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="learning-statistics.html"><a href="learning-statistics.html"><i class="fa fa-check"></i>Learning statistics</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html"><i class="fa fa-check"></i>Population, sample and parametric models</a>
 <ul>
-<li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#two-practical-situations"><i class="fa fa-check"></i>Two practical situations</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#population-vs-sample"><i class="fa fa-check"></i>Population vs sample</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#parametric-models"><i class="fa fa-check"></i>Parametric models</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#a-sample-a-set-of-data-or-random-variablesa-duality"><i class="fa fa-check"></i>A sample: a set of data or random variables?–A duality</a></li>
@@ -185,15 +184,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="probability-theory-primer.html"><a href="probability-theory-primer.html#readings"><i class="fa fa-check"></i>Readings</a></li>
 <li class="chapter" data-level="1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html"><i class="fa fa-check"></i><b>1.1</b> Elementary set theory</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#sample-space"><i class="fa fa-check"></i><b>1.1.1</b> Sample space</a></li>
-<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.2</b> Set operations</a></li>
-<li class="chapter" data-level="1.1.3" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.3</b> Partitions</a></li>
+<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.1</b> Set operations</a></li>
+<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.2</b> Partitions</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html"><i class="fa fa-check"></i><b>1.2</b> Axiomatic probability</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#probability-as-a-measure"><i class="fa fa-check"></i><b>1.2.1</b> Probability as a measure</a></li>
 <li class="chapter" data-level="1.2.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>1.2.2</b> Axioms of probability</a></li>
 <li class="chapter" data-level="1.2.3" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#derived-probability-results"><i class="fa fa-check"></i><b>1.2.3</b> Derived probability results</a></li>
+<li class="chapter" data-level="1.2.4" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#why-measure-theory"><i class="fa fa-check"></i><b>1.2.4</b> Why measure theory?</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="conditional-probabilities.html"><a href="conditional-probabilities.html"><i class="fa fa-check"></i><b>1.3</b> Conditional probabilities</a>
 <ul>
@@ -486,102 +485,102 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="population-sample-and-parametric-models" class="section level2 unnumbered">
 <h2>Population, sample and parametric models</h2>
-<div id="two-practical-situations" class="section level3 unnumbered">
-<h3>Two practical situations</h3>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:bmwm3"></span>
-<img src="figure/00-g80.jpg" alt="Data science." width="60%" />
-<p class="caption">
-Figure 0.2: Data science.
-</p>
-</div>
+<p>To motivate the use of statistics in everyday life, let us consider two practical situations where you might employ statistical methods:</p>
 <ol style="list-style-type: decimal">
-<li>BMW M Division has proudly unveiled the successor to their current “king of sedans”, the new BMW M3 Competition (G80), sporting a 503 bhp twin-turbo 3.0 litre inline-six S58 engine with a claimed acceleration rate of 0-100 km/h in 3.9 seconds.</li>
+<li><p>BMW M Division has proudly unveiled the successor to their current “king of sedans”, the new BMW M3 Competition (G80), sporting a 503 bhp twin-turbo 3.0 litre inline-six S58 engine with a claimed acceleration rate of 0-100 km/h in 3.9 seconds.</p>
+<p><img src="figure/00-g80.jpg" width="60%" style="display: block; margin: auto;" /></p></li>
+<li><p>The Authority for Info-communications Technology Industry of Brunei Darussalam (AITI) conducted the Household ICT Survey in 2018 and reported that 95% percent of individuals personally use the internet on a daily basis, a slight decrease from 97% in the year 2016. Estimates are accurate within 2% margin of error with 95% confidence.</p>
+<p><img src="figure/00-aiti.png" width="60%" style="display: block; margin: auto;" /></p></li>
 </ol>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:aiti"></span>
-<img src="figure/00-aiti.png" alt="Data science." width="60%" />
-<p class="caption">
-Figure 0.3: Data science.
-</p>
-</div>
-<ol start="2" style="list-style-type: decimal">
-<li>The Authority for Info-communications Technology Industry of Brunei Darussalam (AITI) conducted the Household ICT Survey in 2018 and reported that 95% percent of individuals personally use the internet on a daily basis, a slight decrease from 97% in the year 2016. Estimates are accurate within 2% margin of error with 95% confidence.</li>
-</ol>
-<p>Your immediate thought should be “how can I trust these figures?”</p>
-</div>
+<p>Your immediate thought should be “how can I trust these figures?”. In general, it’s always good to approach life with a healthy dose of skepticism. We certainly don’t want to be duped by people claiming to present a version of the truth, when in reality it is a skewed version of the truth (or worse yet, false). In data we trust! But only if we are mathematically-savvy…</p>
 <div id="population-vs-sample" class="section level3 unnumbered">
 <h3>Population vs sample</h3>
-<p>In both cases, the conclusion is drawn on a <em>population</em> (i.e. all of
-the subjects concerned) based on the information from a <em>sample</em> (i.e.
-a subset of the population).</p>
+<p>In both cases, the conclusion is drawn on a <em>population</em> (i.e. all of the subjects concerned) based on the information from a <em>sample</em> (i.e. a subset of the population).</p>
 <ol style="list-style-type: decimal">
-<li><p>For BMW M Division, it is <strong>impossible</strong> to measure the entire population (obtain the acceleration rates), constituting all BMW M3 (G80) cars that have been made and are yet to be made.</p></li>
-<li><p>For AITI, while possible, it is (economically) infeasible to measure the entire population, i.e. to ask everyone in Brunei whether or not they use the internet on a daily basis.</p></li>
+<li><p>For BMW M Division, it is <strong>impossible</strong> to measure the entire population (obtain the acceleration rates), constituting <u>all</u> BMW M3 (G80) cars that have been made and are yet to be made in the future. Often this is referred to as an <em>infinite population</em> model.</p></li>
+<li><p>For AITI, while possible, it is (economically) unfeasible to measure the entire population, i.e. to ask everyone in Brunei whether or not they use the internet on a daily basis. It would be very difficult to knock on everybody’s door and obtain responses in a timely manner (what if they’re out of the country? what if they’re sick? what if they just don’t want to respond?). Anyone who has done any form of survey work will understand the intricate problems that might arise.</p></li>
 </ol>
-<p>The <em>population</em> is an entire set of the objects concerned, and those objects are typically represented by some numbers. We <u>do not know</u> the entire population in practice.
-A <em>sample</em> is a randomly selected subset of a population, and is a set of <u>known data</u> in practice.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:popsample"></span>
-<img src="figure/00-popsample.png" alt="Data science." width="60%" />
-<p class="caption">
-Figure 0.4: Data science.
-</p>
+<p>In any case, it is important to make the distinction between population and sample.
+The <em>population</em> is defined to be the entire set of the objects concerned, and those objects are typically represented by some numbers. We <u>do not know</u> the entire population in practice.
+A <em>sample</em> is a (randomly selected) subset of a population, and is a set of <u>known data</u> in practice.</p>
+<p><img src="figure/00-popsample.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>When people claim to have data (about some phenomenon), they typically imply that they have a <em>sample</em> of the population, and not the population data itself. There are exceptions of course, for instance, a country’s <em>census</em> captures population data every 10 years. Another example is when the population itself is small such that all data can be collected easily.</p>
+<div class="mynote">
+<p>A question that you might be thinking to yourself is the following:</p>
+<blockquote>
+<p>Is doing analysis on the sample good enough? Will it reveal the same insights as if we’re analysing the population data?</p>
+</blockquote>
+<p>The answer to this is that it depends on how you perform the sample! Things to look out for is definitely <em>bias</em> in data collection methods. Here are some examples:</p>
+<ul>
+<li><p>Asking the question “Can you live without the internet?” via <strong>an online poll</strong> of adults. Think about it. How exactly can you ask people <em>without</em> internet whether they can live without the internet? Clearly, the sample that you collect is biased towards those who are privileged enough to have access. And if you were wondering, yes this really <a href="https://www.forbes.com/sites/niallmccarthy/2017/08/29/where-people-cant-live-without-the-internet-infographic/?sh=430d133643aa">happened</a>.</p></li>
+<li><p>Asking people to volunteer their responses typically lead to bias. It is suggested that those who has something to complain about will voice their opinions more than those who do not.</p></li>
+<li><p>Other errors can crop up during data collection process which may skew the representation of the data (e.g. duplicate data, missing data, substituted data, etc.)</p></li>
+</ul>
+<p>It is certainly important that data be collected in a methodological manner, in order for valid inferences to be drawn.
+Sampling methodology is beyond the scope of this course, however!</p>
 </div>
 </div>
 <div id="parametric-models" class="section level3 unnumbered">
 <h3>Parametric models</h3>
-<p>For a given problem, we typically assume a population
-to follow a <em>probability distribution</em> with pdf/pmf <span class="math inline">\(f(x|\theta)\)</span>.</p>
+<p>For a given problem, it is quite advantagous to <strong>assume</strong> that a population obeys some <em>probability distribution</em> law.
+To be a little bit more concrete, suppose we assign the variable <span class="math inline">\(x\)</span> to be the quantity of interest. Then we assume that the quantity of interest has a distribution function <span class="math inline">\(f(x|\theta)\)</span> (we will recap the concept of distribution functions in the next chapter!).
+Furthermore,</p>
 <ul>
-<li><p>The form of the distribution i.e. <span class="math inline">\(f(\cdot|\theta)\)</span> is known (e.g.
-normal, Poisson, exponential, etc.).</p></li>
-<li><p>The “specifics” of the distribution is (assumed to be) <strong>not
-known</strong>, but potentially knowable if data were available.</p></li>
+<li><p>The form of the distribution i.e. <span class="math inline">\(f(\cdot|\theta)\)</span> is known (e.g. normal, Poisson, exponential, etc.).</p></li>
+<li><p>The “specifics” of the distribution is (assumed to be) <strong>not known</strong>, but potentially knowable if data were available.</p></li>
 </ul>
-<p>The unknown characteristics of the distribution are represented by <span class="math inline">\(\theta\)</span> (such as the mean, variance, rate, etc.).
-We call <span class="math inline">\(\theta\)</span> the parameter(s) of the model.
+<p>The unknown characteristics of the distribution are traditionally represented by <span class="math inline">\(\theta\)</span> (such as the mean, variance, rate, etc.–any quantity that characterises how the distribution behaves).
+We call <span class="math inline">\(\theta\)</span> the <em>parameter(s)</em> of the model.
 Such an assumed distribution is called a <strong>parametric model</strong>.
 For the two earlier examples,</p>
 <ol style="list-style-type: decimal">
-<li><p>Let <span class="math inline">\(X =\)</span> acceleration of BMW M3 G80 vehicles. Assume <span class="math inline">\(X\sim\mathop{\mathrm{N}}(\mu,\sigma^2)\)</span>. Here <span class="math inline">\({\boldsymbol\theta}= (\mu,\sigma^2)^\top\)</span>, where <span class="math inline">\(\mu\)</span> is the ‘true’ acceleration rate.</p></li>
+<li><p>Let <span class="math inline">\(X =\)</span> acceleration of BMW M3 G80 vehicles. Assume <span class="math inline">\(X\sim\mathop{\mathrm{N}}(\mu,\sigma^2)\)</span>. Here <span class="math inline">\({\boldsymbol\theta}= (\mu,\sigma^2)^\top\)</span>, where <span class="math inline">\(\mu\)</span> is the ‘true’ acceleration rate. In this example, the parameter is 2-dimensional instead of unidimensional.</p></li>
 <li><p>Let <span class="math inline">\(\{0,1\} \ni X =\)</span> someone in Brunei uses the internet daily. Assume <span class="math inline">\(X\sim\mathop{\mathrm{Bern}}(p)\)</span>. Here <span class="math inline">\(\theta = p\)</span>, the ‘true’ proportion of daily internet users in Brunei.</p></li>
 </ol>
+<div class="myalert">
+<p>There is no god-given right for your quantity of interest <span class="math inline">\(X\)</span> to follow a particular distribution! These are simply assumptions, in order to make it easy to model reality. Parametric assumptions may be correct, or they may not. In fact, strictly speaking, <strong>all models are wrong</strong>, but some are useful (quote attributed to the British statistician George Box).</p>
+</div>
 <p><img src="figure/00-theoreticaldataplane.png" width="80%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="a-sample-a-set-of-data-or-random-variablesa-duality" class="section level3 unnumbered">
 <h3>A sample: a set of data or random variables?–A duality</h3>
 <p>A sample of size <span class="math inline">\(n\)</span>, <span class="math inline">\(\{X_1,\dots,X_n\}\)</span>, is also called a <em>random</em> sample. It consists of <span class="math inline">\(n\)</span> concrete numbers in a practical problem.
-The word ‘random’ captures the characteristic of the sample (of the same
-size) being different.</p>
+When I say ‘concrete’ here, it means numbers that you can play around with–you can add them up, subtract them, plot them, take averages, and so on.
+These would be numbers that you collect into a spreadsheet, say.</p>
+<p>The more contentious part of the term ‘random sample’ is the word ‘random’ itself.
+The word ‘random’ encapsulates the possibility of the concrete numbers collected in the samples being different, by virtue of:</p>
 <ul>
 <li>The sample may be taken by different people or entities.</li>
-<li>The sample may be obtained under different circumstances.</li>
-<li>etc.
-Essentially, they would be different subsets of a population.</li>
+<li>The sample may be obtained at a different time or location.</li>
+<li>The sample may be measured using different instruments (albeit measuring the same thing).</li>
+<li>etc.</li>
 </ul>
-<p>Furthermore, a sample is also viewed as <span class="math inline">\(n\)</span> independent and identically
-distributed (iid) random variables, when we assess the performance of a
-statistical method.</p>
+<p>Essentially, different samples may well be different subsets of a population.</p>
+<p>With this, a sample may also be viewed as <span class="math inline">\(n\)</span> (independent and identically distributed) random variables, simply because their values are conceptually not fixed (at least not until you observe them–but even then it is simply one possible realisation of potentially many others).</p>
+<p>Now, if a sample is not random then perhaps there would be no need for statistics. But hardly ever would you find this to be the case.
+Rigorous mathematical methods exist to deal with this randomness, and thus viewing samples as random variables allows us to assess the performance of a statistical method.</p>
 </div>
 <div id="variability-of-estimates" class="section level3 unnumbered">
 <h3>Variability of estimates</h3>
-<ul>
-<li><p>For the BMW M example, suppose a sample of <span class="math inline">\(n=38\)</span> used gave the sample mean
-<span class="math display">\[\bar X_n = \frac{1}{n}\sum_{i=1}^n X_i = 3.9\]</span></p></li>
-<li><p>A different sample may well give a different sample mean.
-Example: 29 YouTubers and other social media “influencers” were given access to the new M3 on a race track, and their sample mean yielded <span class="math inline">\(\bar X_n = 3.4\)</span>.</p></li>
-<li><p>Is the sample mean <span class="math inline">\(\bar X_n\)</span> a good estimator for the unknown
-‘true’ acceleration <span class="math inline">\(\mu\)</span>? Obviously, we cannot use the concrete number
-3.9 to assess how good this estimator is, as a different sample may
-give a different average value.</p></li>
-</ul>
-<div class="rmdnote">
-<p>By treating <span class="math inline">\(X_1,\dots,X_n\)</span> as random variables, <span class="math inline">\(\bar X_n\)</span> is
-also a random variable, so has a distribution. If the distribution of
-<span class="math inline">\(\bar X_n\)</span> concentrates closely around the unknown <span class="math inline">\(\mu\)</span>, then it is a
-good estimator!</p>
+<p>Suppose you set out to answer questions 1 and 2 above by collecting some data.
+This is what you find:</p>
+<div id="bmw-m-example" class="section level5 unnumbered">
+<h5><u>BMW M example</u></h5>
+<p>A sample of <span class="math inline">\(n=38\)</span> gave the sample mean
+<span class="math display">\[\bar X_n = \frac{1}{n}\sum_{i=1}^n X_i = 3.9\]</span>
+In words, the average acceleration (0-100 km h<sup>-1</sup>) of the sample of cars yielded the value 3.9 seconds. But realise that a different sample may well give a different sample mean. For instance, 29 YouTubers and other social media “influencers” were given access to the new M3 on a race track, and their sample mean yielded <span class="math inline">\(\bar X_n = 3.4\)</span>.</p>
+<p>What do we make of this discrepancy? Whose figure do we trust? It doesn’t seem so satisfying to know that different samples will give different results. For instance, what do you tell the public or media about the acceleration figure of the new M3s? Evidently relying on a singular measure (in this case the mean) is not enough. Moreoever, it keeps on changing in value!</p>
+<p>The key is to be able to employ <em>probabilistic statements</em> about our results. For instance, “<em>the acceleration figure is 3.9 plus or minus 0.01 about 95% of the time when we sample</em>” is a much more confident statement to make, rather than providing a figure that keeps on changing.</p>
+<div class="mynote">
+<p>By treating the data <span class="math inline">\(X_1,\dots,X_n\)</span> as random variables, it is implied that <span class="math inline">\(\bar X_n\)</span> is also a random variable. Everything that is random should have a distribution. If the distribution of
+<span class="math inline">\(\bar X_n\)</span> concentrates closely around the unknown <span class="math inline">\(\mu\)</span>, then it is a good estimator!</p>
 </div>
+</div>
+<div id="aiti-example" class="section level5 unnumbered">
+<h5><u>AITI example</u></h5>
+<p>For the AITI example, there is that statement <em>‘…accurate to within 2% margin of error with 95% confidence’</em>. This statement alludes to the variability of the estimate, if another random sample was obtained.</p>
 <ul>
-<li><p>For the AITI example, there is that statement <em>‘…accurate to within 2% margin of error with 95% confidence’</em>. This statement alludes to the variability of the estimate, if another random sample was obtained.</p></li>
-<li><p>The estimate in this case was also the sample mean,
+<li><p>The estimate in this case was also the sample mean (proportion of people who use the internet on a daily basis),
 <span class="math display">\[
 \hat p = \bar X_n = \frac{1}{n}\sum_{i=1}^n X_i.
 \]</span></p></li>
@@ -591,6 +590,7 @@ good estimator!</p>
 \]</span>
 that is, the true value is covered 95% of the time inside an interval of width 0.02 under repeated sampling. This statement is made possible due to the <em>randomness</em> of the estimator <span class="math inline">\(\hat p\)</span>.</p></li>
 </ul>
+</div>
 </div>
 </div>
             </section>

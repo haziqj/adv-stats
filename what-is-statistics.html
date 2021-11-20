@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-19" />
+<meta name="date" content="2021-11-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -170,7 +170,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="learning-statistics.html"><a href="learning-statistics.html"><i class="fa fa-check"></i>Learning statistics</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html"><i class="fa fa-check"></i>Population, sample and parametric models</a>
 <ul>
-<li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#two-practical-situations"><i class="fa fa-check"></i>Two practical situations</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#population-vs-sample"><i class="fa fa-check"></i>Population vs sample</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#parametric-models"><i class="fa fa-check"></i>Parametric models</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#a-sample-a-set-of-data-or-random-variablesa-duality"><i class="fa fa-check"></i>A sample: a set of data or random variables?–A duality</a></li>
@@ -185,15 +184,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="probability-theory-primer.html"><a href="probability-theory-primer.html#readings"><i class="fa fa-check"></i>Readings</a></li>
 <li class="chapter" data-level="1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html"><i class="fa fa-check"></i><b>1.1</b> Elementary set theory</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#sample-space"><i class="fa fa-check"></i><b>1.1.1</b> Sample space</a></li>
-<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.2</b> Set operations</a></li>
-<li class="chapter" data-level="1.1.3" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.3</b> Partitions</a></li>
+<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.1</b> Set operations</a></li>
+<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.2</b> Partitions</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html"><i class="fa fa-check"></i><b>1.2</b> Axiomatic probability</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#probability-as-a-measure"><i class="fa fa-check"></i><b>1.2.1</b> Probability as a measure</a></li>
 <li class="chapter" data-level="1.2.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>1.2.2</b> Axioms of probability</a></li>
 <li class="chapter" data-level="1.2.3" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#derived-probability-results"><i class="fa fa-check"></i><b>1.2.3</b> Derived probability results</a></li>
+<li class="chapter" data-level="1.2.4" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#why-measure-theory"><i class="fa fa-check"></i><b>1.2.4</b> Why measure theory?</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="conditional-probabilities.html"><a href="conditional-probabilities.html"><i class="fa fa-check"></i><b>1.3</b> Conditional probabilities</a>
 <ul>
@@ -486,8 +485,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="what-is-statistics" class="section level1 unnumbered">
 <h1>What is statistics?</h1>
-<p><strong>Statistics</strong> is a <u>scientific</u> subject on
-collecting and analysing data.</p>
+<p><strong>Statistics</strong> is a <u>scientific</u> subject focussed on collecting and analysing data.</p>
 <ul>
 <li><strong>Collecting</strong> means designing experiments, designing
 questionnaires, designing sampling schemes, administration of data
@@ -503,12 +501,15 @@ particularly useful or helpful in answering questions such as:</p>
 <li>Is the house market in Brunei oversaturated?</li>
 <li>Is the Chinese yuan undervalued? If so, by how much?</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:datascience"></span>
-<img src="figure/00-ds2.png" alt="Data science." width="60%" />
-<p class="caption">
-Figure 0.1: Data science.
-</p>
+<p>Questions that can be answered with statistical analysis are wide-ranging, hence making it useful in a variety of fields and specialties, from the hard sciences (chemistry, geology, physics, etc.) to the social sciences (business, economics, psychology, etc.) and beyond<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> <a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.
+Given today’s data-centric world that we live in, I posit that numerical literacy is now as important as literacy itself!</p>
 </div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p><a href="https://www.significancemagazine.com/science/458-does-new-york-city-really-have-as-many-rats-as-people?highlight=WyJuZXciLCInbmV3IiwieW9yayIsIm5ldyB5b3JrIl0=" class="uri">https://www.significancemagazine.com/science/458-does-new-york-city-really-have-as-many-rats-as-people?highlight=WyJuZXciLCInbmV3IiwieW9yayIsIm5ldyB5b3JrIl0=</a><a href="what-is-statistics.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://thoughtcatalog.com/anonymous/2015/04/what-is-the-statistical-chance-of-finding-the-love-of-my-life/" class="uri">https://thoughtcatalog.com/anonymous/2015/04/what-is-the-statistical-chance-of-finding-the-love-of-my-life/</a><a href="what-is-statistics.html#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 

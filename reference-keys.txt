@@ -1,7 +1,4 @@
-fig:datascience
-fig:bmwm3
-fig:aiti
-fig:popsample
+fig:wraparoundmeasureanim
 fig:distfn
 fig:unnamed-chunk-8
 fig:unnamed-chunk-9
@@ -15,13 +12,13 @@ fig:type12error
 fig:bootstrap
 probability-theory-primer
 elementary-set-theory
-sample-space
 set-operations
 partitions
 axiomatic-probability
 probability-as-a-measure
 axioms-of-probability
 derived-probability-results
+why-measure-theory
 conditional-probabilities
 conditional-probability
 bayes-theorem

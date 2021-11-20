@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-19" />
+<meta name="date" content="2021-11-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -170,7 +170,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="learning-statistics.html"><a href="learning-statistics.html"><i class="fa fa-check"></i>Learning statistics</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html"><i class="fa fa-check"></i>Population, sample and parametric models</a>
 <ul>
-<li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#two-practical-situations"><i class="fa fa-check"></i>Two practical situations</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#population-vs-sample"><i class="fa fa-check"></i>Population vs sample</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#parametric-models"><i class="fa fa-check"></i>Parametric models</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#a-sample-a-set-of-data-or-random-variablesa-duality"><i class="fa fa-check"></i>A sample: a set of data or random variables?–A duality</a></li>
@@ -185,15 +184,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="probability-theory-primer.html"><a href="probability-theory-primer.html#readings"><i class="fa fa-check"></i>Readings</a></li>
 <li class="chapter" data-level="1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html"><i class="fa fa-check"></i><b>1.1</b> Elementary set theory</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#sample-space"><i class="fa fa-check"></i><b>1.1.1</b> Sample space</a></li>
-<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.2</b> Set operations</a></li>
-<li class="chapter" data-level="1.1.3" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.3</b> Partitions</a></li>
+<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.1</b> Set operations</a></li>
+<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.2</b> Partitions</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html"><i class="fa fa-check"></i><b>1.2</b> Axiomatic probability</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#probability-as-a-measure"><i class="fa fa-check"></i><b>1.2.1</b> Probability as a measure</a></li>
 <li class="chapter" data-level="1.2.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>1.2.2</b> Axioms of probability</a></li>
 <li class="chapter" data-level="1.2.3" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#derived-probability-results"><i class="fa fa-check"></i><b>1.2.3</b> Derived probability results</a></li>
+<li class="chapter" data-level="1.2.4" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#why-measure-theory"><i class="fa fa-check"></i><b>1.2.4</b> Why measure theory?</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="conditional-probabilities.html"><a href="conditional-probabilities.html"><i class="fa fa-check"></i><b>1.3</b> Conditional probabilities</a>
 <ul>
@@ -486,31 +485,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="probability-and-statistics" class="section level2 unnumbered">
 <h2>Probability and statistics</h2>
-<p>We’ve just implicitly described the three main activities concerning <u>statistical inference</u>.</p>
+<p>Thus far, we have thrown the term ‘inference’ around and maybe we’ve all taken it for granted.
+Cambridge’s dictionary defines <em>infer</em> as ‘to reach an opinion from available information or facts’.
+And indeed that is what we are ultimately interested in when we analyse data.
+Sure, there might be that random element to the data that we have to contend with, but it is about reaching some form of conclusion one way or another using data.
+In the previous section, we’ve just implicitly described the three main activities concerning <u>statistical inference</u>.</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>Point estimation</strong></p>
 <p><em>“What is <span class="math inline">\(\mu\)</span>?”</em></p></li>
 <li><p><strong>Hypothesis testing</strong></p>
-<p><em>“Is <span class="math inline">\(p=0.95\)</span> and not <span class="math inline">\(p=0.97\)</span>?”</em></p></li>
+<p><em>“Is <span class="math inline">\(\mu=3.4\)</span> and not <span class="math inline">\(\mu=3.9\)</span>?”</em></p></li>
 <li><p><strong>Interval estimation</strong></p>
-<p><em>“What’s an upper and lower bound estimate for <span class="math inline">\(p\)</span>?”</em></p></li>
+<p><em>“What’s an upper and lower bound estimate for <span class="math inline">\(\mu\)</span>?”</em></p></li>
 </ol>
 <p>These three activities will be the main focus of this course, and we will formalise the notion of each one in turn.
 Hopefully you can now appreciate how statistics is an inherently applied subject, making use of mathematics (probability in particular) to answer problems across a variety of fields.</p>
+<div class="mynote">
+<p>What is the difference between probability and statistics? The following figure might be helpful.</p>
 <p><img src="bookdown-adv-stats_files/figure-html/unnamed-chunk-3-1.png" width="48%" style="display: block; margin: auto;" />
 <img src="bookdown-adv-stats_files/figure-html/unnamed-chunk-4-1.png" width="48%" style="display: block; margin: auto;" /></p>
-<p>In probability, we ask questions like</p>
+<p>Probability is a highly mathematical subject (although maybe the name doesn’t seem to suggest it, it really has its origin in abstract measure theory). In probability, we ask questions like</p>
 <ul>
-<li>What is <span class="math inline">\(\mathop{\mathrm{E}}(X)\)</span>?</li>
-<li>What is <span class="math inline">\(\Pr(X &gt; a)\)</span>?</li>
+<li>What is <span class="math inline">\(\mathop{\mathrm{E}}(X)\)</span>? (expectations)</li>
+<li>What is <span class="math inline">\(\Pr(X &gt; a)\)</span>? (probability calculations)</li>
 </ul>
-<p>Whereas in statistics, we are interested in questions like</p>
+<p>for some given value of <span class="math inline">\(\theta\)</span> in an assumed family of parametric distributions.
+Whereas in statistics, we are more interested in questions like</p>
 <ul>
 <li>What is <span class="math inline">\(\theta\)</span>?</li>
 <li>Is <span class="math inline">\(\theta\)</span> larger than <span class="math inline">\(\theta_0\)</span>?</li>
 <li>How confident am I that <span class="math inline">\(\theta \in (\theta_l,\theta_u)\)</span>?</li>
 </ul>
-<p><img src="figure/00-probstats.jpeg" width="60%" style="display: block; margin: auto;" /></p>
+<p>given some observed data. I like to think of the two as reverse processes.</p>
+<p><img src="figure/00-probstats.jpeg" width="80%" style="display: block; margin: auto;" /></p>
+</div>
+<p>Statistics definitely needs probability for sure, so we will have to master probability theory before doing any statistical inference. On to the next chapter!</p>
 
 </div>
 <!-- </div> -->

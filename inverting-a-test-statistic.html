@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-19" />
+<meta name="date" content="2021-11-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -170,7 +170,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="learning-statistics.html"><a href="learning-statistics.html"><i class="fa fa-check"></i>Learning statistics</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html"><i class="fa fa-check"></i>Population, sample and parametric models</a>
 <ul>
-<li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#two-practical-situations"><i class="fa fa-check"></i>Two practical situations</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#population-vs-sample"><i class="fa fa-check"></i>Population vs sample</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#parametric-models"><i class="fa fa-check"></i>Parametric models</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#a-sample-a-set-of-data-or-random-variablesa-duality"><i class="fa fa-check"></i>A sample: a set of data or random variables?–A duality</a></li>
@@ -185,15 +184,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="probability-theory-primer.html"><a href="probability-theory-primer.html#readings"><i class="fa fa-check"></i>Readings</a></li>
 <li class="chapter" data-level="1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html"><i class="fa fa-check"></i><b>1.1</b> Elementary set theory</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#sample-space"><i class="fa fa-check"></i><b>1.1.1</b> Sample space</a></li>
-<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.2</b> Set operations</a></li>
-<li class="chapter" data-level="1.1.3" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.3</b> Partitions</a></li>
+<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.1</b> Set operations</a></li>
+<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.2</b> Partitions</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html"><i class="fa fa-check"></i><b>1.2</b> Axiomatic probability</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#probability-as-a-measure"><i class="fa fa-check"></i><b>1.2.1</b> Probability as a measure</a></li>
 <li class="chapter" data-level="1.2.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>1.2.2</b> Axioms of probability</a></li>
 <li class="chapter" data-level="1.2.3" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#derived-probability-results"><i class="fa fa-check"></i><b>1.2.3</b> Derived probability results</a></li>
+<li class="chapter" data-level="1.2.4" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#why-measure-theory"><i class="fa fa-check"></i><b>1.2.4</b> Why measure theory?</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="conditional-probabilities.html"><a href="conditional-probabilities.html"><i class="fa fa-check"></i><b>1.3</b> Conditional probabilities</a>
 <ul>
@@ -494,7 +493,7 @@ C({\boldsymbol X}) = \left\{\theta_0 \ \Big| \ p_{W_{\theta_0}}({\boldsymbol X})
 is a 100<span class="math inline">\(c\)</span>% confidence region for <span class="math inline">\(\theta\)</span>.</p>
 </div>
 <div class="proof">
-<p><span id="unlabeled-div-142" class="proof"><em>Proof</em>. </span><span class="math display">\[
+<p><span id="unlabeled-div-145" class="proof"><em>Proof</em>. </span><span class="math display">\[
 \Pr_\theta \left(\theta \in C({\boldsymbol X}) \right) = \Pr_\theta \left(p_{W_{\theta_0}}({\boldsymbol X}) \geq 1 - c \right) = \int_{1-c}^1 \mathop{\mathrm{d}}\hspace{0.5pt}\!k = c.
 \]</span></p>
 </div>
@@ -555,7 +554,7 @@ C({\boldsymbol x}^*) =  \left\{ \mu \ \bigg| \ \bar x- z(\alpha/2)\frac{\sigma}{
 \]</span></p>
 <p><img src="bookdown-adv-stats_files/figure-html/invert_test_taut-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <div class="example">
-<p><span id="exm:unlabeled-div-143" class="example"><strong>Example 6.6  </strong></span>In Ex. sheet 5, Q5 we looked at a hypothesis test for the variance of a normal distribution.
+<p><span id="exm:unlabeled-div-146" class="example"><strong>Example 6.6  </strong></span>In Ex. sheet 5, Q5 we looked at a hypothesis test for the variance of a normal distribution.
 Let <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{N}}(\mu,\sigma^2)\)</span> where both parameters are unknown.
 The LRT test rejects <span class="math inline">\(H_0:\sigma^2=\sigma_0^2\)</span> for samples in the rejection region
 <span class="math display">\[
@@ -573,7 +572,7 @@ for some constants <span class="math inline">\(a\)</span> and <span class="math 
 <p>When <span class="math inline">\({\boldsymbol X}\)</span> is discrete, the <span class="math inline">\(p\)</span>-value is no longer uniform under <span class="math inline">\(H_0\)</span>.
 The <span class="math inline">\(p\)</span>-value in that case is <em>stochastically greater</em> than a <span class="math inline">\(\mathop{\mathrm{Unif}}(0,1)\)</span> r.v. in the sense that its cdf <span class="math inline">\(F\)</span> satisfies <span class="math inline">\(F(x)\leq x\)</span>, <span class="math inline">\(\forall x\)</span>.</p>
 <div class="proof">
-<p><span id="unlabeled-div-144" class="proof"><em>Proof</em>. </span>For a continuous r.v. <span class="math inline">\(T\)</span>, we saw that <span class="math inline">\(Y=F_T(T)\sim\mathop{\mathrm{Unif}}(0,1)\)</span>. However, if <span class="math inline">\(T\)</span> is discrete<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>, the inverse <span class="math inline">\(F_T^{-1}\)</span> is not defined, and
+<p><span id="unlabeled-div-147" class="proof"><em>Proof</em>. </span>For a continuous r.v. <span class="math inline">\(T\)</span>, we saw that <span class="math inline">\(Y=F_T(T)\sim\mathop{\mathrm{Unif}}(0,1)\)</span>. However, if <span class="math inline">\(T\)</span> is discrete<a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a>, the inverse <span class="math inline">\(F_T^{-1}\)</span> is not defined, and
 <span class="math display">\[
 F_Y(y) = \Pr(Y \leq y) = \Pr(F_T(T)\leq y) \leq y.
 \]</span>
@@ -593,12 +592,12 @@ C({\boldsymbol X}) = \left\{\theta_0 \ \Big| \ p_{W_{\theta_0}}({\boldsymbol X})
 is a 100<span class="math inline">\(c\)</span>% confidence region for <span class="math inline">\(\theta\)</span>, but this confidence region is said to be <em>conservative</em>.</p>
 </div>
 <div class="proof">
-<p><span id="unlabeled-div-145" class="proof"><em>Proof</em>. </span><span class="math display">\[
+<p><span id="unlabeled-div-148" class="proof"><em>Proof</em>. </span><span class="math display">\[
 \Pr_\theta \left(\theta \in C({\boldsymbol X}) \right) = \Pr_\theta \left(p_{W_{\theta_0}}({\boldsymbol X}) \geq 1 - c \right) \geq 1 - (1-c) = c
 \]</span></p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-146" class="example"><strong>Example 6.7  </strong></span>Suppose that <span class="math inline">\(X\)</span> is a single binary random variable with
+<p><span id="exm:unlabeled-div-149" class="example"><strong>Example 6.7  </strong></span>Suppose that <span class="math inline">\(X\)</span> is a single binary random variable with
 <span class="math display">\[
 \Pr_\theta(X = 1) = 1 - \Pr_\theta(X = 0) = \theta, \hspace{2em} 0&lt;\theta &lt; 1.
 \]</span>
@@ -632,8 +631,8 @@ so we see <span class="math inline">\(c(\theta)&gt;0.95\)</span> for all <span c
 </div>
 <div class="footnotes">
 <hr />
-<ol start="8">
-<li id="fn8"><p>See here: <a href="https://stats.stackexchange.com/q/73778" class="uri">https://stats.stackexchange.com/q/73778</a><a href="inverting-a-test-statistic.html#fnref8" class="footnote-back">↩︎</a></p></li>
+<ol start="23">
+<li id="fn23"><p>See here: <a href="https://stats.stackexchange.com/q/73778" class="uri">https://stats.stackexchange.com/q/73778</a><a href="inverting-a-test-statistic.html#fnref23" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-19" />
+<meta name="date" content="2021-11-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -170,7 +170,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="learning-statistics.html"><a href="learning-statistics.html"><i class="fa fa-check"></i>Learning statistics</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html"><i class="fa fa-check"></i>Population, sample and parametric models</a>
 <ul>
-<li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#two-practical-situations"><i class="fa fa-check"></i>Two practical situations</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#population-vs-sample"><i class="fa fa-check"></i>Population vs sample</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#parametric-models"><i class="fa fa-check"></i>Parametric models</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#a-sample-a-set-of-data-or-random-variablesa-duality"><i class="fa fa-check"></i>A sample: a set of data or random variables?–A duality</a></li>
@@ -185,15 +184,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="probability-theory-primer.html"><a href="probability-theory-primer.html#readings"><i class="fa fa-check"></i>Readings</a></li>
 <li class="chapter" data-level="1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html"><i class="fa fa-check"></i><b>1.1</b> Elementary set theory</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#sample-space"><i class="fa fa-check"></i><b>1.1.1</b> Sample space</a></li>
-<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.2</b> Set operations</a></li>
-<li class="chapter" data-level="1.1.3" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.3</b> Partitions</a></li>
+<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.1</b> Set operations</a></li>
+<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.2</b> Partitions</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html"><i class="fa fa-check"></i><b>1.2</b> Axiomatic probability</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#probability-as-a-measure"><i class="fa fa-check"></i><b>1.2.1</b> Probability as a measure</a></li>
 <li class="chapter" data-level="1.2.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>1.2.2</b> Axioms of probability</a></li>
 <li class="chapter" data-level="1.2.3" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#derived-probability-results"><i class="fa fa-check"></i><b>1.2.3</b> Derived probability results</a></li>
+<li class="chapter" data-level="1.2.4" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#why-measure-theory"><i class="fa fa-check"></i><b>1.2.4</b> Why measure theory?</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="conditional-probabilities.html"><a href="conditional-probabilities.html"><i class="fa fa-check"></i><b>1.3</b> Conditional probabilities</a>
 <ul>
@@ -506,7 +505,7 @@ is called the <em>likelihood function</em> for <span class="math inline">\(\thet
 <p>The purpose of <span class="math inline">\(L(\theta|{\boldsymbol x})\)</span> is to compare the <em>plausibility</em> of different candidate values of <span class="math inline">\(\theta\)</span>, given the observed data <span class="math inline">\({\boldsymbol x}\)</span>.</p>
 <p>If <span class="math inline">\(L(\theta_1|{\boldsymbol x}) &gt; L(\theta_2|{\boldsymbol x})\)</span>, then the data <span class="math inline">\({\boldsymbol x}\)</span> were more likely to occur under the hypothesis that <span class="math inline">\(\theta=\theta_1\)</span> than under the hypothesis that <span class="math inline">\(\theta=\theta_2\)</span>. In that sense, <span class="math inline">\(\theta_1\)</span> is a more plausible value than <span class="math inline">\(\theta_2\)</span> for the unknown parameter <span class="math inline">\(\theta\)</span>.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-80" class="example"><strong>Example 4.1  </strong></span>Consider a sequence of <span class="math inline">\(n\)</span> coin tosses, and let <span class="math inline">\(X_i\)</span> denote the outcome of the <span class="math inline">\(i\)</span>th coin toss. Assume that <span class="math inline">\(X_i\sim\mathop{\mathrm{Bern}}(p)\)</span>, where <span class="math inline">\(p\)</span> is the probability of heads. We know that the total number of heads <span class="math inline">\(\sum_{i=1}^n X_i\)</span> is distributed <span class="math inline">\(\mathop{\mathrm{Bin}}(n,p)\)</span>.</p>
+<p><span id="exm:unlabeled-div-83" class="example"><strong>Example 4.1  </strong></span>Consider a sequence of <span class="math inline">\(n\)</span> coin tosses, and let <span class="math inline">\(X_i\)</span> denote the outcome of the <span class="math inline">\(i\)</span>th coin toss. Assume that <span class="math inline">\(X_i\sim\mathop{\mathrm{Bern}}(p)\)</span>, where <span class="math inline">\(p\)</span> is the probability of heads. We know that the total number of heads <span class="math inline">\(\sum_{i=1}^n X_i\)</span> is distributed <span class="math inline">\(\mathop{\mathrm{Bin}}(n,p)\)</span>.</p>
 <p>Suppose the outcome of <span class="math inline">\(n=10\)</span> coin tosses happens to be
 <span class="math display">\[{\boldsymbol x}= \{H, T, H, T, T, H, H, T, H, H \}.\]</span>
 Then <span class="math inline">\(L(0.6|{\boldsymbol x}) &gt; L(0.5|{\boldsymbol x})\)</span>.</p>
@@ -529,7 +528,7 @@ Then <span class="math inline">\(L(0.6|{\boldsymbol x}) &gt; L(0.5|{\boldsymbol 
 <div id="likelihood-ratio" class="section level3" number="4.1.2">
 <h3><span class="header-section-number">4.1.2</span> Likelihood ratio</h3>
 <div class="definition">
-<p><span id="def:unlabeled-div-81" class="definition"><strong>Definition 4.1  (Likelihood ratio) </strong></span>The relative plausibility of candidate parameter values, <span class="math inline">\(\theta_1\)</span> and <span class="math inline">\(\theta_2\)</span> say, is measured by the likelihood ratio</p>
+<p><span id="def:unlabeled-div-84" class="definition"><strong>Definition 4.1  (Likelihood ratio) </strong></span>The relative plausibility of candidate parameter values, <span class="math inline">\(\theta_1\)</span> and <span class="math inline">\(\theta_2\)</span> say, is measured by the likelihood ratio</p>
 <p><span class="math display">\[
 \frac{L(\theta_1|{\boldsymbol x})}{L(\theta_2|{\boldsymbol x})}
 \]</span></p>
@@ -537,7 +536,7 @@ Then <span class="math inline">\(L(0.6|{\boldsymbol x}) &gt; L(0.5|{\boldsymbol 
 <p>Interpretation: for example, if <span class="math inline">\(\frac{L(\theta_1|{\boldsymbol x})}{L(\theta_2|{\boldsymbol x})} = 10\)</span>, then the observed data <span class="math inline">\({\boldsymbol x}\)</span> were 10 times more likely under truth <span class="math inline">\(\theta_1\)</span> than under truth <span class="math inline">\(\theta_2\)</span>.</p>
 <p>The use of <em>likelihood ratios</em> to compare the plausibility of different <span class="math inline">\(\theta\)</span> values means that any constant factor in the likelihood–that is, any factor not depending on <span class="math inline">\(\theta\)</span>–can be neglected.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-82" class="example"><strong>Example 4.2  </strong></span>Suppose <span class="math inline">\(X_i\sim\mathop{\mathrm{Poi}}(\lambda)\)</span> independently (<span class="math inline">\(i=1,\dots,n\)</span>) and we have observed <span class="math inline">\({\boldsymbol X}={\boldsymbol x}\)</span>.
+<p><span id="exm:unlabeled-div-85" class="example"><strong>Example 4.2  </strong></span>Suppose <span class="math inline">\(X_i\sim\mathop{\mathrm{Poi}}(\lambda)\)</span> independently (<span class="math inline">\(i=1,\dots,n\)</span>) and we have observed <span class="math inline">\({\boldsymbol X}={\boldsymbol x}\)</span>.
 Here,
 <span class="math display">\[\begin{align*}
 L(\lambda|{\boldsymbol x}) = f(x_1,\dots,x_n|\lambda)
@@ -560,7 +559,7 @@ l(\theta) = \log L(\theta|{\boldsymbol x}),
 since this converts products into sums, which are easier to
 handle.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-83" class="example"><strong>Example 4.3  </strong></span><span class="math inline">\(n\)</span> independent Poisson continued.
+<p><span id="exm:unlabeled-div-86" class="example"><strong>Example 4.3  </strong></span><span class="math inline">\(n\)</span> independent Poisson continued.
 <span class="math display">\[\begin{align*}
 l(\lambda|{\boldsymbol x}) 
 &amp;= \log \prod_{i=1}^n \frac{e^{-\lambda}\lambda^{x_i}}{x_i!} \\

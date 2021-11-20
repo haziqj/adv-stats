@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-19" />
+<meta name="date" content="2021-11-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -170,7 +170,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="learning-statistics.html"><a href="learning-statistics.html"><i class="fa fa-check"></i>Learning statistics</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html"><i class="fa fa-check"></i>Population, sample and parametric models</a>
 <ul>
-<li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#two-practical-situations"><i class="fa fa-check"></i>Two practical situations</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#population-vs-sample"><i class="fa fa-check"></i>Population vs sample</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#parametric-models"><i class="fa fa-check"></i>Parametric models</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#a-sample-a-set-of-data-or-random-variablesa-duality"><i class="fa fa-check"></i>A sample: a set of data or random variables?–A duality</a></li>
@@ -185,15 +184,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="probability-theory-primer.html"><a href="probability-theory-primer.html#readings"><i class="fa fa-check"></i>Readings</a></li>
 <li class="chapter" data-level="1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html"><i class="fa fa-check"></i><b>1.1</b> Elementary set theory</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#sample-space"><i class="fa fa-check"></i><b>1.1.1</b> Sample space</a></li>
-<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.2</b> Set operations</a></li>
-<li class="chapter" data-level="1.1.3" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.3</b> Partitions</a></li>
+<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.1</b> Set operations</a></li>
+<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.2</b> Partitions</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html"><i class="fa fa-check"></i><b>1.2</b> Axiomatic probability</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#probability-as-a-measure"><i class="fa fa-check"></i><b>1.2.1</b> Probability as a measure</a></li>
 <li class="chapter" data-level="1.2.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>1.2.2</b> Axioms of probability</a></li>
 <li class="chapter" data-level="1.2.3" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#derived-probability-results"><i class="fa fa-check"></i><b>1.2.3</b> Derived probability results</a></li>
+<li class="chapter" data-level="1.2.4" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#why-measure-theory"><i class="fa fa-check"></i><b>1.2.4</b> Why measure theory?</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="conditional-probabilities.html"><a href="conditional-probabilities.html"><i class="fa fa-check"></i><b>1.3</b> Conditional probabilities</a>
 <ul>
@@ -563,7 +562,7 @@ f(x|n,p) = {n \choose x}p^x (1-p)^{n-x}.
 <span class="math inline">\(X\)</span> has support (possible values it can take) over <span class="math inline">\(\{0,1,2,\dots,n\}\)</span>.</p>
 <p>The mean and variance are <span class="math inline">\(\mathop{\mathrm{E}}(X)=np\)</span> and <span class="math inline">\(\mathop{\mathrm{Var}}(X)=np(1-p)\)</span>.</p>
 <div class="proof">
-<p><span id="unlabeled-div-45" class="proof"><em>Proof</em>. </span>Here’s the proof for the mean.
+<p><span id="unlabeled-div-48" class="proof"><em>Proof</em>. </span>Here’s the proof for the mean.
 <span class="math display">\[\begin{align*}
 \mathop{\mathrm{E}}(X) 
 = \sum_{x=0}^n x \frac{n!}{x!(n-x)!} p^x (1-p)^{n-x} 
@@ -647,7 +646,7 @@ Denote this by <span class="math inline">\(X\sim\mathop{\mathrm{NBin}}(r,p)\)</s
 <span class="math display">\[
   f(y|r,p) = (-1)^y{-r \choose y} p^r(1-p)^{r-y},
 \]</span>
-which looks suspiciously close to the binomial pmf<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
+which looks suspiciously close to the binomial pmf<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a>.</p>
 </div>
 <div id="poisson-distribution" class="section level3" number="2.2.7">
 <h3><span class="header-section-number">2.2.7</span> Poisson distribution</h3>
@@ -686,8 +685,8 @@ X+Y \sim \mathop{\mathrm{Poi}}(\lambda + \mu)
 </div>
 <div class="footnotes">
 <hr />
-<ol start="3">
-<li id="fn3"><p>Details in C&amp;B, p.95<a href="discrete-models.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<ol start="18">
+<li id="fn18"><p>Details in C&amp;B, p.95<a href="discrete-models.html#fnref18" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

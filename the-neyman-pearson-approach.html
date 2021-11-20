@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-19" />
+<meta name="date" content="2021-11-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -170,7 +170,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="learning-statistics.html"><a href="learning-statistics.html"><i class="fa fa-check"></i>Learning statistics</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html"><i class="fa fa-check"></i>Population, sample and parametric models</a>
 <ul>
-<li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#two-practical-situations"><i class="fa fa-check"></i>Two practical situations</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#population-vs-sample"><i class="fa fa-check"></i>Population vs sample</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#parametric-models"><i class="fa fa-check"></i>Parametric models</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#a-sample-a-set-of-data-or-random-variablesa-duality"><i class="fa fa-check"></i>A sample: a set of data or random variables?–A duality</a></li>
@@ -185,15 +184,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="probability-theory-primer.html"><a href="probability-theory-primer.html#readings"><i class="fa fa-check"></i>Readings</a></li>
 <li class="chapter" data-level="1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html"><i class="fa fa-check"></i><b>1.1</b> Elementary set theory</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#sample-space"><i class="fa fa-check"></i><b>1.1.1</b> Sample space</a></li>
-<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.2</b> Set operations</a></li>
-<li class="chapter" data-level="1.1.3" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.3</b> Partitions</a></li>
+<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.1</b> Set operations</a></li>
+<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.2</b> Partitions</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html"><i class="fa fa-check"></i><b>1.2</b> Axiomatic probability</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#probability-as-a-measure"><i class="fa fa-check"></i><b>1.2.1</b> Probability as a measure</a></li>
 <li class="chapter" data-level="1.2.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>1.2.2</b> Axioms of probability</a></li>
 <li class="chapter" data-level="1.2.3" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#derived-probability-results"><i class="fa fa-check"></i><b>1.2.3</b> Derived probability results</a></li>
+<li class="chapter" data-level="1.2.4" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#why-measure-theory"><i class="fa fa-check"></i><b>1.2.4</b> Why measure theory?</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="conditional-probabilities.html"><a href="conditional-probabilities.html"><i class="fa fa-check"></i><b>1.3</b> Conditional probabilities</a>
 <ul>
@@ -505,14 +504,14 @@ So the LR test rejects <span class="math inline">\(H_0:\mu=0\)</span> if the sam
 <p>In deciding to “accept” or reject the null hypothesis <span class="math inline">\(H_0\)</span>, an experimenter might be making a mistake.
 The performance of a test is measured by two criteria: the size and power of a test.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-124" class="definition"><strong>Definition 5.3  (Size of a test) </strong></span>For <span class="math inline">\(0\leq\alpha\leq 1\)</span>, the size <span class="math inline">\(\alpha\)</span> of a test is defined as
+<p><span id="def:unlabeled-div-127" class="definition"><strong>Definition 5.3  (Size of a test) </strong></span>For <span class="math inline">\(0\leq\alpha\leq 1\)</span>, the size <span class="math inline">\(\alpha\)</span> of a test is defined as
 <span class="math display">\[
 \alpha := \sup_{\theta\in\Theta_0} \Pr\!{}_\theta\left( W({\boldsymbol X}) \in R \right)
 \]</span></p>
 </div>
 <p>The size of a test measures the probability of rejecting the null hypothesis under the assumption that the null hypothesis is true.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-125" class="definition"><strong>Definition 5.4  (Power of a test) </strong></span>For <span class="math inline">\(0\leq B(\theta)\leq 1\)</span>, the power <span class="math inline">\(B(\theta)\)</span> of a test is defined as
+<p><span id="def:unlabeled-div-128" class="definition"><strong>Definition 5.4  (Power of a test) </strong></span>For <span class="math inline">\(0\leq B(\theta)\leq 1\)</span>, the power <span class="math inline">\(B(\theta)\)</span> of a test is defined as
 <span class="math display">\[
 B(\theta) :=  \Pr\!{}_\theta\left( W({\boldsymbol X}) \in R \right), \hspace{2em} \theta\not\in\Theta_0
 \]</span></p>
@@ -522,7 +521,7 @@ B(\theta) :=  \Pr\!{}_\theta\left( W({\boldsymbol X}) \in R \right), \hspace{2em
 <p>A <em>good</em> test <span class="math inline">\((W,R)\)</span> has  size <span class="math inline">\(\alpha\)</span> and  power <span class="math inline">\(B(\theta)\)</span> at all values of <span class="math inline">\(\theta\)</span> outside of the null hypothesis.</p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-126" class="example"><strong>Example 5.5  </strong></span>Continuation of normal example with known variance: <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{N}}(\mu,\sigma^2)\)</span> with <span class="math inline">\(\sigma^2\)</span> known and null hypothesis <span class="math inline">\(H_0:\mu=0\)</span>.</p>
+<p><span id="exm:unlabeled-div-129" class="example"><strong>Example 5.5  </strong></span>Continuation of normal example with known variance: <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{N}}(\mu,\sigma^2)\)</span> with <span class="math inline">\(\sigma^2\)</span> known and null hypothesis <span class="math inline">\(H_0:\mu=0\)</span>.</p>
 <p>The rejection region from Example <a href="the-neyman-pearson-approach.html#exm:normalrejregion">5.4</a> is alternatively written as
 <span class="math display">\[
 R 

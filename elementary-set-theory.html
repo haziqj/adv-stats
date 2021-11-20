@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-19" />
+<meta name="date" content="2021-11-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -170,7 +170,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="learning-statistics.html"><a href="learning-statistics.html"><i class="fa fa-check"></i>Learning statistics</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html"><i class="fa fa-check"></i>Population, sample and parametric models</a>
 <ul>
-<li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#two-practical-situations"><i class="fa fa-check"></i>Two practical situations</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#population-vs-sample"><i class="fa fa-check"></i>Population vs sample</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#parametric-models"><i class="fa fa-check"></i>Parametric models</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#a-sample-a-set-of-data-or-random-variablesa-duality"><i class="fa fa-check"></i>A sample: a set of data or random variables?–A duality</a></li>
@@ -185,15 +184,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="probability-theory-primer.html"><a href="probability-theory-primer.html#readings"><i class="fa fa-check"></i>Readings</a></li>
 <li class="chapter" data-level="1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html"><i class="fa fa-check"></i><b>1.1</b> Elementary set theory</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#sample-space"><i class="fa fa-check"></i><b>1.1.1</b> Sample space</a></li>
-<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.2</b> Set operations</a></li>
-<li class="chapter" data-level="1.1.3" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.3</b> Partitions</a></li>
+<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.1</b> Set operations</a></li>
+<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.2</b> Partitions</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html"><i class="fa fa-check"></i><b>1.2</b> Axiomatic probability</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#probability-as-a-measure"><i class="fa fa-check"></i><b>1.2.1</b> Probability as a measure</a></li>
 <li class="chapter" data-level="1.2.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>1.2.2</b> Axioms of probability</a></li>
 <li class="chapter" data-level="1.2.3" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#derived-probability-results"><i class="fa fa-check"></i><b>1.2.3</b> Derived probability results</a></li>
+<li class="chapter" data-level="1.2.4" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#why-measure-theory"><i class="fa fa-check"></i><b>1.2.4</b> Why measure theory?</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="conditional-probabilities.html"><a href="conditional-probabilities.html"><i class="fa fa-check"></i><b>1.3</b> Conditional probabilities</a>
 <ul>
@@ -486,41 +485,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="elementary-set-theory" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Elementary set theory</h2>
-<div id="sample-space" class="section level3" number="1.1.1">
-<h3><span class="header-section-number">1.1.1</span> Sample space</h3>
-<p>In conducting an “experiment”…</p>
+<p>A discussion of probability theory is almost always begun by talking about the concept of ‘sets’.
+As the term implies, sets are a collection of things.
+You’re sure to come across sets before, such as the set of family members in your household, or the set of all natural numbers, or something even more funky like the set of all sets (the universal set<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>).</p>
+<p>When statisticians talk about sets it is usually in the context of conducting an “experiment”<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.
+The important bits are:</p>
 <ul>
 <li>The sample space <span class="math inline">\(\Omega\)</span> is the set of possible outcomes of an experiment.</li>
 <li>Elements <span class="math inline">\(\omega \in \Omega\)</span> are called sample outcomes or realisations.</li>
 <li>Subsets of <span class="math inline">\(E \subseteq \Omega\)</span> are called events.</li>
 </ul>
+<p>So whatever the context of the random process might be, we should be comfortable identifying what the sample space is, what its elements are, and what possible events might occur.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-1" class="example"><strong>Example 1.1  </strong></span>In tossing a coin <span class="math inline">\(n \geq 2\)</span> times, let <span class="math inline">\(H\)</span> denote ‘heads’, while <span class="math inline">\(T\)</span> denote ‘tails’.
-Let <span class="math inline">\({\boldsymbol\omega}= (\omega_1,\dots,\omega_n)\)</span>.
-Then <span class="math display">\[
+<p><span id="exm:unlabeled-div-1" class="example"><strong>Example 1.1  </strong></span>In tossing a two-sided coin <span class="math inline">\(n \geq 2\)</span> times, let <span class="math inline">\(H\)</span> denote ‘heads’, while <span class="math inline">\(T\)</span> denote ‘tails’.
+Let <span class="math inline">\({\boldsymbol\omega}= (\omega_1,\dots,\omega_n)\)</span> be the results of these coin tosses.
+Then the sample space is <span class="math display">\[
 \Omega = \Big\{ {\boldsymbol\omega}\, \big|\, \omega_i \in \{H,T\} \Big\}.
 \]</span>
-Let <span class="math inline">\(E\)</span> be the event that the first head appears on the second toss. Then
+Let <span class="math inline">\(E\)</span> be the event that the first head appears on the second toss. Then this event can be mathematically described as
 <span class="math display">\[
 E = \Big\{ {\boldsymbol\omega}\, \big|\, \omega_1 = T, \omega_2 = H, \omega_i \in \{H,T\} \text{ for } i &gt; 2 \Big\}.
 \]</span></p>
 </div>
-</div>
-<div id="set-operations" class="section level3" number="1.1.2">
-<h3><span class="header-section-number">1.1.2</span> Set operations</h3>
+<div id="set-operations" class="section level3" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> Set operations</h3>
+<p>There are several things that we can do to sets much like we can do to numbers in arithmetic. Here is an abridged version of set operations.</p>
 <ul>
-<li>The <strong>complement</strong> of an event <span class="math inline">\(A\)</span>, written <span class="math inline">\(A^c\)</span>, is the set of all elements that are not in <span class="math inline">\(A\)</span>: <span class="math inline">\(A^c = \{\omega | \omega\not\in A \}\)</span>.</li>
-<li>The complement of <span class="math inline">\(\Omega\)</span> is the empty set <span class="math inline">\(\emptyset = \{\}\)</span>.</li>
-<li>The <strong>union</strong> of events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> (thought of as “A or B or both”) is defined
+<li><p>The <strong>complement</strong> of an event <span class="math inline">\(A\)</span>, written <span class="math inline">\(A^c\)</span>, is the set of all elements that are not in <span class="math inline">\(A\)</span>: <span class="math inline">\(A^c = \{\omega | \omega\not\in A \}\)</span>.</p></li>
+<li><p>The complement of <span class="math inline">\(\Omega\)</span> is the empty set <span class="math inline">\(\emptyset = \{\}\)</span>.</p></li>
+<li><p>The <strong>union</strong> of events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> (thought of as “A or B or both”) is defined
 <span class="math display">\[
 A \cup B = \{\omega \in \Omega \,|\, \omega \in A \text{ or } \omega \in B \}.
-\]</span></li>
-<li>The <strong>intersection</strong> of events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> (thought of as “A <em>and</em> B”) is defined
+\]</span></p></li>
+<li><p>The <strong>intersection</strong> of events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> (thought of as “A <em>and</em> B”) is defined
 <span class="math display">\[
 A \cap B = \{\omega \in \Omega \,|\, \omega \in A \text{ and } \omega \in B \}.
-\]</span></li>
-<li>Unions and intersections on sets are <strong>commutative</strong>, <strong>associative</strong>, and <strong>distributive</strong> (see C&amp;B Thm 1.14).</li>
+\]</span></p></li>
+<li><p>Unions and intersections on sets are <strong>commutative</strong>, <strong>associative</strong>, and <strong>distributive</strong><a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>.</p>
+<ul>
+<li><p>Commutativity: <span class="math inline">\(A \cup B = B \cup A\)</span> and <span class="math inline">\(A \cap B = B \cap A\)</span>.</p></li>
+<li><p>Associativity: <span class="math inline">\(A \cup (B \cup C) = (A \cup B) \cup C\)</span> and <span class="math inline">\(A \cap (B \cap C) = (A \cap B) \cap C\)</span>.</p></li>
+<li><p>Disributive laws: <span class="math inline">\(A \cap (B \cup C) = (A \cap B) \cup (A \cap C)\)</span> and <span class="math inline">\(A \cup (B \cap C) = (A \cup B) \cap (A \cup C)\)</span>.</p></li>
+</ul></li>
+<li><p>DeMorgan’s Laws: <span class="math inline">\((A \cup B)^c = A^c \cap B^c\)</span> and <span class="math inline">\((A \cap B)^c = A^c \cup B^c\)</span></p></li>
 </ul>
+<div class="mycheck">
+<p>It’s pretty straightforward to prove the commutative, associative, distributive and DeMorgan’s properties using the rules that precede them in the list. You may like to try this out yourself. Or you may have come across a kind of “sketch proof” involving <strong>Venn diagrams</strong>.</p>
+</div>
 <p>The operations of unions and intersections can be extended to infinite collections of sets as well.
 If <span class="math inline">\(A_1,A_2,A_3,\dots\)</span> is collection of sets, all defined on a sample space <span class="math inline">\(\Omega\)</span>, then
 <span class="math display">\[\begin{gather*}
@@ -537,8 +548,8 @@ If <span class="math inline">\(A_1,A_2,A_3,\dots\)</span> is collection of sets,
 \end{align*}\]</span></p>
 </div>
 </div>
-<div id="partitions" class="section level3" number="1.1.3">
-<h3><span class="header-section-number">1.1.3</span> Partitions</h3>
+<div id="partitions" class="section level3" number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> Partitions</h3>
 <p>We say that two events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are <strong>disjoint</strong> or <strong>mutually exclusive</strong> if <span class="math inline">\(A \cap B = \{ \}\)</span>. Disjoint sets have no points in common.
 Suppose that <span class="math inline">\(A_1,A_2,\dots\)</span> are events defined on <span class="math inline">\(\Omega\)</span> such that they are (pairwise) disjoint, i.e. 
 <span class="math display">\[
@@ -549,7 +560,24 @@ Partitions divide the sample space into non-overlapping pieces.</p>
 <div class="example">
 <p><span id="exm:unlabeled-div-3" class="example"><strong>Example 1.3  </strong></span>A deck of playing cards has four suits: <span class="math inline">\(\clubsuit, \diamondsuit, \spadesuit, \heartsuit\)</span>. Let <span class="math inline">\(A=\{\clubsuit,\diamondsuit\}\)</span> and <span class="math inline">\(B=\{\spadesuit, \heartsuit\}\)</span>. Then <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> form a partition of the sample space.</p>
 </div>
+<div class="example">
+<p><span id="exm:unlabeled-div-4" class="example"><strong>Example 1.4  </strong></span>The set <span class="math inline">\(\{\mathbb{R}_+, \mathbb{R}_{-}, \{0\}\}\)</span> (ie the set of positive reals, negative reals, and zero respectively) is a partition of the real numbers <span class="math inline">\(\mathbb{R}\)</span> since</p>
+<ul>
+<li><span class="math inline">\(\mathbb{R}_{+} \cup \mathbb{R}_{-} \cup \{0\}=\mathbb{R}\)</span>;</li>
+<li><span class="math inline">\(\mathbb{R}_{+} \cap \mathbb{R}_{-} = \mathbb{R}_{+} \cap \{0\} = \mathbb{R}_{-} \cap \{0\} = \{ \}\)</span>; and</li>
+<li><span class="math inline">\(\{\mathbb{R}_{+}\)</span>, <span class="math inline">\(\mathbb{R}_{-}\)</span>, and <span class="math inline">\(\{0\}\}\)</span> are all non empty.</li>
+</ul>
+<p>Note that <span class="math inline">\(\{0\}\)</span> is not an empty set. It contains exactly one element, the number zero.</p>
 </div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="4">
+<li id="fn4"><p>Which, as it turns out, is a paradox: <a href="https://en.wikipedia.org/wiki/Russell%27s_paradox" class="uri">https://en.wikipedia.org/wiki/Russell%27s_paradox</a><a href="elementary-set-theory.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>Although, we don’t really mean it like how scientists mean experiments to be (we’re not fiddling around with buttons or chemicals). I suppose it’s more about the process of the (random) data generating mechanism itself.<a href="elementary-set-theory.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>See C&amp;B Thm 1.14<a href="elementary-set-theory.html#fnref6" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 

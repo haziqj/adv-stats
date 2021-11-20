@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-19" />
+<meta name="date" content="2021-11-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -170,7 +170,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="learning-statistics.html"><a href="learning-statistics.html"><i class="fa fa-check"></i>Learning statistics</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html"><i class="fa fa-check"></i>Population, sample and parametric models</a>
 <ul>
-<li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#two-practical-situations"><i class="fa fa-check"></i>Two practical situations</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#population-vs-sample"><i class="fa fa-check"></i>Population vs sample</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#parametric-models"><i class="fa fa-check"></i>Parametric models</a></li>
 <li class="chapter" data-level="" data-path="population-sample-and-parametric-models.html"><a href="population-sample-and-parametric-models.html#a-sample-a-set-of-data-or-random-variablesa-duality"><i class="fa fa-check"></i>A sample: a set of data or random variables?–A duality</a></li>
@@ -185,15 +184,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="probability-theory-primer.html"><a href="probability-theory-primer.html#readings"><i class="fa fa-check"></i>Readings</a></li>
 <li class="chapter" data-level="1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html"><i class="fa fa-check"></i><b>1.1</b> Elementary set theory</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#sample-space"><i class="fa fa-check"></i><b>1.1.1</b> Sample space</a></li>
-<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.2</b> Set operations</a></li>
-<li class="chapter" data-level="1.1.3" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.3</b> Partitions</a></li>
+<li class="chapter" data-level="1.1.1" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#set-operations"><i class="fa fa-check"></i><b>1.1.1</b> Set operations</a></li>
+<li class="chapter" data-level="1.1.2" data-path="elementary-set-theory.html"><a href="elementary-set-theory.html#partitions"><i class="fa fa-check"></i><b>1.1.2</b> Partitions</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html"><i class="fa fa-check"></i><b>1.2</b> Axiomatic probability</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#probability-as-a-measure"><i class="fa fa-check"></i><b>1.2.1</b> Probability as a measure</a></li>
 <li class="chapter" data-level="1.2.2" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>1.2.2</b> Axioms of probability</a></li>
 <li class="chapter" data-level="1.2.3" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#derived-probability-results"><i class="fa fa-check"></i><b>1.2.3</b> Derived probability results</a></li>
+<li class="chapter" data-level="1.2.4" data-path="axiomatic-probability.html"><a href="axiomatic-probability.html#why-measure-theory"><i class="fa fa-check"></i><b>1.2.4</b> Why measure theory?</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="conditional-probabilities.html"><a href="conditional-probabilities.html"><i class="fa fa-check"></i><b>1.3</b> Conditional probabilities</a>
 <ul>
@@ -501,7 +500,7 @@ For each of the cis, we need to obtain bootstrap samples <span class="math inlin
 \text{se}_{boot}(\hat\theta) = \sqrt{\frac{1}{B} \sum_{i=1}^B \left(\hat\theta^*_i - \frac{1}{B}\sum_{i=1}^B \hat\theta^*_i \right)^2}.
 \]</span></p>
 <div class="definition">
-<p><span id="def:unlabeled-div-155" class="definition"><strong>Definition 6.7  (Normal bootstrap interval) </strong></span>Suppose the estimator <span class="math inline">\(\hat\theta\)</span> for <span class="math inline">\(\theta\)</span> is asymptotically normal.
+<p><span id="def:unlabeled-div-158" class="definition"><strong>Definition 6.7  (Normal bootstrap interval) </strong></span>Suppose the estimator <span class="math inline">\(\hat\theta\)</span> for <span class="math inline">\(\theta\)</span> is asymptotically normal.
 The interval
 <span class="math display">\[
 \left[\hat\theta - z(\alpha/2)\cdot \text{se}_{boot}(\hat\theta) \ , \  \hat\theta + z(\alpha/2)\cdot  \text{se}_{boot}(\hat\theta) \right],
@@ -518,7 +517,7 @@ is an approximate 100<span class="math inline">\((1-\alpha)\)</span>% confidence
 \]</span></p>
 <p>Let <span class="math inline">\(\hat\theta^*_{(\alpha)}\)</span> be the <span class="math inline">\(\lfloor B\alpha \rfloor\)</span>-th smallest value among the <span class="math inline">\(\hat\theta_i^*\)</span>. In other words, 100<span class="math inline">\(\alpha\)</span>% of the ordered <span class="math inline">\(\hat\theta_{(i)}^*\)</span> are smaller than <span class="math inline">\(\hat\theta^*_{(\alpha)}\)</span>.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-156" class="definition"><strong>Definition 6.8  (Bootstrap percentile interval) </strong></span>An approximate 100<span class="math inline">\((1-\alpha)\)</span>% confidence interval based on the bootstrap percentiles is given by
+<p><span id="def:unlabeled-div-159" class="definition"><strong>Definition 6.8  (Bootstrap percentile interval) </strong></span>An approximate 100<span class="math inline">\((1-\alpha)\)</span>% confidence interval based on the bootstrap percentiles is given by
 <span class="math display">\[
 \left[\hat\theta^*_{(\alpha/2)} \ , \ \hat\theta^*_{(1-\alpha/2)}\right]
 \]</span></p>
@@ -561,7 +560,7 @@ by definition. It follows that
 \Pr\left(\hat\theta - r^*(\alpha/2) \leq \theta \leq \hat\theta - r^*(1-\alpha/2) \right) = \Pr\left(2\hat\theta - \hat\theta^*_{(1-\alpha/2)} \leq \theta \leq 2\hat\theta - \hat\theta^*_{(\alpha/2)} \right) \approx 1-\alpha.
 \]</span></p>
 <div class="definition">
-<p><span id="def:unlabeled-div-157" class="definition"><strong>Definition 6.9  (Bootstrap pivotal interval) </strong></span>An approximate 100<span class="math inline">\((1-\alpha)\)</span>% confidence interval based on the bootstrap pivotal quantity is
+<p><span id="def:unlabeled-div-160" class="definition"><strong>Definition 6.9  (Bootstrap pivotal interval) </strong></span>An approximate 100<span class="math inline">\((1-\alpha)\)</span>% confidence interval based on the bootstrap pivotal quantity is
 <span class="math display">\[
 \left[ 2\hat\theta - \hat\theta^*_{(1-\alpha/2)} \ , \ 2\hat\theta - \hat\theta^*_{(\alpha/2)} \right],
 \]</span>
@@ -573,11 +572,11 @@ where <span class="math inline">\(\hat\theta^*_{(\alpha)}\)</span> denotes the 1
 <p>In general, all three methods give similar performance, provided that</p>
 <ul>
 <li><p>the (empirical) distribution of <span class="math inline">\(\hat\theta\)</span> is roughly “nice”, i.e. unimodal, symmetric, not skewed, unbiased.</p></li>
-<li><p>the empirical distribution <span class="math inline">\(F_n(x)\)</span> of the data represents the population distribution <span class="math inline">\(F(x)\)</span> well. If it doesn’t, then no bootstrapping method will be reliable<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>.</p></li>
+<li><p>the empirical distribution <span class="math inline">\(F_n(x)\)</span> of the data represents the population distribution <span class="math inline">\(F(x)\)</span> well. If it doesn’t, then no bootstrapping method will be reliable<a href="#fn25" class="footnote-ref" id="fnref25"><sup>25</sup></a>.</p></li>
 </ul>
 <p>In all cases, these confidence intervals are , i.e. the coverage probability <span class="math inline">\(\Pr(\theta \in C({\boldsymbol X}))\)</span> is not exactly <span class="math inline">\(1-\alpha\)</span>. More accurate methods exist but are not discussed here.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-158" class="example"><strong>Example 6.12  </strong></span>This example was used by Bradley Efron, the inventor of the bootstrap. The data are LSAT scores (for entrance to law school) and GPA.</p>
+<p><span id="exm:unlabeled-div-161" class="example"><strong>Example 6.12  </strong></span>This example was used by Bradley Efron, the inventor of the bootstrap. The data are LSAT scores (for entrance to law school) and GPA.</p>
 <table>
 <thead>
 <tr class="header">
@@ -707,8 +706,8 @@ Let’s use bootstrap to estimate the 95% ci for <span class="math inline">\(\rh
 </div>
 <div class="footnotes">
 <hr />
-<ol start="10">
-<li id="fn10"><p><a href="https://stats.stackexchange.com/a/357498" class="uri">https://stats.stackexchange.com/a/357498</a><a href="bootstrap-confidence-intervals.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<ol start="25">
+<li id="fn25"><p><a href="https://stats.stackexchange.com/a/357498" class="uri">https://stats.stackexchange.com/a/357498</a><a href="bootstrap-confidence-intervals.html#fnref25" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
