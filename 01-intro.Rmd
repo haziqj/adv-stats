@@ -3,8 +3,7 @@
 
 # What is statistics? {-}
 
-**Statistics** is a [scientific]{.ul} subject on
-collecting and analysing data.
+**Statistics** is a [scientific]{.ul} subject focussed on collecting and analysing data.
 
 -   **Collecting** means designing experiments, designing
     questionnaires, designing sampling schemes, administration of data
@@ -20,10 +19,8 @@ particularly useful or helpful in answering questions such as:
 -   Is the house market in Brunei oversaturated?
 -   Is the Chinese yuan undervalued? If so, by how much?
 
-```{r datascience, echo = FALSE, out.width = "60%", fig.cap = "Data science."}
-knitr::include_graphics("figure/00-ds2.png")
-```
-
+Questions that can be answered with statistical analysis are wide-ranging, hence making it useful in a variety of fields and specialties, from the hard sciences (chemistry, geology, physics, etc.) to the social sciences (business, economics, psychology, etc.) and beyond^[https://www.significancemagazine.com/science/458-does-new-york-city-really-have-as-many-rats-as-people?highlight=WyJuZXciLCInbmV3IiwieW9yayIsIm5ldyB5b3JrIl0=] ^[https://thoughtcatalog.com/anonymous/2015/04/what-is-the-statistical-chance-of-finding-the-love-of-my-life/].
+Given today's data-centric world that we live in, I posit that numerical literacy is now as important as literacy itself!
 
 ##  Learning statistics {-}
 
@@ -36,67 +33,104 @@ There are three aspects to learning statistics:
 3. **Theory**. Knowing the "why" of statistics and understanding why things are the way they are. Very mathematics focused.
 
 
-In this course, there is an emphasis on the **theory** aspect of statistics.
+In this course, there is an emphasis on the **theory** aspect of statistics. It is my hope that you are already familiar with basic statistical concepts (covered in SM-2205 Intermediate Statistics!), and for those of you who will be around next semester, the SM-4337 Applied Statistics module is highly recommended to learn about applying statistics in real-life situations. Of course, for those who have taken SM-4337 will find connections between what we will be discussing in this module and what you have come across there.
 
+This course may (at times) feel "mathematical for the sake of mathematics". In my defence, having a solid foundation in statistical theory will empower you greatly in your data analysis quest. Yes, there are software out there which seem to automagically generate the statistics of interest and even fit statistical models for the user blindly. Two things:
+
+- There is still the matter of *interpretation* of these output. Will you be able to explain to your boss/stakeholder/customer/etc. the meaning of the data you helped them analyse?
+
+- Will you be able to spot any **assumptions** that are fundamental to the model being true/useful? Remember, gargbage in garbage out.
+
+Some words of wisdom:
 
 > *Students who analyze data, or who aspire to develop new methods for analyzing data, should be well grounded in basic probability and mathematical statistics. Using fancy tools like neural nets, boosting, and support vector machines without understanding basic statistics is like doing brain surgery before knowing how to use a band-aid. ---Larry Wasserman (in All of Statistics)*
 
+In the grand scheme of things, mastery of statistical theory is just one part of the equation to be a practical data analyst. Given how popular the term 'data science' these days, it is worth noting the figure^[https://towardsdatascience.com/introduction-to-statistics-e9d72d818745] below. Data science is seen as the intersection between Mathematics and Statistics, Computer Science, and Domain Knowledge.
+
+Given the importance of the computer science (read: coding and programming skills) as the enabler of data science activities, I try as much as I can to encourage you to these skills up yourself. Wherever appropriate you might see `R` code embedded within the text. As a side note, `R` programming is not examinable.
+
+```{r datascience, echo = FALSE, out.width = "60%"}
+knitr::include_graphics("figure/00-ds2.png")
+```
+
+
 ## Population, sample and parametric models {-}
 
-### Two practical situations {-}
-
-```{r bmwm3, echo = FALSE, out.width = "60%", fig.cap = "Data science."}
-knitr::include_graphics("figure/00-g80.jpg")
-```
+To motivate the use of statistics in everyday life, let us consider two practical situations where you might employ statistical methods:
 
 1. BMW M Division has proudly unveiled the successor to their current "king of sedans", the new BMW M3 Competition (G80), sporting a 503 bhp twin-turbo 3.0 litre inline-six S58 engine with a claimed acceleration rate of 0-100 km/h in 3.9 seconds.
 
-```{r aiti, echo = FALSE, out.width = "60%", fig.cap = "Data science."}
-knitr::include_graphics("figure/00-aiti.png")
-```
+    ```{r bmwm3, echo = FALSE, out.width = "60%"}
+    knitr::include_graphics("figure/00-g80.jpg")
+    ```
 
 2. The Authority for Info-communications Technology Industry of Brunei Darussalam (AITI) conducted the Household ICT Survey in 2018 and reported that 95% percent of individuals personally use the internet on a daily basis, a slight decrease from 97% in the year 2016. Estimates are accurate within 2% margin of error with 95% confidence.
 
-Your immediate thought should be "how can I trust these figures?"
+    ```{r aiti, echo = FALSE, out.width = "60%"}
+    knitr::include_graphics("figure/00-aiti.png")
+    ```
+
+Your immediate thought should be "how can I trust these figures?". In general, it's always good to approach life with a healthy dose of skepticism. We certainly don't want to be duped by people claiming to present a version of the truth, when in reality it is a skewed version of the truth (or worse yet, false). In data we trust! But only if we are mathematically-savvy...
 
 ### Population vs sample {-}
 
-In both cases, the conclusion is drawn on a *population* (i.e. all of
-the subjects concerned) based on the information from a *sample* (i.e.
-a subset of the population).
+In both cases, the conclusion is drawn on a *population* (i.e. all of the subjects concerned) based on the information from a *sample* (i.e. a subset of the population). 
 
+1. For BMW M Division, it is **impossible** to measure the entire population (obtain the acceleration rates), constituting [all]{.ul} BMW M3 (G80) cars that have been made and are yet to be made in the future. Often this is referred to as an *infinite population* model.
 
-1. For BMW M Division, it is **impossible** to measure the entire population (obtain the acceleration rates), constituting all BMW M3 (G80) cars that have been made and are yet to be made.
+2. For AITI, while possible, it is (economically) unfeasible to measure the entire population, i.e. to ask everyone in Brunei whether or not they use the internet on a daily basis. It would be very difficult to knock on everybody's door and obtain responses in a timely manner (what if they're out of the country? what if they're sick? what if they just don't want to respond?). Anyone who has done any form of survey work will understand the intricate problems that might arise.
 
-2. For AITI, while possible, it is (economically) infeasible to measure the entire population, i.e. to ask everyone in Brunei whether or not they use the internet on a daily basis.
+In any case, it is important to make the distinction between population and sample.
+The *population* is defined to be the entire set of the objects concerned, and those objects are typically represented by some numbers. We [do not know]{.ul} the entire population in practice.
+A *sample* is a (randomly selected) subset of a population, and is a set of [known data]{.ul} in practice.
 
-The *population* is an entire set of the objects concerned, and those objects are typically represented by some numbers. We [do not know]{.ul} the entire population in practice.
-A *sample* is a randomly selected subset of a population, and is a set of [known data]{.ul} in practice.
-
-```{r popsample, echo = FALSE, out.width = "60%", fig.cap = "Data science."}
+```{r popsample, echo = FALSE, out.width = "90%"}
 knitr::include_graphics("figure/00-popsample.png")
 ```
 
+When people claim to have data (about some phenomenon), they typically imply that they have a *sample* of the population, and not the population data itself. There are exceptions of course, for instance, a country's *census* captures population data every 10 years. Another example is when the population itself is small such that all data can be collected easily.
+
+::: {.mynote}
+A question that you might be thinking to yourself is the following: 
+
+> Is doing analysis on the sample good enough? Will it reveal the same insights as if we're analysing the population data?
+
+The answer to this is that it depends on how you perform the sample! Things to look out for is definitely *bias* in data collection methods. Here are some examples:
+
+- Asking the question "Can you live without the internet?" via **an online poll** of adults. Think about it. How exactly can you ask people *without* internet whether they can live without the internet? Clearly, the sample that you collect is biased towards those who are privileged enough to have access. And if you were wondering, yes this really [happened](https://www.forbes.com/sites/niallmccarthy/2017/08/29/where-people-cant-live-without-the-internet-infographic/?sh=430d133643aa).
+
+- Asking people to volunteer their responses typically lead to bias. It is suggested that those who has something to complain about will voice their opinions more than those who do not. 
+
+- Other errors can crop up during data collection process which may skew the representation of the data (e.g. duplicate data, missing data, substituted data, etc.)
+
+
+It is certainly important that data be collected in a methodological manner, in order for valid inferences to be drawn. 
+Sampling methodology is beyond the scope of this course, however!
+:::
+
 ### Parametric models {-}
 
-For a given problem, we typically assume a population
-to follow a *probability distribution* with pdf/pmf $f(x|\theta)$.
+For a given problem, it is quite advantagous to **assume** that a population obeys some *probability distribution* law.
+To be a little bit more concrete, suppose we assign the variable $x$ to be the quantity of interest. Then we assume that the quantity of interest has a distribution function $f(x|\theta)$ (we will recap the concept of distribution functions in the next chapter!). 
+Furthermore,
 
--   The form of the distribution i.e. $f(\cdot|\theta)$ is known (e.g.
-    normal, Poisson, exponential, etc.).
+-   The form of the distribution i.e. $f(\cdot|\theta)$ is known (e.g. normal, Poisson, exponential, etc.).
 
--   The "specifics" of the distribution is (assumed to be) **not
-    known**, but potentially knowable if data were available.
+-   The "specifics" of the distribution is (assumed to be) **not known**, but potentially knowable if data were available.
 
-
-The unknown characteristics of the distribution are represented by $\theta$ (such as the mean, variance, rate, etc.).
-We call $\theta$ the parameter(s) of the model.
+The unknown characteristics of the distribution are traditionally represented by $\theta$ (such as the mean, variance, rate, etc.--any quantity that characterises how the distribution behaves).
+We call $\theta$ the *parameter(s)* of the model.
 Such an assumed distribution is called a **parametric model**.
 For the two earlier examples,
 
-1. Let $X =$ acceleration of BMW M3 G80 vehicles. Assume $X\sim\N(\mu,\sigma^2)$. Here  $\btheta = (\mu,\sigma^2)^\top$, where $\mu$ is the 'true' acceleration rate.
+1. Let $X =$ acceleration of BMW M3 G80 vehicles. Assume $X\sim\N(\mu,\sigma^2)$. Here  $\btheta = (\mu,\sigma^2)^\top$, where $\mu$ is the 'true' acceleration rate. In this example, the parameter is 2-dimensional instead of unidimensional.
 
 2. Let $\{0,1\} \ni X =$ someone in Brunei uses the internet daily. Assume $X\sim\Bern(p)$. Here $\theta = p$, the 'true' proportion of daily internet users in Brunei.
+
+::: {.myalert}
+There is no god-given right for your quantity of interest $X$ to follow a particular distribution! These are simply assumptions, in order to make it easy to model reality. Parametric assumptions may be correct, or they may not. In fact, strictly speaking, **all models are wrong**, but some are useful (quote attributed to the British statistician George Box).
+:::
+
 
 
 ```{r theoreticaldataplane, echo = FALSE, out.width = "80%"}
@@ -106,42 +140,49 @@ knitr::include_graphics("figure/00-theoreticaldataplane.png")
 ### A sample: a set of data or random variables?--A duality {-}
 
 A sample of size $n$, $\{X_1,\dots,X_n\}$, is also called a *random* sample. It consists of $n$ concrete numbers in a practical problem.
-The word 'random' captures the characteristic of the sample (of the same
-size) being different.
+When I say 'concrete' here, it means numbers that you can play around with--you can add them up, subtract them, plot them, take averages, and so on.
+These would be numbers that you collect into a spreadsheet, say.
+
+The more contentious part of the term 'random sample' is the word 'random' itself. 
+The word 'random' encapsulates the possibility of the concrete numbers collected in the samples being  different, by virtue of:
 
 - The sample may be taken by different people or entities.
-- The sample may be obtained  under different circumstances.
+- The sample may be obtained at a different time or location.
+- The sample may be measured using different instruments (albeit measuring the same thing).
 - etc.
-Essentially, they would be different subsets of a population.
 
-Furthermore, a sample is also viewed as $n$ independent and identically
-distributed (iid) random variables, when we assess the performance of a
-statistical method.
+Essentially, different samples may well be different subsets of a population.
+
+With this, a sample may also be viewed as $n$ (independent and identically distributed) random variables, simply because their values are conceptually not fixed (at least not until you observe them--but even then it is simply one possible realisation of potentially many others).
+
+Now, if a sample is not random then perhaps there would be no need for statistics. But hardly ever would you find this to be the case.
+Rigorous mathematical methods exist to deal with this randomness, and thus viewing samples as random variables allows us to assess the performance of a statistical method.
 
 ###  Variability of estimates {-}
 
-- For the BMW M example, suppose a sample of $n=38$ used gave the sample mean
+Suppose you set out to answer questions 1 and 2 above by collecting some data.
+This is what you find:
+
+##### [BMW M example]{.ul} {-}
+
+A sample of $n=38$ gave the sample mean
 $$\bar X_n = \frac{1}{n}\sum_{i=1}^n X_i = 3.9$$
+In words, the average acceleration (0-100 km h<sup>-1</sup>) of the sample of cars yielded the value 3.9 seconds. But realise that a different sample may well give a different sample mean. For instance, 29 YouTubers and other social media "influencers" were given access to the new M3 on a race track, and their sample mean yielded $\bar X_n = 3.4$.
 
-- A different sample may well give a different sample mean.
-Example: 29 YouTubers and other social media "influencers" were given access to the new M3 on a race track, and their sample mean yielded $\bar X_n = 3.4$.
+What do we make of this discrepancy? Whose figure do we trust? It doesn't seem so satisfying to know that different samples will give different results. For instance, what do you tell the public or media about the acceleration figure of the new M3s? Evidently relying on a singular measure (in this case the mean) is not enough. Moreoever, it keeps on changing in value!
 
--  Is the sample mean $\bar X_n$ a good estimator for the unknown
-'true' acceleration $\mu$? Obviously, we cannot use the concrete number
-3.9 to assess how good this estimator is, as a different sample may
-give a different average value.
+The key is to be able to employ *probabilistic statements* about our results. For instance, "*the acceleration figure is 3.9 plus or minus 0.01 about 95% of the time when we sample*" is a much more confident statement to make, rather than providing a figure that keeps on changing.
 
-::: {.rmdnote}
-By treating $X_1,\dots,X_n$ as random variables, $\bar X_n$ is
-also a random variable, so has a distribution. If the distribution of
-$\bar X_n$ concentrates closely around the unknown $\mu$, then it is a
-good estimator!
+::: {.mynote}
+By treating the data $X_1,\dots,X_n$ as random variables, it is implied that $\bar X_n$ is also a random variable. Everything that is random should have a distribution. If the distribution of
+$\bar X_n$ concentrates closely around the unknown $\mu$, then it is a good estimator!
 :::
 
+##### [AITI example]{.ul} {-}
 
-- For the AITI example, there is that statement *'...accurate to within 2% margin of error with 95% confidence'*. This statement alludes to the variability of the estimate, if another random sample was obtained.
+For the AITI example, there is that statement *'...accurate to within 2% margin of error with 95% confidence'*. This statement alludes to the variability of the estimate, if another random sample was obtained.
 
-- The estimate in this case was also the sample mean,
+- The estimate in this case was also the sample mean (proportion of people who use the internet on a daily basis),
 \[
 \hat p = \bar X_n = \frac{1}{n}\sum_{i=1}^n X_i.
 \]
@@ -152,9 +193,15 @@ good estimator!
 \]
   that is, the true value is covered 95% of the time inside an interval of width 0.02 under repeated sampling. This statement is made possible due to the *randomness* of the estimator $\hat p$.
 
+
+
 ## Probability and statistics {-}
 
-We've just implicitly described the three main activities concerning [statistical inference]{.ul}.
+Thus far, we have thrown the term 'inference' around and maybe we've all taken it for granted.
+Cambridge's dictionary defines *infer* as 'to reach an opinion from available information or facts'. 
+And indeed that is what we are ultimately interested in when we analyse data. 
+Sure, there might be that random element to the data that we have to contend with, but it is about reaching some form of conclusion one way or another using data.
+In the previous section, we've just implicitly described the three main activities concerning [statistical inference]{.ul}.
 
 1. **Point estimation**
 
@@ -163,14 +210,18 @@ We've just implicitly described the three main activities concerning [statistica
 
 2. **Hypothesis testing**
 
-    *"Is $p=0.95$ and not $p=0.97$?"*
+    *"Is $\mu=3.4$ and not $\mu=3.9$?"*
 
 3. **Interval estimation**
 
-    *"What's an upper and lower bound estimate for $p$?"*
+    *"What's an upper and lower bound estimate for $\mu$?"*
 
-These three activities will be the main focus of this course, and we will formalise the notion of each one in turn.
+These three activities will be the main focus of this course, and we will formalise the notion of each one in turn. 
 Hopefully you can now appreciate how statistics is an inherently applied subject, making use of mathematics (probability in particular) to answer problems across a variety of fields.
+
+::: {.mynote}
+What is the difference between probability and statistics? The following figure might be helpful.
+
 
 ```{r, echo=FALSE, engine='tikz', out.width ="48%"}
 \definecolor{navyblue}{RGB}{0, 47, 92}
@@ -227,21 +278,27 @@ Hopefully you can now appreciate how statistics is an inherently applied subject
 \end{tikzpicture}
 ```
 
-In probability, we ask questions like
+Probability is a highly mathematical subject (although maybe the name doesn't seem to suggest it, it really has its origin in abstract measure theory). In probability, we ask questions like
 
-- What is $\E(X)$?
-- What is $\Pr(X > a)$?
+- What is $\E(X)$? (expectations)
+- What is $\Pr(X > a)$? (probability calculations)
 
-Whereas in statistics, we are interested in questions like
+for some given value of $\theta$ in an assumed family of parametric distributions. 
+Whereas in statistics, we are more interested in questions like
 
-- What is $\theta$?
+- What is $\theta$? 
 - Is $\theta$ larger than $\theta_0$?
 - How confident am I that $\theta \in (\theta_l,\theta_u)$?
 
+given some observed data. I like to think of the two as reverse processes. 
 
-```{r probstats, echo = FALSE, fig.align = "center", out.width = "60%"}
+```{r probstats, echo = FALSE, fig.align = "center", out.width = "80%"}
 knitr::include_graphics("figure/00-probstats.jpeg")
 ```
+:::
+
+Statistics definitely needs probability for sure, so we will have to master probability theory before doing any statistical inference. On to the next chapter!
+
 
 
 

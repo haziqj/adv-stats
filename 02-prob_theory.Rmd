@@ -2,14 +2,21 @@
 
 # Probability theory primer
 
+As I was looking for a rationale as to why we begin statistical inference with learning about probability theory, I notice that C&B couldn't have put it better:
+
+> The subject of probability theory is the foundation upon which all statistics is built, providing a means for modeling populations, experiments, or almost anouthing else that could be considered a random phenomenon. Through these models, statisticians are able to draw inferences about populations, inferences based on examination of only a part of the whole. --- George Casella & Roger L. Berger in Statistical Inference
+
+By right, probability theory and the mathematics of random events deserves one dedicate module of its own. For our purposes, it suffices to 'skim through the surface' as it were, and cover the basic and necessary ideas to move forward with statistical inference.
+
 ### Learning objectives {-}
 
 ::: {.learningobjectives}
 By the end of this chapter, you will be able to:
 
-- do this
-- do that
-- and this
+- Compute probabilities of events by simple counting and application of various known probability results
+- Understand the notion of conditional and independent events, leading up to the application of Bayes' Theorem
+- Formalise mathematically the notion of random variables and make calculations using its distribution function 
+- Compute expectations (and variances) including via the method of moment generating functions
 :::
 
 ### Readings {-}
@@ -28,27 +35,34 @@ By the end of this chapter, you will be able to:
 
 ## Elementary set theory
 
-### Sample space
+A discussion of probability theory is almost always begun by talking about the concept of 'sets'. 
+As the term implies, sets are a collection of things. 
+You're sure to come across sets before, such as the set of family members in your household, or the set of all natural numbers, or something even more funky like the set of all sets (the universal set^[Which, as it turns out, is a paradox: https://en.wikipedia.org/wiki/Russell%27s_paradox]).
 
-In conducting an "experiment"...
+When statisticians talk about sets it is usually in the context of conducting an "experiment"^[Although, we don't really mean it like how scientists mean experiments to be (we're not fiddling around with buttons or chemicals). I suppose it's more about the process of the (random) data generating mechanism itself.].
+The important bits are:
 
 - The sample space $\Omega$ is the set of possible outcomes of an experiment.
 - Elements $\omega \in \Omega$ are called sample outcomes or realisations.
 - Subsets of $E \subseteq \Omega$ are called events.
 
+So whatever the context of the random process might be, we should be comfortable identifying what the sample space is, what its elements are, and what possible events might occur.
+
 ::: {.example}
-In tossing a coin $n \geq 2$ times, let $H$ denote 'heads', while $T$ denote 'tails'. 
-Let $\bomega = (\omega_1,\dots,\omega_n)$. 
-Then \[
+In tossing a two-sided coin $n \geq 2$ times, let $H$ denote 'heads', while $T$ denote 'tails'. 
+Let $\bomega = (\omega_1,\dots,\omega_n)$ be the results of these coin tosses. 
+Then the sample space is \[
 \Omega = \Big\{ \bomega \, \big|\, \omega_i \in \{H,T\} \Big\}.
 \]
-Let $E$ be the event that the first head appears on the second toss. Then
+Let $E$ be the event that the first head appears on the second toss. Then this event can be mathematically described as
 \[
 E = \Big\{ \bomega \, \big|\, \omega_1 = T, \omega_2 = H, \omega_i \in \{H,T\} \text{ for } i > 2 \Big\}.
 \]
 :::
 
 ### Set operations
+
+There are several things that we can do to sets much like we can do to numbers in arithmetic. Here is an abridged version of set operations.
 
 - The **complement** of an event $A$, written $A^c$, is the set of all elements that are not in $A$: $A^c = \{\omega | \omega\not\in A \}$.
 - The complement of $\Omega$ is the empty set $\emptyset = \{\}$.
@@ -60,7 +74,19 @@ A \cup B = \{\omega \in \Omega \,|\, \omega \in A \text{ or } \omega \in B \}.
 \[
 A \cap B = \{\omega \in \Omega \,|\, \omega \in A \text{ and } \omega \in B \}.
 \]
-- Unions and intersections on sets are **commutative**, **associative**, and **distributive** (see C\&B Thm 1.14).
+- Unions and intersections on sets are **commutative**, **associative**, and **distributive**^[See C\&B Thm 1.14].
+
+   - Commutativity: $A \cup B = B \cup A$ and $A \cap B = B \cap A$.
+   
+   - Associativity: $A \cup (B \cup C) = (A \cup B) \cup C$ and $A \cap (B \cap C) = (A \cap B) \cap C$.
+
+   - Disributive laws: $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$ and $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$.
+
+- DeMorgan's Laws: $(A \cup B)^c = A^c \cap B^c$ and $(A \cap B)^c = A^c \cup B^c$
+
+::: {.mycheck}
+It's pretty straightforward to prove the commutative, associative, distributive and DeMorgan's properties using the rules that precede them in the list. You may like to try this out yourself. Or you may have come across a kind of "sketch proof" involving **Venn diagrams**.
+:::
 
 
 The operations of unions and intersections can be extended to infinite collections of sets as well. 
@@ -81,6 +107,10 @@ Let $\Omega=(0,1]$ and define $A_i=[1/i, 1]$. Then,
 \end{align*}
 :::
 
+
+
+
+
 ### Partitions
 
 We say that two events $A$ and $B$ are **disjoint** or **mutually exclusive** if $A \cap B = \{ \}$. Disjoint sets have no points in common.
@@ -97,38 +127,138 @@ Partitions divide the sample space into non-overlapping pieces.
 A deck of playing cards has four suits: $\clubsuit, \diamondsuit, \spadesuit, \heartsuit$. Let $A=\{\clubsuit,\diamondsuit\}$ and $B=\{\spadesuit, \heartsuit\}$. Then $A$ and $B$ form a partition of the sample space.
 :::
 
+
+::: {.example}
+The set $\{\bbR_+, \bbR_{-}, \{0\}\}$ (ie the set of positive reals, negative reals, and zero respectively) is a partition of the real numbers $\bbR$ since 
+
+- $\bbR_{+} \cup \bbR_{-} \cup \{0\}=\bbR$;
+- $\bbR_{+} \cap \bbR_{-} = \bbR_{+} \cap  \{0\} = \bbR_{-} \cap  \{0\} = \{ \}$; and
+- $\{\bbR_{+}$, $\bbR_{-}$, and $\{0\}\}$ are all non empty.
+
+Note that $\{0\}$ is not an empty set. It contains exactly one element, the number zero.
+:::
+
 ## Axiomatic probability
+
+In principle, we can understand and easily grasp the notion of probability as the "frequency of an event occurring". 
+But how do we operationalise this concept? That is, by what rules and mechanisms are we allowed to assign probabilities to events?
+If we can overcome this task and are able to assign probabilities to (random) events in an experiment, then we can start to analyse them statistically!
 
 ### Probability as a measure
 
-We understand probability to mean the "frequency of an event occurring". 
-If we can assign probabilities to (random) events in an experiment, then we can start to analyse them statistically. 
+Let us take a measure-theoretic approach to defining probabilities. 
+We will dive straight into the rigors of definitions before providing a somewhat apologetic rationale as to why such mathematical difficulties are required for probability theory.
 
-We take an *axiomatic approach* to defining probabilities, rooted in *measure theory* (due to Kolmogorov, 1933). 
-Let $(\Omega,\cB,\bbP)$ be a measure space.
+As the name implies, measure theory is the theory about how we measure things (duh!).
+Measure itself is a fundamental concept in mathematics, and it would be useful to come up with a mathematical framework for how we deal with everyday concepts like length, mass, area, volume, and so on.
+Importantly, such a framework allow us to reliably measure in even higher dimensions or onto more abstract constructs not yet imaginable.
 
-- $\cB$ is a $\sigma$-algebra on $\Omega$, the subsets of $\Omega$ that are feasible for measuring.
-- $\bbP$ is a measure on $(\Omega,\cB)$, i.e. the method that is used for measuring.
+Intuitively, a measure is simply a function whose input is the thing we want to measure (let's call it a set), and whose output is a non-negative number. 
+Don't worry, a formal definition will follow, but for now, call this function $\mu$. 
+It would be fair to expect a measure $\mu$ to satisfy
 
-![Andrey Nikolaevich Kolmogorov. 25 April 1903 -- 20 October 1987.](figure/kolmogorov.jpg)
+- $A \subseteq B \Rightarrow \mu(A) \leq \mu(B)$
+- $A \subseteq B \Rightarrow \mu(B-A)= \mu(B) - \mu(A)$
+- If $\{A_1,A_2,\dots\}$ are mutually exclusive sets (disjoint), then $\mu\left(\cup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mu(A_i)$
 
-::: {.remark}
-See Defn 1.2.1 in C&B and the following examples, as well as §1.9 in Wasserman.
+The first property simply says that if $A$ is a subset of $B$, then the measure of $A$ is at most the measure of $B$.
+The second property follows this up by saying that the measure of the set $B-A$, that is, the set that is obtained by starting with $B$ and taking away the parts that is contained in $A$, then the measure of this created set is the difference between the measures of $B$ and $A$.
+Finally, the third property, also known as *countable additivity*, simply states that the measure of the whole is equal to the sum of the parts.
+It turns out that the first and second properties follow from the third (and the fact that a measure cannot be negative)--see Definition \@ref(def:measure).
+
+So we have this intuition about what the measure should be, but what about the stuff we want to measure?
+For our purposes, we are interested in measuring subsets of $\Omega$.
+We ask, are we able to measure all possible subsets of $\Omega$?
+At a glance, perhaps if $\Omega$ is countable (e.g. $\Omega=\{1,2,3\}$), it is easy to describe the subsets of $\Omega$ through the power set^[For the example at hand, the power set is $\cP(\Omega)=\{ \{\}, \{1\}, \{2\}, \{3\}, \{1,2\}, \{1,3\}, \{2,3\}, \{1,2,3\}  \}$] $\cP(\Omega)$, which is the set of all possible subsets of $\Omega$, but what about when $\Omega$ is uncountable (e.g. an interval $\Omega=[0,1]\in\bbR$).
+Given a sample space $\Omega$, we need to define the largest possible collection of subsets of $\Omega$ that can be observed and on which we can assign valid measure.
+
+::: {.definition #sigmaalgebra name="\\(\sigma\\)-algebra"}
+A collection $\cF$ of subsets of a set $\Omega$ is called a **$\sigma$-algebra** if it satisfies the following conditions:
+
+i. If $A \in \cF$, then $A^c \in cF$ *[closed under complementation]*.
+ii. If $A_1,A_2,\cdots \in \cF$, then $\cup_{i=1}^\infty A_i \in \cF$ *[closed under countable unions]*.
+iii. $\{\} \in \cF$ *[contains the empty set]*.
 :::
-::: {.remark}
-There are alternative formulations/approaches to defining probabilities, e.g. Cox's Theorem (logical probabilities).
+
+As a remark, condition iii. can be replaced with $\Omega\in\cF$ by virtue of condition i.. 
+The $\sigma$-algebra is a collection of events or subsets of the sample space $\Omega$, including $\Omega$ itself and the empty set $\{\}$, which is closed under countable applications of set operations.
+This is because DeMorgan's Law allows us to write the countable union property in iii. also as *countable intersections*: If $A_1,A_2,\cdots \in \cF$, then by i. $A_1^c,A_2^c,\cdots \in \cF$, and hence $\cup_{i=1}^\infty A_i\in\cF$ and also its complement. By DeMorgan's Law,
+$$
+\left( \cup_{i=1}^\infty A_i^c \right)^c = \cap_{i=1}^\infty A_i.
+$$
+
+Sets contained in $\cF$ are called **measurable sets**.
+
+::: {.mynote}
+The $\sigma$-algebra is an important condition for measure to not breakdown, because it helps draw a line as to which subsets of the sample space is measurable, and which is not. 
+Out of interest, condition iii. in Definition \@ref(def:sigmaalgebra) is the condition that makes $\cF$ a $\sigma$-algebra (the $\sigma$ stands for countable [**s**]{.ul}um).
+Without this condition, one ends up with just an *algebra* of sets, one that is most likely *too small*, failing to contain sets that we would like assign a measure.
 :::
 
-[Further explanation of measure theory]
+Let's take a look at some examples of $\sigma$-algebras.
 
-Why do we bother with measure theory?
+::: {.example}
+<br>
 
+1. The trivial $\sigma$-algebra: $$\big\{ \{\}, \Omega \big\}.$$ This corresponds the case of no information. 
 
-> The Banach–Tarski paradox states that a ball in the ordinary Euclidean space can be doubled using only the operations of partitioning into subsets, replacing a set with a congruent set, and reassembly.
+2. The power set of the sample space $\Omega$: $$\big\{ A | A \subseteq \Omega \big\}.$$ This corresponds the case of full information. 
 
-![](figure/banach_tarski.png)
+3. The collection $\big\{ \{\}, A, A^c, \Omega \big\}$ is a $\sigma$-algebra, for any $A\subseteq \Omega$. 
 
-If we don't lay out the foundations for measuring probabilities rigorously, we can end up with nonsensical answers!
+4. Let $\Omega = \{a,b,c,d\}$. A possible^[You may notice that other $\sigma$-algebras are indeed possible, e.g. the power set of $\Omega$ in this case. There is a notion of the *smallest* $\sigma$-algebra containing the collection of "basic events". Luckily for us, the event space that we will usually be working with will be the smallest $\sigma$-algebra without much technicalities, so we shall not explore this concept any further.] $\sigma$-algebra is $$\big\{\{\}, \{a,b,c,d\}, \{a,b\}, \{c,d\} \big\}.$$ 
+
+5. Define $B(s)$ to be a square of side length $s$. Let $\Omega$ be the collection of points in $(0,1)\times(0,1)\subset \bbR^2$ contained within the a unit square $B(1)$. Then $$\cF=\{ \text{Collection of points contained in the square } B(s) \text{ with } s \in (0,1) \}.$$ It should be clear there are uncountably many such squares that can be fit within the unit square.
+:::
+
+Just as a remark, most introduction to probability measure will deal with finite or countable sets when introducing $\sigma$-algebras, giving readers an impression that it's only possible to define $\sigma$-algebras on such sets. The fifth example above gives an example of a $\sigma$-algebra which is uncountable.
+
+The twin $(\Omega,\cF)$ is called a *measurable space*. This sort of defines the "parts" of our problem which are measurable, as per Definition \@ref(def:sigmaalgebra). What's missing is a measure, i.e. the thing that actually tells us 'how long a piece of string is', so to speak^[https://idioms.thefreedictionary.com/How+long+is+a+piece+of+string%3F]. We now define a measure as follows.
+
+::: {.definition #measure name="Measure"}
+A *measure* $\mu$ is a non-negative real valued function defined on a $\sigma$-algebra, i.e. $\mu:\cF\to\bbR_{\geq 0}$, where $\bbR_{\geq 0}$ are the non-negative real numbers and $\cF$ a $\sigma$-algebra of subsets of $\Omega$. The measure $\mu$ satisfies the following properties:
+
+i. $\mu(\{\})=0$.
+ii. $\mu$ is countably additive, i.e. if $A_1,A_2,\dots$ are disjoint events, then $$\mu\left( \cup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mu(A_i).$$
+:::
+
+If, in addition the measure of the entire sample space is normalised (i.e. $\mu(\Omega)=1$), then $\mu$ is called a **probability measure**. We will see this in the next section.
+
+The triplet $(\Omega,\cF,\mu)$ is called a *measure space* (note that without the measure it is called a measurable space).
+This space simply tells us the parts needed for well-defined measure to take place on the subsets of $\Omega$.
+
+<!-- ![Andrey Nikolaevich Kolmogorov. 25 April 1903 -- 20 October 1987.](figure/kolmogorov.jpg) -->
+
+<!-- ::: {.remark} -->
+<!-- See Defn 1.2.1 in C&B and the following examples, as well as §1.9 in Wasserman. -->
+<!-- ::: -->
+<!-- ::: {.remark} -->
+<!-- There are alternative formulations/approaches to defining probabilities, e.g. Cox's Theorem (logical probabilities). -->
+<!-- ::: -->
+
+::: {.example}
+<br>
+
+1. The counting measure. Let $\Omega$ be a countable set [You may be creative as you like here to make this less abstract, e.g. the books on your shelf or the members of your family, although the set need not be finite]. Let $\cF=\cP(\Omega)$ be the power set of $\Omega$. For all sets $A\in\cA$, define $$\mu(A) = \begin{cases} |A| & A \text{ has finitely many elements}\\ \infty &\text{otherwise} \end{cases}$$ where the operator $|\cdot|$ represents the *cardinality* of the set, i.e. the number of elements it contains (its size).
+    
+2. The Lebesgue measure in one dimension. Let $\Omega=\bbR$, and define $\cF$ to contain all sets of the form
+
+   - [a,b], i.e. closed intervals,
+   - (a,b), i.e. open intervals,
+   - (a,b], i.e. open-closed intervals; and
+   - [a,b), i.e. closed-open intervals.
+
+   for all real numbers $a$ and $b$. We can deduce that the $\sigma$-algebra $\cF$ contains all possible "nice" intervals of the real line, including unbounded intervals and even singletons, which means any continuous partition of the real line can be measured (including a point, which should have measure zero). To see this, using the properties of $\sigma$-algebras,
+   
+   - unbounded intervals are in $\cF$, since, for instance $$(x,+\infty)=\cup_{i=1}^\infty(x,x+i).$$
+   
+   - singletons are in $\cF$, since $$\{x\}=\cap_{i=1}^\infty (x-1/i,x+1/i).$$
+   
+   This set $\cF$ has a special name, called the Borel $\sigma$-algebra. 
+   
+   All that's left is to define the measure. The Lebesgue measure $\mu$ assigns the usual concept of length to any continuous interval on $\bbR$ (to be precise, the Borel $\sigma$-algebra on $\bbR$): $$\mu\left(A\right)=b-a$$
+   where $A$ is any interval of $\bbR$ of the above forms (closed, open, open-closed, closed-open). This measure works even for singleton sets or unbounded intervals.
+:::
 
 ### Axioms of probability
 
@@ -162,6 +292,177 @@ The following results can be derived using only the three axioms:
 - $\bbP(A \cup B) = \bbP(A) + \bbP(B) - \bbP(A \cap B)$
 - If $A \subseteq B$, then $\bbP(A) \leq \bbP(B)$
 - $\bbP(A) = \sum_{i=1}^\infty \bbP(A \cap C_i)$ for any partition $C_1,C_2,\dots$ of $\Omega$ (*Law of Total Probability*)
+
+
+### Why measure theory?
+
+Consider the uniform distribution on a random variable $X$ on the unit interval, denoted $X\sim\Unif(0,1)$. You may have come across this before, and know that the probability that $X$ lies in any interval contained in $[0,1]$ is simply the length of the interval, i.e.
+\begin{equation}
+\bbP\big([a,b]\big) = \bbP\big([a,b)\big) = \bbP\big((a,b]\big) = \bbP\big((a,b)\big) = b-a, (\#eq:meas1)
+\end{equation}
+for $0 \leq a \leq b \leq 1$. This definition works fine for the degenerate case $\bbP(\{a\})=0$ for the singleton set $\{a|a\in(0,1)\}$.
+In general, if $A$ and $B$ are disjoint subsets of $[0,1]$ then 
+\begin{equation}
+\bbP(A \cup B) = \bbP(A) + \bbP(B),
+\end{equation}
+and we can even extend this notion to that of *countable additivity*
+\begin{equation}
+\bbP\left( \cup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \bbP(A_i), (\#eq:meas2)
+\end{equation}
+for disjoint sets $\{A_1,A_2,\dots\}$^[A concrete example of this is for the sets $A_1=(0,1/2)$, $A_2=(1/2, 3/4)$, $A_3=(3/4,7/8)$, and so on (adding half the interval at each iteration). One finds that the measure of the countable union is $\sum_{i=1}^\infty (1/2)^i=1$.].
+
+For a uniform measure on $[0,1]$, one expects that the measure of some subset $A \subseteq [0,1]$ to be unaffected by "shifting" (with wrap-around) of that subset by some fixed amount $r\in[0,1]$.
+Define the *$r$-shift* of $A\subseteq [0,1]$ by
+$$
+A \oplus r := \left\{ a + r \mid a \in A, a+r \leq 1 \right\} \cup \left\{ a + r - 1 \mid a \in A, a+r > 1 \right\}.
+$$
+Then we should have
+\begin{equation}
+\bbP(A \oplus r) = \bbP(A). (\#eq:meas3)
+\end{equation}
+
+```{r wraparoundmeasureanim, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 2, gganimate = list(nframes = 30 * 3.5, fps = 30, rewind = TRUE), fig.cap = "An interval in [0,1] shifted by some fixed amount, with wrap-around, should have consistent length.", include = knitr::is_html_output()}
+k <- 60
+plot_df <- tibble(
+  x1   = seq(0.2, 0.2 + 0.6, length = k),
+  x2   = seq(0.6, 0.6 + 0.6, length = k),
+  type = 1:k
+) %>%
+  mutate(over = x1 > 1 | x2 > 1)
+
+over_df <-
+  filter(plot_df, over == TRUE) %>%
+  mutate(x2 = x2 - 1,
+         x1 = ifelse(x2 < 0.4, 0, x2-0.4))
+
+plot_df <- mutate(plot_df, x2 = ifelse(x2 > 1, 1, x2)) %>% filter(x1 < 1)
+
+library(gganimate)
+ggplot(bind_rows(plot_df, over_df), aes(x1, y = 1, xend = x2, yend = 1)) +
+  geom_segment(size = 2) +
+  scale_x_continuous(breaks = seq(0, 1, by = 0.1), limits = c(0, 1)) +
+  labs(y = NULL, x = NULL) +
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) +
+  transition_manual(type) -> p
+# animate(p, fps = 30, nframes = 75, rewind = TRUE)
+p
+```
+```{r wraparoundmeasurepdf, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 2.5, fig.cap = "An interval in [0,1] shifted by some fixed amount, with wrap-around, should have consistent length.", include = !knitr::is_html_output()}
+k <- 60
+plot_df <- tibble(
+  x1   = seq(0.2, 0.2 + 0.6, length = k),
+  x2   = seq(0.6, 0.6 + 0.6, length = k),
+  type = 1:k
+) %>%
+  mutate(over = x1 > 1 | x2 > 1)
+
+over_df <-
+  filter(plot_df, over == TRUE) %>%
+  mutate(x2 = x2 - 1,
+         x1 = ifelse(x2 < 0.4, 0, x2-0.4))
+
+plot_df <- mutate(plot_df, x2 = ifelse(x2 > 1, 1, x2)) %>% filter(x1 < 1)
+
+bind_rows(plot_df, over_df) %>%
+  filter(type %in% c(1, 25, 60)) %>%
+  mutate(type = factor(type, labels = c("Original", "Shift", "Wraparound"))) %>%
+  ggplot(aes(x1, y = 1, xend = x2, yend = 1)) +
+  geom_segment(size = 2) +
+  scale_x_continuous(breaks = seq(0, 1, by = 0.1), limits = c(0, 1)) +
+  labs(y = NULL, x = NULL) +
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) +
+  facet_grid(type ~ .)
+```
+
+At this point you might notice that all of this resonates with the previous example on the Lebesgue measure, except perhaps the shifting part, and indeed that is the case. 
+Suppose that we dispense with measure theory and do not define things like the $\sigma$-algebra on the $[0,1]$ or the triplet $(\Omega,\cF,\bbP)$, and only use the above probability definitions given in \@ref(eq:meas1), \@ref(eq:meas2), and \@ref(eq:meas3).
+How far can we push the boundaries of such probability definitions before things start to breakdown?
+ 
+Consider these questions:
+
+- What is the probability that $X$ is rational?
+- What is the probability that $X^n$ is rational for some positive integer $n$?
+- What is the probability that $X$ is *algebraic*^[An algebraic number is a number that is a root of a non-zero polynomial in one variable with integer coefficients.]?
+
+All seemingly fair and interesting questions, but are they well defined? Can we actually measure them and assign probabilities to such events? Taking a step back further, we ask:
+
+> Are all possible subsets $A\subseteq [0,1]$ measurable? Does $\bbP(A)$ even make *sense* for any event $A$ we can think of?
+
+It turns out the answer is no, and can be proven by contradiction with the help of equivalence relations.
+You may skip this part if you wish, but I'll try to keep the technicalities to a minimum (or at least provide some helpful intuition where needed).
+This shows the need for the heavy machinery that is measure theory for assigning probabilities to events^[Or at least, for cases where "not so nice" events need to be measured.].
+
+
+<!-- Before we go there, there's one helpful property of measures that we should expect it to have (at least, when considering lengths of intervals such as in the uniform distribution above): *translation invariance*. -->
+<!-- What we mean by this is that the measure of a set should remain unchanged even if it is subjected to fixed amount of "shift". -->
+<!-- In particular, this is reflected in a more general form of the uniform distribution on an interval $(c,d)$, where -->
+<!-- \begin{equation} -->
+<!-- \bbP([a,b]) = \frac{b-a}{d-c} = \Pr\big(Y\in[a,b] \big\mid Y\sim\Unif(c,d)\big), (\#eq:uniformshift) -->
+<!-- \end{equation} -->
+<!-- for $c\leq a\leq b\leq d$.  -->
+<!-- If our random variable $X\sim\Unif(0,1)$ is shifted by some amount $k\in\bbR$, then the values of $c$ and $d$ in \@ref(eq:uniformshift) are $c=r$ and $d=1+r$, whence  -->
+<!-- $$ -->
+<!-- \Pr\big(Y\in[a,b]  \big\mid Y\sim\Unif(r,1+r)\big) = b-a = \Pr\big(X\in[a,b]  \big\mid X\sim\Unif(0,1)\big). -->
+<!-- $$ -->
+
+
+::: {.proposition}
+There does not exist a definition of $\bbP(A)$, defined for all subsets $A\subseteq[0,1]$, satisfying \@ref(eq:meas1), \@ref(eq:meas2), and \@ref(eq:meas3).
+:::
+
+::: {.proof}
+All we need to show is the existence of one such subset of $[0,1]$ whose measure is undefined. The set we are about to construct is called the Vitali set^[https://en.wikipedia.org/wiki/Vitali_set], after Giuseppe Vitali who described it in 1905.
+
+Define an equivalence relation on $[0,1]$ by the following: 
+$$x\sim y \Rightarrow x-y \in \bbQ$$
+That is, two real numbers $x$ and $y$ are deemed to be the same if their difference is a rational number. We would like to separate all the real numbers between 0 and 1 inclusive by this equivalence relation, and collect them into groups called equivalence classes. For instance, the numbers 0 and 0.5 will be in the same category, since their difference is rational, but the numbers 0.5 and $\pi^{-1}$ would be in separate categories. There will be infinitely many such equivalence classes, but we're not concerned so much about how many there are, *except* that they are countable.
+
+Construct the Vitali set $V$ as follows: Take precisely one element from each equivalent class, and put it in $V$. As a remark, such a $V$ must surely exist by the Axiom of Choice^[Given a collection of some countably many non-empty sets, it is always possible to construct a new set by taking one element from each set in the original collection. See https://brilliant.org/wiki/axiom-of-choice/]. 
+
+Consider now the union of shifted Vitali sets by some value rational value $r\in[0,1]$,
+$$
+\bigcup_{r} (V \oplus r)
+$$
+As a reminder, the set of rational numbers is countably infinite^[https://www.homeschoolmath.net/teaching/rational-numbers-countable.php]. We make a few observations:
+
+- The equivalence relation partitions the interval $[0,1]$ into a disjoint union of equivalence classes. In other words, the sets $(V \oplus r)$ and $(V \oplus s)$ are disjoint for any rationals $r\neq s$, such that $r,s\in[0,1]$. If they were not disjoint, this would mean that there exists some $x,y\in[0,1]$ with $x+r\in(V \oplus r)$ and $y+s\in (V \oplus s)$ such that $x+r=y+s$. But then this means that $x-y=s-r\in\bbQ$ so $x$ and $y$ are in the same equivalent class, and this is a contradiction.
+
+- Every point in $[0,1]$ is contained in the union $\bigcup_{r} (V \oplus r)$. This is because each $x\in [0,1]$ belongs to one equivalence class, and is subsequently shifted by some rational value $r$ in the corresponding Vitali set $(V \oplus r)$. Therefore, $$[0,1] \subseteq  \bigcup_{r} (V \oplus r).$$ and we may write $$1 = \bbP([0,1]) \leq \bbP\left(\bigcup_{r} (V \oplus r)\right),$$ since the measure of any set contained in another must have smaller measure: $A \subseteq B \Rightarrow \mu(A) \leq \mu(B)$.
+
+- The disjoint union $\bigcup_{r} (V \oplus r)$ has probability measure (according to our definitions in \@ref(eq:meas1), \@ref(eq:meas2), and \@ref(eq:meas3))
+   \begin{align*}
+   \bbP\left(\bigcup_{r} (V \oplus r)\right) 
+   &= \sum_r \bbP(V \oplus r) \\
+   &= \sum_r \bbP(V)
+   \end{align*}
+   
+Putting these three observations together gives us
+$$
+1 = \bbP\left(\bigcup_{r} (V \oplus r)\right)  = \sum_r \bbP(V).
+$$
+This leads to the desired contradiction: A countably infinite sum of the same quantity repeated can only equal 0, $+\infty$, or $-\infty$, but it can never equal 1.
+:::
+
+In summary,
+
+- Not all subsets of uncountable sets are measurable. Admitting all subsets of uncountable sets will break mathematics.
+- $\sigma$-algebras are the patch that fixes mathematics. It gatekeeps the subsets of uncountable sets and disregards those which are not measurable.
+- Actually, if you have been following along, you might realise that we are at risk of breaking mathematics when dealing with uncountable sets. Strictly speaking, we only need $\sigma$-algebras when working in a set with uncountable cardinality.
+
+Finally, what on earth is an "unmeasurable" set? Wouldn't it be (even arbitrarily) possible to just define a measure for whatever set we can think of? If the above example hasn't convinced you enough, some other mathematicians have tried to resolve this but it seems it is not possible to do so without encountering paradoxes, such as the one below.
+
+> The Banach–Tarski paradox states that a ball in the ordinary Euclidean space can be doubled using only the operations of partitioning into subsets, replacing a set with a congruent set, and reassembly.
+
+![](figure/banach_tarski.png)
+
+To be clear, no rule of mathematics are broken in the Banach-Tarski paradox, but the result defies intuition. Another statement of this paradox is that *we can chop up a pea into finitely many pieces and reassemble it into the sun* (pea-sun paradox). If we don't lay out the foundations for measuring probabilities rigorously, we can end up with nonsensical answers!
+
+This section was highly inspired by the following references:
+
+- Rosenthal, J. (2006). A first look at rigorous probability.
+- The discussion here: https://stats.stackexchange.com/q/199280 
+- This YouTube video on Vitali Sets: https://youtu.be/ameugr-wjeI
+
 
 ## Conditional probabilities
 
