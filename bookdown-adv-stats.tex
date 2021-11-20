@@ -1407,9 +1407,9 @@ All we need to show is the existence of one such subset of \([0,1]\) whose measu
 
 Define an equivalence relation on \([0,1]\) by the following:
 \[x\sim y \Rightarrow x-y \in \bbQ\]
-That is, two real numbers \(x\) and \(y\) are deemed to be the same if their difference is a rational number. We would like to separate all the real numbers between 0 and 1 inclusive by this equivalence relation, and collect them into groups called equivalence classes. For instance, the numbers 0 and 0.5 will be in the same category, since their difference is rational, but the numbers 0.5 and \(\pi^{-1}\) would be in separate categories. There will be infinitely many such equivalence classes, but we're not concerned so much about how many there are, \emph{except} that they are countable.
+That is, two real numbers \(x\) and \(y\) are deemed to be the same if their difference is a rational number. We would like to separate all the real numbers between 0 and 1 inclusive by this equivalence relation, and collect them into groups called equivalence classes. For instance, the numbers 0 and 0.5 will be in the same category, since their difference is rational, but the numbers 0.5 and \(\pi^{-1}\) would be in separate categories. There will be infinitely many such equivalence classes, but we're not particularly concerned so much about how many there are.
 
-Construct the Vitali set \(V\) as follows: Take precisely one element from each equivalent class, and put it in \(V\). As a remark, such a \(V\) must surely exist by the Axiom of Choice\footnote{Given a collection of some countably many non-empty sets, it is always possible to construct a new set by taking one element from each set in the original collection. See \url{https://brilliant.org/wiki/axiom-of-choice/}}.
+Construct the Vitali set \(V\) as follows: Take precisely one element from each equivalent class, and put it in \(V\). As a remark, such a \(V\) must surely exist by the Axiom of Choice\footnote{Given a collection of non-empty sets, it is always possible to construct a new set by taking one element from each set in the original collection. See \url{https://brilliant.org/wiki/axiom-of-choice/}}.
 
 Consider now the union of shifted Vitali sets by some value rational value \(r\in[0,1]\),
 \[
@@ -1421,13 +1421,13 @@ As a reminder, the set of rational numbers is countably infinite\footnote{\url{h
 \item
   The equivalence relation partitions the interval \([0,1]\) into a disjoint union of equivalence classes. In other words, the sets \((V \oplus r)\) and \((V \oplus s)\) are disjoint for any rationals \(r\neq s\), such that \(r,s\in[0,1]\). If they were not disjoint, this would mean that there exists some \(x,y\in[0,1]\) with \(x+r\in(V \oplus r)\) and \(y+s\in (V \oplus s)\) such that \(x+r=y+s\). But then this means that \(x-y=s-r\in\bbQ\) so \(x\) and \(y\) are in the same equivalent class, and this is a contradiction.
 \item
-  Every point in \([0,1]\) is contained in the union \(\bigcup_{r} (V \oplus r)\). This is because each \(x\in [0,1]\) belongs to one equivalence class, and is subsequently shifted by some rational value \(r\) in the corresponding Vitali set \((V \oplus r)\). Therefore, \[[0,1] \subseteq  \bigcup_{r} (V \oplus r).\] and we may write \[1 = \bbP([0,1]) \leq \bbP\left(\bigcup_{r} (V \oplus r)\right),\] since the measure of any set contained in another must have smaller measure: \(A \subseteq B \Rightarrow \mu(A) \leq \mu(B)\).
+  Every point in \([0,1]\) is contained in the union \(\bigcup_{r} (V \oplus r)\). To see this, fix a point \(x\) in \([0,1]\). Note that this point belongs to some equivalent class of \(x\), and in this equivalence class there exists some point \(\alpha\) which belongs to \(V\) as well by construction. Hence, \(\alpha \sim x\), and thus \(x-\alpha=r\in\bbQ\), implying that \(x\) is a point in the Vitali set \(V\) shifted by \(r\). Therefore, \[[0,1] \subseteq  \bigcup_{r} (V \oplus r).\] and we may write \[1 = \bbP([0,1]) \leq \bbP\left(\bigcup_{r} (V \oplus r)\right),\] since the measure of any set contained in another must have smaller or equal measure. This relation is in fact implied by \eqref{eq:meas2}. Let \(A\) and \(B\) be such that \(A \subseteq B\). Then we may write \(B = A \cup (B-A)\) where the sets \(A\) and \(B-A\) are disjoint. Hence, \(\bbP(B)=\bbP(A)+\bbP(B-A)\), and since measures are non-negative and in particular \(\bbP(B-A)\in[0,1]\), we have that \(\bbP(B)\geq \bbP(A)\). However since the probability measure cannot be greater than 1, it must be equal to 1.
 \item
   The disjoint union \(\bigcup_{r} (V \oplus r)\) has probability measure (according to our definitions in \eqref{eq:meas1}, \eqref{eq:meas2}, and \eqref{eq:meas3})
   \begin{align*}
    \bbP\left(\bigcup_{r} (V \oplus r)\right) 
    &= \sum_r \bbP(V \oplus r) \\
-   &= \sum_r \bbP(V)
+   &= \sum_r \bbP(V) 
    \end{align*}
 \end{itemize}
 
