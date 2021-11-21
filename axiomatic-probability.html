@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-20" />
+<meta name="date" content="2021-11-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -681,10 +681,16 @@ This shows the need for the heavy machinery that is measure theory for assigning
 <div class="proof">
 <p><span id="unlabeled-div-9" class="proof"><em>Proof</em>. </span>All we need to show is the existence of one such subset of <span class="math inline">\([0,1]\)</span> whose measure is undefined. The set we are about to construct is called the Vitali set<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>, after Giuseppe Vitali who described it in 1905.</p>
 <p>Define an equivalence relation on <span class="math inline">\([0,1]\)</span> by the following:
-<span class="math display">\[x\sim y \Rightarrow x-y \in \mathbb{Q}\]</span>
-That is, two real numbers <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are deemed to be the same if their difference is a rational number. We would like to separate all the real numbers between 0 and 1 inclusive by this equivalence relation, and collect them into groups called equivalence classes. For instance, the numbers 0 and 0.5 will be in the same category, since their difference is rational, but the numbers 0.5 and <span class="math inline">\(\pi^{-1}\)</span> would be in separate categories. There will be infinitely many such equivalence classes, but we’re not particularly concerned so much about how many there are.</p>
+<span class="math display">\[x\sim y \Rightarrow y-x \in \mathbb{Q}\]</span>
+That is, two real numbers <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are deemed to be the same if their difference is a rational number. We would like to separate all the real numbers <span class="math inline">\(x\in[0,1]\)</span> by this equivalence relation, and collect them into groups called equivalence classes, denoted by <span class="math inline">\([x]\)</span>. Here, <span class="math inline">\([x]\)</span> is the set <span class="math inline">\(\{y \in [0,1] | x \sim y\}.\)</span> For instance,</p>
+<ul>
+<li><p>The equivalence class of <span class="math inline">\(0\)</span> is the set of real numbers <span class="math inline">\(x\)</span> such that <span class="math inline">\(x \sim 0\)</span>, i.e. <span class="math inline">\([0] = \{y \in [0,1] | y-0\in\mathbb{Q}\}\)</span>, which is the set of all rational numbers in <span class="math inline">\([0,1]\)</span>.</p></li>
+<li><p>The equivalence class of an irrational number <span class="math inline">\(z_1\in[0,1]\)</span> is clearly not in <span class="math inline">\([0]\)</span>, thus would represent a different equivalent class <span class="math inline">\([z_1]=\{y \in [0,1] | y-z \in \mathbb{Q}\}\)</span>.</p></li>
+<li><p>Yet another irrational number <span class="math inline">\(z_2\not\in [z_1]\)</span> would exist, i.e. a number <span class="math inline">\(z_2\in[0,1]\)</span> such that <span class="math inline">\(z_2-z_1 \not\in\mathbb{Q}\)</span>, and thus would represent another equivalence class <span class="math inline">\([z_2]\)</span>.</p></li>
+<li><p>And so on… The equivalence classes may be represented by <span class="math inline">\([0],[z_1],[z_2],\dots\)</span> where <span class="math inline">\(z_i\)</span> are all irrational numbers that differ by an irrational number, and there are uncountably many such numbers and therefore classes.</p></li>
+</ul>
 <p>Construct the Vitali set <span class="math inline">\(V\)</span> as follows: Take precisely one element from each equivalent class, and put it in <span class="math inline">\(V\)</span>. As a remark, such a <span class="math inline">\(V\)</span> must surely exist by the Axiom of Choice<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a>.</p>
-<p>Consider now the union of shifted Vitali sets by some value rational value <span class="math inline">\(r\in[0,1]\)</span>,
+<p>Consider now the union of shifted Vitali sets by some rational value <span class="math inline">\(r\in[0,1]\)</span>,
 <span class="math display">\[
 \bigcup_{r} (V \oplus r)
 \]</span>
