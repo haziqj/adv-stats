@@ -414,12 +414,20 @@ There does not exist a definition of $\bbP(A)$, defined for all subsets $A\subse
 All we need to show is the existence of one such subset of $[0,1]$ whose measure is undefined. The set we are about to construct is called the Vitali set^[https://en.wikipedia.org/wiki/Vitali_set], after Giuseppe Vitali who described it in 1905.
 
 Define an equivalence relation on $[0,1]$ by the following: 
-$$x\sim y \Rightarrow x-y \in \bbQ$$
-That is, two real numbers $x$ and $y$ are deemed to be the same if their difference is a rational number. We would like to separate all the real numbers between 0 and 1 inclusive by this equivalence relation, and collect them into groups called equivalence classes. For instance, the numbers 0 and 0.5 will be in the same category, since their difference is rational, but the numbers 0.5 and $\pi^{-1}$ would be in separate categories. There will be infinitely many such equivalence classes, but we're not particularly concerned so much about how many there are.
+$$x\sim y \Rightarrow y-x \in \bbQ$$
+That is, two real numbers $x$ and $y$ are deemed to be the same if their difference is a rational number. We would like to separate all the real numbers $x\in[0,1]$ by this equivalence relation, and collect them into groups called equivalence classes, denoted by $[x]$. Here, $[x]$ is the set $\{y \in [0,1] | x \sim y\}.$ For instance, 
+
+- The equivalence class of $0$ is the set of real numbers $x$ such that $x \sim 0$, i.e. $[0] = \{y \in [0,1] | y-0\in\bbQ \}$, which is the set of all rational numbers in $[0,1]$.
+
+- The equivalence class of an irrational number $z_1\in[0,1]$ is clearly not in $[0]$, thus would represent a different equivalent class $[z_1]=\{y \in [0,1] | y-z \in \bbQ \}$.
+
+- Yet another irrational number $z_2\not\in [z_1]$ would exist, i.e. a number $z_2\in[0,1]$ such that $z_2-z_1 \not\in\bbQ$, and thus would represent another equivalence class $[z_2]$.
+
+- And so on... The equivalence classes may be represented by $[0],[z_1],[z_2],\dots$ where $z_i$ are all irrational numbers that differ by an irrational number, and there are uncountably many such numbers and therefore classes. 
 
 Construct the Vitali set $V$ as follows: Take precisely one element from each equivalent class, and put it in $V$. As a remark, such a $V$ must surely exist by the Axiom of Choice^[Given a collection of non-empty sets, it is always possible to construct a new set by taking one element from each set in the original collection. See https://brilliant.org/wiki/axiom-of-choice/]. 
 
-Consider now the union of shifted Vitali sets by some value rational value $r\in[0,1]$,
+Consider now the union of shifted Vitali sets by some rational value $r\in[0,1]$,
 $$
 \bigcup_{r} (V \oplus r)
 $$
