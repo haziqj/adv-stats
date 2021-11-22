@@ -216,7 +216,7 @@ Just as a remark, most introduction to probability measure will deal with finite
 The twin $(\Omega,\cF)$ is called a *measurable space*. This sort of defines the "parts" of our problem which are measurable, as per Definition \@ref(def:sigmaalgebra). What's missing is a measure, i.e. the thing that actually tells us 'how long a piece of string is', so to speak^[https://idioms.thefreedictionary.com/How+long+is+a+piece+of+string%3F]. We now define a measure as follows.
 
 ::: {.definition #measure name="Measure"}
-A *measure* $\mu$ is a non-negative real valued function defined on a $\sigma$-algebra, i.e. $\mu:\cF\to\bbR_{\geq 0}$, where $\bbR_{\geq 0}$ are the non-negative real numbers and $\cF$ a $\sigma$-algebra of subsets of $\Omega$. The measure $\mu$ satisfies the following properties:
+A *measure* $\mu$ is a non-negative real valued function defined on a $\sigma$-algebra, i.e. $\mu:\cF\to\bbR_{\geq 0}\cup\{\infty\}$, where $\bbR_{\geq 0}$ are the non-negative real numbers and $\cF$ a $\sigma$-algebra of subsets of $\Omega$. The measure $\mu$ satisfies the following properties:
 
 i. $\mu(\{\})=0$.
 ii. $\mu$ is countably additive, i.e. if $A_1,A_2,\dots$ are disjoint events, then $$\mu\left( \cup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mu(A_i).$$
@@ -262,39 +262,237 @@ This space simply tells us the parts needed for well-defined measure to take pla
 
 ### Axioms of probability
 
-$\bbP:\cB\to[0,1]$ is a **probability measure** on $(\Omega, \cB)$ if it satisfies the the following three axioms:
+In the previous section, we defined a measure space as the triplet $(\Omega,\cF,\mu)$. 
+This formulation lets us work on the set of interest $\Omega$, and defines the possible measurable subsets $\cF\subseteq \Omega$, as well as the measuring device $\mu$.
+This framework generalises the intutive notions of length, area, and volume to higher dimensions and more abstract notions.
 
-- Axiom 1: $\bbP(A) \geq 0, \forall A \in \Omega$.
-- Axiom 2: $\bbP(\Omega) = 1$.
-- Axiom 3: For pairwise disjoint events $A_1,A_2,\dots$,
-\[
-\bbP\bigg( \bigcup_{i=1}^\infty A_i  \bigg) = \sum_{i=1}^\infty A_i.
-\]
+In probability theory, we are interested in making use of measure theory to assign probabilities to events. So again in the context of conducting an "experiment",
 
-::: {.remark}
-There are two main interpretation of probabilities. 
+- The sample space $\Omega$ is the set of possible outcomes $\{\omega_1,\omega_2,\dots\}$ of the experiment. 
+- The $\sigma$-algebra $\cF\subseteq\Omega$ would define the set of possible outcomes that are measurable, and are able to be assigned probabilities. $\cF$ is known as the *event space*.
 
-1. The **frequentist** interpretation is that if we flip the coin many times, then the proportion of heads that is observed will be 50\% in the long run.
+All that's left is to define a *probability measure* on the measurable space $(\Omega,\cF)$.
 
-2. The **subjectivist** interpretation is that the probability measures an observer's strength of belief that the event is true.
+::: {.definition name="Axioms of Probability"}
+Given a measurable space $(\Omega,\cF)$, a *probability measure* (or *probability function*) is a function $\bbP:\cF\to[0,1]$ that satisfies the following three conditions:
 
-In either interpretation, the three axioms must be satisfied.
+i. $\bbP(E) \geq 0, \forall E \in \cF$.
+ii. $\bbP(\Omega) = 1$.
+iii. For pairwise disjoint events $A_1,A_2,\dots$, $$\bbP\bigg( \bigcup_{i=1}^\infty A_i  \bigg) = \sum_{i=1}^\infty A_i.$$
+
+These three conditions are commonly known as the *Axioms of Probability*, or *Kolmogorov Axioms*.
+:::
+
+This is pretty much similar to the definition of the measure $\mu$ for a measure space, except for the unitarity requirement $\bbP(\Omega)=1$. 
+The first and second condition implicitly states that probabilities are always [finite]{.ul}, by the results of Theorem \@ref(thm:derivedprobres1) below.
+In contrast, measure theory allows for infinite measure.
+
+The second condition above states that the probability of *at least* one of the elementary events in the entire space will definitely occur. 
+One common misunderstanding here is to read the statement as "the probability of all of possible events occurring is 1", which is a rarer thing in most situations.
+
+As a remark, the above axioms does not tell us anything about what the functional form of $\bbP$ actually is.
+It is pretty abstract, but the good thing is that any such function that satisfies the above three axioms is by definition a probability function.
+At this point, there is still no notion of *randomness* in play.
+All we are doing is providing the building blocks to be able to assign a numerical representation of (un)certainty of some particular event happening.
+
+::: {.mynote}
+As mentioned, any function abstract or concrete satisfying the Probability Axioms is regarded as a probability function. 
+But what does the probability number represent, and what does it actually mean?
+Broadly speaking, there are two main interpretation of probabilities. 
+
+1. The **frequentist** interpretation is one that relies on "long run" frequencies. A probability of heads being 50% in a coin flip is interpreted to mean the following: If we flip the coin many times, then the proportion of heads that is observed will be 50\% in the long run.
+
+2. The **subjectivist** or Bayesian interpretation is that the probability measures an observer's strength of belief that the event is true. Put a different way, it is the measure of ignorance on the observers part on what has happened. When a coin is flipped, it has landed either heads or tails, and this much is certain. What is uncertain is my *knowledge about the coin*, rather than the outcome of the coin itself. Setting a 50% probability for heads occuring implies that I am willing to bet at a 1:1 odds that the coin landed heads.
+:::
+
+::: {.example name="C&B 1.2.5"}
+Consider the simple experiment of tossing a coin. 
+Define the sample space to be $\Omega=\{H,T\}$, as representing the only two possible outcomes $H=$ heads or $T=$ tails.
+
+What is the probability of heads occurring? 
+The Axioms of Probability does not help us in this regard! (I mean, it does not give us a functional form for the probabilities)
+
+Perhaps a function that assigns equal probability to either event would be a good place to start, so we require
+\begin{equation}
+\bbP(\{H\})=\bbP(\{T\}). (\#eq:headtail1)  
+\end{equation}
+At this point, we still don't know their values--the probabilities could be 0.1, 0.2, 0.3, or any other value.
+Or could they?
+
+Since $\Omega = \{H\} \cup \{T\}$, we know that by the Probability Axioms that
+\begin{align}
+1 = \bbP(\Omega) 
+&= \bbP\left( \{H\} \cup \{T\} \right) \nonumber \\
+&= \bbP(\{H\}) + \bbP(\{T\}) (\#eq:headtail2)
+\end{align}
+so the only possible value that satisfies both \@ref(eq:headtail1) and \@ref(eq:headtail2) is
+$$
+\bbP(\{H\})=\bbP(\{T\}) = 0.5.
+$$
+
+:::
+
+Of course, without the restriction of equal probability in \@ref(eq:headtail1), then any two numbers satisfying \@ref(eq:headtail2) and the Probability Axioms would be valid, e.g. $\bbP(\{H\})= 0.8$ and $\bbP(\{T\}) = 0.2.$
+
+::: {.example}
+Two six-sided dice are thrown and the outcome for both dice are recorded. 
+
+- As there are 36 possible outcomes, the sample space is 
+$$
+\Omega = \big\{ \omega_{ij}=\{i,j\} | i,j =1,\dots,6 \big\}
+$$
+
+- Suppose we are interested in the event $E$ defined to be *'the sum of the two scores is 6'*. These would be the events
+  $$
+  E := \big\{ \{1,5\}, \{2,4\}, \{3,3\}, \{4,2\}, \{5,1\} \big\}.
+  $$
+   One may easily construct a $\sigma$-algebra $\cF$ (for example, the power set of $\Omega$) and verify that the event $E$ is contained within it. So this is a measurable event.
+   
+So at this point, we might be thinking about a suitable probability function so that we may assign a probability to the event $E$.
+Especially if the two dice are fair, it seems reasonable to assume that any of the outcome in $\omega_{ij}\in\Omega$ is equally likely to occur, so we set $\bbP(\omega_{ij}) = 1/36$ for any $i,j =1,\dots,6$.
+In particular, the probability of any event should be proportional to the total number of outcomes in $\Omega$. 
+As a quick exercise, you may check that such a probability function satisfies all the Kolmogorov Axioms.
+
+\begin{align*}
+\bbP(E) &= 
+\bbP\left( \{1,5\} \cup \{2,4\} \cup \{3,3\} \cup \{4,2\} \cup \{5,1\} \right) \\
+&= \bbP( \{1,5\}) + \bbP(\{2,4\}) + \bbP(\{3,3\}) \\
+& \hspace{1em} + \bbP(\{4,2\}) + \bbP(\{5,1\}) \\
+&= \frac{5}{36}
+\end{align*}
+
+Alternatively, we could have also easily argued that 
+$$
+\bbP(E) = \frac{|E|}{|\Omega|} = \frac{5}{36}.
+$$
+:::
+
+As a remark, it would be very cumbersome to have to check the Kolmogorov Axioms every time we encounter a probability function.
+For problems like the above, we won't run into any technical issues because the sample space is finite and/or countable^[See Theorem 1.2.6 in C&B.].
+In general, most of the problems we will come across will satisfy the axioms automatically, especially with "nice" sample space and events, so we usually don't check axioms all the time.
+
+::: {.mynote}
+At this point, most textbooks go into a section about *counting*, namely using methods like combinations and permutations.
+I'm sure you've encountered this previously in your statistics classes, and appreciate how useful they are when trying to calculate probabilities as being "the number of outcomes in the event space" divided by "the number of outcomes in the sample space". 
+However, our focus for this course is to get to the inference section, and the topic of counting does not contribute much to that understanding, so I shall skip it.
 :::
 
 ### Derived probability results
 
-Let $A$ and $B$ be measurable events from the sample space $\Omega$. 
-The following results can be derived using only the three axioms:
+Let us now look at some useful probability results that can be derived from the probability axioms.
 
-- $\bbP(\{ \}) = 0$
-- $0\leq\bbP(A)\leq 1$
-- $\bbP(A^c)=1-\bbP(A)$
-- $\bbP(A \cup B) = \bbP(A) + \bbP(B) - \bbP(A \cap B)$
-- If $A \subseteq B$, then $\bbP(A) \leq \bbP(B)$
-- $\bbP(A) = \sum_{i=1}^\infty \bbP(A \cap C_i)$ for any partition $C_1,C_2,\dots$ of $\Omega$ (*Law of Total Probability*)
+::: {.theorem #derivedprobres1}
+Let $(\Omega,\cF,\bbP)$ be a probability space. For any $E\in\cF$,
+
+i. $\bbP(\{\}) = 0$;
+ii. $\bbP(E) \leq 1$; and
+iii. $\bbP(E^c)=1-\bbP(E).$
+:::
+
+An important thing that we learn here is that probabilities are always finite and bounded within $[0,1]$, i.e. for any event $E$, $0 \leq \bbP(E) \leq 1$. 
+So please, do not make the mistake of reporting *negative probabilities* or probabilities greater than one--they are mathematically impossible^[At least within the framework of the Kolmogorov Axioms. See: https://en.wikipedia.org/wiki/Negative_probability]!
+
+::: {.mycheck}
+The proof of Theorem \@ref(thm:derivedprobres1) is left an exercise. Try this out for yourself!
+:::
+
+Further results regarding two events in the sample space based on the Probability Axioms:
+
+::: {.theorem}
+Let $(\Omega,\cF,\bbP)$ be a probability space. For any $A,B \in\cF$,
+
+i. $\bbP(B \cap A^c) = \bbP(B) - \bbP(A\cap B)$;
+ii. $\bbP(A \cup B) = \bbP(A) + \bbP(B) - \bbP(A \cap B)$; and
+iii. If $A \subseteq B$, then $\bbP(A) \leq \bbP(B)$.
+:::
+
+While these results are not so self-evident from the Probability Axioms, it may be useful to employ Venn diagrams to visualise the above statements.
+
+```{r venn1, echo=FALSE, engine='tikz', out.width ="32%"}
+\begin{tikzpicture}[scale=0.5]
+\filldraw[fill=white] (-3,-2.5) rectangle (5,3);
+\scope 
+\fill[gray!50] (2,0) circle (2);
+\fill[white] (0,0) circle (2);
+\endscope
+\draw (0,0) circle (2) (-1,1.9)  node [text=black,above] {$A$}
+      (2,0) circle (2) (3,1.9)  node [text=black,above] {$B$}
+      (-2.5,3) node [text=black,below] {i.};
+\end{tikzpicture}
+```
+```{r venn2, echo=FALSE, engine='tikz', out.width ="32%"}
+\begin{tikzpicture}[scale=0.5]
+\filldraw[fill=white] (-3,-2.5) rectangle (5,3);
+\scope 
+\fill[gray!50] (2,0) circle (2);
+\fill[gray!50] (0,0) circle (2);
+\endscope
+\draw (0,0) circle (2) (-1,1.9)  node [text=black,above] {$A$}
+      (2,0) circle (2) (3,1.9)  node [text=black,above] {$B$}
+      (-2.5,3) node [text=black,below] {ii.};
+\end{tikzpicture}
+```
+```{r venn3, echo=FALSE, engine='tikz', out.width ="32%"}
+\begin{tikzpicture}[scale=0.5]
+\filldraw[fill=white] (-3,-2.5) rectangle (5,3);
+\draw (0.5,0) circle (1) (0.2,1)  node [text=black,above] {$A$}
+      (1,0) circle (2) (3,1)  node [text=black,above] {$B$}
+      (-2.3,3) node [text=black,below] {iii.};
+\end{tikzpicture}
+```
+
+::: {.proof}
+<br>
+
+i. Note that $B$ is composed of the two disjoint sets $B= \{B\cap A\} \cup \{ B \cap A^c\}$, so we have $$\bbP(B) = \bbP(B\cap A) + \bbP(B \cap A^c),$$ and the desired results is obtained after rearranging.
+
+ii.  Using the identity $$A \cup B = (A \cup B) \cap \overbrace{(A \cup A^c)}^\Omega=A \cup \{B \cap A^c \},$$ we have that (since the two events are disjoint)
+\begin{align*}
+\bbP(A \cup B) &= \bbP(A) + \bbP(B \cap A^c) \\
+&= \bbP(A) + \bbP(B \cap A^c) \\
+&= \bbP(A) + \bbP(B) - \bbP(B\cap A).
+\end{align*}
+
+iii. Since $A \subseteq B$, $A \cap B = A$, using i. we get $$0 \leq \bbP(B \cap A^c) = \bbP(B) - \overbrace{\bbP(A\cap B)}^{\bbP(A)},$$ thus obtaining the desired result.
+:::
+
+::: {.theorem #lawoftotalprob name="Law of Total Probability"}
+Let $(\Omega,\cF,\bbP)$ be a probability space. Let $A\in\cF$ and consider a (countably infinite) partition of the sample space $C_1,C_2,\dots$ such that $C_i\cap C_j = \{\}$ for any $i,j$ and $\bigcup_{i=1}^\infty C_i = \Omega$. Then
+$$
+\bbP(A) = \sum_{i=1}^\infty \bbP(A \cap C_i).
+$$
+:::
+
+We may visualise the partitions of the sample space $C_i$ as well as the event $A$ of interest as follows:
+
+```{r partitionsamplespace, echo = FALSE, fig.align = "center", out.width = "80%"}
+knitr::include_graphics("figure/lawoftotalprob.jpeg")
+```
+
+Of course, we can only show a finite number of partitions for illustration, but this works for infinitely many countable partitions as well. We can see that the set $A$ is simply made up of the intersections of $A$ and the partitions.
+Some of these intersections will be empty, but that's OK.
+
+::: {.proof}
+Write
+$$
+A = A \cap \Omega = A \cap \left(\bigcup_{i=1}^\infty C_i\right) = \bigcup_{i=1}^\infty(A \cap C_i)
+$$
+Evidently the events in the union on the right hand side of the equality are disjoint, since $C_i$ themselves are disjoint. 
+Therefore,
+\begin{align*}
+\bbP(A) 
+&= \bbP\left(\bigcup_{i=1}^\infty(A \cap C_i) \right) \\
+&= \sum_{i=1}^\infty \bbP(A \cap C_i)
+\end{align*}
+as required.
+
+:::
+
 
 
 ### Why measure theory?
+
+*You may treat this section as optional, but it would deepen your understanding of probability theory.*
 
 Consider the uniform distribution on a random variable $X$ on the unit interval, denoted $X\sim\Unif(0,1)$. You may have come across this before, and know that the probability that $X$ lies in any interval contained in $[0,1]$ is simply the length of the interval, i.e.
 \begin{equation}
@@ -321,7 +519,7 @@ Then we should have
 \bbP(A \oplus r) = \bbP(A). (\#eq:meas3)
 \end{equation}
 
-```{r wraparoundmeasureanim, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 2, gganimate = list(nframes = 30 * 3.5, fps = 30, rewind = TRUE), fig.cap = "An interval in [0,1] shifted by some fixed amount, with wrap-around, should have consistent length.", include = knitr::is_html_output()}
+```{r wraparoundmeasureanim, cache = TRUE, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 2, gganimate = list(nframes = 30 * 3.5, fps = 30, rewind = TRUE), fig.cap = "An interval in [0,1] shifted by some fixed amount, with wrap-around, should have consistent length.", include = knitr::is_html_output()}
 k <- 60
 plot_df <- tibble(
   x1   = seq(0.2, 0.2 + 0.6, length = k),
@@ -389,7 +587,6 @@ All seemingly fair and interesting questions, but are they well defined? Can we 
 > Are all possible subsets $A\subseteq [0,1]$ measurable? Does $\bbP(A)$ even make *sense* for any event $A$ we can think of?
 
 It turns out the answer is no, and can be proven by contradiction with the help of equivalence relations.
-You may skip this part if you wish, but I'll try to keep the technicalities to a minimum (or at least provide some helpful intuition where needed).
 This shows the need for the heavy machinery that is measure theory for assigning probabilities to events^[Or at least, for cases where "not so nice" events need to be measured.].
 
 
@@ -474,29 +671,40 @@ This section was highly inspired by the following references:
 
 ## Conditional probabilities
 
-
-### Conditional probability 
-
-Update the sample space based on new information, and thus update probability calculations.
+In the previous section, the probabilities we encountered are *unconditional*, in the sense that the probabilities do not depend on any other external factors or information, and only on the (fixed) information in the sample space.
+In contrast, we may talk about *conditional probabilities*.
+If the sample space gets updated based on observation of new information, then this will sure impact probability calculations.
 
 ::: {.definition name="Conditional probabilities"}
-If $A$ and $B$ are events in $\Omega$, and $\bbP(B)>0$, then the *conditional probability* of $A$ given $B$ is
+Let $(\Omega,\cF,\bbP)$ be a probability space. For any $A,B \in\cF$ such that $\bbP(B)>0$, the *conditional probability* of $A$ given $B$, written $\bbP(A | B)$, is defined to be
 \[
   \bbP(A | B) = \frac{\bbP(A \cap B)}{\bbP(B)}.
 \]
 :::
 
-- The given information is now the "new" sample space: $\bbP(B | B) = 1$. *All further occurrences are calibrated with respect to their relation to $B$*. Think of $\bbP(A | B)$ as *the fraction of times $A$ occurs among those in which $B$ occurs*.
-- For mutually exclusive events $A$ and $B$, $\bbP(A | B)=\bbP(B | A)=0$.
-- In general, $\bbP(A | B) \neq \bbP(A)$ and $\bbP(A | B) \neq \bbP(B | A)$.
+The event $B$ is known as the *conditioning event*. 
+For all intents and purposes, we may view $\bbP(A | B)$ as "the probability that $A$ occurs, given that we know that $B$ has [already]{.ul} occurred".
+In this sense, the given information forms an updated sample space (as $\bbP(B | B) = 1$): 
+All further occurrences are calibrated with respect to their relation to $B$.
+Thus, $\bbP(A | B)$ as *the fraction of times $A$ occurs among those in which $B$ occurs*.
+
+Note that for mutually exclusive events $A$ and $B$, $\bbP(A | B)=\bbP(B | A)=0$ since $\bbP(A \cap B) = 0$. 
+This makes sense because as the two events are disjoint, they have "nothing to do with each other".
+
+::: {.myalert}
+In general,  $$\bbP(A | B) \neq \bbP(A).$$ This is only true when dealing with independent events. Furthermore, in general $$\bbP(A | B) \neq \bbP(B | A).$$
+:::
+
 
 ::: {.example}
-A medical test for a disease $D$ has outcomes '$+$' and '$-$'. The probabilities are:
+A medical test for a disease $D$ has outcomes '$+$' and '$-$'. The probabilities are as follows:
 
 |     | $D$ | $D^c$ |
 |-----|:-----:|:-------:|
 | $+$ | 0.009 | 0.099 |
 | $-$ | 0.001 | 0.891 |
+
+*note: each cell represents $\bbP(A \cap B)$.* 
 
 From the definition of conditional probability,
 \[
@@ -521,7 +729,7 @@ Notice that
 - $\bbP(D \cap +) = \bbP(+|D)\bbP(D)$ after some rearranging; and
 - $\bbP(+) = \bbP(+ \cap D) + \bbP(+ \cap D^c)$ since $D$ and $D^c$ are disjoint.
 
-We can write
+We can therefore write
 \[
 \bbP(D|+) = \frac{\bbP(+|D)\bbP(D)}{\bbP(+|D)\bbP(D) + \bbP(+|D^c)\bbP(D^c)}.
 \]
@@ -529,19 +737,76 @@ For $\bbP(D|+)$ to be large, it seems $\bbP(D)$ needs to be large in addition to
 
 ### Bayes Theorem
 
-::: {.theorem name="Bayes' Rule"}
-Let $A_1,A_2,\dots$ be a partition of the sample space, and let $B$ be any set. 
+Following that previous example, and from the definitions of conditional probabilities, we have that, after some rearranging,
+$$
+\bbP(A | B)\bbP(B) = \bbP(A \cap B),
+$$
+and
+$$
+\bbP(B | A) \bbP(A)= \bbP(A \cap B).
+$$
+So equating the two together, one can relate the two conditional probabilities $\bbP(A | B)$ and $\bbP(B | A)$ by
+$$
+\bbP(A | B) = \frac{\bbP(B|A)\bbP(A)}{\bbP(B)}.
+$$
+
+Furthermore, by using the law of total probability, we can now state Bayes' Theorem.
+
+::: {.theorem name="Bayes' Theorem"}
+Let $(\Omega,\cF,\bbP)$ be a probability space, $A_1,A_2,\dots$ a partition of the sample space, and  $B$ be any set in $\cF$ such that $\bbP(B)>0$. 
 Then, for each $i=1,2,\dots$,
 \[
   \bbP(A_i|B) = \frac{\bbP(B|A_i)\bbP(A_i)}{\sum_{j=1}^\infty \bbP(B|A_j)\bbP(A_j)}.
 \]
 :::
 
-This is easily proven using definitions of conditional probabilities, as well as the law of total probability.
+The above rule provides a convenient way of computing conditional probability $\bbP(A|B)$ if  knowledge regarding the "reverse" conditional probability $\bbP(B|A)$ is readily available.
 
-::: {.remark}
-Some will call $\bbP(A_i)$ the **prior probability**, and the $\bbP(A_i|B)$ **posterior probability**.
+::: {.mynote}
+Some will call $\bbP(A_i)$ the *prior probability*, and the $\bbP(A_i|B)$ *posterior probability*, especially in the context of Bayesian statistics. The terms refer to our state of knowledge before and after learning new information (respectively) that is used to update our beliefs.
 :::
+
+::: {.example}
+In a certain selection of flower seeds, 2/3 have been treated to improve germination and 1/3 have been left untreated. 
+For the purpose of this example, we may treat these numbers as probabilities of selecting a treated or untreated flower seed.
+
+Furthermore, the seeds which have been treated have a probability of germination of 0.8, whereas the untreated seeds have a probability of germination of 0.5.
+
+Let's calculate the probability that a seed, selected at random:
+
+(a)  will germinate (assuming the seeds were sown and given time to germinate).
+(b) a germinated seed had been treated.
+
+First, let us define the following events:
+
+- $T=$ a seed has been treated
+- $T^c=$ a seed has not been treated
+- $G=$ a seed has germinated
+- $G^c=$ a seed has not germinated
+
+We note that the events $T$ and $T^c$ are disjoint and partitions the sample space (a seed can either be treated or not), and so too the case with $G$ and $G^c$.
+After some careful reading of the question, we are actually presented with the probabilities $\bbP(G|T)=0.8$ and $\bbP(G|T^c)=0.5$.
+
+To answer a., we require $\bbP(G)$, which is obtained using the law of total probability:
+\begin{align*}
+\bbP(G) 
+&= \bbP(G \cap T) + \bbP(G\cap T^c) \\
+&= \bbP(G |T)\bbP(T) + \bbP(G|T^c)\bbP(T^c) \\
+&= 2/3 \times 0.8 + 1/3 \times 0.5 = 0.7
+\end{align*}
+
+In answering b., we realise that we are after the quantity $\bbP(T|G)$. Using Bayes' Theorem,
+\begin{align*}
+\bbP(T|G)
+&= \frac{\bbP(G|T)\bbP(T)}{\bbP(G)} \\
+&= \frac{0.8 \times 2/3}{0.7} \\
+&= 0.762
+\end{align*}
+
+:::
+
+It's important to note here that $\bbP(G|T) \neq 1 - \bbP(G|T^c)$, and this is true in most cases. We cannot take complements with respect to the conditioning event!
+
 
 ## Independent events
 
