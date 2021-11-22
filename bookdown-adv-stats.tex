@@ -319,7 +319,7 @@
 
 \title{SM-4331 Advanced Statistics}
 \author{Dr Haziq Jamil}
-\date{2021-11-21}
+\date{2021-11-22}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -1225,7 +1225,7 @@ The twin \((\Omega,\cF)\) is called a \emph{measurable space}. This sort of defi
 \begin{definition}[Measure]
 \protect\hypertarget{def:measure}{}\label{def:measure}
 
-A \emph{measure} \(\mu\) is a non-negative real valued function defined on a \(\sigma\)-algebra, i.e.~\(\mu:\cF\to\bbR_{\geq 0}\), where \(\bbR_{\geq 0}\) are the non-negative real numbers and \(\cF\) a \(\sigma\)-algebra of subsets of \(\Omega\). The measure \(\mu\) satisfies the following properties:
+A \emph{measure} \(\mu\) is a non-negative real valued function defined on a \(\sigma\)-algebra, i.e.~\(\mu:\cF\to\bbR_{\geq 0}\cup\{\infty\}\), where \(\bbR_{\geq 0}\) are the non-negative real numbers and \(\cF\) a \(\sigma\)-algebra of subsets of \(\Omega\). The measure \(\mu\) satisfies the following properties:
 
 \begin{enumerate}
 \def\labelenumi{\roman{enumi}.}
@@ -1284,59 +1284,251 @@ This space simply tells us the parts needed for well-defined measure to take pla
 \hypertarget{axioms-of-probability}{%
 \subsection{Axioms of probability}\label{axioms-of-probability}}
 
-\(\bbP:\cB\to[0,1]\) is a \textbf{probability measure} on \((\Omega, \cB)\) if it satisfies the the following three axioms:
+In the previous section, we defined a measure space as the triplet \((\Omega,\cF,\mu)\).
+This formulation lets us work on the set of interest \(\Omega\), and defines the possible measurable subsets \(\cF\subseteq \Omega\), as well as the measuring device \(\mu\).
+This framework generalises the intutive notions of length, area, and volume to higher dimensions and more abstract notions.
+
+In probability theory, we are interested in making use of measure theory to assign probabilities to events. So again in the context of conducting an ``experiment'',
 
 \begin{itemize}
 \tightlist
 \item
-  Axiom 1: \(\bbP(A) \geq 0, \forall A \in \Omega\).
+  The sample space \(\Omega\) is the set of possible outcomes \(\{\omega_1,\omega_2,\dots\}\) of the experiment.
 \item
-  Axiom 2: \(\bbP(\Omega) = 1\).
-\item
-  Axiom 3: For pairwise disjoint events \(A_1,A_2,\dots\),
-  \[
-  \bbP\bigg( \bigcup_{i=1}^\infty A_i  \bigg) = \sum_{i=1}^\infty A_i.
-  \]
+  The \(\sigma\)-algebra \(\cF\subseteq\Omega\) would define the set of possible outcomes that are measurable, and are able to be assigned probabilities. \(\cF\) is known as the \emph{event space}.
 \end{itemize}
 
-\begin{remark}
-There are two main interpretation of probabilities.
+All that's left is to define a \emph{probability measure} on the measurable space \((\Omega,\cF)\).
+
+\begin{definition}[Axioms of Probability]
+Given a measurable space \((\Omega,\cF)\), a \emph{probability measure} (or \emph{probability function}) is a function \(\bbP:\cF\to[0,1]\) that satisfies the following three conditions:
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\tightlist
+\item
+  \(\bbP(E) \geq 0, \forall E \in \cF\).
+\item
+  \(\bbP(\Omega) = 1\).
+\item
+  For pairwise disjoint events \(A_1,A_2,\dots\), \[\bbP\bigg( \bigcup_{i=1}^\infty A_i  \bigg) = \sum_{i=1}^\infty A_i.\]
+\end{enumerate}
+
+These three conditions are commonly known as the \emph{Axioms of Probability}, or \emph{Kolmogorov Axioms}.
+\end{definition}
+
+This is pretty much similar to the definition of the measure \(\mu\) for a measure space, except for the unitarity requirement \(\bbP(\Omega)=1\).
+The first and second condition implicitly states that probabilities are always \uline{finite}, by the results of Theorem \ref{thm:derivedprobres1} below.
+In contrast, measure theory allows for infinite measure.
+
+The second condition above states that the probability of \emph{at least} one of the elementary events in the entire space will definitely occur.
+One common misunderstanding here is to read the statement as ``the probability of all of possible events occurring is 1'', which is a rarer thing in most situations.
+
+As a remark, the above axioms does not tell us anything about what the functional form of \(\bbP\) actually is.
+It is pretty abstract, but the good thing is that any such function that satisfies the above three axioms is by definition a probability function.
+At this point, there is still no notion of \emph{randomness} in play.
+All we are doing is providing the building blocks to be able to assign a numerical representation of (un)certainty of some particular event happening.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{figure/kolmogorov} 
+
+}
+
+\caption{Andrey Nikolaevich Kolmogorov 25 April 1903--20 October 1987. Widely considered to be the father of probability theory.}\label{fig:kolmogorov}
+\end{figure}
+
+As mentioned, any function abstract or concrete satisfying the Probability Axioms is regarded as a probability function.
+But what does the probability number represent, and what does it actually mean?
+Broadly speaking, there are two main interpretation of probabilities.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  The \textbf{frequentist} interpretation is that if we flip the coin many times, then the proportion of heads that is observed will be 50\% in the long run.
+  The \textbf{frequentist} interpretation is one that relies on ``long run'' frequencies. A probability of heads being 50\% in a coin flip is interpreted to mean the following: If we flip the coin many times, then the proportion of heads that is observed will be 50\% in the long run.
 \item
-  The \textbf{subjectivist} interpretation is that the probability measures an observer's strength of belief that the event is true.
+  The \textbf{subjectivist} or Bayesian interpretation is that the probability measures an observer's strength of belief that the event is true. Put a different way, it is the measure of ignorance on the observers part on what has happened. When a coin is flipped, it has landed either heads or tails, and this much is certain. What is uncertain is my \emph{knowledge about the coin}, rather than the outcome of the coin itself. Setting a 50\% probability for heads occuring implies that I am willing to bet at a 1:1 odds that the coin landed heads.
 \end{enumerate}
 
-In either interpretation, the three axioms must be satisfied.
-\end{remark}
+\begin{example}[C\&B 1.2.5]
+Consider the simple experiment of tossing a coin.
+Define the sample space to be \(\Omega=\{H,T\}\), as representing the only two possible outcomes \(H=\) heads or \(T=\) tails.
+
+What is the probability of heads occurring?
+The Axioms of Probability does not help us in this regard! (I mean, it does not give us a functional form for the probabilities)
+
+Perhaps a function that assigns equal probability to either event would be a good place to start, so we require
+\begin{equation}
+\bbP(\{H\})=\bbP(\{T\}). \label{eq:headtail1}  
+\end{equation}
+At this point, we still don't know their values--the probabilities could be 0.1, 0.2, 0.3, or any other value.
+Or could they?
+
+Since \(\Omega = \{H\} \cup \{T\}\), we know that by the Probability Axioms that
+\begin{align}
+1 = \bbP(\Omega) 
+&= \bbP\left( \{H\} \cup \{T\} \right) \nonumber \\
+&= \bbP(\{H\}) + \bbP(\{T\}) \label{eq:headtail2}
+\end{align}
+so the only possible value that satisfies both \eqref{eq:headtail1} and \eqref{eq:headtail2} is
+\[
+\bbP(\{H\})=\bbP(\{T\}) = 0.5.
+\]
+\end{example}
+
+Of course, without the restriction of equal probability in \eqref{eq:headtail1}, then any two numbers satisfying \eqref{eq:headtail2} and the Probability Axioms would be valid, e.g.~\(\bbP(\{H\})= 0.8\) and \(\bbP(\{T\}) = 0.2.\)
+
+\begin{example}
+Two six-sided dice are thrown and the outcome for both dice are recorded.
+
+\begin{itemize}
+\item
+  As there are 36 possible outcomes, the sample space is
+  \[
+  \Omega = \big\{ \omega_{ij}=\{i,j\} | i,j =1,\dots,6 \big\}
+  \]
+\item
+  Suppose we are interested in the event \(E\) defined to be \emph{`the sum of the two scores is 6'}. These would be the events
+  \[
+  E := \big\{ \{1,5\}, \{2,4\}, \{3,3\}, \{4,2\}, \{5,1\} \big\}.
+  \]
+  One may easily construct a \(\sigma\)-algebra \(\cF\) (for example, the power set of \(\Omega\)) and verify that the event \(E\) is contained within it. So this is a measurable event.
+\end{itemize}
+
+So at this point, we might be thinking about a suitable probability function so that we may assign a probability to the event \(E\).
+Especially if the two dice are fair, it seems reasonable to assume that any of the outcome in \(\omega_{ij}\in\Omega\) is equally likely to occur, so we set \(\bbP(\omega_{ij}) = 1/36\) for any \(i,j =1,\dots,6\).
+In particular, the probability of any event should be proportional to the total number of outcomes in \(\Omega\).
+As a quick exercise, you may check that such a probability function satisfies all the Kolmogorov Axioms.
+
+\begin{align*}
+\bbP(E) &= 
+\bbP\left( \{1,5\} \cup \{2,4\} \cup \{3,3\} \cup \{4,2\} \cup \{5,1\} \right) \\
+&= \bbP( \{1,5\}) + \bbP(\{2,4\}) + \bbP(\{3,3\}) \\
+& \hspace{1em} + \bbP(\{4,2\}) + \bbP(\{5,1\}) \\
+&= \frac{5}{36}
+\end{align*}
+
+Alternatively, we could have also easily argued that
+\[
+\bbP(E) = \frac{|E|}{|\Omega|} = \frac{5}{36}.
+\]
+\end{example}
+
+As a remark, it would be very cumbersome to have to check the Kolmogorov Axioms every time we encounter a probability function.
+For problems like the above, we won't run into any technical issues because the sample space is finite and/or countable\footnote{See Theorem 1.2.6 in C\&B.}.
+In general, most of the problems we will come across will satisfy the axioms automatically, especially with ``nice'' sample space and events, so we usually don't check axioms all the time.
+
+At this point, most textbooks go into a section about \emph{counting}, namely using methods like combinations and permutations.
+I'm sure you've encountered this previously in your statistics classes, and appreciate how useful they are when trying to calculate probabilities as being ``the number of outcomes in the event space'' divided by ``the number of outcomes in the sample space''.
+However, our focus for this course is to get to the inference section, and the topic of counting does not contribute much to that understanding, so I shall skip it.
 
 \hypertarget{derived-probability-results}{%
 \subsection{Derived probability results}\label{derived-probability-results}}
 
-Let \(A\) and \(B\) be measurable events from the sample space \(\Omega\).
-The following results can be derived using only the three axioms:
+Let us now look at some useful probability results that can be derived from the probability axioms.
 
-\begin{itemize}
+\begin{theorem}
+\protect\hypertarget{thm:derivedprobres1}{}\label{thm:derivedprobres1}
+
+Let \((\Omega,\cF,\bbP)\) be a probability space. For any \(E\in\cF\),
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
 \tightlist
 \item
-  \(\bbP(\{ \}) = 0\)
+  \(\bbP(\{\}) = 0\);
 \item
-  \(0\leq\bbP(A)\leq 1\)
+  \(\bbP(E) \leq 1\); and
 \item
-  \(\bbP(A^c)=1-\bbP(A)\)
+  \(\bbP(E^c)=1-\bbP(E).\)
+\end{enumerate}
+
+\end{theorem}
+
+An important thing that we learn here is that probabilities are always finite and bounded within \([0,1]\), i.e.~for any event \(E\), \(0 \leq \bbP(E) \leq 1\).
+So please, do not make the mistake of reporting \emph{negative probabilities} or probabilities greater than one--they are mathematically impossible\footnote{At least within the framework of the Kolmogorov Axioms. See: \url{https://en.wikipedia.org/wiki/Negative_probability}}!
+
+The proof of Theorem \ref{thm:derivedprobres1} is left an exercise. Try this out for yourself!
+
+Further results regarding two events in the sample space based on the Probability Axioms:
+
+\begin{theorem}
+
+Let \((\Omega,\cF,\bbP)\) be a probability space. For any \(A,B \in\cF\),
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\tightlist
 \item
-  \(\bbP(A \cup B) = \bbP(A) + \bbP(B) - \bbP(A \cap B)\)
+  \(\bbP(B \cap A^c) = \bbP(B) - \bbP(A\cap B)\);
 \item
-  If \(A \subseteq B\), then \(\bbP(A) \leq \bbP(B)\)
+  \(\bbP(A \cup B) = \bbP(A) + \bbP(B) - \bbP(A \cap B)\); and
 \item
-  \(\bbP(A) = \sum_{i=1}^\infty \bbP(A \cap C_i)\) for any partition \(C_1,C_2,\dots\) of \(\Omega\) (\emph{Law of Total Probability})
-\end{itemize}
+  If \(A \subseteq B\), then \(\bbP(A) \leq \bbP(B)\).
+\end{enumerate}
+
+\end{theorem}
+
+While these results are not so self-evident from the Probability Axioms, it may be useful to employ Venn diagrams to visualise the above statements.
+
+\begin{center}\includegraphics[width=0.32\linewidth]{bookdown-adv-stats_files/figure-latex/venn1-1} \end{center}
+
+\begin{center}\includegraphics[width=0.32\linewidth]{bookdown-adv-stats_files/figure-latex/venn2-1} \end{center}
+
+\begin{center}\includegraphics[width=0.32\linewidth]{bookdown-adv-stats_files/figure-latex/venn3-1} \end{center}
+
+\begin{proof}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\item
+  Note that \(B\) is composed of the two disjoint sets \(B= \{B\cap A\} \cup \{ B \cap A^c\}\), so we have \[\bbP(B) = \bbP(B\cap A) + \bbP(B \cap A^c),\] and the desired results is obtained after rearranging.
+\item
+  Using the identity \[A \cup B = (A \cup B) \cap \overbrace{(A \cup A^c)}^\Omega=A \cup \{B \cap A^c \},\] we have that (since the two events are disjoint)
+  \begin{align*}
+  \bbP(A \cup B) &= \bbP(A) + \bbP(B \cap A^c) \\
+  &= \bbP(A) + \bbP(B \cap A^c) \\
+  &= \bbP(A) + \bbP(B) - \bbP(B\cap A).
+  \end{align*}
+\item
+  Since \(A \subseteq B\), \(A \cap B = A\), using i. we get \[0 \leq \bbP(B \cap A^c) = \bbP(B) - \overbrace{\bbP(A\cap B)}^{\bbP(A)},\] thus obtaining the desired result.
+\end{enumerate}
+
+\end{proof}
+
+\begin{theorem}[Law of Total Probability]
+\protect\hypertarget{thm:lawoftotalprob}{}\label{thm:lawoftotalprob}Let \((\Omega,\cF,\bbP)\) be a probability space. Let \(A\in\cF\) and consider a (countably infinite) partition of the sample space \(C_1,C_2,\dots\) such that \(C_i\cap C_j = \{\}\) for any \(i,j\) and \(\bigcup_{i=1}^\infty C_i = \Omega\). Then
+\[
+\bbP(A) = \sum_{i=1}^\infty \bbP(A \cap C_i).
+\]
+\end{theorem}
+
+We may visualise the partitions of the sample space \(C_i\) as well as the event \(A\) of interest as follows:
+
+\begin{center}\includegraphics[width=0.8\linewidth]{figure/lawoftotalprob} \end{center}
+
+Of course, we can only show a finite number of partitions for illustration, but this works for infinitely many countable partitions as well. We can see that the set \(A\) is simply made up of the intersections of \(A\) and the partitions.
+Some of these intersections will be empty, but that's OK.
+
+\begin{proof}
+Write
+\[
+A = A \cap \Omega = A \cap \left(\bigcup_{i=1}^\infty C_i\right) = \bigcup_{i=1}^\infty(A \cap C_i)
+\]
+Evidently the events in the union on the right hand side of the equality are disjoint, since \(C_i\) themselves are disjoint.
+Therefore,
+\begin{align*}
+\bbP(A) 
+&= \bbP\left(\bigcup_{i=1}^\infty(A \cap C_i) \right) \\
+&= \sum_{i=1}^\infty \bbP(A \cap C_i)
+\end{align*}
+as required.
+\end{proof}
 
 \hypertarget{why-measure-theory}{%
 \subsection{Why measure theory?}\label{why-measure-theory}}
+
+\emph{You may treat this section as optional, but it would deepen your understanding of probability theory.}
 
 Consider the uniform distribution on a random variable \(X\) on the unit interval, denoted \(X\sim\Unif(0,1)\). You may have come across this before, and know that the probability that \(X\) lies in any interval contained in \([0,1]\) is simply the length of the interval, i.e.
 \begin{equation}
@@ -1395,7 +1587,6 @@ Are all possible subsets \(A\subseteq [0,1]\) measurable? Does \(\bbP(A)\) even 
 \end{quote}
 
 It turns out the answer is no, and can be proven by contradiction with the help of equivalence relations.
-You may skip this part if you wish, but I'll try to keep the technicalities to a minimum (or at least provide some helpful intuition where needed).
 This shows the need for the heavy machinery that is measure theory for assigning probabilities to events\footnote{Or at least, for cases where ``not so nice'' events need to be measured.}.
 
 \begin{proposition}
@@ -1483,33 +1674,33 @@ This section was highly inspired by the following references:
   This YouTube video on Vitali Sets: \url{https://youtu.be/ameugr-wjeI}
 \end{itemize}
 
-\hypertarget{conditional-probabilities}{%
-\section{Conditional probabilities}\label{conditional-probabilities}}
+\hypertarget{conditioning-and-independence}{%
+\section{Conditioning and independence}\label{conditioning-and-independence}}
 
-\hypertarget{conditional-probability}{%
-\subsection{Conditional probability}\label{conditional-probability}}
-
-Update the sample space based on new information, and thus update probability calculations.
+In the previous section, the probabilities we encountered are \emph{unconditional}, in the sense that the probabilities do not depend on any other external factors or information, and only on the (fixed) information in the sample space.
+In contrast, we may talk about \emph{conditional probabilities}.
+If the sample space gets updated based on observation of new information, then this will sure impact probability calculations.
 
 \begin{definition}[Conditional probabilities]
-If \(A\) and \(B\) are events in \(\Omega\), and \(\bbP(B)>0\), then the \emph{conditional probability} of \(A\) given \(B\) is
+Let \((\Omega,\cF,\bbP)\) be a probability space. For any \(A,B \in\cF\) such that \(\bbP(B)>0\), the \emph{conditional probability} of \(A\) given \(B\), written \(\bbP(A | B)\), is defined to be
 \[
   \bbP(A | B) = \frac{\bbP(A \cap B)}{\bbP(B)}.
 \]
 \end{definition}
 
-\begin{itemize}
-\tightlist
-\item
-  The given information is now the ``new'' sample space: \(\bbP(B | B) = 1\). \emph{All further occurrences are calibrated with respect to their relation to \(B\)}. Think of \(\bbP(A | B)\) as \emph{the fraction of times \(A\) occurs among those in which \(B\) occurs}.
-\item
-  For mutually exclusive events \(A\) and \(B\), \(\bbP(A | B)=\bbP(B | A)=0\).
-\item
-  In general, \(\bbP(A | B) \neq \bbP(A)\) and \(\bbP(A | B) \neq \bbP(B | A)\).
-\end{itemize}
+The event \(B\) is known as the \emph{conditioning event}.
+For all intents and purposes, we may view \(\bbP(A | B)\) as ``the probability that \(A\) occurs, given that we know that \(B\) has \uline{already} occurred''.
+In this sense, the given information forms an updated sample space (as \(\bbP(B | B) = 1\)):
+All further occurrences are calibrated with respect to their relation to \(B\).
+Thus, \(\bbP(A | B)\) as \emph{the fraction of times \(A\) occurs among those in which \(B\) occurs}.
+
+Note that for mutually exclusive events \(A\) and \(B\), \(\bbP(A | B)=\bbP(B | A)=0\) since \(\bbP(A \cap B) = 0\).
+This makes sense because as the two events are disjoint, they have ``nothing to do with each other''.
+
+In general, \[\bbP(A | B) \neq \bbP(A).\] This is only true when dealing with independent events. Furthermore, in general \[\bbP(A | B) \neq \bbP(B | A).\]
 
 \begin{example}
-A medical test for a disease \(D\) has outcomes `\(+\)' and `\(-\)'. The probabilities are:
+A medical test for a disease \(D\) has outcomes `\(+\)' and `\(-\)'. The probabilities are as follows:
 
 \begin{longtable}[]{@{}lcc@{}}
 \toprule
@@ -1520,6 +1711,8 @@ A medical test for a disease \(D\) has outcomes `\(+\)' and `\(-\)'. The probabi
 \(-\) & 0.001 & 0.891 \\
 \bottomrule
 \end{longtable}
+
+\emph{note: each cell represents \(\bbP(A \cap B)\).}
 
 From the definition of conditional probability,
 \[
@@ -1549,7 +1742,7 @@ Notice that
   \(\bbP(+) = \bbP(+ \cap D) + \bbP(+ \cap D^c)\) since \(D\) and \(D^c\) are disjoint.
 \end{itemize}
 
-We can write
+We can therefore write
 \[
 \bbP(D|+) = \frac{\bbP(+|D)\bbP(D)}{\bbP(+|D)\bbP(D) + \bbP(+|D^c)\bbP(D^c)}.
 \]
@@ -1558,31 +1751,103 @@ For \(\bbP(D|+)\) to be large, it seems \(\bbP(D)\) needs to be large in additio
 \hypertarget{bayes-theorem}{%
 \subsection{Bayes Theorem}\label{bayes-theorem}}
 
-\begin{theorem}[Bayes' Rule]
-Let \(A_1,A_2,\dots\) be a partition of the sample space, and let \(B\) be any set.
+Following that previous example, and from the definitions of conditional probabilities, we have that, after some rearranging,
+\[
+\bbP(A | B)\bbP(B) = \bbP(A \cap B),
+\]
+and
+\[
+\bbP(B | A) \bbP(A)= \bbP(A \cap B).
+\]
+So equating the two together, one can relate the two conditional probabilities \(\bbP(A | B)\) and \(\bbP(B | A)\) by
+\[
+\bbP(A | B) = \frac{\bbP(B|A)\bbP(A)}{\bbP(B)}.
+\]
+
+Furthermore, by using the law of total probability, we can now state Bayes' Theorem.
+
+\begin{theorem}[Bayes' Theorem]
+Let \((\Omega,\cF,\bbP)\) be a probability space, \(A_1,A_2,\dots\) a partition of the sample space, and \(B\) be any set in \(\cF\) such that \(\bbP(B)>0\).
 Then, for each \(i=1,2,\dots\),
 \[
   \bbP(A_i|B) = \frac{\bbP(B|A_i)\bbP(A_i)}{\sum_{j=1}^\infty \bbP(B|A_j)\bbP(A_j)}.
 \]
 \end{theorem}
 
-This is easily proven using definitions of conditional probabilities, as well as the law of total probability.
+The above rule provides a convenient way of computing conditional probability \(\bbP(A|B)\) if knowledge regarding the ``reverse'' conditional probability \(\bbP(B|A)\) is readily available.
 
-\begin{remark}
-Some will call \(\bbP(A_i)\) the \textbf{prior probability}, and the \(\bbP(A_i|B)\) \textbf{posterior probability}.
-\end{remark}
+\begin{figure}
 
-\hypertarget{independent-events}{%
-\section{Independent events}\label{independent-events}}
+{\centering \includegraphics[width=0.5\linewidth]{figure/bayes} 
+
+}
+
+\caption{(Probably not) Rev. Thomas Bayes c. 1701--7 April 1761. This picture is commonly used to depict Thomas Bayes, but historians believe this not to be an accurate depiction.}\label{fig:revthomasbayes}
+\end{figure}
+
+Some will call \(\bbP(A_i)\) the \emph{prior probability}, and the \(\bbP(A_i|B)\) \emph{posterior probability}, especially in the context of Bayesian statistics. The terms refer to our state of knowledge before and after learning new information (respectively) that is used to update our beliefs.
+
+\begin{example}
+In a certain selection of flower seeds, 2/3 have been treated to improve germination and 1/3 have been left untreated.
+For the purpose of this example, we may treat these numbers as probabilities of selecting a treated or untreated flower seed.
+
+Furthermore, the seeds which have been treated have a probability of germination of 0.8, whereas the untreated seeds have a probability of germination of 0.5.
+
+Let's calculate the probability that a seed, selected at random:
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  will germinate (assuming the seeds were sown and given time to germinate).
+\item
+  a germinated seed had been treated.
+\end{enumerate}
+
+First, let us define the following events:
+
+\begin{itemize}
+\tightlist
+\item
+  \(T=\) a seed has been treated
+\item
+  \(T^c=\) a seed has not been treated
+\item
+  \(G=\) a seed has germinated
+\item
+  \(G^c=\) a seed has not germinated
+\end{itemize}
+
+We note that the events \(T\) and \(T^c\) are disjoint and partitions the sample space (a seed can either be treated or not), and so too the case with \(G\) and \(G^c\).
+After some careful reading of the question, we are actually presented with the probabilities \(\bbP(G|T)=0.8\) and \(\bbP(G|T^c)=0.5\).
+
+To answer a., we require \(\bbP(G)\), which is obtained using the law of total probability:
+\begin{align*}
+\bbP(G) 
+&= \bbP(G \cap T) + \bbP(G\cap T^c) \\
+&= \bbP(G |T)\bbP(T) + \bbP(G|T^c)\bbP(T^c) \\
+&= 2/3 \times 0.8 + 1/3 \times 0.5 = 0.7
+\end{align*}
+
+In answering b., we realise that we are after the quantity \(\bbP(T|G)\). Using Bayes' Theorem,
+\begin{align*}
+\bbP(T|G)
+&= \frac{\bbP(G|T)\bbP(T)}{\bbP(G)} \\
+&= \frac{0.8 \times 2/3}{0.7} \\
+&= 0.762
+\end{align*}
+\end{example}
+
+It's important to note here that \(\bbP(G|T) \neq 1 - \bbP(G|T^c)\), and this is true in most cases. We cannot take complements with respect to the conditioning event!
 
 \hypertarget{independence}{%
 \subsection{Independence}\label{independence}}
 
-In some cases, the occurrence of a particular event \(B\) has \emph{no effect} on the probability of another event \(A\):
+In some cases, the occurrence of a particular event \(B\) has \emph{no effect} on the probability of another event \(A\). Mathematically, we can denote this as
 \[
   \bbP(A | B) = \bbP(A).
 \]
-If this is true, we can use the relationship \(\bbP(A \cap B) = \bbP(A | B)\bbP(B)\) to derive the following definition.
+If this were true, we can use the relationship \(\bbP(A \cap B) = \bbP(A | B)\bbP(B)\) to derive the following definition.
 
 \begin{definition}
 Two events \(A\) and \(B\) are \emph{statistically independent} if and only if
@@ -1591,7 +1856,8 @@ Two events \(A\) and \(B\) are \emph{statistically independent} if and only if
 \]
 \end{definition}
 
-If \(A\) and \(B\) are independent then so too are
+What's nice about this definition is that in order to check whether to events are independent, it is sufficient to check whether their probabilities multiply out in the manner above.
+Note that (and it is easily checked!) that if \(A\) and \(B\) are independent then so too are
 
 \begin{itemize}
 \tightlist
@@ -1602,12 +1868,6 @@ If \(A\) and \(B\) are independent then so too are
 \item
   \(A^c\) and \(B^c\).
 \end{itemize}
-
-\begin{figure}
-\centering
-\includegraphics{figure/bayes.jpg}
-\caption{(Probably not) Rev.~Thomas Bayes c.~1701 -- 7 April 1761}
-\end{figure}
 
 Here's an experiment we can do to examine the concept of independent events.
 Consider tossing a fair die.
@@ -1630,12 +1890,13 @@ While this would be an afternoon well spent, let's use \texttt{R} to simulate so
 \end{verbatim}
 
 From the above, \(n(A) = 6\), \(n(B)=6\), and \(n(A \cap B)=3\).
-Do this 1,000 times, and count events automatically.
+Here I've used the notation \(n(\cdot)\) to mean the count of the event.
+Do this 1,000 times, and count events automatically using the following code.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, }\AttributeTok{size =} \DecValTok{1000}\NormalTok{, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{)}
-\FunctionTok{head}\NormalTok{(x, }\DecValTok{100}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(x, }\DecValTok{100}\NormalTok{)  }\CommentTok{\# show the first 100 outcomes}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1667,14 +1928,15 @@ This matches with the value of \(\hat{\bbP}(A \cap B)\) in the table, as well as
 \hypertarget{random-variables}{%
 \section{Random variables}\label{random-variables}}
 
-Ask (randomly) 50 people whether they like (``1'') or dislike (``0'') learning statistics.
+Consider the following problem:
+Ask (randomly) 50 people whether they like (code this as ``1'') or dislike (code this as ``0'') learning statistics.
 What is the sample space for this experiment?
 This would be all 1/0 combinations such as
 
 \begin{align*}
 \overbrace{1000101\cdots 10001}^{50}
 \end{align*}
-Specifically, \(\Omega = \big\{(X_1,X_2,\dots,X_{50}) \,|\, X_i \in \{0,1\} \big\}\). Realise that \(|\Omega| = 2^{50}\). This is huge!
+Specifically, \(\Omega = \big\{(X_1,X_2,\dots,X_{50}) \,|\, X_i \in \{0,1\} \big\}\). Realise that \(|\Omega| = 2^{50}\). This is huge\footnote{For context, the average American, working full-time, would have to work 25 billion years to earn 1 quadrillion dollars.}!
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1686,46 +1948,49 @@ Specifically, \(\Omega = \big\{(X_1,X_2,\dots,X_{50}) \,|\, X_i \in \{0,1\} \big
 ## [1] 1.1259e+15
 \end{verbatim}
 
-For context, the average American, working full-time, would have to work 25 billion years to earn 1 quadrillion dollars.
+Is it practical to work with such a large sample space?
+Possibly not, even with fancy counting techniques.
 
-What if we defined \(Y = \sum_{i=1}^{50} X_i\)?
+But what if we instead defined a variable \(Y = \sum_{i=1}^{50} X_i\)?
+Here, \(Y\) is the count of the number of people who like learning statistics from this sample of 50, since it only counts the values of '1's occuring.
+Further, the minimum value for \(Y\) is 0, and the maximum is 50.
+So the new sample space associated with \(Y\) is \(S=\{0,1,2,\dots,50\}\)--much easier to deal with!
 
-\begin{itemize}
-\tightlist
-\item
-  \(Y\) is the count of the number of people who like learning statistics from this sample of 50.
-\item
-  The minimum value for \(Y\) is 0, and the maximum is 50. So the new sample space for \(Y\) is \(S = \{0,1,2,\dots,50\}\). Much easier to deal with!
-\end{itemize}
+\(Y\) is defined to be a mapping from the original sample space \(\Omega\) to the new space \(S\) (usually a set of real numbers).
+Such a mapping is called a \textbf{random variable}.
 
-\(Y\) was defined by \emph{mapping a function} from the original sample space \(\Omega\) to the new space \(S\) (usually a set of real numbers).
-\(Y\) is called a \textbf{random variable}.
+\begin{definition}[Random variable]
+A \emph{random variable} \(X\) (abbreviated r.v.) on a probability space \((\Omega,\cF,\bbP)\) is a \emph{measurable function}\footnote{A measurable function is simply a function between the underlying sets of two measurable spaces. This will help preserve the structure of the spaces and allow things to be measured. See Wasserman, Appendix 2.13.} from \((\Omega,\cF)\) to \(\bbR\), i.e.~\(X:\Omega\to\bbR\).
+\end{definition}
 
-\begin{remark}
-Random variables (r.v.) are conventionally denoted with uppercase letters, and the realised values of the variable will be denoted by the corresponding lowercase letters. Thus, the r.v. \(X\) can take the value \(x\).
-\end{remark}
+This is much easier exaplained with an example.
 
 \begin{example}
 
 Flip a coin twice and let \(X\) be the number of heads.
 The sample space of the coin flips is \(\Omega = \{\text{HH}, \text{HT}, \text{TH}, \text{TT} \}\).
 The sample space of \(X\) is \(S = \{0,1,2 \}\).
-The mapping of the r.v. is illustrated as follows:
+The mapping of the random variable is illustrated as follows:
 
 \begin{center}\includegraphics[width=0.48\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 \end{example}
 
-We can see that a r.v. \(X\) is a \emph{mapping}\footnote{Technically, a measurable function. See Wasserman (2004, Appendix 2.13).} \(X:\Omega \to \bbR\) that assigns a real number \(X(\omega)\) to each outcome \(\omega\). Then,
+The qualifier \emph{random} to the term `random variable' implies that its value is not known before observing it.
+Random variables are conventionally denoted with uppercase letters, and the realised values of the variable will be denoted by the corresponding lowercase letters. Thus, the random variable \(X\) can take the value \(x\).
 
+We can see that a r.v. \(X\) assigns a real number \(X(\omega)\) to each outcome \(\omega\).
+Can we still calculate probabilities of events? Yes.
 \[
   \bbP(X=x) = \bbP\big(X^{-1}(x)\big) = \bbP\big(\{ \omega \in \Omega \,|\, X(\omega) = x\} \big)
 \]
+More generally,
+\[
+  \bbP(X\in S) = \bbP\big(X^{-1}(x)\big) = \bbP\big(\{ \omega \in \Omega \,|\, X(\omega) \in S \} \big)
+\]
 
 \begin{example}
-\protect\hypertarget{exm:coinflip}{}\label{exm:coinflip}
-
-The r.v. \(X\) can be summarised as follows:
+\protect\hypertarget{exm:coinflip}{}\label{exm:coinflip}For the previous example, the random variable \(X\) can be summarised as follows:
 
 \begin{longtable}[]{@{}ccc@{}}
 \toprule
@@ -1750,19 +2015,60 @@ HH & 1/4 & 2 \\
 \bottomrule
 \end{longtable}
 
+In either case, the sum of the probabilities, whether in the original event space \(\Omega\) or in the range of the random variable \(S\), is equal to one.
 \end{example}
 
 \hypertarget{distribution-functions}{%
-\section{Distribution functions}\label{distribution-functions}}
+\subsection{Distribution functions}\label{distribution-functions}}
 
 With every random variable \(X\), we associate a function called the cumulative distribution function of \(X\).
 
 \begin{definition}
-The cumulative distribution function (cdf) of a r.v. \(X\), is the function \(F_X:\bbR\to[0,1]\) defined by
+The \emph{cumulative distribution function (cdf)} of a r.v. \(X\), denoted \(F_X\), is the function \(F_X:\bbR\to[0,1]\) defined by
 \[
   F_X(x) = \bbP(X \leq x), \text{ for all } x.
 \]
+The cdf is sometimes just referred to as the \emph{distribution function}.
+When there is no ambiguity regarding which random variable the cdf is referring to, we may drop the subcript in \(F_X\).
 \end{definition}
+
+Equivalently, the distribution function is written
+\[
+F_X(x) = \bbP\left(\{\omega \in \Omega \mid X(\omega) \leq x \} \right).
+\]
+
+We make some observations regarding the distribution function:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\lim_{x\to-\infty} F(x) = 0\) and \(\lim_{x\to+\infty} F(x) = 1\).
+\item
+  \(F(x)\) is non-decreasing, i.e.~\(x_1 < x_2 \Rightarrow F(x_1) \leq F(x_2)\). In other words, drawing the function from left to right, it must either increase or stay the same value, but not decrease in value.
+\item
+  \(F(x)\) is right-continuous: for every \(x_0\), \(\lim_{x \downarrow x_0} F(x) = F(x_0)\). This means ``the solid dots will be on the left of the distribution function''.
+\item
+  \(F\) itself \emph{can be discontinuous} (see the next example). This is associated with whether the r.v. \(X\) is continuous or not. That is,
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(F_X(x)\) is a continuous function \(\Rightarrow\) \(X\) is continuous.
+  \item
+    \(F_X(x)\) is a step function \(\Rightarrow\) \(X\) is discrete.
+  \end{itemize}
+\end{itemize}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/generalcdf-1} 
+
+}
+
+\caption{A general sketch of a (continuous) cdf.}\label{fig:generalcdf}
+\end{figure}
+
+Once again, the definition above does not give a functional form for the cdf, but the good news is that any function satisfying the above properties is a cdf. For proofs of these facts, see the reference textbooks.
 
 \begin{example}
 
@@ -1779,88 +2085,77 @@ F_X(x)=
 
 This can be sketched as follows:
 
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/distfn-1} 
-
-}
-
-\caption{Distribution function of the random variable $X$}\label{fig:distfn}
-\end{figure}
+\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/distfn-1} \end{center}
 
 \end{example}
-
-\hypertarget{properties-of-cdfs}{%
-\subsection{Properties of cdfs}\label{properties-of-cdfs}}
-
-\begin{itemize}
-\tightlist
-\item
-  \(\lim_{x\to-\infty} F(x) = 0\) and \(\lim_{x\to+\infty} F(x) = 1\).
-\item
-  \(F(x)\) is non-decreasing: \(x_1 < x_2 \Rightarrow F(x_1) \leq F(x_2)\).
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Drawing the function from left to right, it must either increase or stay the same value, but not decrease in value.
-  \end{itemize}
-\item
-  \(F(x)\) is right-continuous: for every \(x_0\), \(\lim_{x \downarrow x_0} F(x) = F(x_0)\).
-
-  \begin{itemize}
-  \tightlist
-  \item
-    This means ``the solid dots will be on the left of the step function''.
-  \end{itemize}
-\end{itemize}
-
-In fact, any function satisfying the above properties is a cdf.
-For proofs of these facts, see the reference textbooks.
-
-Clearly, \(F\) itself \emph{can be discontinuous} (we saw this in the previous example).
-This is associated with whether the r.v. \(X\) is continuous or not. That is,
-
-\begin{itemize}
-\tightlist
-\item
-  \(F_X(x)\) is a continuous function \(\Rightarrow\) \(X\) is continuous.
-\item
-  \(F_X(x)\) is a step function \(\Rightarrow\) \(X\) is discrete.
-\end{itemize}
 
 \hypertarget{identically-distributed-r.v.}{%
 \subsection{Identically distributed r.v.}\label{identically-distributed-r.v.}}
 
+\begin{definition}[Identically distributed r.v.]
 Let \(X\) have cdf \(F\) and let \(Y\) have cdf \(G\).
-If \(F(x)=G(x)\) for all \(x\), then \(\bbP(X\in A) = \bbP(Y \in A)\) for all (measurable) sets.
-\(X\) and \(Y\) are said to be \textbf{identically distributed}.
+If \(F(x)=G(x)\) for all \(x\), then \(\bbP(X\in A) = \bbP(Y \in A)\) for all (measurable) sets \(A\).
+\(X\) and \(Y\) are said to be \emph{identically distributed}.
+\end{definition}
 
-\begin{remark}
 Note that two identically distributed r.v. are not necessarily equal in value, only the probabilities of observing the same values are identical.
 Think about two independent coin flips. The probability of H/T in each flip is the same, but the outcome may not be.
-\end{remark}
+
+\begin{example}
+Consider again the experiment of tossing a coin twice.
+Define the random variables \(X\) and \(Y\) to be the number of heads and tails observed, respectively.
+The distribution of \(X\), as we calculated previously, is
+
+\begin{longtable}[]{@{}cccc@{}}
+\toprule
+\(x\) & 0 & 1 & 2 \\
+\midrule
+\endhead
+\(\bbP(X=x)\) & 1/4 & 1/2 & 1/4 \\
+\bottomrule
+\end{longtable}
+
+One can easily verify that the distribution of \(Y\) is
+
+\begin{longtable}[]{@{}cccc@{}}
+\toprule
+\(y\) & 0 & 1 & 2 \\
+\midrule
+\endhead
+\(\bbP(Y=y)\) & 1/4 & 1/2 & 1/4 \\
+\bottomrule
+\end{longtable}
+
+Thus, for each \(k=0,1,2\), \(\bbP(X=k)=\bbP(Y=k)\), so \(X\) and \(Y\) are identically distributed.
+\end{example}
 
 \hypertarget{probability-functions}{%
 \section{Probability functions}\label{probability-functions}}
 
+Going forward, we will be concentrating more on random variables and their distributions, rather than working in a probability space.
+While this is the case, hopefully you appreciate the probability theory that is going on behind the scenes.
+
+Associated with a random variable \(X\) and its cdf \(F_X\) is another function, called either the probability density function (pdf) if it is continuous, or the probability mass function (pmf) if it is discrete.
+We shall look at both in turn.
+
 \hypertarget{probability-mass-function}{%
 \subsection{Probability mass function}\label{probability-mass-function}}
 
-Associated with a r.v. \(X\) and its cdf \(F_X\) is another function, called either the probability density function (pdf) if it is continuous, or the probability mass function (pmf) if it is discrete.
-
 \begin{definition}[Probability mass function]
-A discrete r.v. \(X\) only take countably many values \(\cX = \{x_1, x_2,\dots \}\).
-Its probability mass function (pmf) is
+A \uline{discrete} random variable \(X\) may only take countably many values \(\cX = \{x_1, x_2,\dots \}\).
+Its \emph{probability mass function (pmf)} is defined to be
 \[
 f_X(x) = \bbP(X=x), \text{ for all } x \in \cX.
 \]
 \end{definition}
 
+The pmf is a function which takes input possible values that a random variable may take, and outputs the probability that the random variable takes that value.
+An example is given below.
+
 \begin{example}
 
-The pmf from Example \ref{exm:coinflip} is given by
-\vspace{-0.5em}
+The pmf from Example \ref{exm:coinflip} (the two coin flips) is given by
+
 \[
 f_X(x) = \begin{cases}
 1/4&x=0 \\
@@ -1874,64 +2169,102 @@ f_X(x) = \begin{cases}
 
 \end{example}
 
-Pmfs measure ``point probabilities''. Since outcomes of discrete r.v.s are countable, we can add up probabilities over all the points in the event.
-For any \(a\), \(b\) both in \(\cX\) such that \(a \leq b\), we have that
-\[
-  \bbP(a \leq X \leq b) = \sum_{x=a}^b f_X(x).
-\]
+Pmfs measure ``point probabilities''. Since outcomes of discrete random variables are countable, we can add up probabilities over all the points in the event.
+That is, for any \(a\), \(b\) both in \(\cX\) such that \(a \leq b\), we have that
+\begin{align*}
+\bbP(a \leq X \leq b) 
+&= \bbP(X=a) + \cdots + \bbP(X=b) \\
+&= \sum_{x=a}^b f_X(x) 
+\end{align*}
 
 As a special case we get
-\[
-  \bbP(X \leq b) = \sum_{x\leq b} f_X(x) = F_X(b).
-\]
+\begin{equation}
+\bbP(X \leq b) = \sum_{x\leq b} f_X(x) = F_X(b). \label{eq:discretecdfpmf}
+\end{equation}
 
-Consequently,
-
-\begin{itemize}
-\tightlist
-\item
-  Each \(f_x(x) \geq 0\) for all \(x\); and
-\item
-  \(\sum_{x} f_x(x) = 1\).
-\end{itemize}
+Consequently, we notice that each \(f_x(x) \geq 0\) for all \(x\) (since they are probabilities), and that \(\sum_{x} f_x(x) = 1\), as this is summing over the entire sample space of \(X\).
 
 \hypertarget{probability-density-functions}{%
 \subsection{Probability density functions}\label{probability-density-functions}}
 
-We want to translate the same idea of ``point probabilities'' over to the continuous case, but must be more careful here.
-Let \(X\) be a continuous r.v. (i.e., its cdf is continuous).
-The analogous procedure would be to consider
+We would like to translate the very same idea of ``point probabilities'' over from the discrete case to the continuous case, but in doing so must exercise caution.
+Let \(X\) be a continuous random variable. i.e.~\(X\) is a random variable whose cdf is continuous.
+If such a probability function \(f_X\) exists for \(X\), then the analogous procedure would be to consider
 \[
-  \bbP(X \leq x) = F_X(x) = \int_{-\infty}^x f_X(x) \dint x,
+  \bbP(X \leq x) = F_X(x) = \int_{-\infty}^x f_X(x) \dint \tilde x,
 \]
-and using the Fundamental Theorem of Calculus, we have that
-\[
-  f_X(x) = \frac{\ddif}{\ddif x}F_X(x).
-\]
-We can see that the cdf is like ``adding up'' the ``point probabilities'' \(f_X(x)\) to obtain interval probabilities.
+as this would be like summing over all possible values of \(f_X(x)\) such that \(X\leq x\) on a continuous scale\footnote{The Riemann integral is defined as the limit of the sum of the areas of bars dividing the area under the curve, as the number of bars gets larger and larger (and hence the width of the bars get smaller and smaller).}, as per \eqref{eq:discretecdfpmf}.
+In essence, the cdf \(F_X\) acts to ``add up'' all the ``point probabilities'' \(f_X\) within a required interval.
 
 \begin{definition}[Probability density function]
-A continuous r.v. \(X\) takes any numerical value in an interval or collection of intervals (having an uncountable range).
-Its probability density function (pdf) is the function \(f_X(x)\) that satisfies
+A \uline{continuous} random variable \(X\) takes any numerical value within in an interval or collection of intervals (having an uncountable range).
+Its \emph{probability density function (pdf)} is the function \(f_X(x)\) that satisfies
 \[
 F_X(x) = \int_{-\infty}^x f_X(\tilde x) \dint \tilde x, \text{ for all } x.
 \]
 \end{definition}
 
-Note that
+Geometrically speaking, the cdf computes the area under the pdf up to a point \(x\), as shown in the diagram below:
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/areaunderpdf-1} 
+
+}
+
+\caption{Illustration of the cdf as being the area under the pdf curve.}\label{fig:areaunderpdf}
+\end{figure}
+
+Consider the area under the curve up to the point \(x+h\).
+This is given by \(F(x+h)\), but may also be approximated as \(F(x+h) \approx F(x) + A_{blue}\), where \(A_{blue}=f(x)\cdot h\) is the area of the blue rectangle.
+This might be a poor approximation, and is only ever a good one when \(h\) is small.
+With a little rearranging, we get
+\[
+f(x) \approx \frac{F(x+h)-F(x)}{h}
+\]
+and argue that the RHS approaches the quantity \(f(x)\) as \(h\) tends to zero, i.e.
+\[
+f(x) = \lim_{h\to 0} \frac{F(x+h)-F(x)}{h},
+\]
+which is the definition of the derivative.
+This is the idea of the Fundamental Theorem of Calculus, which tells us that
+\[
+  f_X(x) = \frac{\ddif}{\ddif x}F_X(x).
+\]
+
+Several observations regarding the probability density function:
 
 \begin{itemize}
 \tightlist
 \item
-  \(f_X(x) \geq 0\) for all \(x\);
+  \(f_X(x) \geq 0\) for all \(x\). The curve of the pdf cannot dip below the \(x\)-axis.
 \item
-  \(\int_{-\infty}^\infty f_X(x) \dint x = 1\); and
+  \(\int_{-\infty}^\infty f_X(x) \dint x = 1\), which is essentially saying \(\bbP(\Omega)=1\).
 \item
-  \(\bbP(X=x) = \int_x^x f(\tilde x) \dint \tilde x = 0\).
+  Point probabilities have no weight in the continuous case: \[\bbP(X=x) = \int_x^x f(\tilde x) \dint \tilde x = 0.\] In effect, we can be less strict about the use of inequalities, since
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(\bbP(X \leq b) = \bbP(X <b) + \cancel{\bbP(X=b)}\); and thus
+  \item
+    \(\bbP(a \leq X \leq b) = \bbP(a \leq X < b) = \bbP(a < X \leq b) = \bbP(a < X < b)\).
+  \end{itemize}
+\item
+  To calculate probabilities within an interval, we can do the following:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(\bbP(a<X<b) = F(b) - F(a)\) (be careful, this is not true for discrete r.v.)
+  \item
+    \(\bbP(X > a) = 1 - F(a)\)
+  \end{itemize}
 \end{itemize}
 
-Don't think of \(f(x)\) as probability functions--this only holds for discrete r.v..
-Read Wasserman (Warning after Example 2.13 on p.24).
+It's wrong to think of pdfs \(f(x)\) as probability functions--this only holds for discrete r.v..
+Continuous pdfs do not give us probabilities unless we perform definite integrals on them.
+Read Wasserman (Warning after Example 2.13 on p.24) for more on this.
 
 \begin{example}
 
@@ -1953,79 +2286,55 @@ F_X(x)
 \end{align*}
 while \(F_X(x) = 0\) for \(x<a\), and \(F_X(x)=1\) for \(x>b\).
 
-\begin{figure}
+\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
-{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-8-1} 
-
-}
-
-\caption{Plot of pdf}\label{fig:unnamed-chunk-8}
-\end{figure}
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-9-1} 
-
-}
-
-\caption{Plot of cdf}\label{fig:unnamed-chunk-9}
-\end{figure}
+\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 \end{example}
 
-Continuous r.v. miscellanea
+Just some remarks on notation:
 
-\begin{itemize}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
 \item
-  On notation: we write \(X \sim F_X(x)\) to mean that ``\(X\) has a distribution given by \(F_X(x)\)''. The symbol `\(\sim\)' is read ``is distributed as''.
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Sometimes we write \(X \sim f_X(x)\).
-  \item
-    Or by their specially given name, e.g.~\(X\sim \Unif(a,b)\).
-  \item
-    If \(X\) and \(Y\) are identically distributed, then \(X\sim Y\).
-  \end{itemize}
-\item
-  Note that since \(\bbP(X=0)\) if \(X\) is continuous, then
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \(\bbP(X \leq b) = \bbP(X <b) + \cancelto{0}{\bbP(X=b)}\); and so
-  \item
-    \(\bbP(a \leq X \leq b) = \bbP(a \leq X < b) = \bbP(a < X \leq b) = \bbP(a < X < b)\).
-  \end{itemize}
+  We write \(X \sim F_X(x)\) to mean that ``\(X\) has a distribution given by \(F_X(x)\)''.
+  The symbol `\(\sim\)' is read ``is distributed as''.
+  Sometimes writing it with the pdf \(X \sim f_X(x)\) is also clear in meaning.
+  If we are dealing with a commonly used probability distribution, we would use their specially given name, e.g.~\(X\sim \Unif(a,b)\).
+  If \(X\) and \(Y\) are identically distributed, then we write \(X\sim Y\).
 \item
   Sometimes we just write \(\int f(x) \dint x\) to mean \(\int_{-\infty}^{\infty} f(x) \dint x\).
-\item
-  The following are true:
+\end{enumerate}
 
-  \begin{itemize}
-  \tightlist
-  \item
-    \(\bbP(a<X<b) = F(b) - F(a)\) (be careful, this is not true for discrete r.v.)
-  \item
-    \(\bbP(X > a) = 1 - F(a)\)
-  \end{itemize}
-\item
-  As a side note, mixed discrete and continuous distributed r.v. do exist, but we won't be covering them in this course.
-\item
-  The Riemann integral is defined as the limit of the \underline{sum} of the areas of these bars, as the number of bars gets larger and larger (and hence the width of the bars get smaller and smaller).
-\end{itemize}
+In case you were wondering, random variables with mixed distributions do exist, but we won't really encounter them in this course.
+Here's some food for thought.
+Let \(X\) be a discrete random variable (e.g.~one that follows the two coin flip distribution), and let \(Y\) be a continuous random variable (e.g.~a uniform distribution on the interval \([0,1]\)).
+Construct a new random variable \(Z\) by flipping a fair coin and define
+\[
+Z = \begin{cases}
+X & \text{coin lands Heads} \\
+Y & \text{coin lands Tails}
+\end{cases}
+\]
+Since the probability of a coin toss is 50-50, in symbols we can write \(\bbP(Z=X)=\bbP(Z=Y)=0.5\).
+The question is, what sort of random variable is \(Z\)?
+If it is discrete, then how can it take on uncountably many different values when the coin lands tails?
+If it is continuous, then how come the point probability \(\bbP(Z=X)=1/2\) is non-zero?
 
-\includegraphics{figure/riemann_integration.png}
+The good news here is that categorising a random variable as discrete or continuous is purely arbitrary and convenient, but not required at all when measure theoretic foundations are used.
+There is no issue at all when dealing with such random variables, as the measure space will be well defined.
 
 \hypertarget{multiple-random-variables}{%
 \section{Multiple random variables}\label{multiple-random-variables}}
 
+In the real world, data collection often involves more than one variable, so methods to analyse these kinds of data do exist.
+In particular, probability models may well be extended to involve more than one random variable.
+These are known as \emph{multivariate models}.
+
 \hypertarget{bivariate-distributions}{%
 \subsection{Bivariate distributions}\label{bivariate-distributions}}
 
-Probability models may involve more than one random variable, known as \emph{multivariate models}.
-Consider the simplest kind, dealing with only two r.v.s in each discrete and continuous case.
+Consider the simplest kind, where we deal with only two random variables in each the discrete and continuous case.
 
 \begin{definition}[Joint mass function]
 Given a pair of discrete r.v. \(X\) and \(Y\), the joint mass function or joint pmf is defined by
@@ -2041,7 +2350,8 @@ A function \(f_{X,Y}:\bbR^2\to\bbR\) is called a joint probability density funct
 \]
 \end{definition}
 
-All the univariate properties carry over to the bivariate (and multivariate) case:
+To be clear, bivariate random variables occur in \textbf{pairs}, so that \((X,Y)\) is treated as one entity.
+Luckily, all the univariate properties carry over to the bivariate (and even multivariate) case, such as:
 
 \begin{itemize}
 \tightlist
@@ -2050,13 +2360,20 @@ All the univariate properties carry over to the bivariate (and multivariate) cas
 \item
   \(\sum_x\sum_y f(x,y) = 1\) if discrete, \(\iint f(x,y)\dint x \dint y = 1\) if continuous
 \item
-  The joint cdf is defined \(F_{X,Y}(x,y) = \bbP(X\leq x, Y\leq y)\)
+  The joint cdf is defined as
+  \begin{align*}
+  F_{X,Y}(x,y) &=  \bbP(X\leq x, Y\leq y) \\
+  &= \begin{cases}
+  \sum_{u\leq x}\sum_{v\leq x} f_{X,Y}(u,v) &\text{discrete case} \\
+  \int_{u\leq x}\int_{v\leq x} f_{X,Y}(u,v) \dint u \dint v &\text{continuous case} \\
+  \end{cases}
+  \end{align*}
 \end{itemize}
 
 \begin{example}
-A bivariate distribution for two discrete r.v. \(X\) and \(Y\) each taking values 0 or 1:
+A bivariate distribution for two discrete random variable \(X\) and \(Y\) each taking values 0 or 1 can be summarised in the \(2\times 2\) table below.
 
-\begin{longtable}[]{@{}lrr@{}}
+\begin{longtable}[]{@{}rcc@{}}
 \toprule
 & \(Y=0\) & \(Y=1\) \\
 \midrule
@@ -2066,13 +2383,21 @@ A bivariate distribution for two discrete r.v. \(X\) and \(Y\) each taking value
 \bottomrule
 \end{longtable}
 
-For e.g., \(\bbP(X=1,Y=1) = f(1,1) = 4/9\).
+For instance, \(\bbP(X=1,Y=1) = f(1,1) = 4/9\).
+
+A different way of expressing the above table is by explicitly listing out the probabilities, as follows:
+\[
+f(x,y) = \begin{cases}
+1/9 & x=0,y=0 \\
+2/9 & x=0,y=1 \\
+2/9 & x=1,y=0 \\
+4/9 & x=1,y=1 \\
+\end{cases}
+\]
 \end{example}
 
 \begin{example}
-\protect\hypertarget{exm:unitsquare}{}\label{exm:unitsquare}
-
-Consider a uniform distribution on the unit square \([0,1] \times [0,1]\). It has pdf given by
+\protect\hypertarget{exm:unitsquare}{}\label{exm:unitsquare}Consider a uniform distribution on the unit square \([0,1] \times [0,1]\). It has pdf given by
 \[
 f(x,y) = \begin{cases}
   1 &0\leq x \leq 1, 0\leq y \leq 1 \\
@@ -2080,27 +2405,50 @@ f(x,y) = \begin{cases}
 \end{cases}
 \]\\
 This is a well-defined pdf, as \(f\geq 0\) and \(\int\int f(x,y)\dint x \dint y = 1\).
-Suppose we want to find \(\Pr(X<1/2, Y<1/2)\) and \(\Pr(X + Y < 1)\).
+Suppose we want to find \(\bbP(X<1/2, Y<1/2)\) and \(\bbP(X + Y < 1)\).
 
+For the first probability, we integrate in the set \(\{(x,y) \mid 0 < x <1/2,0< y<1/2\}\):
 \begin{align*}
 \bbP(X<1/2, Y<1/2) &= \int_0^{1/2} \int_0^{1/2} \dint x \dint y \\
 &= \left[ \left[ xy \right]_{0}^{1/2} \right]_{0}^{1/2} = 1/4.
 \end{align*}
 
-For the second probability, note that the set \(\{x+y<1\}\) corresponds to \(\{0<y<1, 0<x < 1-y\}\).
+For the second probability, note that the set \(\{(x,y) \mid x+y<1\}\) corresponds to \(\{(x,y) \mid 0<y<1, 0<x < 1-y\}\). So
 \begin{align*}
   \bbP(X+Y<1) &= \int_0^{1} \dint y \int_0^{1-y}  \dint x \\
   &= \int_0^{1} \dint y [x]_0^{1-y} \\
   &= \int_0^{1} (1-y) \dint y = \big[y - y^2/2\big]_0^1 = 1/2.
 \end{align*}
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figure/bivariateunif} \end{center}
-
-This is the view from above. What is the volume of this wedge? It is the area of the shaded region multiplied by height 1.
-
-\begin{center}\includegraphics[width=1\linewidth,height=0.7\textheight]{bookdown-adv-stats_files/figure-latex/bivariateprob-1} \end{center}
-
 \end{example}
+
+Another way of understanding these probabilities is by thinking about them geometrically.
+If we plot the pdf surface, it would look something like the following sketch:
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{figure/bivariateunif} 
+
+}
+
+\caption{Pdf surface plot of the uniform distribution on the unit square.}\label{fig:unnamed-chunk-10}
+\end{figure}
+
+Any probability of interest would be calculated by finding the volume of interest.
+For instance, consider again the probability \(\bbP(X + Y < 1)\).
+Viewing the surface from above effectively concentrates on the two dimensions of \(x\) and \(y\).
+It's straightforward to realise that the region of interest is anything occuring below the line \(y=x\).
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{bookdown-adv-stats_files/figure-latex/bivariateprob-1} 
+
+}
+
+\caption{View of the pdf surface from above, focussing on the X and Y axis.}\label{fig:bivariateprob}
+\end{figure}
+
+Correspondingly, we ask what is the volume of this wedge?
+It is the area of the shaded region (half of the unit square) multiplied by the height of the surface (1), so we get the same answer of 1/2.
 
 \hypertarget{marginal-distributions}{%
 \subsection{Marginal distributions}\label{marginal-distributions}}
