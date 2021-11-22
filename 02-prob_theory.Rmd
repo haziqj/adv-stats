@@ -227,7 +227,6 @@ If, in addition the measure of the entire sample space is normalised (i.e. $\mu(
 The triplet $(\Omega,\cF,\mu)$ is called a *measure space* (note that without the measure it is called a measurable space).
 This space simply tells us the parts needed for well-defined measure to take place on the subsets of $\Omega$.
 
-<!-- ![Andrey Nikolaevich Kolmogorov. 25 April 1903 -- 20 October 1987.](figure/kolmogorov.jpg) -->
 
 <!-- ::: {.remark} -->
 <!-- See Defn 1.2.1 in C&B and the following examples, as well as §1.9 in Wasserman. -->
@@ -295,6 +294,10 @@ It is pretty abstract, but the good thing is that any such function that satisfi
 At this point, there is still no notion of *randomness* in play.
 All we are doing is providing the building blocks to be able to assign a numerical representation of (un)certainty of some particular event happening.
 
+```{r kolmogorov, echo = FALSE, fig.align = "center", out.width = "50%", fig.cap = "Andrey Nikolaevich Kolmogorov 25 April 1903--20 October 1987. Widely considered to be the father of probability theory."}
+knitr::include_graphics("figure/kolmogorov.jpg")
+```
+
 ::: {.mynote}
 As mentioned, any function abstract or concrete satisfying the Probability Axioms is regarded as a probability function. 
 But what does the probability number represent, and what does it actually mean?
@@ -305,7 +308,7 @@ Broadly speaking, there are two main interpretation of probabilities.
 2. The **subjectivist** or Bayesian interpretation is that the probability measures an observer's strength of belief that the event is true. Put a different way, it is the measure of ignorance on the observers part on what has happened. When a coin is flipped, it has landed either heads or tails, and this much is certain. What is uncertain is my *knowledge about the coin*, rather than the outcome of the coin itself. Setting a 50% probability for heads occuring implies that I am willing to bet at a 1:1 odds that the coin landed heads.
 :::
 
-::: {.example name="C&B 1.2.5"}
+::: {.example name="C\\&B 1.2.5"}
 Consider the simple experiment of tossing a coin. 
 Define the sample space to be $\Omega=\{H,T\}$, as representing the only two possible outcomes $H=$ heads or $T=$ tails.
 
@@ -669,7 +672,7 @@ This section was highly inspired by the following references:
 - This YouTube video on Vitali Sets: https://youtu.be/ameugr-wjeI
 
 
-## Conditional probabilities
+## Conditioning and independence
 
 In the previous section, the probabilities we encountered are *unconditional*, in the sense that the probabilities do not depend on any other external factors or information, and only on the (fixed) information in the sample space.
 In contrast, we may talk about *conditional probabilities*.
@@ -762,6 +765,10 @@ Then, for each $i=1,2,\dots$,
 
 The above rule provides a convenient way of computing conditional probability $\bbP(A|B)$ if  knowledge regarding the "reverse" conditional probability $\bbP(B|A)$ is readily available.
 
+```{r revthomasbayes, echo = FALSE, fig.align = "center", out.width = "50%", fig.cap = "(Probably not) Rev. Thomas Bayes c. 1701--7 April 1761. This picture is commonly used to depict Thomas Bayes, but historians believe this not to be an accurate depiction."}
+knitr::include_graphics("figure/bayes.jpg")
+```
+
 ::: {.mynote}
 Some will call $\bbP(A_i)$ the *prior probability*, and the $\bbP(A_i|B)$ *posterior probability*, especially in the context of Bayesian statistics. The terms refer to our state of knowledge before and after learning new information (respectively) that is used to update our beliefs.
 :::
@@ -807,16 +814,13 @@ In answering b., we realise that we are after the quantity $\bbP(T|G)$. Using Ba
 
 It's important to note here that $\bbP(G|T) \neq 1 - \bbP(G|T^c)$, and this is true in most cases. We cannot take complements with respect to the conditioning event!
 
-
-## Independent events
-
 ### Independence
 
-In some cases, the occurrence of a particular event $B$ has *no effect* on the probability of another event $A$:
+In some cases, the occurrence of a particular event $B$ has *no effect* on the probability of another event $A$. Mathematically, we can denote this as
 \[
   \bbP(A | B) = \bbP(A).
 \]
-If this is true, we can use the relationship $\bbP(A \cap B) = \bbP(A | B)\bbP(B)$ to derive the following definition.
+If this were true, we can use the relationship $\bbP(A \cap B) = \bbP(A | B)\bbP(B)$ to derive the following definition.
 
 ::: {.definition}
 Two events $A$ and $B$ are *statistically independent* if and only if
@@ -825,13 +829,12 @@ Two events $A$ and $B$ are *statistically independent* if and only if
 \]
 :::
 
-If $A$ and $B$ are independent then so too are
+What's nice about this definition is that in order to check whether to events are independent, it is sufficient to check whether their probabilities multiply out in the manner above.
+Note that (and it is easily checked!) that if $A$ and $B$ are independent then so too are
 
 - $A$ and $B^c$;
 - $A^c$ and $B$; and
 - $A^c$ and $B^c$.
-
-![(Probably not) Rev. Thomas Bayes c. 1701 -- 7 April 1761](figure/bayes.jpg)
 
 Here's an experiment we can do to examine the concept of independent events. 
 Consider tossing a fair die.
@@ -849,11 +852,12 @@ sample(1:6, size = 10, replace = TRUE)
 ```
 
 From the above, $n(A) = 6$, $n(B)=6$, and $n(A \cap B)=3$.
-Do this 1,000 times, and count events automatically.
+Here I've used the notation $n(\cdot)$ to mean the count of the event.
+Do this 1,000 times, and count events automatically using the following code.
 
 ```{r diceexp2, echo = TRUE}
 x <- sample(1:6, size = 1000, replace = TRUE)
-head(x, 100)
+head(x, 100)  # show the first 100 outcomes
 ```
 
 ```{r diceexp3, echo = TRUE}
@@ -870,40 +874,43 @@ This matches with the value of $\hat{\bbP}(A \cap B)$ in the table, as well as t
 
 ## Random variables
 
-Ask (randomly) 50 people whether they like ("1") or dislike ("0") learning statistics.
+Consider the following problem:
+Ask (randomly) 50 people whether they like (code this as "1") or dislike (code this as "0") learning statistics.
 What is the sample space for this experiment?
 This would be all 1/0 combinations such as
 
 \begin{align*}
 \overbrace{1000101\cdots 10001}^{50}
 \end{align*}
-Specifically, $\Omega = \big\{(X_1,X_2,\dots,X_{50}) \,|\, X_i \in \{0,1\} \big\}$. Realise that $|\Omega| = 2^{50}$. This is huge! 
+Specifically, $\Omega = \big\{(X_1,X_2,\dots,X_{50}) \,|\, X_i \in \{0,1\} \big\}$. Realise that $|\Omega| = 2^{50}$. This is huge^[For context, the average American, working full-time, would have to work 25 billion years to earn 1 quadrillion dollars.]! 
+
 
 ```{r}
 2 ^ {50}
 ```
 
-For context, the average American, working full-time, would have to work 25 billion years to earn 1 quadrillion dollars.
+Is it practical to work with such a large sample space?
+Possibly not, even with fancy counting techniques.
 
-What if we defined $Y = \sum_{i=1}^{50} X_i$?
+But what if we instead defined a variable $Y = \sum_{i=1}^{50} X_i$?
+Here, $Y$ is the count of the number of people who like learning statistics from this sample of 50, since it only counts the values of '1's occuring.
+Further, the minimum value for $Y$ is 0, and the maximum is 50. 
+So the new sample space associated with $Y$ is $S=\{0,1,2,\dots,50\}$--much easier to deal with!
 
-- $Y$ is the count of the number of people who like learning statistics from this sample of 50.
-- The minimum value for $Y$ is 0, and the maximum is 50. So the new sample space for $Y$ is $S = \{0,1,2,\dots,50\}$. Much easier to deal with!
+$Y$ is defined to be a mapping from the original sample space $\Omega$ to the new space $S$ (usually a set of real numbers).
+Such a mapping is called a **random variable**.
 
-$Y$ was defined by *mapping a function* from the original sample space $\Omega$ to the new space $S$ (usually a set of real numbers).
-$Y$ is called a **random variable**.
-
-
-::: {.remark}
-Random variables (r.v.) are conventionally denoted with uppercase letters, and the realised values of the variable will be denoted by the corresponding lowercase letters. Thus, the r.v. $X$ can take the value $x$.
+::: {.definition name="Random variable"}
+A *random variable* $X$ (abbreviated r.v.) on a probability space $(\Omega,\cF,\bbP)$ is a *measurable function*^[A measurable function is simply a function between the underlying sets of two measurable spaces. This will help preserve the structure of the spaces and allow things to be measured. See Wasserman, Appendix 2.13.] from $(\Omega,\cF)$ to $\bbR$, i.e. $X:\Omega\to\bbR$.
 :::
 
-::: {.example}
+This is much easier exaplained with an example.
 
+::: {.example}
 Flip a coin twice and let $X$ be the number of heads.
 The sample space of the coin flips is $\Omega = \{\text{HH}, \text{HT}, \text{TH}, \text{TT} \}$.
 The sample space of $X$ is $S = \{0,1,2 \}$.
-The mapping of the r.v. is illustrated as follows:
+The mapping of the random variable is illustrated as follows:
 
 ```{r, echo=FALSE, engine='tikz', out.width ="48%"}
 \usetikzlibrary{shapes.geometric,fit}
@@ -936,14 +943,23 @@ The mapping of the r.v. is illustrated as follows:
 
 :::
 
-We can see that a r.v. $X$ is a *mapping*^[Technically, a measurable function. See Wasserman (2004, Appendix 2.13).] $X:\Omega \to \bbR$ that assigns a real number $X(\omega)$ to each outcome $\omega$. Then,
+::: {.mynote}
+The qualifier *random* to the term 'random variable' implies that its value is not known before observing it.
+Random variables are conventionally denoted with uppercase letters, and the realised values of the variable will be denoted by the corresponding lowercase letters. Thus, the random variable $X$ can take the value $x$.
+:::
 
+We can see that a r.v. $X$  assigns a real number $X(\omega)$ to each outcome $\omega$. 
+Can we still calculate probabilities of events? Yes.
 \[
   \bbP(X=x) = \bbP\big(X^{-1}(x)\big) = \bbP\big(\{ \omega \in \Omega \,|\, X(\omega) = x\} \big)
 \]
+More generally,
+\[
+  \bbP(X\in S) = \bbP\big(X^{-1}(x)\big) = \bbP\big(\{ \omega \in \Omega \,|\, X(\omega) \in S \} \big)
+\]
 
 ::: {.example #coinflip}
-The r.v. $X$ can be summarised as follows:
+For the previous example, the random variable $X$ can be summarised as follows:
 
 | $\omega$ | $\bbP(\{\omega\})$ | $X(\omega)$ |
 |:--------:|:------------------:|:-----------:|
@@ -957,19 +973,58 @@ The r.v. $X$ can be summarised as follows:
 | 0 | 1/4 | TT |
 | 1 | 1/2 | TH, HT |
 | 2 | 1/4 | HH |
+
+In either case, the sum of the probabilities, whether in the original event space $\Omega$ or in the range of the random variable $S$, is equal to one.
+
 :::
 
-
-## Distribution functions
+### Distribution functions
 
 With every random variable $X$, we associate a function called the cumulative distribution function of $X$.
 
 ::: {.definition}
-The cumulative distribution function (cdf) of a r.v. $X$, is the function $F_X:\bbR\to[0,1]$ defined by
+The *cumulative distribution function (cdf)* of a r.v. $X$, denoted $F_X$, is the function $F_X:\bbR\to[0,1]$ defined by
 \[
   F_X(x) = \bbP(X \leq x), \text{ for all } x.
 \]
+The cdf is sometimes just referred to as the *distribution function*.
+When there is no ambiguity regarding which random variable the cdf is referring to, we may drop the subcript in $F_X$.
 :::
+
+Equivalently, the distribution function is written
+$$
+F_X(x) = \bbP\left(\{\omega \in \Omega \mid X(\omega) \leq x \} \right).
+$$
+
+We make some observations regarding the distribution function:
+
+- $\lim_{x\to-\infty} F(x) = 0$ and $\lim_{x\to+\infty} F(x) = 1$.
+- $F(x)$ is non-decreasing, i.e. $x_1 < x_2 \Rightarrow F(x_1) \leq F(x_2)$. In other words, drawing the function from left to right, it must either increase or stay the same value, but not decrease in value.
+- $F(x)$ is right-continuous: for every $x_0$, $\lim_{x \downarrow x_0} F(x) = F(x_0)$. This means "the solid dots will be on the left of the distribution function".
+- $F$ itself *can be discontinuous* (see the next example). This is associated with whether the r.v. $X$ is continuous or not. That is,
+   - $F_X(x)$ is a continuous function $\Rightarrow$ $X$ is continuous.
+   - $F_X(x)$ is a step function $\Rightarrow$ $X$ is discrete.
+
+```{r generalcdf, echo = FALSE, warning = FALSE, message = FALSE, fig.cap = "A general sketch of a (continuous) cdf.", fig.height = 3}
+x <- seq(-6, 6, length = 10)
+tibble(
+  x = x,
+  y = iprobit::expit(x)
+) %>%
+  ggplot(aes(x, y)) +
+  geom_smooth(method = "glm", se = FALSE, color = "black",
+              method.args = list(family = "quasibinomial")) +
+  geom_hline(yintercept = 1, linetype = "dashed", col = "grey") +
+  geom_hline(yintercept = 0, linetype = "dashed", col = "grey") +
+  labs(y = expression(F[X](x))) +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+```
+
+::: {.mynote}
+Once again, the definition above does not give a functional form for the cdf, but the good news is that any function satisfying the above properties is a cdf. For proofs of these facts, see the reference textbooks. 
+:::
+
+ 
 
 ::: {.example}
 From Example \@ref(exm:coinflip), we have that 
@@ -985,7 +1040,7 @@ F_X(x)=
 
 This can be sketched as follows: 
 
-```{r distfn, echo = FALSE, warning = FALSE, fig.cap = "Distribution function of the random variable $X$"}
+```{r distfn, echo = FALSE, warning = FALSE, fig.height = 4}
 plot.df <- tibble(
   x = c(-1.5, 0,   1, 2, 3.5),
   y = c(0, 0.25, 0.75, 1, 1)
@@ -1001,33 +1056,40 @@ ggplot(plot.df, aes(x, y, xend = xend, yend = yend)) +
 
 :::
 
-### Properties of cdfs
-
-- $\lim_{x\to-\infty} F(x) = 0$ and $\lim_{x\to+\infty} F(x) = 1$.
-- $F(x)$ is non-decreasing: $x_1 < x_2 \Rightarrow F(x_1) \leq F(x_2)$.
-    - Drawing the function from left to right, it must either increase or stay the same value, but not decrease in value.
-- $F(x)$ is right-continuous: for every $x_0$, $\lim_{x \downarrow x_0} F(x) = F(x_0)$.
-    - This means "the solid dots will be on the left of the step function".
-
-In fact, any function satisfying the above properties is a cdf.
-For proofs of these facts, see the reference textbooks. 
-
-Clearly, $F$ itself *can be discontinuous* (we saw this in the previous example). 
-This is associated with whether the r.v. $X$ is continuous or not. That is,
-
-- $F_X(x)$ is a continuous function $\Rightarrow$ $X$ is continuous.
-- $F_X(x)$ is a step function $\Rightarrow$ $X$ is discrete.
 
 ### Identically distributed r.v.
 
+::: {.definition name="Identically distributed r.v."}
 Let $X$ have cdf $F$ and let $Y$ have cdf $G$.
-If $F(x)=G(x)$ for all $x$, then $\bbP(X\in A) = \bbP(Y \in A)$ for all (measurable) sets.
-$X$ and $Y$ are said to be **identically distributed**.
+If $F(x)=G(x)$ for all $x$, then $\bbP(X\in A) = \bbP(Y \in A)$ for all (measurable) sets $A$.
+$X$ and $Y$ are said to be *identically distributed*.
+:::
 
-::: {.remark}
+
+
+::: {.myalert}
 Note that two identically distributed r.v. are not necessarily equal in value, only the probabilities of observing the same values are identical.
 Think about two independent coin flips. The probability of H/T in each flip is the same, but the outcome may not be.
 :::
+
+::: {.example}
+Consider again the experiment of tossing a coin twice.
+Define the random variables $X$ and $Y$ to be the number of heads and tails observed, respectively.
+The distribution of $X$, as we calculated previously, is
+
+| $x$ | 0 | 1 | 2 |
+|:---:|:-:|:-:|:-:|
+| $\bbP(X=x)$ | 1/4 | 1/2 | 1/4 |
+
+One can easily verify that the distribution of $Y$ is 
+
+| $y$ | 0 | 1 | 2 |
+|:---:|:-:|:-:|:-:|
+| $\bbP(Y=y)$ | 1/4 | 1/2 | 1/4 |
+
+Thus, for each $k=0,1,2$, $\bbP(X=k)=\bbP(Y=k)$, so $X$ and $Y$ are identically distributed.
+:::
+
 
 ## Probability functions
 
