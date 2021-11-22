@@ -1093,23 +1093,28 @@ Thus, for each $k=0,1,2$, $\bbP(X=k)=\bbP(Y=k)$, so $X$ and $Y$ are identically 
 
 ## Probability functions
 
+Going forward, we will be concentrating more on random variables and their distributions, rather than working in a probability space.
+While this is the case, hopefully you appreciate the probability theory that is going on behind the scenes.
+
+Associated with a random variable $X$ and its cdf $F_X$ is another function, called either the probability density function (pdf) if it is continuous, or the probability mass function (pmf) if it is discrete. 
+We shall look at both in turn.
+
 ### Probability mass function
 
-Associated with a r.v. $X$ and its cdf $F_X$ is another function, called either the probability density function (pdf) if it is continuous, or the probability mass function (pmf) if it is discrete.
-
-
-
 ::: {.definition name="Probability mass function"}
-A discrete r.v. $X$ only take countably many values $\cX = \{x_1, x_2,\dots \}$.
-Its probability mass function (pmf) is
+A [discrete]{.ul} random variable $X$ may only take countably many values $\cX = \{x_1, x_2,\dots \}$.
+Its *probability mass function (pmf)* is defined to be
 \[
 f_X(x) = \bbP(X=x), \text{ for all } x \in \cX.
 \]
 :::
 
+The pmf is a function which takes input possible values that a random variable may take, and outputs the probability that the random variable takes that value.
+An example is given below.
+
 ::: {.example}
-The pmf from Example \@ref(exm:coinflip) is given by
-\vspace{-0.5em}
+The pmf from Example \@ref(exm:coinflip) (the two coin flips) is given by
+
 \[
 f_X(x) = \begin{cases}
 1/4&x=0 \\
@@ -1119,7 +1124,7 @@ f_X(x) = \begin{cases}
 \end{cases}
 \]
 
-```{r, echo = FALSE, fig.height = 1.6}
+```{r, echo = FALSE, fig.height = 2}
 plot.df <- tibble(
   x = c(0, 1, 2),
   y = c(0.25, 0.5, 0.25)
@@ -1132,52 +1137,107 @@ ggplot(plot.df, aes(x, y = 0, xend = x, yend = y)) +
 
 :::
 
-Pmfs measure "point probabilities". Since outcomes of discrete r.v.s are countable, we can add up probabilities over all the points in the event.
-For any $a$, $b$ both in $\cX$ such that $a \leq b$, we have that 
-\[
-  \bbP(a \leq X \leq b) = \sum_{x=a}^b f_X(x).
-\]
+Pmfs measure "point probabilities". Since outcomes of discrete random variables are countable, we can add up probabilities over all the points in the event.
+That is, for any $a$, $b$ both in $\cX$ such that $a \leq b$, we have that 
+\begin{align*}
+\bbP(a \leq X \leq b) 
+&= \bbP(X=a) + \cdots + \bbP(X=b) \\
+&= \sum_{x=a}^b f_X(x) 
+\end{align*}
 
 As a special case we get
-\[
-  \bbP(X \leq b) = \sum_{x\leq b} f_X(x) = F_X(b).
-\]
+\begin{equation}
+\bbP(X \leq b) = \sum_{x\leq b} f_X(x) = F_X(b). (\#eq:discretecdfpmf)
+\end{equation}
 
-Consequently, 
-
-- Each $f_x(x) \geq 0$ for all $x$; and
-- $\sum_{x} f_x(x) = 1$.
+Consequently, we notice that each $f_x(x) \geq 0$ for all $x$ (since they are probabilities), and that $\sum_{x} f_x(x) = 1$, as this is summing over the entire sample space of $X$.
 
 ### Probability density functions
 
-We want to translate the same idea of "point probabilities" over to the continuous case, but must be more careful here.
-Let $X$ be a continuous r.v. (i.e., its cdf is continuous).
-The analogous procedure would be to consider
+We would like to translate the very same idea of "point probabilities" over from the discrete case to the continuous case, but in doing so must exercise caution.
+Let $X$ be a continuous random variable. i.e. $X$ is a random variable whose cdf is continuous.
+If such a probability function $f_X$ exists for $X$, then the analogous procedure would be to consider
 \[
-  \bbP(X \leq x) = F_X(x) = \int_{-\infty}^x f_X(x) \dint x,
+  \bbP(X \leq x) = F_X(x) = \int_{-\infty}^x f_X(x) \dint \tilde x,
 \]
-and using the Fundamental Theorem of Calculus, we have that
-\[
-  f_X(x) = \frac{\ddif}{\ddif x}F_X(x).
-\]
-We can see that the cdf is like "adding up" the "point probabilities" $f_X(x)$ to obtain interval probabilities.
+as this would be like summing over all possible values of $f_X(x)$ such that $X\leq x$ on a continuous scale^[The Riemann integral is defined as the limit of the sum of the areas of bars dividing the area under the curve, as the number of bars gets larger and larger (and hence the width of the bars get smaller and smaller).], as per \@ref(eq:discretecdfpmf).
+In essence, the cdf $F_X$ acts to "add up" all the "point probabilities" $f_X$ within a required interval.
 
 ::: {.definition name="Probability density function"}
-A continuous r.v. $X$ takes any numerical value in an interval or collection of intervals (having an uncountable range).
-Its probability density function (pdf) is the function $f_X(x)$ that satisfies
+A [continuous]{.ul} random variable $X$ takes any numerical value within in an interval or collection of intervals (having an uncountable range).
+Its *probability density function (pdf)* is the function $f_X(x)$ that satisfies
 \[
 F_X(x) = \int_{-\infty}^x f_X(\tilde x) \dint \tilde x, \text{ for all } x.
 \]
 :::
 
-Note that
+Geometrically speaking, the cdf computes the area under the pdf up to a point $x$, as shown in the diagram below:
 
-- $f_X(x) \geq 0$ for all $x$;
-- $\int_{-\infty}^\infty f_X(x) \dint x = 1$; and
-- $\bbP(X=x) = \int_x^x f(\tilde x) \dint \tilde x = 0$.
+```{r areaunderpdf, echo = FALSE, fig.height = 3, fig.cap = "Illustration of the cdf as being the area under the pdf curve.", fig.align = "center"}
+x <- seq(-4, 5, length = 250)
+my_fun <- function(x) x^3 + 2 * x ^ 2 - 10 * x + 4
+y <- my_fun(x)
+dat <- data.frame(
+  x = x,
+  y = y
+)
+ggplot(dat, aes(x, y)) +
+  geom_line() +
+  geom_segment(x = 2, xend = 2, y = 0, yend = 0.2 - 0.02 * 2, 
+               linetype = "dashed") +
+  geom_segment(x = 6, xend = 6, y = 0, yend = 0.2 - 0.02 * 6, 
+               linetype = "dashed") +
+  geom_path(data = tibble(x = c(4, 4.5, 4.5, 4, 4), 
+                          y = c(-37, -37, my_fun(4), my_fun(4), -37)), 
+            col = "blue") +
+  geom_ribbon(data = filter(dat, x < 4), 
+              aes(x = x, y = y, ymin = -100, ymax = y),
+              alpha = 0.3) +
+  geom_segment(x = 4.5, xend = 4.5, yend = -Inf, y = my_fun(4.5), col = "blue", 
+               linetype = "dashed") +
+  annotate("text", x = 4.7, y = max(y), label = "f(x)") +
+  annotate("text", x = 1, y = -18, label = "Area = F(x)") +
+  coord_cartesian(xlim = c(-3, 5), ylim = c(-30, max(y))) +
+  scale_x_continuous(breaks = c(4, 4.5), labels = c("x", "x+h")) +
+  labs(y = NULL, x = NULL) +
+  theme_classic() + 
+  theme( axis.text.y = element_blank(), axis.ticks.y = element_blank())
+```
 
-Don't think of $f(x)$ as probability functions--this only holds for discrete r.v..
-Read Wasserman (Warning after Example 2.13 on p.24).
+Consider the area under the curve up to the point $x+h$. 
+This is given by $F(x+h)$, but may also be approximated as $F(x+h) \approx F(x) + A_{blue}$, where $A_{blue}=f(x)\cdot h$ is the area of the blue rectangle.
+This might be a poor approximation, and is only ever a good one when $h$ is small.
+With a little rearranging, we get
+$$
+f(x) \approx \frac{F(x+h)-F(x)}{h}
+$$
+and argue that the RHS approaches the quantity $f(x)$ as $h$ tends to zero, i.e.
+$$
+f(x) = \lim_{h\to 0} \frac{F(x+h)-F(x)}{h},
+$$
+which is the definition of the derivative. 
+This is the idea of the Fundamental Theorem of Calculus, which tells us that
+\[
+  f_X(x) = \frac{\ddif}{\ddif x}F_X(x).
+\]
+
+Several observations regarding the probability density function:
+
+- $f_X(x) \geq 0$ for all $x$. The curve of the pdf cannot dip below the $x$-axis.
+- $\int_{-\infty}^\infty f_X(x) \dint x = 1$, which is essentially saying $\bbP(\Omega)=1$.
+- Point probabilities have no weight in the continuous case: $$\bbP(X=x) = \int_x^x f(\tilde x) \dint \tilde x = 0.$$ In effect, we can be less strict about the use of inequalities, since
+    - $\bbP(X \leq b) = \bbP(X <b) + \cancel{\bbP(X=b)}$; and thus
+    - $\bbP(a \leq X \leq b) = \bbP(a \leq X < b) = \bbP(a < X \leq b) = \bbP(a < X < b)$.
+- To calculate probabilities within an interval, we can do the following:
+    - $\bbP(a<X<b) = F(b) - F(a)$ (be careful, this is not true for discrete r.v.)
+    - $\bbP(X > a) = 1 - F(a)$
+
+
+::: {.myalert}
+It's wrong to think of pdfs $f(x)$ as probability functions--this only holds for discrete r.v..
+Continuous pdfs do not give us probabilities unless we perform definite integrals on them.
+Read Wasserman (Warning after Example 2.13 on p.24) for more on this.
+:::
 
 ::: {.example}
 Suppose that $X$ is uniformly distributed on the interval $(a,b) \subset \bbR$.
@@ -1198,7 +1258,7 @@ F_X(x)
 \end{align*}
 while $F_X(x) = 0$ for $x<a$, and $F_X(x)=1$ for $x>b$.
 
-```{r, echo = FALSE, fig.height = 2, warning = FALSE, fig.cap = "Plot of pdf"}
+```{r, echo = FALSE, fig.height = 2.5, warning = FALSE}
 # pdf 
 plot.df <- tibble(
   x = c(0, 2, 6, 8),
@@ -1210,12 +1270,12 @@ ggplot(plot.df, aes(x = x, y = y, xend = xend, yend = yend)) +
   geom_segment() +
   geom_segment(x = 2, xend = 2, y = 0, yend = 1, linetype = "dotted", col = "gray") +
   geom_segment(x = 6, xend = 6, y = 0, yend = 1, linetype = "dotted", col = "gray") +
-  labs(y = expression(f[x](x))) +
+  labs(y = expression(f[x](x)), title = "Plot of pdf") +
   scale_x_continuous(breaks = c(2, 6), labels = c("a", "b")) +
   scale_y_continuous(breaks = c(0, 1), labels = c(0, "1/(b-a)")) 
 ```
 
-```{r, echo = FALSE, fig.height = 2, fig.cap = "Plot of cdf"}
+```{r, echo = FALSE, fig.height = 2.5}
 # cdf 
 plot.df <- tibble(
   x = c(0, 2, 6, 8),
@@ -1223,43 +1283,55 @@ plot.df <- tibble(
 )
 ggplot(plot.df, aes(x = x, y = y)) +
   geom_line() +
-  labs(y = expression(F[x](x))) +
+  labs(y = expression(F[x](x)), title = "Plot of cdf") +
   scale_x_continuous(breaks = c(2, 6), labels = c("a", "b")) +
   scale_y_continuous(breaks = c(0, 1), labels = c(0, "         1")) 
 ```
 
 :::
 
-Continuous r.v. miscellanea
+Just some remarks on notation:
 
-- On notation: we write $X \sim F_X(x)$ to mean that "$X$ has a distribution given by $F_X(x)$". The symbol '$\sim$' is read "is distributed as".
-    - Sometimes we write $X \sim f_X(x)$.
-    - Or by their specially given name, e.g. $X\sim \Unif(a,b)$.
-    - If $X$ and $Y$ are identically distributed, then $X\sim Y$.
-
-- Note that since $\bbP(X=0)$ if $X$ is continuous, then
-    - $\bbP(X \leq b) = \bbP(X <b) + \cancelto{0}{\bbP(X=b)}$; and so
-    - $\bbP(a \leq X \leq b) = \bbP(a \leq X < b) = \bbP(a < X \leq b) = \bbP(a < X < b)$.
-    
-- Sometimes we just write $\int f(x) \dint x$ to mean $\int_{-\infty}^{\infty} f(x) \dint x$.
-
-- The following are true:
-    - $\bbP(a<X<b) = F(b) - F(a)$ (be careful, this is not true for discrete r.v.)
-    - $\bbP(X > a) = 1 - F(a)$
-
-- As a side note, mixed discrete and continuous distributed r.v. do exist, but we won't be covering them in this course.
-
-- The Riemann integral is defined as the limit of the \underline{sum} of the areas of these bars, as the number of bars gets larger and larger (and hence the width of the bars get smaller and smaller).
+1. We write $X \sim F_X(x)$ to mean that "$X$ has a distribution given by $F_X(x)$". 
+The symbol '$\sim$' is read "is distributed as". 
+Sometimes writing it with the pdf $X \sim f_X(x)$ is also clear in meaning.
+If we are dealing with a commonly used probability distribution, we would use their specially given name, e.g. $X\sim \Unif(a,b)$. 
+If $X$ and $Y$ are identically distributed, then we write $X\sim Y$.
 
 
-![](figure/riemann_integration.png)
+2. Sometimes we just write $\int f(x) \dint x$ to mean $\int_{-\infty}^{\infty} f(x) \dint x$.
+
+::: {.mynote}
+In case you were wondering, random variables with mixed distributions do exist, but we won't really encounter them in this course.
+Here's some food for thought. 
+Let $X$ be a discrete random variable (e.g. one that follows the two coin flip distribution), and let $Y$ be a continuous random variable (e.g. a uniform distribution on the interval $[0,1]$).
+Construct a new random variable $Z$ by flipping a fair coin and define
+$$
+Z = \begin{cases}
+X & \text{coin lands Heads} \\
+Y & \text{coin lands Tails}
+\end{cases}
+$$
+Since the probability of a coin toss is 50-50, in symbols we can write $\bbP(Z=X)=\bbP(Z=Y)=0.5$.
+The question is, what sort of random variable is $Z$? 
+If it is discrete, then how can it take on uncountably many different values when the coin lands tails?
+If it is continuous, then how come the point probability $\bbP(Z=X)=1/2$ is non-zero?
+
+The good news here is that categorising a random variable as discrete or continuous is purely arbitrary and convenient, but not required at all when measure theoretic foundations are used.
+There is no issue at all when dealing with such random variables, as the measure space will be well defined.
+:::
+
+<!-- ![](figure/riemann_integration.png) -->
 
 ## Multiple random variables
 
+In the real world, data collection often involves more than one variable, so methods to analyse these kinds of data do exist.
+In particular, probability models may well be extended to involve more than one random variable.
+These are known as *multivariate models*.
+
 ### Bivariate distributions
 
-Probability models may involve more than one random variable, known as *multivariate models*.
-Consider the simplest kind, dealing with only two r.v.s in each discrete and continuous case.
+Consider the simplest kind, where we deal with only two random variables in each the discrete and continuous case.
 
 ::: {.definition name="Joint mass function"}
 Given a pair of discrete r.v. $X$ and $Y$, the joint mass function or joint pmf is defined by
@@ -1268,7 +1340,6 @@ f_{X,Y}(x,y) = \bbP(X=x,Y=y).
 \]
 :::
 
-
 ::: {.definition name="Joint density function"}
 A function $f_{X,Y}:\bbR^2\to\bbR$ is called a joint probability density function (pdf) of the continuous random vector $(X,Y)$ if for any set  $A\subseteq\bbR^2$,
 \[
@@ -1276,21 +1347,40 @@ A function $f_{X,Y}:\bbR^2\to\bbR$ is called a joint probability density functio
 \]
 :::
 
-All the univariate properties carry over to the bivariate (and multivariate) case:
+To be clear, bivariate random variables occur in **pairs**, so that $(X,Y)$ is treated as one entity.
+Luckily, all the univariate properties carry over to the bivariate (and even multivariate) case, such as:
 
 - $f_{X,Y}(x,y) \geq 0$ for all $(x,y) \in \bbR^2$
 - $\sum_x\sum_y f(x,y) = 1$ if discrete, $\iint f(x,y)\dint x \dint y = 1$ if continuous
-- The joint cdf is defined $F_{X,Y}(x,y) = \bbP(X\leq x, Y\leq y)$
+- The joint cdf is defined as 
+\begin{align*}
+F_{X,Y}(x,y) &=  \bbP(X\leq x, Y\leq y) \\
+&= \begin{cases}
+\sum_{u\leq x}\sum_{v\leq x} f_{X,Y}(u,v) &\text{discrete case} \\
+\int_{u\leq x}\int_{v\leq x} f_{X,Y}(u,v) \dint u \dint v &\text{continuous case} \\
+\end{cases}
+\end{align*}
+
 
 ::: {.example}
-A bivariate distribution for two discrete r.v. $X$ and $Y$ each taking values 0 or 1:
+A bivariate distribution for two discrete random variable $X$ and $Y$ each taking values 0 or 1 can be summarised in the $2\times 2$ table below.
 
 |       | $Y=0$ | $Y=1$ |
-|-------|-------:|-------:|
+|-------:|:-------:|:------:|
 | $X=0$ | 1/9   | 2/9   |
 | $X=1$ | 2/9   | 4/9   |
 
-For e.g., $\bbP(X=1,Y=1) = f(1,1) = 4/9$.
+For instance, $\bbP(X=1,Y=1) = f(1,1) = 4/9$.
+
+A different way of expressing the above table is by explicitly listing out the probabilities, as follows:
+$$
+f(x,y) = \begin{cases}
+1/9 & x=0,y=0 \\
+2/9 & x=0,y=1 \\
+2/9 & x=1,y=0 \\
+4/9 & x=1,y=1 \\
+\end{cases}
+$$
 :::
 
 ::: {.example #unitsquare}
@@ -1302,27 +1392,37 @@ f(x,y) = \begin{cases}
 \end{cases}
 $$  
 This is a well-defined pdf, as $f\geq 0$ and $\int\int f(x,y)\dint x \dint y = 1$.
-Suppose we want to find $\Pr(X<1/2, Y<1/2)$ and $\Pr(X + Y < 1)$.
+Suppose we want to find $\bbP(X<1/2, Y<1/2)$ and $\bbP(X + Y < 1)$.
 
+For the first probability, we integrate in the set $\{(x,y) \mid 0 < x <1/2,0< y<1/2\}$:
 \begin{align*}
 \bbP(X<1/2, Y<1/2) &= \int_0^{1/2} \int_0^{1/2} \dint x \dint y \\
 &= \left[ \left[ xy \right]_{0}^{1/2} \right]_{0}^{1/2} = 1/4.
 \end{align*}
 
-For the second probability, note that the set $\{x+y<1\}$ corresponds to $\{0<y<1, 0<x < 1-y\}$.
+For the second probability, note that the set $\{(x,y) \mid x+y<1\}$ corresponds to $\{(x,y) \mid 0<y<1, 0<x < 1-y\}$. So 
 \begin{align*}
   \bbP(X+Y<1) &= \int_0^{1} \dint y \int_0^{1-y}  \dint x \\
   &= \int_0^{1} \dint y [x]_0^{1-y} \\
   &= \int_0^{1} (1-y) \dint y = \big[y - y^2/2\big]_0^1 = 1/2.
 \end{align*}
 
-```{r, echo = FALSE, fig.align = "center", out.width = "80%"}
+
+:::
+
+Another way of understanding these probabilities is by thinking about them geometrically.
+If we plot the pdf surface, it would look something like the following sketch:
+
+```{r, echo = FALSE, fig.align = "center", out.width = "80%", fig.cap = "Pdf surface plot of the uniform distribution on the unit square."}
 knitr::include_graphics("figure/bivariateunif.png")
 ```
 
-This is the view from above. What is the volume of this wedge? It is the area of the shaded region multiplied by height 1.
+Any probability of interest would be calculated by finding the volume of interest. 
+For instance, consider again the probability $\bbP(X + Y < 1)$.
+Viewing the surface from above effectively concentrates on the two dimensions of $x$ and $y$.
+It's straightforward to realise that the region of interest is anything occuring below the line $y=x$.
 
-```{r bivariateprob, echo = FALSE, fig.height = 3, fig.width = 3.1, fig.align = "center", out.height = "0.7\\textheight"}
+```{r bivariateprob, echo = FALSE, fig.align = "center", out.width = "60%", fig.cap="View of the pdf surface from above, focussing on the X and Y axis.", fig.height = 4, fig.width = 4}
 ggplot() +
   geom_rect(aes(xmin = 0, xmax = 1, ymin = 0, ymax = 1), fill = NA, col = "black") +
   geom_abline(slope = -1, intercept = 1, linetype = "dashed") +
@@ -1332,7 +1432,10 @@ ggplot() +
   scale_y_continuous(breaks = c(0, 0.5, 1), limits = c(-0.2, 1.2)) 
 ```
 
-:::
+Correspondingly, we ask what is the volume of this wedge? 
+It is the area of the shaded region (half of the unit square) multiplied by the height of the surface (1), so we get the same answer of 1/2.
+
+
 
 ### Marginal distributions
 

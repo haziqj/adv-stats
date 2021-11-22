@@ -137,6 +137,7 @@ jobs:
         run: |
           Rscript -e 'install.packages(c("rmarkdown", "bookdown", "tidyverse", "iprior", "RefManageR", "pdftools", "ggpubr", "remotes", "gganimate", "gifski", "transformr", "magick"))'
           Rscript -e 'remotes::install_github("nicolash2/ggbrace")'
+          Rscript -e 'remotes::install_github("haziqj/iprobit")'          
          
       - name: Render Book
         run: |
