@@ -678,7 +678,7 @@ In the previous section, the probabilities we encountered are *unconditional*, i
 In contrast, we may talk about *conditional probabilities*.
 If the sample space gets updated based on observation of new information, then this will sure impact probability calculations.
 
-::: {.definition name="Conditional probabilities"}
+::: {.definition #condprob name="Conditional probabilities"}
 Let $(\Omega,\cF,\bbP)$ be a probability space. For any $A,B \in\cF$ such that $\bbP(B)>0$, the *conditional probability* of $A$ given $B$, written $\bbP(A | B)$, is defined to be
 \[
   \bbP(A | B) = \frac{\bbP(A \cap B)}{\bbP(B)}.
@@ -1090,7 +1090,6 @@ One can easily verify that the distribution of $Y$ is
 Thus, for each $k=0,1,2$, $\bbP(X=k)=\bbP(Y=k)$, so $X$ and $Y$ are identically distributed.
 :::
 
-
 ## Probability functions
 
 Going forward, we will be concentrating more on random variables and their distributions, rather than working in a probability space.
@@ -1323,6 +1322,127 @@ There is no issue at all when dealing with such random variables, as the measure
 
 <!-- ![](figure/riemann_integration.png) -->
 
+
+## Transformations
+
+In statistics, it is often the case that given a random variable $X$, we are also interested in transformations of this random variable.
+For example, if $X$ is made to represent the gross domestic product (GDP) of a country, then we may be interested to study the logarithm of the GDP instead.
+
+If $X\sim F_X(x)$ is a random variable, then a transformation of $X$ by any function, $g(X)$ say, is also a random variable.
+Writing $Y=g(X)$, we may describe the probabilistic behaviour of $Y$ in terms of that of X:
+\begin{equation}
+\bbP(Y\in A) = \bbP(g(X)\in A). (\#eq:probtransform1)
+\end{equation}
+Sometimes we may write this expression explicitly, but is this always the case?
+It really depends on the transformation $g$.
+
+Formally, $g$ defines a mapping a from the original sample space of $X$ (let's denote this $\cX$) to a new sample space $\cY$ for $Y$.
+We can write $g:\cX\to\cY$.
+For random variable $X$ and its transformed version $Y=g(X)$, these sets are 
+$$
+\cX = \{ x \mid f_X(x) > 0\} \hspace{1em}\text{and}\hspace{1em} \cY = \{y \mid y=g(x) \text{ for } x\in\cX \}.
+$$
+The set $\cX$ is called the *support* of the random variable $X$; the points at which the distribution is valid.
+We associate with $g$ an *inverse mapping* denoted by $g^{-1}:\cY\to\cX$, defined by
+$$
+g^{-1}(A) = \{ x \in \cX \mid g(x) \in A \}.
+$$
+Then the probability in \@ref(eq:probtransform1) can be written as
+$$
+\bbP(Y\in A) = \bbP\big(X\in g^{-1}(A)\big).
+$$
+
+For discrete random variables, this is relatively straightforward, as seen in the following example.
+
+::: {.example}
+Let $X$ be a random variable with a discrete uniform distribution on the set $\{-1,0,1\}$. That is,
+$$
+f_X(x) = \begin{cases}
+1/3 & x \in \{-1,0,1\} \\
+0 & \text{otherwise.}
+\end{cases}
+$$
+Consider the transformation $Y=X^2$. Then the values of $Y$ are
+$$
+Y = \begin{cases}
+0 & X=0\\
+1 & X =-1,1\\
+\end{cases}
+$$
+and they take these values with probabilities
+$$
+\bbP(Y=0) = \bbP(X=0) = 1/3,
+$$
+and
+$$
+\bbP(Y=1) = \bbP(X=-1) + \bbP(X=1) = 1/3 + 1/3 = 2/3.
+$$
+As a remark, $Y$ takes fewer values than $X$ because the transformation is not one-to-one.
+
+:::
+
+The continuous case is harder, and we need to consider the type of function and also keep track of the sample space.
+Suppose $x \mapsto g(x)$ represents a strictly monotonic transformation from $\cX$ to $\cY$.
+This means that $g$ is both *injective* (one-to-one) and *surjective* (onto); meaning that $g$ is *bijective*.
+Importantly, $g$ can be **inverted**.
+
+```{r bijective, echo = FALSE, fig.align = "center", out.width = "60%", fig.cap = "Injective vs surjective functions."}
+knitr::include_graphics("figure/bijective.png")
+```
+
+We can work out the cdf of $Y$ when $g$ is increasing:
+\begin{align}
+F_Y(y) 
+&= \bbP(Y \leq y) \nonumber \\
+&= \bbP\big(g(X) \leq y\big)  \nonumber \\
+&= \bbP\big(X \leq g^{-1}(y)\big)  \nonumber \\
+&= F_X\big(g^{-1}(y)\big) (\#eq:cdftransform1)
+\end{align}
+
+On the other hand, when $g$ is decreasing:
+\begin{align}
+F_Y(y) 
+&= \bbP(Y \leq y)  \nonumber \\
+&= \bbP\big(g(X) \leq y\big) \nonumber \\
+&= \bbP\big(X > g^{-1}(y)\big) \hspace{1em} \rlap{\text{note the sign reversal}}  \nonumber \\
+&= 1 - F_X\big(g^{-1}(y)\big) (\#eq:cdftransform2)
+\end{align}
+
+The above is somewhat of an informal derivation of the cdf of the transformed variable $Y$.
+For more mathematical details, please see C&B Section 2.1.
+The main message here is that we need to keep track of the set $A_y=\{x \in \cX \mid g(x) \leq y \}$, and it depends on whether or not $g$ is increasing or decreasing.
+
+From here, the pdf of $Y$ can be obtained by differentiating the cdf (in the continuous case).
+The following theorem formalises this approach.
+
+::: {.theorem name="Pdf of continuous transformations"}
+Let $X$ have pdf $f_X(x)$ and let $Y=g(X)$ be a strictly monotone function, i.e. $g$ is strictly increasing or decreasing.
+Suppose also that $f_X(x)$ is continuous on the support of $X$, and that the inverse $g^{-1}(y)$ has a continuous derivative on the support of $Y$.
+Then the pdf of $Y$ is given by
+$$
+f_Y(y) = \begin{cases}
+f_X\big(g^{-1}(y)\big) \left| \frac{\ddif}{\ddif y}g^{-1}(y) \right| & y \in \{y\mid y=g(x) \text{ s.t. } f_X(x)>0\} \\
+0 &\text{otherwise}
+\end{cases}
+$$
+
+
+:::
+
+Note that the pdf of $Y$ is valid everywhere the inverse transformation is valid on the pdf of $X$. 
+For example, if $X$ has support $\bbR$, then $Y=X^2$ has support only on $[0,\infty)$.
+
+::: {.proof}
+Differentiate and apply the chain rule to \@ref(eq:cdftransform1) and \@ref(eq:cdftransform2):
+
+$$
+f_Y(y)=\frac{\ddif}{\ddif y} = \begin{cases}
+f_X\big(g^{-1}(y)\big)  \frac{\ddif}{\ddif y}g^{-1}(y) &g \text{ increasing} \\
+-f_X\big(g^{-1}(y)\big)  \frac{\ddif}{\ddif y}g^{-1}(y) &g \text{ decreasing.}
+\end{cases}
+$$
+:::
+
 ## Multiple random variables
 
 In the real world, data collection often involves more than one variable, so methods to analyse these kinds of data do exist.
@@ -1435,14 +1555,13 @@ ggplot() +
 Correspondingly, we ask what is the volume of this wedge? 
 It is the area of the shaded region (half of the unit square) multiplied by the height of the surface (1), so we get the same answer of 1/2.
 
-
-
 ### Marginal distributions
 
-We can recover the distribution for one of the r.v. in a bivariate (or multivariate) model by summing/integrating over the remaining probibility distribution.
+We may think of multivariate distributions as several random variables "stitched" together, whose distribution as a whole is dependent on each of the components.
+Having said this, it is possible recover the distribution for one of the components in a bivariate (or multivariate) model by summing or integrating over the remaining probability distribution, depending on whether or not the other components are discrete or continuous.
 
 ::: {.definition name="Marginal distribution"}
-For a bivariate r.v. $(X,Y)$, the marginal distributions may be obtained as
+For a bivariate random variable $(X,Y)$, the marginal distributions of $X$ and $Y$ may be obtained respectively as
 $$
 f_X(x) = 
 \begin{cases}
@@ -1459,56 +1578,160 @@ f_Y(y) =
 $$
 :::
 
-See the textbooks for some examples.
-
 A note to say that since the joint cdf is defined to be
 \[
   F(x,y) = \bbP(X \leq x, Y\leq y),
 \]
-the marginal cdfs can be obtained from the joint cdf for $X$ as
+the *marginal cdfs* can be obtained from the joint cdf for $X$ by summing over all the components of $Y$ in the joint cdf, i.e.
 \begin{align*}
 F_X(x) 
 &= \sum_{k\leq x} \left( \sum_y f_{X,Y}(k,y) \right) \\
 &= \bbP(X \leq x, Y \leq \infty) \\
 &=F_{X,Y}(x,\infty)
 \end{align*}
-and similarly $F_Y(y)=F_{X,Y}(\infty,y)$ for $Y$.
-Note that for continuous random variables, $\int_{-\infty}^x \left(\int  f_{X,Y}(\tilde x,y) \dint y \right) \dint \tilde x$.
+Similarly, we sum up over the components of $X$ to obtain the marginal cdf for $Y$, $F_Y(y)=F_{X,Y}(\infty,y)$.
+Note that for continuous random variables, we integrate instead: $F_X(x)  = \int_{-\infty}^x \left(\int  f_{X,Y}(\tilde x,y) \dint y \right) \dint \tilde x$.
+
+::: {.example}
+Define a joint pdf by
+$$
+f(x,y) = \begin{cases}
+cxy^2 & 0<x<1, 0<y<1\\
+0 &\text{otherwise}
+\end{cases}
+$$
+Let's compute the marginal distributions of $X$ and $Y$.
+We'll have to use integration here since the geometry of the pdf surface in 3-dimensions is a bit complex to work with.
+
+Firstly, we need to find the *normalising constant* $c$, such that the joint integral of the pdf is 1.
+That is, we need to find the value of $c$ satisfying
+$$
+\int_{x=0}^1 \int_{y=0}^1 cxy^2 \dint x \dint y = c\left[ \left[ \frac{x^2y^3}{6} \right]_{0}^{1} \right]_{0}^{1} = 1.
+$$
+We work out that $c=6$.
+
+To work out the marginal distribution of $X$, we integrate the pdf over all possible values of $Y$, i.e.
+\begin{align*}
+f_X(x) &= \int_{y=0}^1 6xy^2 \dint y \\
+&= \left[\frac{6xy^3}{3} \right]_0^1 \\
+&= 2x.
+\end{align*}
+Note that $f_X(x)=2x$ for $0<x<1$ is indeed a valid pdf (it integrates to 1, and also satisfies all the properties of a pdf). 
+We can now use this to calculate probabilities involving only $X$, for instance
+$$
+\bbP\left(\frac{1}{2} < X < \frac{3}{4}\right) = \int_{1/2}^{3/4} 2x \dint x = \frac{5}{16}.
+$$
+
+:::
+
+
+::: {.example}
+Here's a trickier example.
+Consider the joint pdf defined by 
+$$
+f(x,y) = \begin{cases}
+e^{-y} & 0<x<y<\infty \\
+0 & \text{otherwise.}
+\end{cases}
+$$
+At first glance, it does not seem that the pdf depends on $x$ at all. 
+But actually, it does.
+If we look at the values at which this pdf is non-zero, it is conditional on the positive values of $x$ such that it is lesser than $y$.
+To put it more precisely, we could write the pdf as
+$$
+f(x,y) = \ind_{[\{(u,v) | 0<u<v<\infty\}]}(x,y) e^{-y}
+$$
+so we can clearly see the dependence of the pdf on both $x$ and $y$.
+Here, we have used the *indicator function* $\ind_A(x)$ defined as
+$$
+\ind_A(x) = \begin{cases}
+1 & x\in A \\
+0 & x\not\in A.
+\end{cases}
+$$
+
+To calculate the joint cdf of this bivariate distribution, we compute the integral
+$$
+F_{X,Y}(x,y) = \int_{u=0}^x \int_{v=u}^y e^{-v} \dint u \dint v 
+$$
+The limits of integration are obtained as follows: For the random variable $X$ (using the integrating variable $u$) we start at the smallest value it can take ($u=0$) and proceed upwards to some arbitrary point $u=x$. For $Y$ (using the $v$ as the variable of integration), the smallest possible value it can take is $v=u$, since $x<y<\infty$ and the integration depends on what happens to $X$. From here, proceed upwards to some arbitrary point $v=y$.
+Working through this integral gives us
+$$
+F_{X,Y}(x,y) = 1 - (e^{-x}+xe^{-y}), \hspace{2em} 0<x<y<\infty.
+$$
+This is a valid cdf, since
+
+- $\lim_{x,y\to 0} F(x,y) = 1-\left(\lim_{x,y\to 0}e^{-x} +  \lim_{x,y\to 0} xe^{-y} \right) = 1 - (1 + 0) = 0.$
+- $\lim_{x,y\to \infty} F(x,y) = 1-\left(\lim_{x,y\to \infty}e^{-x} +  \lim_{x,y\to \infty} xe^{-y} \right) = 1 - (0 + 0) = 1.$
+- $F(x,y)>0$ in that range.
+
+From here, the marginal cdf of $X$ is obtained as $F_X(x)=F_{X,Y}(x,+\infty)= 1-e^{-x}$ for $0<x<\infty$.
+Noting that the maximum value $x$ can take is $y$, we can similarly obtain the marginal cdf of $Y$ as $F_Y(y)=F_{X,Y}(+\infty,y) = F(+\infty,y)= F(y,y) = 1-(e^{-y}+ye^{-y})$ for $0<y<\infty$. 
+It's easily checked that both of these functions are indeed cdfs.
+:::
+
+::: {.mynote}
+In the continuous case, the joint cdf of $(X,Y)$  is related to the joint pdf by the relationship
+$$
+F_{X,Y}(x,y) = \int_{-\infty}^x \int_{-\infty}^y f_{X,Y}(u,v) \dint u \dint v.
+$$
+By the (bivariate) Fundamental Theorem of Calculus, this implies that
+$$
+\frac{\partial^2}{\partial x \partial y}F_{X,Y}(x,y) = f_{X,Y}(x,y).
+$$
+
+:::
+
 
 ### Conditional distributions
 
-Oftentimes when two r.v. $(X,Y)$ are observed, the values of the two variables are related.
+Oftentimes when two r.v. $(X,Y)$ are observed, the values of the two variables are "related".
+What we mean by this is that knowledge about the value of $Y$ gives us some information about the value of $X$ and vice versa. 
 Some examples:
 
 - Height ($X$) and weight ($Y$) of a person;
 - A level points score ($X$) and socio-economic status ($Y$);
 - Heart rate ($X$) and oxygen saturation levels ($Y$).
 
-Knowledge about the value of $Y$ gives us some information about the value of $Y$. This should sound familiar.
+To make this idea a little more concrete, think about what values the heart rate ($X$) of an individual can take.
+For a healthy individual, this might be anywhere between 40 bpm to 200 bpm (depending on their age, what activity they are doing, and so on). 
+On average, $X$ is 72 bpm.
+Oxygen saturation levels on the other hand are usually between 95 and 100 percent, but drops below this range when an intense activity is performed.
+Consequently, if we were to guess what the heart rate $X$ value would be given $Y<0.95$, it would make more sense to guess that $X=160$ rather than $X=72$.
+This concept should sound familiar!
+
+Define the conditional distributions for discrete and continuous random variables as follows.
 
 :::{.definition name="Conditional distributions, discrete"}
-If $X$ and $Y$ are discrete, the conditional pmf of $X$ given $Y=y$ is
+If $X$ and $Y$ are discrete, the *conditional pmf* of $X$ given $Y=y$ is
 \[
   f_{X|Y}(x|y) = \bbP(X=x|Y=y) = \frac{\bbP(X=x, Y=y)}{\bbP(Y=y)} = \frac{f_{X,Y}(x, y)}{f_Y(y)},
 \]
 :::
 
 :::{.definition name="Conditional distributions, continuous"}
-If $X$ and $Y$ are discrete, the conditional of of $X$ given $Y=y$ is
+If $X$ and $Y$ are continuous, the *conditional pdf* of $X$ given $Y=y$ is
 \[
   f_{X|Y}(x|y) =  \frac{f_{X,Y}(x, y)}{f_Y(y)}.
 \]
 :::
 
-- As a function of $x$, $f_{X|Y}(x|y)$ is indeed a pdf, since
-\[
-\int f_{X|Y}(x|y) \dint x = \int \frac{f_{X,Y}(x, y)}{f_Y(y)} \dint x = \frac{f_Y(y)}{f_Y(y)} = 1.
-\]
-- The probability of $X$ given $Y=y$ is computed as
-\[
+In the discrete case, the conditional distribution is derived in a similar way to how the conditional probabilities were (see Definition \@ref(def:condprob)).
+Interestingly in the continuous case, the definition still looks familiar but it should be noted that plugging $x$ and $y$ values into the definition will not yield probabilities--one still requires integration over a set:
+$$
 \bbP(X \in A|Y=y) = \int_A f_{X|Y}(x|y) \dint x. 
-\]
-- We can rearrange the equations to yield $$f_{X|Y}(x|y)f_Y(y)=f_{Y|X}(y|x)f_X(x).$$
+$$
+
+Note that as a function of $x$, $f_{X|Y}(x|y)$ is indeed a pdf, since in the discrete case
+$$
+\sum_x f_{X|Y}(x|y) = \sum_x \frac{\bbP(X=x, Y=y)}{\bbP(Y=y)} = \frac{\bbP(Y=y)}{\bbP(Y=y)} = 1,
+$$
+and in the continuous case,
+$$
+\int f_{X|Y}(x|y) \dint x = \int \frac{f_{X,Y}(x, y)}{f_Y(y)} \dint x = \frac{f_Y(y)}{f_Y(y)} = 1.
+$$
+
+Finally, it's convenient to note that, just like as we saw for conditional probabilities, we can rearrange the equations to yield $$f_{X|Y}(x|y)f_Y(y)=f_{Y|X}(y|x)f_X(x).$$
 
 ::: {.example}
 Let $X$ and $Y$ have the joint pdf $f(x,y)=x+y$ for $0\leq x,y\leq 1$.
@@ -1530,21 +1753,28 @@ We can compute $\bbP(X<1/4|Y=1/3)$ by
 
 :::
 
+It is possible to also describe *conditional cdfs*.
+If we treat the conditional pmf/pdf $f(x|y)$ as a new pmf/pdf $g(x)$, then the cdf can be easily obtained in the usual way: $F(x|y)=G(x)=\bbP(X\in A|y)$.
+
 ### Independent random variables
 
 Previously we came across the concept of independence of probabilistic events.
-We can extend this notion to random variables.
+We can extend this notion to random variables using the conditional pmf/pdf definitions.
 
 :::{.definition name="Independece of r.v."}
-Two r.v. $X$ and $Y$ are independent if and only if for every $x\in\bbR$ and $y\in\bbR$, 
+Two random variables $X$ and $Y$ are independent if and only if for every $x\in\bbR$ and $y\in\bbR$, 
 \[
   f_{X,Y}(x,y) = f_X(x)f_Y(y).
 \]
 We write $X \perp Y$.
 :::
 
-- Apparently, if there exists functions $g(x)$ and $h(y)$ (not necessarily pdfs) such that $f(x,y)=g(x)h(y)$ for all $x,y$, then $X$ and $Y$ are independent.
-- The assumption of independence is used very often in statistical inference as it simplifies calculations quite a lot.
+Apparently, if there exists functions $g(x)$ and $h(y)$ (not necessarily pdfs) such that $f(x,y)=g(x)h(y)$ for all $x,y$, then $X$ and $Y$ are independent. 
+This is proven in Lemma 4.2.7 of C&B.
+Hence, verifying whether two random variables are independent is made easier, since we only need to separate out the components of $x$ and $y$ in the joint pdf without needing to check whether or not the components themselves are pdfs.
+
+The assumption of independence is used very often in statistical inference as it simplifies calculations quite a lot.
+We'll circle back to this thought when we talk about likelihood estimation.
 
 ::: {.example}
 
@@ -1559,14 +1789,11 @@ As a consequence, to generate a random sample from $(X,Y)$, one can randomly sam
 
 ## Expectations
 
-### Expected values
+The expected value, or expectation, of a random variable $X$ is its average value _weighted_ according to the probability distribution.
+Simply put, it signifies the *arithmetic mean* of a large number of independent realisations of $X$.
 
-The expected value, or expectation, of a random variable is merely its *average value* _weighted_ according to the probability distribution.
-It signifies the **typical value** of an observation of a random variable.
-
-
-\begin{definition}[Expectation]
-The expected value or mean of a r.v. of $X$, denoted $\E(X)$ is defined to be
+::: {.definition name="Expectation"}
+The *expected value* or *mean* of a random variable $X$, denoted $\E(X)$, is defined to be
 \[
 \E(X) = \begin{cases}
   \sum_x x f_X(x) = \sum_x x \bbP(X=x) &\text{if $X$ is discrete} \\
@@ -1574,14 +1801,21 @@ The expected value or mean of a r.v. of $X$, denoted $\E(X)$ is defined to be
 \end{cases}
 \]
 provided that the integral or sum exists (is finite). 
-\end{definition}
+:::
 
-- The symbol '$\mu$' is often used to denote the expected value. Other symbols used are $\E X$ and $\E[X]$.
-- The expectation is **not to be confused** with the sample mean of a set of observations $\{x_1,\dots,x_n \}$, i.e. $\bar x_n = \frac{1}{n} \sum_{i=1}^n x_i$.
+The symbol '$\mu$' is often used to denote the expected value. It may be represented by $\E X$, $\E[X]$ or even using $\bbE$ instead of $\E$.
+
+::: {.myalert}
+The expectation of a random variable is **not to be confused** with the *sample mean* of a set of observations $\{x_1,\dots,x_n \}$, i.e. $\bar x_n = \frac{1}{n} \sum_{i=1}^n x_i$.
+The expectation is a purely theoretical value based on probabilities and pdfs.
+The sample mean incorporates *randomness* into the calculations, by virtue of the randomness of the observed set of sample values.
+:::
+
+
 
 ::: {.example}
 Let $X \in \{0,1\}$ take value 1 with probability $p$, and 0 with probability $1-p$.
-$X$ is a Bernoulli r.v., and we write $X \sim \Bern(p)$.
+$X$ is called a Bernoulli random variable, and we write $X \sim \Bern(p)$.
 Then,
 
 \[
@@ -1591,12 +1825,17 @@ Then,
 
 
 ::: {.example}
-Let $X$ be a cts. r.v. such that $X\sim\Unif(a,b)$. Then
+Let $X$ be a continuous random variable with pdf $f(x)=\frac{1}{b-a}$, where $a,b\in\bbR$ and $a<b$.
+$X$ has what is called a uniform distribution on the interval $(a,b)$, and we write $X\sim\Unif(a,b)$. The mean of $X$ is
 
 \[
-\E(X) = \int_a^b  \frac{x}{b-a} = \frac{a+b}{2}.
+\E(X) = \int_a^b  \frac{x}{b-a} = \frac{a+b}{2},
 \]
+
+the midpoint of the interval $(a,b)$! This reveals some intuition regarding uniformity of the distribution.
 :::
+
+Do all random variables have expectations?
 
 ::: {.example}
 
@@ -1609,8 +1848,9 @@ ggplot(plot.df, aes(x, y)) +
   labs(y = expression(f[X](x)))
 ```
 
-Let $X$ be a cts. r.v. with pdf $f(x)=\{ \pi(1+x^2) \}^{-1}$ with support over $\bbR$. 
-This is the Cauchy distribution\footnote{Named after the French mathematician Augustin Cauchy, although in physics, it is often known by the Lorentz distribution after the Dutch Nobel Laureate Hendrik Lorentz.} with location and scale parameter 0 and 1 respectively.
+Let $X$ be a continuous random variable with pdf $f(x)=\{ \pi(1+x^2) \}^{-1}$ with support over $\bbR$. 
+This is the Cauchy distribution^[Named after the French mathematician Augustin Cauchy, although in physics, it is often known by the Lorentz distribution after the Dutch Nobel Laureate Hendrik Lorentz.] with location and scale parameter 0 and 1 respectively.
+Let's calculate the mean.
 
 Using the substitution $u = x^2 + 1$ and $\dint u/2 = x \dint x$, we find that
 \begin{align*}
@@ -1621,12 +1861,32 @@ Using the substitution $u = x^2 + 1$ and $\dint u/2 = x \dint x$, we find that
 &= \frac{1}{2\pi} \left[\log u \right]_{\infty}^{1} + \frac{1}{2\pi} \left[\log u \right]^{\infty}_{1} \\
 &= \frac{1}{2\pi} (\infty - \infty) = \ ???
 \end{align*}
-so the mean is undefined.
+
+
+The mean of the Cauchy distribution is undefined. 
+This seems a bit weird, since we can see that the pdf is somewhat bell-shaped with its peak at 0, so wouldn't we expect the mean to be zero?
+Not quite. 
+The highest peak of the bell curve is known as the *mode* of the distribution, and that indeed is well defined and is zero.
+The *median* is also well-defined, as this is the point at which half the distribution lies below, and half lies above it--the median is zero.
+The median exists because the area under the pdf curve must necessarily be equal to 1, a finite value.
+
+On the other hand, if we look at the plot of $xf(x)$ on the positive side of the real line, we see that the tail end does not drop fast enough for the area under the curve to be a finite number.
+
+```{r cauchy2, echo = FALSE, fig.height = 2}
+plot.df <- tibble(x = seq(0, 20, by = 0.01))
+plot.df$y <-plot.df$x * dcauchy(plot.df$x)
+ggplot(plot.df, aes(x, y)) +
+  geom_line() +
+  geom_hline(yintercept = 0, linetype = "dotted", col = "grey30") +
+  labs(y = expression(xf[X](x)))
+```
 
 :::
 
-
 ### Expectations of functions of r.v.
+
+
+
 
 Realise that if $X$ is a r.v., then any function of $X$, $g(X)$, is also a random variable^[We can even describe the distribution for any transformation of $X$, see  C\&B Sec 2.1.].
 Often time we will want to know the mean of $g(X)$.
