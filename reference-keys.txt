@@ -3,6 +3,7 @@ fig:wraparoundmeasureanim
 fig:revthomasbayes
 fig:generalcdf
 fig:areaunderpdf
+fig:bijective
 fig:unnamed-chunk-10
 fig:bivariateprob
 fig:gauss
@@ -31,13 +32,13 @@ identically-distributed-r.v.
 probability-functions
 probability-mass-function
 probability-density-functions
+transformations
 multiple-random-variables
 bivariate-distributions
 marginal-distributions
 conditional-distributions
 independent-random-variables
 expectations
-expected-values
 expectations-of-functions-of-r.v.
 properties-of-expectations
 variance
