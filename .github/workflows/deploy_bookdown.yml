@@ -135,7 +135,7 @@ jobs:
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}      
         run: |
-          Rscript -e 'install.packages(c("rmarkdown", "bookdown", "tidyverse", "iprior", "RefManageR", "pdftools", "ggpubr", "remotes", "gganimate", "gifski", "transformr", "magick", "ggExtra"))'
+          Rscript -e 'install.packages(c("rmarkdown", "bookdown", "tidyverse", "iprior", "RefManageR", "pdftools", "ggpubr", "remotes", "gganimate", "gifski", "transformr", "magick", "ggExtra", "plotly"))'
           Rscript -e 'remotes::install_github("nicolash2/ggbrace")'
           Rscript -e 'remotes::install_github("haziqj/iprobit")'          
          
