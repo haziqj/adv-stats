@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-29" />
+<meta name="date" content="2021-12-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,6 +53,13 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -209,7 +216,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.5.1" data-path="probability-functions.html"><a href="probability-functions.html#probability-mass-function"><i class="fa fa-check"></i><b>1.5.1</b> Probability mass function</a></li>
 <li class="chapter" data-level="1.5.2" data-path="probability-functions.html"><a href="probability-functions.html#probability-density-functions"><i class="fa fa-check"></i><b>1.5.2</b> Probability density functions</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>1.6</b> Transformations</a></li>
+<li class="chapter" data-level="1.6" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>1.6</b> Transformations</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="transformations.html"><a href="transformations.html#probability-integral-transform"><i class="fa fa-check"></i><b>1.6.1</b> Probability integral transform</a></li>
+</ul></li>
 <li class="chapter" data-level="1.7" data-path="multiple-random-variables.html"><a href="multiple-random-variables.html"><i class="fa fa-check"></i><b>1.7</b> Multiple random variables</a>
 <ul>
 <li class="chapter" data-level="1.7.1" data-path="multiple-random-variables.html"><a href="multiple-random-variables.html#bivariate-distributions"><i class="fa fa-check"></i><b>1.7.1</b> Bivariate distributions</a></li>
@@ -224,9 +234,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.8.3" data-path="expectations.html"><a href="expectations.html#variance"><i class="fa fa-check"></i><b>1.8.3</b> Variance</a></li>
 <li class="chapter" data-level="1.8.4" data-path="expectations.html"><a href="expectations.html#covariance-and-correlation"><i class="fa fa-check"></i><b>1.8.4</b> Covariance and correlation</a></li>
 <li class="chapter" data-level="1.8.5" data-path="expectations.html"><a href="expectations.html#properties-of-variances-and-covariances"><i class="fa fa-check"></i><b>1.8.5</b> Properties of variances and covariances</a></li>
-<li class="chapter" data-level="1.8.6" data-path="expectations.html"><a href="expectations.html#variance-covariance-matrix"><i class="fa fa-check"></i><b>1.8.6</b> Variance-covariance matrix</a></li>
-<li class="chapter" data-level="1.8.7" data-path="expectations.html"><a href="expectations.html#conditional-expectations"><i class="fa fa-check"></i><b>1.8.7</b> Conditional expectations</a></li>
-<li class="chapter" data-level="1.8.8" data-path="expectations.html"><a href="expectations.html#conditional-variance"><i class="fa fa-check"></i><b>1.8.8</b> Conditional variance</a></li>
+<li class="chapter" data-level="1.8.6" data-path="expectations.html"><a href="expectations.html#multivariate-means-and-covariances"><i class="fa fa-check"></i><b>1.8.6</b> Multivariate means and covariances</a></li>
+<li class="chapter" data-level="1.8.7" data-path="expectations.html"><a href="expectations.html#conditional-expectations-and-variance"><i class="fa fa-check"></i><b>1.8.7</b> Conditional expectations and variance</a></li>
+<li class="chapter" data-level="1.8.8" data-path="expectations.html"><a href="expectations.html#additional-explainers"><i class="fa fa-check"></i><b>1.8.8</b> Additional explainers</a></li>
 </ul></li>
 <li class="chapter" data-level="1.9" data-path="moment-generating-functions.html"><a href="moment-generating-functions.html"><i class="fa fa-check"></i><b>1.9</b> Moment generating functions</a>
 <ul>
@@ -492,7 +502,7 @@ In contrast, we might consider asymptotic properties which describe the behaviou
 <div id="consistency" class="section level3" number="4.8.1">
 <h3><span class="header-section-number">4.8.1</span> Consistency</h3>
 <div class="definition">
-<p><span id="def:unlabeled-div-126" class="definition"><strong>Definition 4.11  (Consistent estimator) </strong></span>An estimator <span class="math inline">\(\hat\theta_n := \hat\theta(X_1,\dots,X_n)\)</span> is a consistent estimator for <span class="math inline">\(\theta\)</span> if <span class="math inline">\(\hat\theta_n \to \theta\)</span> in probability as <span class="math inline">\(n\to\infty\)</span>.</p>
+<p><span id="def:unlabeled-div-133" class="definition"><strong>Definition 4.11  (Consistent estimator) </strong></span>An estimator <span class="math inline">\(\hat\theta_n := \hat\theta(X_1,\dots,X_n)\)</span> is a consistent estimator for <span class="math inline">\(\theta\)</span> if <span class="math inline">\(\hat\theta_n \to \theta\)</span> in probability as <span class="math inline">\(n\to\infty\)</span>.</p>
 </div>
 <p>Consistency is a natural condition for a reasonable estimator as
 <span class="math inline">\(\hat\theta_n\)</span> should converge to <span class="math inline">\(\theta\)</span> if we have a (theoretically)
@@ -518,7 +528,7 @@ sample size increases.</p></li>
 for one to be satisfied but not the other (see next example).
 As mentioned, and as we shall see, we are probably better off using a consistent but biased estimator rather than an inconsistent but unbiased estimator.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-127" class="example"><strong>Example 4.15  </strong></span>Let <span class="math inline">\(X_1,\dots,X_n\)</span> be a sample from <span class="math inline">\(\mathop{\mathrm{N}}(\mu,\sigma^2)\)</span>. Consider the following estimators for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>:</p>
+<p><span id="exm:unlabeled-div-134" class="example"><strong>Example 4.15  </strong></span>Let <span class="math inline">\(X_1,\dots,X_n\)</span> be a sample from <span class="math inline">\(\mathop{\mathrm{N}}(\mu,\sigma^2)\)</span>. Consider the following estimators for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>:</p>
 <ul>
 <li><span class="math inline">\(\hat\mu=X_1\)</span>; and</li>
 <li><span class="math inline">\(\hat\sigma^2=n^{-1}\sum_{i=1}^n (X_i-\bar X_n)^2\)</span></li>
@@ -553,7 +563,7 @@ That is, <span class="math inline">\(\psi(\hat\theta_n)\)</span> is a consistent
 <p>Efficiency of an estimator concerns the (asymptotic) variance of an estimator.
 The CRLB gives the benchmark for efficiency.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-128" class="definition"><strong>Definition 4.12  (Asymptotic efficiency) </strong></span>A sequence of estimators <span class="math inline">\(\hat\theta_n := \hat\theta(X_1,\dots,X_n)\)</span> is said to be asymptotically efficient for a parameter <span class="math inline">\(\theta\)</span> if
+<p><span id="def:unlabeled-div-135" class="definition"><strong>Definition 4.12  (Asymptotic efficiency) </strong></span>A sequence of estimators <span class="math inline">\(\hat\theta_n := \hat\theta(X_1,\dots,X_n)\)</span> is said to be asymptotically efficient for a parameter <span class="math inline">\(\theta\)</span> if
 <span class="math display">\[
 \sqrt n \big(\hat\theta_n - \theta \big) \xrightarrow{\text D} \mathop{\mathrm{N}}\big(0, v(\theta)\big),
 \]</span>
@@ -572,14 +582,14 @@ v(\theta) = \frac{1}{\mathop{\mathrm{E}}\left[\left(\frac{\partial}{\partial \th
 <h3><span class="header-section-number">4.8.5</span> Asymptotic normality and consistency</h3>
 <p>The phrase ‘efficient and consistent’ is somewhat redundant, because efficiency is defined only when the estimator is asymptotically normal, and as we shall show, asymptotic normality implies consistency.</p>
 <div class="lemma">
-<p><span id="lem:unlabeled-div-129" class="lemma"><strong>Lemma 4.3  </strong></span>Suppose that <span class="math inline">\(\hat\theta_n\)</span> is an estimator for <span class="math inline">\(\theta\)</span> such that
+<p><span id="lem:unlabeled-div-136" class="lemma"><strong>Lemma 4.3  </strong></span>Suppose that <span class="math inline">\(\hat\theta_n\)</span> is an estimator for <span class="math inline">\(\theta\)</span> such that
 <span class="math display">\[
 \frac{\sqrt n(\hat\theta_n - \theta)}{\sigma} \xrightarrow{\text D} \mathop{\mathrm{N}}(0,1)
 \]</span>
 then <span class="math inline">\(\hat\theta_n\)</span> is consistent for <span class="math inline">\(\theta\)</span>.</p>
 </div>
 <div class="proof">
-<p><span id="unlabeled-div-130" class="proof"><em>Proof</em>. </span>Notice that
+<p><span id="unlabeled-div-137" class="proof"><em>Proof</em>. </span>Notice that
 <span class="math display">\[
 \hat\theta_n - \theta = \frac{\sigma}{\sqrt n}\frac{\sqrt n(\hat\theta_n - \theta)}{\sigma} \xrightarrow{\text D} 0
 \]</span>
@@ -590,7 +600,7 @@ by Slutzky’s theorem. Thus, <span class="math inline">\(\hat\theta_n -\theta \
 <h3><span class="header-section-number">4.8.6</span> Efficiency of MLE</h3>
 <p>We’ve seen that MLEs are consistent. Under even stronger regularity conditions, we find that they are also efficient.</p>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-131" class="theorem"><strong>Theorem 4.6  (Asymptotic efficiency of MLE) </strong></span>Let <span class="math inline">\(X_1,\dots,X_n \,\overset{\text{iid}}{\sim}\,f(x|\theta)\)</span>, and let <span class="math inline">\(\hat\theta_n:=\mathop{\mathrm{arg\,max}}_\theta L(\theta|{\boldsymbol X})\)</span> denote the MLE of <span class="math inline">\(\theta\)</span>. Under certain regularity conditions, we have that
+<p><span id="thm:unlabeled-div-138" class="theorem"><strong>Theorem 4.6  (Asymptotic efficiency of MLE) </strong></span>Let <span class="math inline">\(X_1,\dots,X_n \,\overset{\text{iid}}{\sim}\,f(x|\theta)\)</span>, and let <span class="math inline">\(\hat\theta_n:=\mathop{\mathrm{arg\,max}}_\theta L(\theta|{\boldsymbol X})\)</span> denote the MLE of <span class="math inline">\(\theta\)</span>. Under certain regularity conditions, we have that
 <span class="math display">\[
 \sqrt n (\hat\theta_n - \theta ) \xrightarrow{\text D} \mathop{\mathrm{N}}\big(0, {\mathcal I}_1(\theta)^{-1}\big), 
 \]</span>
@@ -598,7 +608,7 @@ where <span class="math inline">\({\mathcal I}_1(\theta)\)</span> is the (unit) 
 </div>
 <p>In fact, this theorem also holds more widely–the restriction to iid cases presents a simple proof, but is not essential.</p>
 <div class="proof">
-<p><span id="unlabeled-div-132" class="proof"><em>Proof</em> (Sketch). </span>Taylor expand the score <span class="math inline">\(l&#39;(t|{\boldsymbol X})\)</span> about the parameter value <span class="math inline">\(\theta\)</span>:
+<p><span id="unlabeled-div-139" class="proof"><em>Proof</em> (Sketch). </span>Taylor expand the score <span class="math inline">\(l&#39;(t|{\boldsymbol X})\)</span> about the parameter value <span class="math inline">\(\theta\)</span>:
 <span class="math display">\[
 l&#39;(t|{\boldsymbol X}) = l&#39;(\theta|{\boldsymbol X}) + (t - \theta)l&#39;&#39;(\theta|{\boldsymbol X}) 
 \]</span>
@@ -653,7 +663,7 @@ This is not usually the best choice, however.</p></li>
 which is based directly on the curvature of the log-likelihood of <span class="math inline">\(\hat\theta\)</span>.</p></li>
 </ol>
 <div class="example">
-<p><span id="exm:unlabeled-div-133" class="example"><strong>Example 4.16  </strong></span>Suppose that <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{Poi}}(\lambda)\)</span>. Then</p>
+<p><span id="exm:unlabeled-div-140" class="example"><strong>Example 4.16  </strong></span>Suppose that <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{Poi}}(\lambda)\)</span>. Then</p>
 <p><span class="math display">\[\begin{align*}
 l(\lambda|{\boldsymbol X}) &amp;= \text{const.}- n\lambda +\sum_{i=1}^n X_i \log \lambda \\
 l&#39;(\lambda|{\boldsymbol X}) &amp;= - n +\sum_{i=1}^n X_i / \lambda \\ 

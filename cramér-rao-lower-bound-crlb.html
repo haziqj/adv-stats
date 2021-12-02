@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-29" />
+<meta name="date" content="2021-12-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,6 +53,13 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -209,7 +216,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.5.1" data-path="probability-functions.html"><a href="probability-functions.html#probability-mass-function"><i class="fa fa-check"></i><b>1.5.1</b> Probability mass function</a></li>
 <li class="chapter" data-level="1.5.2" data-path="probability-functions.html"><a href="probability-functions.html#probability-density-functions"><i class="fa fa-check"></i><b>1.5.2</b> Probability density functions</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>1.6</b> Transformations</a></li>
+<li class="chapter" data-level="1.6" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>1.6</b> Transformations</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="transformations.html"><a href="transformations.html#probability-integral-transform"><i class="fa fa-check"></i><b>1.6.1</b> Probability integral transform</a></li>
+</ul></li>
 <li class="chapter" data-level="1.7" data-path="multiple-random-variables.html"><a href="multiple-random-variables.html"><i class="fa fa-check"></i><b>1.7</b> Multiple random variables</a>
 <ul>
 <li class="chapter" data-level="1.7.1" data-path="multiple-random-variables.html"><a href="multiple-random-variables.html#bivariate-distributions"><i class="fa fa-check"></i><b>1.7.1</b> Bivariate distributions</a></li>
@@ -224,9 +234,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.8.3" data-path="expectations.html"><a href="expectations.html#variance"><i class="fa fa-check"></i><b>1.8.3</b> Variance</a></li>
 <li class="chapter" data-level="1.8.4" data-path="expectations.html"><a href="expectations.html#covariance-and-correlation"><i class="fa fa-check"></i><b>1.8.4</b> Covariance and correlation</a></li>
 <li class="chapter" data-level="1.8.5" data-path="expectations.html"><a href="expectations.html#properties-of-variances-and-covariances"><i class="fa fa-check"></i><b>1.8.5</b> Properties of variances and covariances</a></li>
-<li class="chapter" data-level="1.8.6" data-path="expectations.html"><a href="expectations.html#variance-covariance-matrix"><i class="fa fa-check"></i><b>1.8.6</b> Variance-covariance matrix</a></li>
-<li class="chapter" data-level="1.8.7" data-path="expectations.html"><a href="expectations.html#conditional-expectations"><i class="fa fa-check"></i><b>1.8.7</b> Conditional expectations</a></li>
-<li class="chapter" data-level="1.8.8" data-path="expectations.html"><a href="expectations.html#conditional-variance"><i class="fa fa-check"></i><b>1.8.8</b> Conditional variance</a></li>
+<li class="chapter" data-level="1.8.6" data-path="expectations.html"><a href="expectations.html#multivariate-means-and-covariances"><i class="fa fa-check"></i><b>1.8.6</b> Multivariate means and covariances</a></li>
+<li class="chapter" data-level="1.8.7" data-path="expectations.html"><a href="expectations.html#conditional-expectations-and-variance"><i class="fa fa-check"></i><b>1.8.7</b> Conditional expectations and variance</a></li>
+<li class="chapter" data-level="1.8.8" data-path="expectations.html"><a href="expectations.html#additional-explainers"><i class="fa fa-check"></i><b>1.8.8</b> Additional explainers</a></li>
 </ul></li>
 <li class="chapter" data-level="1.9" data-path="moment-generating-functions.html"><a href="moment-generating-functions.html"><i class="fa fa-check"></i><b>1.9</b> Moment generating functions</a>
 <ul>
@@ -483,7 +493,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>It is difficult to find an estimator which simultaneously is low in bias and variance.
 If we instead focus on a class of <em>unbiased</em> estimators, then we have a theorem to benchmark their performance.</p>
 <div class="theorem">
-<p><span id="thm:crlb" class="theorem"><strong>Theorem 4.3  (Cramér-Rao inequality for unbiased estimators) </strong></span>Let <span class="math inline">\({\boldsymbol X}\sim f({\boldsymbol x}|\theta)\)</span> satisfying some regularity conditions<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a>
+<p><span id="thm:crlb" class="theorem"><strong>Theorem 4.3  (Cramér-Rao inequality for unbiased estimators) </strong></span>Let <span class="math inline">\({\boldsymbol X}\sim f({\boldsymbol x}|\theta)\)</span> satisfying some regularity conditions<a href="#fn29" class="footnote-ref" id="fnref29"><sup>29</sup></a>
 Let <span class="math inline">\(\hat\theta=\hat\theta({\boldsymbol X})\)</span> be an  estimator, i.e. <span class="math inline">\(\mathop{\mathrm{E}}_\theta(\hat\theta)=\theta\)</span>.
 Then, for any <span class="math inline">\(\theta\in\Theta\)</span>,</p>
 <p><span class="math display">\[\mathop{\mathrm{Var}}_\theta(\hat\theta) \geq \frac{1}{\mathop{\mathrm{E}}_\theta\left[\left(\frac{\partial}{\partial \theta} \log f({\boldsymbol X}|\theta) \right)^2\right]}.\]</span></p>
@@ -491,7 +501,7 @@ Then, for any <span class="math inline">\(\theta\in\Theta\)</span>,</p>
 <p>If an estimator’s variance is close to the CRLB, it can be regarded as <em>efficient</em>.
 A class of estimators achieving the CRLB are said to be <em>optimal</em>, known as the <em>minimum variance unbiased estimator (MVUE)</em>. Although, the CRLB is not necessarily achieved by any estimator.</p>
 <div class="proof">
-<p><span id="unlabeled-div-117" class="proof"><em>Proof</em>. </span>The proof is an application of the Cauchy-Schwarz inequality via the covariance inequality
+<p><span id="unlabeled-div-124" class="proof"><em>Proof</em>. </span>The proof is an application of the Cauchy-Schwarz inequality via the covariance inequality
 <span class="math display">\[
 \mathop{\mathrm{Var}}(Y) \geq \frac{\{\mathop{\mathrm{Cov}}(Y,U)\}^2}{\mathop{\mathrm{Var}}(U)}
 \]</span></p>
@@ -533,7 +543,7 @@ which completes the proof.</p>
 <h3><span class="header-section-number">4.7.1</span> Fisher information</h3>
 <p>The quantity in the RHS denominator of Theorem <a href="cramér-rao-lower-bound-crlb.html#thm:crlb">4.3</a> is known as the <em>information number</em> or <em>Fisher information</em>.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-118" class="definition"><strong>Definition 4.10  (Fisher information (unidimensional)) </strong></span>Let <span class="math inline">\({\boldsymbol X}\sim f({\boldsymbol x}|\theta)\)</span>, where <span class="math inline">\(\theta\in\mathbb{R}\)</span>.
+<p><span id="def:unlabeled-div-125" class="definition"><strong>Definition 4.10  (Fisher information (unidimensional)) </strong></span>Let <span class="math inline">\({\boldsymbol X}\sim f({\boldsymbol x}|\theta)\)</span>, where <span class="math inline">\(\theta\in\mathbb{R}\)</span>.
 The Fisher information is defined to be the expectation of the second
 moment of the score function, i.e.
 <span class="math display">\[{\mathcal I}(\theta) = \mathop{\mathrm{E}}\left[ \left( \frac{\partial}{\partial \theta} \log f({\boldsymbol X}|\theta) \right)^2 \right] \in \mathbb{R}\]</span></p>
@@ -543,7 +553,7 @@ moment of the score function, i.e.
 <p>The Fisher information for multidimensional parameters can be defined similarly (c.f. Fisher information matrix).</p>
 </div>
 <div class="lemma">
-<p><span id="lem:unlabeled-div-119" class="lemma"><strong>Lemma 4.1  </strong></span>Let <span class="math inline">\({\boldsymbol X}\sim f({\boldsymbol x}|\theta)\)</span>, where <span class="math inline">\(\theta\in\mathbb{R}\)</span>, and <span class="math inline">\(S(\theta)=\frac{\partial}{\partial \theta} \log f({\boldsymbol X}|\theta)\)</span>. Under certain regularity conditions,</p>
+<p><span id="lem:unlabeled-div-126" class="lemma"><strong>Lemma 4.1  </strong></span>Let <span class="math inline">\({\boldsymbol X}\sim f({\boldsymbol x}|\theta)\)</span>, where <span class="math inline">\(\theta\in\mathbb{R}\)</span>, and <span class="math inline">\(S(\theta)=\frac{\partial}{\partial \theta} \log f({\boldsymbol X}|\theta)\)</span>. Under certain regularity conditions,</p>
 <ul>
 <li><span class="math inline">\(\mathop{\mathrm{E}}[S(\theta)] = 0\)</span>.</li>
 <li><span class="math inline">\({\mathcal I}(\theta) = \mathop{\mathrm{Var}}[S(\theta)]\)</span>.</li>
@@ -554,15 +564,15 @@ moment of the score function, i.e.
 <p>To be proven in Ex. sheet 4!</p>
 </div>
 <div class="lemma">
-<p><span id="lem:unlabeled-div-120" class="lemma"><strong>Lemma 4.2  (Fisher information is additive) </strong></span>Let <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,f(x|\theta)\)</span>. Suppose <span class="math inline">\({\mathcal I}_1(\theta)\)</span> is the Fisher information from a single observation <span class="math inline">\(X_i\)</span>, i.e. <span class="math inline">\({\mathcal I}_1(\theta) = -\mathop{\mathrm{E}}[l&#39;&#39;(\theta|X_i)]\)</span>. Then the full Fisher information is <span class="math inline">\({\mathcal I}(\theta) = n{\mathcal I}_1(\theta)\)</span>.</p>
+<p><span id="lem:unlabeled-div-127" class="lemma"><strong>Lemma 4.2  (Fisher information is additive) </strong></span>Let <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,f(x|\theta)\)</span>. Suppose <span class="math inline">\({\mathcal I}_1(\theta)\)</span> is the Fisher information from a single observation <span class="math inline">\(X_i\)</span>, i.e. <span class="math inline">\({\mathcal I}_1(\theta) = -\mathop{\mathrm{E}}[l&#39;&#39;(\theta|X_i)]\)</span>. Then the full Fisher information is <span class="math inline">\({\mathcal I}(\theta) = n{\mathcal I}_1(\theta)\)</span>.</p>
 </div>
 <div class="proof">
-<p><span id="unlabeled-div-121" class="proof"><em>Proof</em>. </span><span class="math display">\[
+<p><span id="unlabeled-div-128" class="proof"><em>Proof</em>. </span><span class="math display">\[
 {\mathcal I}(\theta) = -\mathop{\mathrm{E}}[l&#39;&#39;(\theta|{\boldsymbol X})] = -\mathop{\mathrm{E}}\left[\sum_{i=1}^n l&#39;&#39;(\theta|X_i)\right]
 \]</span></p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-122" class="example"><strong>Example 4.13  </strong></span>Let <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{N}}(\mu,\sigma^2)\)</span>. Let <span class="math inline">\(\hat\mu=\bar X_n\)</span>; then <span class="math inline">\(\mathop{\mathrm{Var}}(\hat\mu)=\sigma^2/n\)</span>. The score function is given as
+<p><span id="exm:unlabeled-div-129" class="example"><strong>Example 4.13  </strong></span>Let <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{N}}(\mu,\sigma^2)\)</span>. Let <span class="math inline">\(\hat\mu=\bar X_n\)</span>; then <span class="math inline">\(\mathop{\mathrm{Var}}(\hat\mu)=\sigma^2/n\)</span>. The score function is given as
 <span class="math display">\[
 l&#39;(\mu|{\boldsymbol X}) = \frac{\partial}{\partial\mu} \left(\text{const.}- \sum_{i=1}^n \frac{(X_i-\mu)^2}{2\sigma^2} \right) = \sum_{i=1}^n \frac{X_i-\mu}{\sigma^2},
 \]</span>
@@ -577,7 +587,7 @@ Hence, the CRLB is <span class="math inline">\(\sigma^2/n\)</span>, and the esti
 <h3><span class="header-section-number">4.7.2</span> Variance reduction: Rao-Blackwellisation</h3>
 <p>We can reduce the variance of an unbiased estimator by conditioning on a sufficient statistic.</p>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-123" class="theorem"><strong>Theorem 4.4  (Rao-Blackwell) </strong></span>Suppose that <span class="math inline">\(U({\boldsymbol X})\)</span> is unbiased for <span class="math inline">\(\theta\)</span>, and <span class="math inline">\(S({\boldsymbol X})\)</span> is sufficient for <span class="math inline">\(\theta\)</span>.
+<p><span id="thm:unlabeled-div-130" class="theorem"><strong>Theorem 4.4  (Rao-Blackwell) </strong></span>Suppose that <span class="math inline">\(U({\boldsymbol X})\)</span> is unbiased for <span class="math inline">\(\theta\)</span>, and <span class="math inline">\(S({\boldsymbol X})\)</span> is sufficient for <span class="math inline">\(\theta\)</span>.
 Then the function of <span class="math inline">\(S\)</span> defined by
 <span class="math display">\[
 \phi(S) = \mathop{\mathrm{E}}_\theta(U|S)
@@ -591,7 +601,7 @@ Then the function of <span class="math inline">\(S\)</span> defined by
 <p>In other words, <span class="math inline">\(\phi(S)\)</span> is a uniformly better unbiased estimator for <span class="math inline">\(\theta\)</span>.
 Thus the Rao-Blackwell theorem provides a systematic method of variance reduction for an estimator that is not a function of the sufficient statistic.</p>
 <div class="proof">
-<p><span id="unlabeled-div-124" class="proof"><em>Proof</em>. </span>Since <span class="math inline">\(S\)</span> is sufficient, the distribution of <span class="math inline">\({\boldsymbol X}\)</span> given <span class="math inline">\(S\)</span> does not involve <span class="math inline">\(\theta\)</span>, and hence <span class="math inline">\(\mathop{\mathrm{E}}_\theta(U({\boldsymbol X})|S)\)</span> does not involve <span class="math inline">\(\theta\)</span>. Further, <span class="math inline">\(\mathop{\mathrm{E}}(\phi(S)) = \mathop{\mathrm{E}}\left[ \mathop{\mathrm{E}}(U|S) \right] = \mathop{\mathrm{E}}(U) = \theta\)</span>.</p>
+<p><span id="unlabeled-div-131" class="proof"><em>Proof</em>. </span>Since <span class="math inline">\(S\)</span> is sufficient, the distribution of <span class="math inline">\({\boldsymbol X}\)</span> given <span class="math inline">\(S\)</span> does not involve <span class="math inline">\(\theta\)</span>, and hence <span class="math inline">\(\mathop{\mathrm{E}}_\theta(U({\boldsymbol X})|S)\)</span> does not involve <span class="math inline">\(\theta\)</span>. Further, <span class="math inline">\(\mathop{\mathrm{E}}(\phi(S)) = \mathop{\mathrm{E}}\left[ \mathop{\mathrm{E}}(U|S) \right] = \mathop{\mathrm{E}}(U) = \theta\)</span>.</p>
 <p>To prove the last part, note that</p>
 <p><span class="math display">\[\begin{align*}
 \mathop{\mathrm{Var}}(U) 
@@ -602,7 +612,7 @@ Thus the Rao-Blackwell theorem provides a systematic method of variance reductio
 <p>with equality iff <span class="math inline">\(\mathop{\mathrm{Var}}(U|S) =0\)</span>, i.e. iff <span class="math inline">\(U\)</span> is a function of <span class="math inline">\(S\)</span>.</p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-125" class="example"><strong>Example 4.14  </strong></span>Suppose we have data <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{Poi}}(\lambda)\)</span> pertaining to the number of road accidents per day, and we want to estimate the probability of having no accidents <span class="math inline">\(\theta = e^{-\lambda}=\Pr(X_i=0)\)</span>.</p>
+<p><span id="exm:unlabeled-div-132" class="example"><strong>Example 4.14  </strong></span>Suppose we have data <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{Poi}}(\lambda)\)</span> pertaining to the number of road accidents per day, and we want to estimate the probability of having no accidents <span class="math inline">\(\theta = e^{-\lambda}=\Pr(X_i=0)\)</span>.</p>
 <p>An unbiased estimator of <span class="math inline">\(\theta\)</span> is</p>
 <p><span class="math display">\[
 U({\boldsymbol X}) = \begin{cases}
@@ -634,8 +644,8 @@ A similar calculation can give us the variance of this estimator.</p>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="26">
-<li id="fn26"><p>These regularity conditions are essentially that we are able to switch the order of integration and differentiation, and that the <span class="math inline">\(\mathop{\mathrm{Var}}_\theta(\hat\theta)&lt;\infty\)</span>. See Thm 7.3.9 of C&amp;B.<a href="cramér-rao-lower-bound-crlb.html#fnref26" class="footnote-back">↩︎</a></p></li>
+<ol start="29">
+<li id="fn29"><p>These regularity conditions are essentially that we are able to switch the order of integration and differentiation, and that the <span class="math inline">\(\mathop{\mathrm{Var}}_\theta(\hat\theta)&lt;\infty\)</span>. See Thm 7.3.9 of C&amp;B.<a href="cramér-rao-lower-bound-crlb.html#fnref29" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

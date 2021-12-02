@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-29" />
+<meta name="date" content="2021-12-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,6 +53,13 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -209,7 +216,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.5.1" data-path="probability-functions.html"><a href="probability-functions.html#probability-mass-function"><i class="fa fa-check"></i><b>1.5.1</b> Probability mass function</a></li>
 <li class="chapter" data-level="1.5.2" data-path="probability-functions.html"><a href="probability-functions.html#probability-density-functions"><i class="fa fa-check"></i><b>1.5.2</b> Probability density functions</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>1.6</b> Transformations</a></li>
+<li class="chapter" data-level="1.6" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>1.6</b> Transformations</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="transformations.html"><a href="transformations.html#probability-integral-transform"><i class="fa fa-check"></i><b>1.6.1</b> Probability integral transform</a></li>
+</ul></li>
 <li class="chapter" data-level="1.7" data-path="multiple-random-variables.html"><a href="multiple-random-variables.html"><i class="fa fa-check"></i><b>1.7</b> Multiple random variables</a>
 <ul>
 <li class="chapter" data-level="1.7.1" data-path="multiple-random-variables.html"><a href="multiple-random-variables.html#bivariate-distributions"><i class="fa fa-check"></i><b>1.7.1</b> Bivariate distributions</a></li>
@@ -224,9 +234,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.8.3" data-path="expectations.html"><a href="expectations.html#variance"><i class="fa fa-check"></i><b>1.8.3</b> Variance</a></li>
 <li class="chapter" data-level="1.8.4" data-path="expectations.html"><a href="expectations.html#covariance-and-correlation"><i class="fa fa-check"></i><b>1.8.4</b> Covariance and correlation</a></li>
 <li class="chapter" data-level="1.8.5" data-path="expectations.html"><a href="expectations.html#properties-of-variances-and-covariances"><i class="fa fa-check"></i><b>1.8.5</b> Properties of variances and covariances</a></li>
-<li class="chapter" data-level="1.8.6" data-path="expectations.html"><a href="expectations.html#variance-covariance-matrix"><i class="fa fa-check"></i><b>1.8.6</b> Variance-covariance matrix</a></li>
-<li class="chapter" data-level="1.8.7" data-path="expectations.html"><a href="expectations.html#conditional-expectations"><i class="fa fa-check"></i><b>1.8.7</b> Conditional expectations</a></li>
-<li class="chapter" data-level="1.8.8" data-path="expectations.html"><a href="expectations.html#conditional-variance"><i class="fa fa-check"></i><b>1.8.8</b> Conditional variance</a></li>
+<li class="chapter" data-level="1.8.6" data-path="expectations.html"><a href="expectations.html#multivariate-means-and-covariances"><i class="fa fa-check"></i><b>1.8.6</b> Multivariate means and covariances</a></li>
+<li class="chapter" data-level="1.8.7" data-path="expectations.html"><a href="expectations.html#conditional-expectations-and-variance"><i class="fa fa-check"></i><b>1.8.7</b> Conditional expectations and variance</a></li>
+<li class="chapter" data-level="1.8.8" data-path="expectations.html"><a href="expectations.html#additional-explainers"><i class="fa fa-check"></i><b>1.8.8</b> Additional explainers</a></li>
 </ul></li>
 <li class="chapter" data-level="1.9" data-path="moment-generating-functions.html"><a href="moment-generating-functions.html"><i class="fa fa-check"></i><b>1.9</b> Moment generating functions</a>
 <ul>
@@ -482,7 +492,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">5.5</span> One-sided tests</h2>
 <p>Sometimes we wish to measure the evidence (against <span class="math inline">\(H_0\)</span>) in one direction only.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-143" class="example"><strong>Example 5.6  </strong></span>Suppose <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{N}}(\mu,\sigma^2)\)</span> with <span class="math inline">\(\sigma^2\)</span> known. Consider testing
+<p><span id="exm:unlabeled-div-150" class="example"><strong>Example 5.6  </strong></span>Suppose <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{N}}(\mu,\sigma^2)\)</span> with <span class="math inline">\(\sigma^2\)</span> known. Consider testing
 <span class="math display">\[
 H_0: \mu \leq 0 \hspace{1em}\text{v.s.}\hspace{1em} H_1: \mu &gt; 0
 \]</span>

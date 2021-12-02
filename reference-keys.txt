@@ -4,8 +4,11 @@ fig:revthomasbayes
 fig:generalcdf
 fig:areaunderpdf
 fig:bijective
+fig:pitflatcdf
+fig:pitexampleplot
 fig:unnamed-chunk-10
 fig:bivariateprob
+fig:condexp3
 fig:gauss
 fig:deutschemark
 fig:exppoissonprocess
@@ -33,6 +36,7 @@ probability-functions
 probability-mass-function
 probability-density-functions
 transformations
+probability-integral-transform
 multiple-random-variables
 bivariate-distributions
 marginal-distributions
@@ -44,9 +48,9 @@ properties-of-expectations
 variance
 covariance-and-correlation
 properties-of-variances-and-covariances
-variance-covariance-matrix
-conditional-expectations
-conditional-variance
+multivariate-means-and-covariances
+conditional-expectations-and-variance
+additional-explainers
 moment-generating-functions
 moment-generating-functions-1
 generating-moments

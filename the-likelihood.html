@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-29" />
+<meta name="date" content="2021-12-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,6 +53,13 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -209,7 +216,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.5.1" data-path="probability-functions.html"><a href="probability-functions.html#probability-mass-function"><i class="fa fa-check"></i><b>1.5.1</b> Probability mass function</a></li>
 <li class="chapter" data-level="1.5.2" data-path="probability-functions.html"><a href="probability-functions.html#probability-density-functions"><i class="fa fa-check"></i><b>1.5.2</b> Probability density functions</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>1.6</b> Transformations</a></li>
+<li class="chapter" data-level="1.6" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>1.6</b> Transformations</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="transformations.html"><a href="transformations.html#probability-integral-transform"><i class="fa fa-check"></i><b>1.6.1</b> Probability integral transform</a></li>
+</ul></li>
 <li class="chapter" data-level="1.7" data-path="multiple-random-variables.html"><a href="multiple-random-variables.html"><i class="fa fa-check"></i><b>1.7</b> Multiple random variables</a>
 <ul>
 <li class="chapter" data-level="1.7.1" data-path="multiple-random-variables.html"><a href="multiple-random-variables.html#bivariate-distributions"><i class="fa fa-check"></i><b>1.7.1</b> Bivariate distributions</a></li>
@@ -224,9 +234,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.8.3" data-path="expectations.html"><a href="expectations.html#variance"><i class="fa fa-check"></i><b>1.8.3</b> Variance</a></li>
 <li class="chapter" data-level="1.8.4" data-path="expectations.html"><a href="expectations.html#covariance-and-correlation"><i class="fa fa-check"></i><b>1.8.4</b> Covariance and correlation</a></li>
 <li class="chapter" data-level="1.8.5" data-path="expectations.html"><a href="expectations.html#properties-of-variances-and-covariances"><i class="fa fa-check"></i><b>1.8.5</b> Properties of variances and covariances</a></li>
-<li class="chapter" data-level="1.8.6" data-path="expectations.html"><a href="expectations.html#variance-covariance-matrix"><i class="fa fa-check"></i><b>1.8.6</b> Variance-covariance matrix</a></li>
-<li class="chapter" data-level="1.8.7" data-path="expectations.html"><a href="expectations.html#conditional-expectations"><i class="fa fa-check"></i><b>1.8.7</b> Conditional expectations</a></li>
-<li class="chapter" data-level="1.8.8" data-path="expectations.html"><a href="expectations.html#conditional-variance"><i class="fa fa-check"></i><b>1.8.8</b> Conditional variance</a></li>
+<li class="chapter" data-level="1.8.6" data-path="expectations.html"><a href="expectations.html#multivariate-means-and-covariances"><i class="fa fa-check"></i><b>1.8.6</b> Multivariate means and covariances</a></li>
+<li class="chapter" data-level="1.8.7" data-path="expectations.html"><a href="expectations.html#conditional-expectations-and-variance"><i class="fa fa-check"></i><b>1.8.7</b> Conditional expectations and variance</a></li>
+<li class="chapter" data-level="1.8.8" data-path="expectations.html"><a href="expectations.html#additional-explainers"><i class="fa fa-check"></i><b>1.8.8</b> Additional explainers</a></li>
 </ul></li>
 <li class="chapter" data-level="1.9" data-path="moment-generating-functions.html"><a href="moment-generating-functions.html"><i class="fa fa-check"></i><b>1.9</b> Moment generating functions</a>
 <ul>
@@ -500,7 +510,7 @@ is called the <em>likelihood function</em> for <span class="math inline">\(\thet
 <p>The purpose of <span class="math inline">\(L(\theta|{\boldsymbol x})\)</span> is to compare the <em>plausibility</em> of different candidate values of <span class="math inline">\(\theta\)</span>, given the observed data <span class="math inline">\({\boldsymbol x}\)</span>.</p>
 <p>If <span class="math inline">\(L(\theta_1|{\boldsymbol x}) &gt; L(\theta_2|{\boldsymbol x})\)</span>, then the data <span class="math inline">\({\boldsymbol x}\)</span> were more likely to occur under the hypothesis that <span class="math inline">\(\theta=\theta_1\)</span> than under the hypothesis that <span class="math inline">\(\theta=\theta_2\)</span>. In that sense, <span class="math inline">\(\theta_1\)</span> is a more plausible value than <span class="math inline">\(\theta_2\)</span> for the unknown parameter <span class="math inline">\(\theta\)</span>.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-94" class="example"><strong>Example 4.1  </strong></span>Consider a sequence of <span class="math inline">\(n\)</span> coin tosses, and let <span class="math inline">\(X_i\)</span> denote the outcome of the <span class="math inline">\(i\)</span>th coin toss. Assume that <span class="math inline">\(X_i\sim\mathop{\mathrm{Bern}}(p)\)</span>, where <span class="math inline">\(p\)</span> is the probability of heads. We know that the total number of heads <span class="math inline">\(\sum_{i=1}^n X_i\)</span> is distributed <span class="math inline">\(\mathop{\mathrm{Bin}}(n,p)\)</span>.</p>
+<p><span id="exm:unlabeled-div-101" class="example"><strong>Example 4.1  </strong></span>Consider a sequence of <span class="math inline">\(n\)</span> coin tosses, and let <span class="math inline">\(X_i\)</span> denote the outcome of the <span class="math inline">\(i\)</span>th coin toss. Assume that <span class="math inline">\(X_i\sim\mathop{\mathrm{Bern}}(p)\)</span>, where <span class="math inline">\(p\)</span> is the probability of heads. We know that the total number of heads <span class="math inline">\(\sum_{i=1}^n X_i\)</span> is distributed <span class="math inline">\(\mathop{\mathrm{Bin}}(n,p)\)</span>.</p>
 <p>Suppose the outcome of <span class="math inline">\(n=10\)</span> coin tosses happens to be
 <span class="math display">\[{\boldsymbol x}= \{H, T, H, T, T, H, H, T, H, H \}.\]</span>
 Then <span class="math inline">\(L(0.6|{\boldsymbol x}) &gt; L(0.5|{\boldsymbol x})\)</span>.</p>
@@ -508,13 +518,13 @@ Then <span class="math inline">\(L(0.6|{\boldsymbol x}) &gt; L(0.5|{\boldsymbol 
 <div id="calculating-the-likelihood" class="section level3" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Calculating the likelihood</h3>
 <p>In <code>R</code>, the function <code>dbinom()</code> computes the pmf for the binomial distribution. That is, suppose that we have <span class="math inline">\(X\sim\mathop{\mathrm{Bin}}(10,0.6)\)</span> and we wanted to calculate <span class="math inline">\(\Pr(X=x)\)</span> we type</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="the-likelihood.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.6</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-2"><a href="the-likelihood.html#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="the-likelihood.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.6</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-2"><a href="the-likelihood.html#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##  [1] 0.0001 0.0016 0.0106 0.0425 0.1115 0.2007 0.2508 0.2150 0.1209 0.0403
 ## [11] 0.0060</code></pre>
 <p>Since <span class="math inline">\(L(\theta|{\boldsymbol x}) = f({\boldsymbol x}|\theta)\)</span>, we use the same <code>dbinom()</code> to calculate the likelihood, except now we are interested in the value of the likelihood of a range of parameter values <span class="math inline">\(p\in[0,1]\)</span> given a particular occurrence (e.g. getting 6 heads):</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="the-likelihood.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">6</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-2"><a href="the-likelihood.html#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="the-likelihood.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">6</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-2"><a href="the-likelihood.html#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##  [1] 0.0000 0.0001 0.0055 0.0368 0.1115 0.2051 0.2508 0.2001 0.0881 0.0112
 ## [11] 0.0000</code></pre>
 <p>Plot of the likelihood</p>
@@ -523,7 +533,7 @@ Then <span class="math inline">\(L(0.6|{\boldsymbol x}) &gt; L(0.5|{\boldsymbol 
 <div id="likelihood-ratio" class="section level3" number="4.1.2">
 <h3><span class="header-section-number">4.1.2</span> Likelihood ratio</h3>
 <div class="definition">
-<p><span id="def:unlabeled-div-95" class="definition"><strong>Definition 4.1  (Likelihood ratio) </strong></span>The relative plausibility of candidate parameter values, <span class="math inline">\(\theta_1\)</span> and <span class="math inline">\(\theta_2\)</span> say, is measured by the likelihood ratio</p>
+<p><span id="def:unlabeled-div-102" class="definition"><strong>Definition 4.1  (Likelihood ratio) </strong></span>The relative plausibility of candidate parameter values, <span class="math inline">\(\theta_1\)</span> and <span class="math inline">\(\theta_2\)</span> say, is measured by the likelihood ratio</p>
 <p><span class="math display">\[
 \frac{L(\theta_1|{\boldsymbol x})}{L(\theta_2|{\boldsymbol x})}
 \]</span></p>
@@ -531,7 +541,7 @@ Then <span class="math inline">\(L(0.6|{\boldsymbol x}) &gt; L(0.5|{\boldsymbol 
 <p>Interpretation: for example, if <span class="math inline">\(\frac{L(\theta_1|{\boldsymbol x})}{L(\theta_2|{\boldsymbol x})} = 10\)</span>, then the observed data <span class="math inline">\({\boldsymbol x}\)</span> were 10 times more likely under truth <span class="math inline">\(\theta_1\)</span> than under truth <span class="math inline">\(\theta_2\)</span>.</p>
 <p>The use of <em>likelihood ratios</em> to compare the plausibility of different <span class="math inline">\(\theta\)</span> values means that any constant factor in the likelihood–that is, any factor not depending on <span class="math inline">\(\theta\)</span>–can be neglected.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-96" class="example"><strong>Example 4.2  </strong></span>Suppose <span class="math inline">\(X_i\sim\mathop{\mathrm{Poi}}(\lambda)\)</span> independently (<span class="math inline">\(i=1,\dots,n\)</span>) and we have observed <span class="math inline">\({\boldsymbol X}={\boldsymbol x}\)</span>.
+<p><span id="exm:unlabeled-div-103" class="example"><strong>Example 4.2  </strong></span>Suppose <span class="math inline">\(X_i\sim\mathop{\mathrm{Poi}}(\lambda)\)</span> independently (<span class="math inline">\(i=1,\dots,n\)</span>) and we have observed <span class="math inline">\({\boldsymbol X}={\boldsymbol x}\)</span>.
 Here,
 <span class="math display">\[\begin{align*}
 L(\lambda|{\boldsymbol x}) = f(x_1,\dots,x_n|\lambda)
@@ -554,7 +564,7 @@ l(\theta) = \log L(\theta|{\boldsymbol x}),
 since this converts products into sums, which are easier to
 handle.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-97" class="example"><strong>Example 4.3  </strong></span><span class="math inline">\(n\)</span> independent Poisson continued.
+<p><span id="exm:unlabeled-div-104" class="example"><strong>Example 4.3  </strong></span><span class="math inline">\(n\)</span> independent Poisson continued.
 <span class="math display">\[\begin{align*}
 l(\lambda|{\boldsymbol x}) 
 &amp;= \log \prod_{i=1}^n \frac{e^{-\lambda}\lambda^{x_i}}{x_i!} \\

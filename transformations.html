@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-29" />
+<meta name="date" content="2021-12-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,6 +53,13 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -209,7 +216,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.5.1" data-path="probability-functions.html"><a href="probability-functions.html#probability-mass-function"><i class="fa fa-check"></i><b>1.5.1</b> Probability mass function</a></li>
 <li class="chapter" data-level="1.5.2" data-path="probability-functions.html"><a href="probability-functions.html#probability-density-functions"><i class="fa fa-check"></i><b>1.5.2</b> Probability density functions</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>1.6</b> Transformations</a></li>
+<li class="chapter" data-level="1.6" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>1.6</b> Transformations</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="transformations.html"><a href="transformations.html#probability-integral-transform"><i class="fa fa-check"></i><b>1.6.1</b> Probability integral transform</a></li>
+</ul></li>
 <li class="chapter" data-level="1.7" data-path="multiple-random-variables.html"><a href="multiple-random-variables.html"><i class="fa fa-check"></i><b>1.7</b> Multiple random variables</a>
 <ul>
 <li class="chapter" data-level="1.7.1" data-path="multiple-random-variables.html"><a href="multiple-random-variables.html#bivariate-distributions"><i class="fa fa-check"></i><b>1.7.1</b> Bivariate distributions</a></li>
@@ -224,9 +234,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.8.3" data-path="expectations.html"><a href="expectations.html#variance"><i class="fa fa-check"></i><b>1.8.3</b> Variance</a></li>
 <li class="chapter" data-level="1.8.4" data-path="expectations.html"><a href="expectations.html#covariance-and-correlation"><i class="fa fa-check"></i><b>1.8.4</b> Covariance and correlation</a></li>
 <li class="chapter" data-level="1.8.5" data-path="expectations.html"><a href="expectations.html#properties-of-variances-and-covariances"><i class="fa fa-check"></i><b>1.8.5</b> Properties of variances and covariances</a></li>
-<li class="chapter" data-level="1.8.6" data-path="expectations.html"><a href="expectations.html#variance-covariance-matrix"><i class="fa fa-check"></i><b>1.8.6</b> Variance-covariance matrix</a></li>
-<li class="chapter" data-level="1.8.7" data-path="expectations.html"><a href="expectations.html#conditional-expectations"><i class="fa fa-check"></i><b>1.8.7</b> Conditional expectations</a></li>
-<li class="chapter" data-level="1.8.8" data-path="expectations.html"><a href="expectations.html#conditional-variance"><i class="fa fa-check"></i><b>1.8.8</b> Conditional variance</a></li>
+<li class="chapter" data-level="1.8.6" data-path="expectations.html"><a href="expectations.html#multivariate-means-and-covariances"><i class="fa fa-check"></i><b>1.8.6</b> Multivariate means and covariances</a></li>
+<li class="chapter" data-level="1.8.7" data-path="expectations.html"><a href="expectations.html#conditional-expectations-and-variance"><i class="fa fa-check"></i><b>1.8.7</b> Conditional expectations and variance</a></li>
+<li class="chapter" data-level="1.8.8" data-path="expectations.html"><a href="expectations.html#additional-explainers"><i class="fa fa-check"></i><b>1.8.8</b> Additional explainers</a></li>
 </ul></li>
 <li class="chapter" data-level="1.9" data-path="moment-generating-functions.html"><a href="moment-generating-functions.html"><i class="fa fa-check"></i><b>1.9</b> Moment generating functions</a>
 <ul>
@@ -558,8 +568,8 @@ F_Y(y)
 \end{align}\]</span></p>
 <p>The above is somewhat of an informal derivation of the cdf of the transformed variable <span class="math inline">\(Y\)</span>.
 For more mathematical details, please see C&amp;B Section 2.1.
-The main message here is that we need to keep track of the set <span class="math inline">\(A_y=\{x \in {\mathcal X}\mid g(x) \leq y \}\)</span>, and it depends on whether or not <span class="math inline">\(g\)</span> is increasing or decreasing.</p>
-<p>From here, the pdf of <span class="math inline">\(Y\)</span> can be obtained by differentiating the cdf (in the continuous case).
+The main message here is that we need to keep track of the set <span class="math inline">\(A_y=\{x \in {\mathcal X}\mid g(x) \leq y \}\)</span>, and it depends on whether or not <span class="math inline">\(g\)</span> is increasing or decreasing.
+From here, the pdf of <span class="math inline">\(Y\)</span> can be obtained by differentiating the cdf (in the continuous case).
 The following theorem formalises this approach.</p>
 <div class="theorem">
 <p><span id="thm:unlabeled-div-30" class="theorem"><strong>Theorem 1.5  (Pdf of continuous transformations) </strong></span>Let <span class="math inline">\(X\)</span> have pdf <span class="math inline">\(f_X(x)\)</span> and let <span class="math inline">\(Y=g(X)\)</span> be a strictly monotone function, i.e. <span class="math inline">\(g\)</span> is strictly increasing or decreasing.
@@ -583,6 +593,121 @@ f_X\big(g^{-1}(y)\big)  \frac{\text{d}}{\text{d}y}g^{-1}(y) &amp;g \text{ increa
 \end{cases}
 \]</span></p>
 </div>
+<p><br></p>
+<div class="example">
+<p><span id="exm:unlabeled-div-32" class="example"><strong>Example 1.18  </strong></span>Let <span class="math inline">\(X\sim\mathop{\mathrm{Unif}}(-1,1)\)</span> (continuous). The pdf of <span class="math inline">\(X\)</span> is given by
+<span class="math display">\[
+f_X(x) = \begin{cases}
+1/2 &amp; x \in (-1,1) \\
+0 &amp; \text{otherwise.}
+\end{cases}
+\]</span>
+Let <span class="math inline">\(Y=X^2\)</span>.
+By symmetry, <span class="math inline">\(|X|\sim\mathop{\mathrm{Unif}}(0,1)\)</span>; and <span class="math inline">\(Y=|X|^2\)</span> is a smooth, invertible function of <span class="math inline">\(|X|\)</span>. Hence
+<span class="math display">\[\begin{align*}
+f_Y(y) 
+&amp;= f_{|X|}(\sqrt y)\left| \frac{\text{d}}{\text{d}y} \sqrt y \right| \\
+&amp;= 1 \cdot \frac{1}{2\sqrt y}
+\end{align*}\]</span>
+for <span class="math inline">\(0&lt;y&lt;1\)</span>.
+Note however, <span class="math inline">\(Y=X^2\)</span> is not uniformly distributed anymore.</p>
+</div>
+<div id="probability-integral-transform" class="section level3" number="1.6.1">
+<h3><span class="header-section-number">1.6.1</span> Probability integral transform</h3>
+<p>A special and very useful kind of transformation is the <em>probability integral transform (PIT)</em>.
+Suppose <span class="math inline">\(X\)</span> is continuous, and let <span class="math inline">\(Y=F_X(X)\)</span>.
+Here, <span class="math inline">\(Y\)</span> is transformed using the cdf of <span class="math inline">\(X\)</span>, and is considered a random variable still because it’s a function of a random variable.
+Then, the distribution of <span class="math inline">\(Y\)</span> is uniform on <span class="math inline">\((0,1)\)</span>!</p>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-33" class="theorem"><strong>Theorem 1.6  (Probability integral transform (PIT)) </strong></span>Let <span class="math inline">\(X\)</span> have continuous cdf <span class="math inline">\(F_X(x)\)</span> and define the random variable <span class="math inline">\(Y\)</span> as <span class="math inline">\(Y=F_X(X)\)</span>. Then <span class="math inline">\(Y\)</span> is uniformly distributed on <span class="math inline">\((0,1)\)</span>, that is, <span class="math inline">\(Y\sim\mathop{\mathrm{Unif}}(0,1)\)</span> and
+<span class="math display">\[
+f_Y(y) = \begin{cases}
+1 &amp; 0&lt;y&lt;1\\
+0 &amp; \text{otherwise} \\
+\end{cases}
+\]</span>
+with <span class="math inline">\(\mathbb{P}(Y\leq y)=y=F_Y(y)\)</span> for <span class="math inline">\(y\in(0,1)\)</span>.</p>
+</div>
+<div class="proof">
+<p><span id="unlabeled-div-34" class="proof"><em>Proof</em>. </span>For <span class="math inline">\(Y=F_X(X)\)</span> we have, for <span class="math inline">\(0&lt;y&lt;1\)</span>,
+<span class="math display">\[\begin{align*}
+\mathbb{P}(Y \leq y)
+&amp;= \mathbb{P}\big(F_x(X) \leq y\big) \\
+&amp;= \mathbb{P}\big(X \leq F^{-1}_X(y) \big) \\
+&amp;= F_X\big( F^{-1}_X(y) \big) \\
+&amp;= y.
+\end{align*}\]</span></p>
+<p>At the endpoints we have <span class="math inline">\(\mathbb{P}(Y \leq y) = 1\)</span> for <span class="math inline">\(y\geq 1\)</span> and <span class="math inline">\(\mathbb{P}(Y \leq y) = 0\)</span> for <span class="math inline">\(y\leq 0\)</span>, since there is zero probability outside the interval <span class="math inline">\((0,1)\)</span>.
+Thus <span class="math inline">\(Y\)</span> has a uniform distribution.</p>
+<p>Note that in the above proof, we used the fact that <span class="math inline">\(F_X\)</span> is a monotone increasing function, and thus the equality
+<span class="math display">\[
+\mathbb{P}\big(F^{-1}_X(F_X(X)) \leq F^{-1}_X(y) \big) = \mathbb{P}\big(X \leq F^{-1}_X(y) \big)
+\]</span>
+holds. There are two cases:</p>
+<ul>
+<li><p>Suppose <span class="math inline">\(F_X\)</span> is strictly increasing. Then it is true that <span class="math inline">\(F^{-1}_X(F_X(x))=x\)</span>, since the inverse is uniquely defined.</p></li>
+<li><p>Suppose <span class="math inline">\(F_X\)</span> is increasing but with “flat” parts. Then there are regions <span class="math inline">\(A\)</span> of the cdf where the inverse is not uniquely defined. But for <span class="math inline">\(x\in A\)</span>, the above equality still holds true because <span class="math inline">\(\mathbb{P}(X\leq x) = \mathbb{P}(X \leq x^*) = y^*\)</span>, where <span class="math inline">\(x^* = \inf\{x | x\in A, F_X(x) = y^* \}\)</span>. In essence, the flat cdf denotes a region of 0 probability. For instance, suppose the region <span class="math inline">\(A=[x_1,x_2]\)</span>. Then <span class="math inline">\(\mathbb{P}(X\leq x) = \mathbb{P}(X \leq x_1)\)</span> for any <span class="math inline">\(x \in A\)</span>.</p></li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:pitflatcdf"></span>
+<img src="bookdown-adv-stats_files/figure-html/pitflatcdf-1.png" alt="(a) a strictly increasing cdf has a unique inverse; while (b) a non-decreasing cdf has regions in which there is zero probability, so the cdf inverse is the infimum of the \(x\) in that range." width="100%" />
+<p class="caption">
+Figure 1.7: (a) a strictly increasing cdf has a unique inverse; while (b) a non-decreasing cdf has regions in which there is zero probability, so the cdf inverse is the infimum of the <span class="math inline">\(x\)</span> in that range.
+</p>
+</div>
+</div>
+<p>The PIT is useful for various statistical purposes, both theoretical and practical.
+A particular application of note is the <em>simulation</em> of an arbitrary random variable <span class="math inline">\(X\)</span> on a computer<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a>.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-35" class="example"><strong>Example 1.19  </strong></span>Let <span class="math inline">\(X\)</span> be a random variable with an exponential distribution with unit mean.
+Its cdf is <span class="math inline">\(F_X(x) = 1 - e^{-x}\)</span> for <span class="math inline">\(x&gt;0\)</span>.
+By the PIT, we have that <span class="math inline">\(U=1-e^{-X}\)</span> is uniformly distributed on <span class="math inline">\((0,1)\)</span>.</p>
+<p>Working a bit backwards, with <span class="math inline">\(U\sim\mathop{\mathrm{Unif}}(0,1)\)</span> suppose there is (strictly) monotone transformation <span class="math inline">\(T:[0,1]\to\mathbb{R}\)</span> such that <span class="math inline">\(T(U) := X\)</span>. We notice that
+<span class="math display">\[\begin{align*}
+F_X(x) &amp;= \mathbb{P}(X \leq x) \\
+&amp;= \mathbb{P}\big(T(U) \leq x \big)\\
+&amp;= \mathbb{P}\big(U \leq T^{-1}(x)\big) \\
+&amp;= T^{-1}(x)
+\end{align*}\]</span>
+where the last step follows since <span class="math inline">\(U\)</span> is uniformly distributed on <span class="math inline">\((0,1)\)</span>.
+Therefore, <span class="math inline">\(F_X\)</span> is the inverse function of <span class="math inline">\(T\)</span>, or equivalently <span class="math inline">\(T(u)=F_X^{-1}(u)\)</span> for <span class="math inline">\(u\in[0,1]\)</span>.
+It is then possible to generate <span class="math inline">\(X\sim\mathop{\mathrm{Exp}}(1)\)</span> using the algorithm below:</p>
+<ol style="list-style-type: decimal">
+<li>Generate <span class="math inline">\({\boldsymbol U}= \{U_1,\dots,U_n\} \sim\mathop{\mathrm{Unif}}(0,1)\)</span>.</li>
+<li>Transform the samples <span class="math inline">\({\boldsymbol U}\mapsto {\boldsymbol X}\)</span> using the function <span class="math inline">\(T(u) = F_X^{-1}(u) = -\log(1-u)\)</span>.</li>
+<li>Then <span class="math inline">\({\boldsymbol X}= \{X_1,\dots,X_n\}\)</span> is a sample from <span class="math inline">\(\mathop{\mathrm{Exp}}(1)\)</span>.</li>
+</ol>
+<p>The <code>R</code> code below shows how to implement this in practice. As we can see, the PIT method and the ‘direct’ method using <code>R</code>’s built in function <code>rexp()</code> generates very similar results.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="transformations.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2911</span>)</span>
+<span id="cb9-2"><a href="transformations.html#cb9-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb9-3"><a href="transformations.html#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="transformations.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate Unif(0,1) r.v.</span></span>
+<span id="cb9-5"><a href="transformations.html#cb9-5" aria-hidden="true" tabindex="-1"></a>U <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">sort</span>()</span>
+<span id="cb9-6"><a href="transformations.html#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(U)</span></code></pre></div>
+<pre><code>## [1] 0.000795529 0.003317551 0.005630351 0.005866332 0.006031142 0.008309819</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="transformations.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate Exp(1) r.v. using PIT</span></span>
+<span id="cb11-2"><a href="transformations.html#cb11-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">-</span>U)</span>
+<span id="cb11-3"><a href="transformations.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(X)</span></code></pre></div>
+<pre><code>## [1] 0.0007958456 0.0033230660 0.0056462615 0.0058836065 0.0060494031
+## [6] 0.0083445376</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="transformations.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate Exp(1) r.v. using R built in function</span></span>
+<span id="cb13-2"><a href="transformations.html#cb13-2" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">rexp</span>(n, <span class="at">rate =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">sort</span>()</span>
+<span id="cb13-3"><a href="transformations.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Z)</span></code></pre></div>
+<pre><code>## [1] 0.0009589139 0.0020182137 0.0026925327 0.0042910245 0.0043342430
+## [6] 0.0045965933</code></pre>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:pitexampleplot"></span>
+<img src="bookdown-adv-stats_files/figure-html/pitexampleplot-1.png" alt="Comparison of histogram and frequency polygon of the samples generated using PIT and the 'direct' method in R." width="100%" />
+<p class="caption">
+Figure 1.8: Comparison of histogram and frequency polygon of the samples generated using PIT and the ‘direct’ method in R.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="21">
+<li id="fn21"><p>Also called <em>inverse transform sampling</em><a href="transformations.html#fnref21" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 

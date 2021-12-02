@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-29" />
+<meta name="date" content="2021-12-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,6 +53,13 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -209,7 +216,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.5.1" data-path="probability-functions.html"><a href="probability-functions.html#probability-mass-function"><i class="fa fa-check"></i><b>1.5.1</b> Probability mass function</a></li>
 <li class="chapter" data-level="1.5.2" data-path="probability-functions.html"><a href="probability-functions.html#probability-density-functions"><i class="fa fa-check"></i><b>1.5.2</b> Probability density functions</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>1.6</b> Transformations</a></li>
+<li class="chapter" data-level="1.6" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>1.6</b> Transformations</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="transformations.html"><a href="transformations.html#probability-integral-transform"><i class="fa fa-check"></i><b>1.6.1</b> Probability integral transform</a></li>
+</ul></li>
 <li class="chapter" data-level="1.7" data-path="multiple-random-variables.html"><a href="multiple-random-variables.html"><i class="fa fa-check"></i><b>1.7</b> Multiple random variables</a>
 <ul>
 <li class="chapter" data-level="1.7.1" data-path="multiple-random-variables.html"><a href="multiple-random-variables.html#bivariate-distributions"><i class="fa fa-check"></i><b>1.7.1</b> Bivariate distributions</a></li>
@@ -224,9 +234,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.8.3" data-path="expectations.html"><a href="expectations.html#variance"><i class="fa fa-check"></i><b>1.8.3</b> Variance</a></li>
 <li class="chapter" data-level="1.8.4" data-path="expectations.html"><a href="expectations.html#covariance-and-correlation"><i class="fa fa-check"></i><b>1.8.4</b> Covariance and correlation</a></li>
 <li class="chapter" data-level="1.8.5" data-path="expectations.html"><a href="expectations.html#properties-of-variances-and-covariances"><i class="fa fa-check"></i><b>1.8.5</b> Properties of variances and covariances</a></li>
-<li class="chapter" data-level="1.8.6" data-path="expectations.html"><a href="expectations.html#variance-covariance-matrix"><i class="fa fa-check"></i><b>1.8.6</b> Variance-covariance matrix</a></li>
-<li class="chapter" data-level="1.8.7" data-path="expectations.html"><a href="expectations.html#conditional-expectations"><i class="fa fa-check"></i><b>1.8.7</b> Conditional expectations</a></li>
-<li class="chapter" data-level="1.8.8" data-path="expectations.html"><a href="expectations.html#conditional-variance"><i class="fa fa-check"></i><b>1.8.8</b> Conditional variance</a></li>
+<li class="chapter" data-level="1.8.6" data-path="expectations.html"><a href="expectations.html#multivariate-means-and-covariances"><i class="fa fa-check"></i><b>1.8.6</b> Multivariate means and covariances</a></li>
+<li class="chapter" data-level="1.8.7" data-path="expectations.html"><a href="expectations.html#conditional-expectations-and-variance"><i class="fa fa-check"></i><b>1.8.7</b> Conditional expectations and variance</a></li>
+<li class="chapter" data-level="1.8.8" data-path="expectations.html"><a href="expectations.html#additional-explainers"><i class="fa fa-check"></i><b>1.8.8</b> Additional explainers</a></li>
 </ul></li>
 <li class="chapter" data-level="1.9" data-path="moment-generating-functions.html"><a href="moment-generating-functions.html"><i class="fa fa-check"></i><b>1.9</b> Moment generating functions</a>
 <ul>
@@ -484,7 +494,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">3.4.1</span> The (weak) Law of Large Numbers</h3>
 <p>Perhaps the best application of convergence in probability.</p>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-82" class="theorem"><strong>Theorem 3.2  (The weak law of large numbers; WLLN) </strong></span>Let <span class="math inline">\(X_1,X_2,\dots\)</span> be iid r.v.s with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>.
+<p><span id="thm:unlabeled-div-89" class="theorem"><strong>Theorem 3.2  (The weak law of large numbers; WLLN) </strong></span>Let <span class="math inline">\(X_1,X_2,\dots\)</span> be iid r.v.s with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>.
 Let <span class="math inline">\(\bar X_n\)</span> denote the sample mean, i.e. <span class="math display">\[\bar X_n = \frac{1}{n}\sum_{i=1}^n X_i.\]</span>
 Then, as <span class="math inline">\(n\to\infty\)</span>,
 <span class="math display">\[\bar X_n{\xrightarrow{\text{P}}} \mu.\]</span></p>
@@ -493,7 +503,7 @@ Then, as <span class="math inline">\(n\to\infty\)</span>,
 becomes more and more close to the population mean. Furthermore, the
 distribution of <span class="math inline">\(\bar X_n\)</span> degenerates to a single point distribution at <span class="math inline">\(\mu\)</span>, the true mean.</p>
 <div class="proof">
-<p><span id="unlabeled-div-83" class="proof"><em>Proof</em>. </span>Recall that <span class="math inline">\(\mathop{\mathrm{E}}(\bar X_n)=\mu\)</span> and <span class="math inline">\(\mathop{\mathrm{Var}}(\bar X_n) = \sigma^2/n\)</span>.
+<p><span id="unlabeled-div-90" class="proof"><em>Proof</em>. </span>Recall that <span class="math inline">\(\mathop{\mathrm{E}}(\bar X_n)=\mu\)</span> and <span class="math inline">\(\mathop{\mathrm{Var}}(\bar X_n) = \sigma^2/n\)</span>.
 Choose an <span class="math inline">\(\epsilon &gt;0\)</span> such that <span class="math inline">\(\epsilon=t\sigma/\sqrt{n}\)</span>.
 By Chebyshev’s inequality,
 <span class="math display">\[\begin{align*}
@@ -508,11 +518,11 @@ Hence, <span class="math inline">\(\bar X_n{\xrightarrow{\text{P}}} \mu\)</span>
 Let <span class="math inline">\(X_1,X_2,\dots\)</span> be the scores of the dice throws.
 We know that the true mean is <span class="math inline">\(\mu=3.5\)</span>.
 Let’s simulate some dice throws:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="limit-theorems.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb23-2"><a href="limit-theorems.html#cb23-2" aria-hidden="true" tabindex="-1"></a>(X <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">6</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="limit-theorems.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb35-2"><a href="limit-theorems.html#cb35-2" aria-hidden="true" tabindex="-1"></a>(X <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">6</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>##  [1] 3 6 3 2 2 6 3 5 4 6 6 1 2 3 5 3 3 1 4 1</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="limit-theorems.html#cb25-1" aria-hidden="true" tabindex="-1"></a>Xbar <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(X) <span class="sc">/</span> <span class="fu">seq_along</span>(X)</span>
-<span id="cb25-2"><a href="limit-theorems.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(Xbar, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="limit-theorems.html#cb37-1" aria-hidden="true" tabindex="-1"></a>Xbar <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(X) <span class="sc">/</span> <span class="fu">seq_along</span>(X)</span>
+<span id="cb37-2"><a href="limit-theorems.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(Xbar, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##  [1] 3.00 4.50 4.00 3.50 3.20 3.67 3.57 3.75 3.78 4.00 4.18 3.92 3.77 3.71 3.80
 ## [16] 3.75 3.71 3.56 3.58 3.45</code></pre>
 <p><img src="bookdown-adv-stats_files/figure-html/dicethrowplot-1.png" width="100%" style="display: block; margin: auto;" /></p>
@@ -525,7 +535,7 @@ Let’s simulate some dice throws:</p>
 <p>The LLN assures us that <span class="math inline">\(\bar X_n\)</span> eventually will be indistinguishable from <span class="math inline">\(\mu\)</span> w.p. 1.
 However, we would still be interested in the distribution of <span class="math inline">\(\bar X_n\)</span> in order to make <em>probabilistic statements</em> about <span class="math inline">\(\bar X_n\)</span>.</p>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-84" class="theorem"><strong>Theorem 3.3  (Central Limit Theorem; CLT) </strong></span>Let <span class="math inline">\(X_1,\dots,X_n\)</span> be iid r.v. with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, and let <span class="math inline">\(\bar X_n\)</span> denote the sample mean. Then
+<p><span id="thm:unlabeled-div-91" class="theorem"><strong>Theorem 3.3  (Central Limit Theorem; CLT) </strong></span>Let <span class="math inline">\(X_1,\dots,X_n\)</span> be iid r.v. with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, and let <span class="math inline">\(\bar X_n\)</span> denote the sample mean. Then
 <span class="math display">\[
 \bar Z_n := \frac{\bar X_n - \mu}{\sigma/\surd n} \xrightarrow{\text D} \mathop{\mathrm{N}}(0,1)
 \]</span>
@@ -551,7 +561,7 @@ The CLT is one of the reasons why the normal distribution is the most useful and
 <li>The CLT is responsible for the normal approximations to the binomial, Poisson, gamma, etc.!</li>
 </ul>
 <div class="example">
-<p><span id="exm:unlabeled-div-85" class="example"><strong>Example 3.6  </strong></span>Recall the dice example above.
+<p><span id="exm:unlabeled-div-92" class="example"><strong>Example 3.6  </strong></span>Recall the dice example above.
 The CLT implies that
 <span class="math display" id="eq:clteg">\[\begin{equation}
 \bar X_n \approx \mathop{\mathrm{N}}\left(3.5, \frac{105}{36n}\right), \tag{3.2}
@@ -566,16 +576,16 @@ set, we then obtain many sample means.
 The standardised histogram of those samples resembles the normal pdf in <a href="limit-theorems.html#eq:clteg">(3.2)</a>.</p>
 <p>Here’s the <code>R</code> code to replicate dice rolls and the sample means.
 The idea is to generate a sample of size <span class="math inline">\(n\)</span> of dice roll scores repeatedly <code>B</code> times.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="limit-theorems.html#cb27-1" aria-hidden="true" tabindex="-1"></a>my_clt_fn <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">5</span>, <span class="at">B =</span> <span class="dv">10000</span>) {</span>
-<span id="cb27-2"><a href="limit-theorems.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, B)</span>
-<span id="cb27-3"><a href="limit-theorems.html#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
-<span id="cb27-4"><a href="limit-theorems.html#cb27-4" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">size =</span> n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb27-5"><a href="limit-theorems.html#cb27-5" aria-hidden="true" tabindex="-1"></a>    res[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(X)</span>
-<span id="cb27-6"><a href="limit-theorems.html#cb27-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb27-7"><a href="limit-theorems.html#cb27-7" aria-hidden="true" tabindex="-1"></a>  res</span>
-<span id="cb27-8"><a href="limit-theorems.html#cb27-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="limit-theorems.html#cb39-1" aria-hidden="true" tabindex="-1"></a>my_clt_fn <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">5</span>, <span class="at">B =</span> <span class="dv">10000</span>) {</span>
+<span id="cb39-2"><a href="limit-theorems.html#cb39-2" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, B)</span>
+<span id="cb39-3"><a href="limit-theorems.html#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="cb39-4"><a href="limit-theorems.html#cb39-4" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">size =</span> n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb39-5"><a href="limit-theorems.html#cb39-5" aria-hidden="true" tabindex="-1"></a>    res[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(X)</span>
+<span id="cb39-6"><a href="limit-theorems.html#cb39-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb39-7"><a href="limit-theorems.html#cb39-7" aria-hidden="true" tabindex="-1"></a>  res</span>
+<span id="cb39-8"><a href="limit-theorems.html#cb39-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>We can also use this to retrieve <span class="math inline">\(\bar X_{20}=3.45\)</span> using the same random seed.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="limit-theorems.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>); <span class="fu">my_clt_fn</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="at">B =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="limit-theorems.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>); <span class="fu">my_clt_fn</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="at">B =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 3.45</code></pre>
 <p><img src="bookdown-adv-stats_files/figure-html/clteg3-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>

@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-29" />
+<meta name="date" content="2021-12-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,6 +53,13 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -209,7 +216,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.5.1" data-path="probability-functions.html"><a href="probability-functions.html#probability-mass-function"><i class="fa fa-check"></i><b>1.5.1</b> Probability mass function</a></li>
 <li class="chapter" data-level="1.5.2" data-path="probability-functions.html"><a href="probability-functions.html#probability-density-functions"><i class="fa fa-check"></i><b>1.5.2</b> Probability density functions</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>1.6</b> Transformations</a></li>
+<li class="chapter" data-level="1.6" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>1.6</b> Transformations</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="transformations.html"><a href="transformations.html#probability-integral-transform"><i class="fa fa-check"></i><b>1.6.1</b> Probability integral transform</a></li>
+</ul></li>
 <li class="chapter" data-level="1.7" data-path="multiple-random-variables.html"><a href="multiple-random-variables.html"><i class="fa fa-check"></i><b>1.7</b> Multiple random variables</a>
 <ul>
 <li class="chapter" data-level="1.7.1" data-path="multiple-random-variables.html"><a href="multiple-random-variables.html#bivariate-distributions"><i class="fa fa-check"></i><b>1.7.1</b> Bivariate distributions</a></li>
@@ -224,9 +234,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.8.3" data-path="expectations.html"><a href="expectations.html#variance"><i class="fa fa-check"></i><b>1.8.3</b> Variance</a></li>
 <li class="chapter" data-level="1.8.4" data-path="expectations.html"><a href="expectations.html#covariance-and-correlation"><i class="fa fa-check"></i><b>1.8.4</b> Covariance and correlation</a></li>
 <li class="chapter" data-level="1.8.5" data-path="expectations.html"><a href="expectations.html#properties-of-variances-and-covariances"><i class="fa fa-check"></i><b>1.8.5</b> Properties of variances and covariances</a></li>
-<li class="chapter" data-level="1.8.6" data-path="expectations.html"><a href="expectations.html#variance-covariance-matrix"><i class="fa fa-check"></i><b>1.8.6</b> Variance-covariance matrix</a></li>
-<li class="chapter" data-level="1.8.7" data-path="expectations.html"><a href="expectations.html#conditional-expectations"><i class="fa fa-check"></i><b>1.8.7</b> Conditional expectations</a></li>
-<li class="chapter" data-level="1.8.8" data-path="expectations.html"><a href="expectations.html#conditional-variance"><i class="fa fa-check"></i><b>1.8.8</b> Conditional variance</a></li>
+<li class="chapter" data-level="1.8.6" data-path="expectations.html"><a href="expectations.html#multivariate-means-and-covariances"><i class="fa fa-check"></i><b>1.8.6</b> Multivariate means and covariances</a></li>
+<li class="chapter" data-level="1.8.7" data-path="expectations.html"><a href="expectations.html#conditional-expectations-and-variance"><i class="fa fa-check"></i><b>1.8.7</b> Conditional expectations and variance</a></li>
+<li class="chapter" data-level="1.8.8" data-path="expectations.html"><a href="expectations.html#additional-explainers"><i class="fa fa-check"></i><b>1.8.8</b> Additional explainers</a></li>
 </ul></li>
 <li class="chapter" data-level="1.9" data-path="moment-generating-functions.html"><a href="moment-generating-functions.html"><i class="fa fa-check"></i><b>1.9</b> Moment generating functions</a>
 <ul>
@@ -481,7 +491,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="method-of-moments" class="section level2" number="4.4">
 <h2><span class="header-section-number">4.4</span> Method of moments</h2>
 <div class="definition">
-<p><span id="def:unlabeled-div-106" class="definition"><strong>Definition 4.4  (Method of moments estimator) </strong></span>Suppose that <span class="math inline">\(U({\boldsymbol X})\)</span> is any statistic such that
+<p><span id="def:unlabeled-div-113" class="definition"><strong>Definition 4.4  (Method of moments estimator) </strong></span>Suppose that <span class="math inline">\(U({\boldsymbol X})\)</span> is any statistic such that
 <span class="math display">\[
   \mathop{\mathrm{E}}\big(U({\boldsymbol X})\big) = m(\theta)
 \]</span>
@@ -498,26 +508,26 @@ is called the method of moments (MOM) estimator of <span class="math inline">\(\
 <li><p><strong>When <span class="math inline">\(\theta=(\theta_1,\dots,\theta_p)^\top\)</span> is a vector.</strong> I.e., there is more than one unknown parameter. The number of moments used (the number of equations to solve) must be equal to the dimensionality of <span class="math inline">\(\theta\)</span> (the number of unknowns).</p></li>
 </ol>
 <div class="example">
-<p><span id="exm:unlabeled-div-107" class="example"><strong>Example 4.8  </strong></span>Let <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{Unif}}(0,\theta)\)</span>. Consider <span class="math inline">\(U({\boldsymbol X}) = \bar X_n = n^{-1}\sum_{i=1}^n X_i\)</span>, the sample mean. Then, since <span class="math inline">\(\mathop{\mathrm{E}}(X_i)=\theta/2\)</span>, we have
+<p><span id="exm:unlabeled-div-114" class="example"><strong>Example 4.8  </strong></span>Let <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{Unif}}(0,\theta)\)</span>. Consider <span class="math inline">\(U({\boldsymbol X}) = \bar X_n = n^{-1}\sum_{i=1}^n X_i\)</span>, the sample mean. Then, since <span class="math inline">\(\mathop{\mathrm{E}}(X_i)=\theta/2\)</span>, we have
 <span class="math display">\[\begin{align*}
 \mathop{\mathrm{E}}\big(U({\boldsymbol X}) \big) 
 &amp;= \mathop{\mathrm{E}}\left(\frac{1}{n} \sum_{i=1}^n X_i \right) \\
 &amp;= \frac{1}{n} \sum_{i=1}^n \mathop{\mathrm{E}}\left( X_i \right) = \theta/2.
 \end{align*}\]</span></p>
 <p>So the MOM estimator of <span class="math inline">\(\theta\)</span> based on <span class="math inline">\(U\)</span> is <span class="math inline">\(\hat\theta = 2\bar X_n\)</span>.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="method-of-moments.html#cb36-1" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb36-2"><a href="method-of-moments.html#cb36-2" aria-hidden="true" tabindex="-1"></a>(X <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">50</span>, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> theta)) <span class="sc">%&gt;%</span> </span>
-<span id="cb36-3"><a href="method-of-moments.html#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="method-of-moments.html#cb48-1" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb48-2"><a href="method-of-moments.html#cb48-2" aria-hidden="true" tabindex="-1"></a>(X <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">50</span>, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> theta)) <span class="sc">%&gt;%</span> </span>
+<span id="cb48-3"><a href="method-of-moments.html#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##  [1] 2.871 1.360 2.033 1.718 0.309 2.699 0.738 0.126 0.984 2.864 2.669 2.078
 ## [13] 1.922 2.983 1.967 2.126 1.632 1.782 0.867 0.441 2.889 2.707 2.072 2.386
 ## [25] 0.074 1.433 2.275 0.649 0.955 0.695 0.428 1.244 1.241 1.107 0.457 0.416
 ## [37] 0.699 1.398 0.798 2.573 0.137 1.327 2.397 0.366 1.683 0.620 0.383 2.260
 ## [49] 2.685 1.123</code></pre>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="method-of-moments.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">mean</span>(X)  <span class="co"># MOM estimator</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="method-of-moments.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">mean</span>(X)  <span class="co"># MOM estimator</span></span></code></pre></div>
 <pre><code>## [1] 2.945851</code></pre>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-108" class="example"><strong>Example 4.9  </strong></span>Let <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{Poi}}(\lambda)\)</span>. Consider, for example, <span class="math inline">\(U({\boldsymbol X})=\sum_{i=1}^n [X_i=0]\)</span>, the number of zeroes found in the sample. Then, since
+<p><span id="exm:unlabeled-div-115" class="example"><strong>Example 4.9  </strong></span>Let <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{Poi}}(\lambda)\)</span>. Consider, for example, <span class="math inline">\(U({\boldsymbol X})=\sum_{i=1}^n [X_i=0]\)</span>, the number of zeroes found in the sample. Then, since
 <span class="math display">\[\begin{align*}
 \mathop{\mathrm{E}}([X_i=0]) 
 &amp;= \sum_{k=0}^\infty [k=0]\Pr(X_i=k) \\

@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-11-29" />
+<meta name="date" content="2021-12-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,6 +53,13 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -209,7 +216,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.5.1" data-path="probability-functions.html"><a href="probability-functions.html#probability-mass-function"><i class="fa fa-check"></i><b>1.5.1</b> Probability mass function</a></li>
 <li class="chapter" data-level="1.5.2" data-path="probability-functions.html"><a href="probability-functions.html#probability-density-functions"><i class="fa fa-check"></i><b>1.5.2</b> Probability density functions</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>1.6</b> Transformations</a></li>
+<li class="chapter" data-level="1.6" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>1.6</b> Transformations</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="transformations.html"><a href="transformations.html#probability-integral-transform"><i class="fa fa-check"></i><b>1.6.1</b> Probability integral transform</a></li>
+</ul></li>
 <li class="chapter" data-level="1.7" data-path="multiple-random-variables.html"><a href="multiple-random-variables.html"><i class="fa fa-check"></i><b>1.7</b> Multiple random variables</a>
 <ul>
 <li class="chapter" data-level="1.7.1" data-path="multiple-random-variables.html"><a href="multiple-random-variables.html#bivariate-distributions"><i class="fa fa-check"></i><b>1.7.1</b> Bivariate distributions</a></li>
@@ -224,9 +234,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.8.3" data-path="expectations.html"><a href="expectations.html#variance"><i class="fa fa-check"></i><b>1.8.3</b> Variance</a></li>
 <li class="chapter" data-level="1.8.4" data-path="expectations.html"><a href="expectations.html#covariance-and-correlation"><i class="fa fa-check"></i><b>1.8.4</b> Covariance and correlation</a></li>
 <li class="chapter" data-level="1.8.5" data-path="expectations.html"><a href="expectations.html#properties-of-variances-and-covariances"><i class="fa fa-check"></i><b>1.8.5</b> Properties of variances and covariances</a></li>
-<li class="chapter" data-level="1.8.6" data-path="expectations.html"><a href="expectations.html#variance-covariance-matrix"><i class="fa fa-check"></i><b>1.8.6</b> Variance-covariance matrix</a></li>
-<li class="chapter" data-level="1.8.7" data-path="expectations.html"><a href="expectations.html#conditional-expectations"><i class="fa fa-check"></i><b>1.8.7</b> Conditional expectations</a></li>
-<li class="chapter" data-level="1.8.8" data-path="expectations.html"><a href="expectations.html#conditional-variance"><i class="fa fa-check"></i><b>1.8.8</b> Conditional variance</a></li>
+<li class="chapter" data-level="1.8.6" data-path="expectations.html"><a href="expectations.html#multivariate-means-and-covariances"><i class="fa fa-check"></i><b>1.8.6</b> Multivariate means and covariances</a></li>
+<li class="chapter" data-level="1.8.7" data-path="expectations.html"><a href="expectations.html#conditional-expectations-and-variance"><i class="fa fa-check"></i><b>1.8.7</b> Conditional expectations and variance</a></li>
+<li class="chapter" data-level="1.8.8" data-path="expectations.html"><a href="expectations.html#additional-explainers"><i class="fa fa-check"></i><b>1.8.8</b> Additional explainers</a></li>
 </ul></li>
 <li class="chapter" data-level="1.9" data-path="moment-generating-functions.html"><a href="moment-generating-functions.html"><i class="fa fa-check"></i><b>1.9</b> Moment generating functions</a>
 <ul>
@@ -493,7 +503,7 @@ The set <span class="math inline">\(C=C({\boldsymbol x})\)</span> is</p>
 <p>We’ll start with some formal definitions.
 Let <span class="math inline">\(C({\boldsymbol X})\)</span> be a region of the parameter space <span class="math inline">\(\Theta\)</span>, determined by the sample <span class="math inline">\({\boldsymbol X}\)</span>.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-148" class="definition"><strong>Definition 6.1  (Coverage probability) </strong></span>For any given value of <span class="math inline">\(\theta\)</span>, the coverage probability of <span class="math inline">\(C({\boldsymbol X})\)</span> is
+<p><span id="def:unlabeled-div-155" class="definition"><strong>Definition 6.1  (Coverage probability) </strong></span>For any given value of <span class="math inline">\(\theta\)</span>, the coverage probability of <span class="math inline">\(C({\boldsymbol X})\)</span> is
 <span class="math display">\[
 \Pr_\theta \left( \theta \in C({\boldsymbol X}) \right) =: c(\theta)
 \]</span></p>
@@ -506,7 +516,7 @@ Of course, we are interested how well the interval covers the <strong>true value
 <p>Since we do not know the true value of <span class="math inline">\(\theta\)</span>, we can only guarantee a coverage probability equal to the infimum of <span class="math inline">\(c(\theta)\)</span> (called the <em>confidence coefficient</em>).
 We call such a set a <em>confidence region</em>.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-149" class="definition"><strong>Definition 6.2  (Confidence region) </strong></span>The set <span class="math inline">\(C({\boldsymbol X})\)</span> is said to be a confidence region with confidence coefficient <span class="math inline">\(c\)</span> if
+<p><span id="def:unlabeled-div-156" class="definition"><strong>Definition 6.2  (Confidence region) </strong></span>The set <span class="math inline">\(C({\boldsymbol X})\)</span> is said to be a confidence region with confidence coefficient <span class="math inline">\(c\)</span> if
 <span class="math display">\[
 c = \inf_\theta c(\theta).
 \]</span></p>
@@ -529,7 +539,7 @@ Rather, these probability statements refer to <span class="math inline">\({\bold
 <li><p>Estimating an unknown parameter <span class="math inline">\(\theta\)</span> with a set, rather than a point, seems imprecise. However, we gain some assurance that we capture the true value <span class="math inline">\(\theta\)</span> within the set.</p></li>
 </ol>
 <div class="example">
-<p><span id="exm:unlabeled-div-150" class="example"><strong>Example 6.1  </strong></span>For a sample <span class="math inline">\(X_1,X_2,X_3,X_4\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{N}}(\mu,1)\)</span>, an interval estimator of <span class="math inline">\(\mu\)</span> could be
+<p><span id="exm:unlabeled-div-157" class="example"><strong>Example 6.1  </strong></span>For a sample <span class="math inline">\(X_1,X_2,X_3,X_4\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{N}}(\mu,1)\)</span>, an interval estimator of <span class="math inline">\(\mu\)</span> could be
 <span class="math display">\[
 C({\boldsymbol X}) = [\bar X - 1, \bar X + 1].
 \]</span>
@@ -546,28 +556,28 @@ Sacrificing precision in our estimate results in an increased confidence of a tr
 </div>
 <p>Expanding on the previous example: Let <span class="math inline">\(\mu=0\)</span> be the true value.
 A random sample of size 4 is obtained as follows</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="introduction-3.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb50-2"><a href="introduction-3.html#cb50-2" aria-hidden="true" tabindex="-1"></a>(X <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">4</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="introduction-3.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb62-2"><a href="introduction-3.html#cb62-2" aria-hidden="true" tabindex="-1"></a>(X <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">4</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>))</span></code></pre></div>
 <pre><code>## [1] -0.56047565 -0.23017749  1.55870831  0.07050839</code></pre>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="introduction-3.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(X)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="introduction-3.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(X)</span></code></pre></div>
 <pre><code>## [1] 0.2096409</code></pre>
 <p>A 95% confidence interval based on the sample mean is</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="introduction-3.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(X) <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">mean</span>(X) <span class="sc">+</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="introduction-3.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(X) <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">mean</span>(X) <span class="sc">+</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] -0.7903591  1.2096409</code></pre>
 <p>In this case, the true value <span class="math inline">\(\mu=0\)</span> is indeed contained within the interval.
 If we repeated this experiment many times, what proportion of the intervals would contain <span class="math inline">\(\mu=0\)</span>?</p>
 <p>Here’s the <code>R</code> code:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="introduction-3.html#cb56-1" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">10000</span>  <span class="co"># number of replications</span></span>
-<span id="cb56-2"><a href="introduction-3.html#cb56-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">L =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, B), <span class="at">U =</span> <span class="cn">NA</span>, <span class="at">contain =</span> <span class="cn">NA</span>)  <span class="co"># prepare the results data frame</span></span>
-<span id="cb56-3"><a href="introduction-3.html#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-4"><a href="introduction-3.html#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
-<span id="cb56-5"><a href="introduction-3.html#cb56-5" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">4</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb56-6"><a href="introduction-3.html#cb56-6" aria-hidden="true" tabindex="-1"></a>  L <span class="ot">&lt;-</span> <span class="fu">mean</span>(X) <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb56-7"><a href="introduction-3.html#cb56-7" aria-hidden="true" tabindex="-1"></a>  U <span class="ot">&lt;-</span> <span class="fu">mean</span>(X) <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb56-8"><a href="introduction-3.html#cb56-8" aria-hidden="true" tabindex="-1"></a>  contain <span class="ot">&lt;-</span> (L <span class="sc">&lt;=</span> <span class="dv">0</span>) <span class="sc">&amp;</span> (<span class="dv">0</span> <span class="sc">&lt;=</span> U)  <span class="co"># is 0 contained?</span></span>
-<span id="cb56-9"><a href="introduction-3.html#cb56-9" aria-hidden="true" tabindex="-1"></a>  res[i, ] <span class="ot">&lt;-</span> <span class="fu">c</span>(L, U, contain)</span>
-<span id="cb56-10"><a href="introduction-3.html#cb56-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb56-11"><a href="introduction-3.html#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(res<span class="sc">$</span>contain)  <span class="co"># coverage rate</span></span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="introduction-3.html#cb68-1" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">10000</span>  <span class="co"># number of replications</span></span>
+<span id="cb68-2"><a href="introduction-3.html#cb68-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">L =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, B), <span class="at">U =</span> <span class="cn">NA</span>, <span class="at">contain =</span> <span class="cn">NA</span>)  <span class="co"># prepare the results data frame</span></span>
+<span id="cb68-3"><a href="introduction-3.html#cb68-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-4"><a href="introduction-3.html#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="cb68-5"><a href="introduction-3.html#cb68-5" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">4</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb68-6"><a href="introduction-3.html#cb68-6" aria-hidden="true" tabindex="-1"></a>  L <span class="ot">&lt;-</span> <span class="fu">mean</span>(X) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb68-7"><a href="introduction-3.html#cb68-7" aria-hidden="true" tabindex="-1"></a>  U <span class="ot">&lt;-</span> <span class="fu">mean</span>(X) <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb68-8"><a href="introduction-3.html#cb68-8" aria-hidden="true" tabindex="-1"></a>  contain <span class="ot">&lt;-</span> (L <span class="sc">&lt;=</span> <span class="dv">0</span>) <span class="sc">&amp;</span> (<span class="dv">0</span> <span class="sc">&lt;=</span> U)  <span class="co"># is 0 contained?</span></span>
+<span id="cb68-9"><a href="introduction-3.html#cb68-9" aria-hidden="true" tabindex="-1"></a>  res[i, ] <span class="ot">&lt;-</span> <span class="fu">c</span>(L, U, contain)</span>
+<span id="cb68-10"><a href="introduction-3.html#cb68-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb68-11"><a href="introduction-3.html#cb68-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(res<span class="sc">$</span>contain)  <span class="co"># coverage rate</span></span></code></pre></div>
 <pre><code>## [1] 0.9537</code></pre>
 <p>As expected, we get a ~95% coverage with the interval <span class="math inline">\([\bar X - 1, \bar X + 1]\)</span>.
 Graphically, we can see this below.
