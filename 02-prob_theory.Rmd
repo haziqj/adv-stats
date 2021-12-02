@@ -2662,7 +2662,7 @@ The conditional mean changes for different locations of $Y$.
 For $Y=5$ for instance, the conditional mean of $X$ is about 20.
 
 
-```{r condexp3, cache = TRUE, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 4, gganimate = list(nframes = 30, fps = 30, rewind = FALSE), fig.cap = "The distribution of \\(X\\) conditional on different values of \\(Y\\).", include = knitr::is_html_output()}
+```{r condexp3, cache = TRUE, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 4, gganimate = list(rewind = FALSE), fig.cap = "The distribution of \\(X\\) conditional on different values of \\(Y\\).", include = knitr::is_html_output()}
 plot_df %>%
   mutate(scene = case_when(
     (x > -1.3) & (x < -0.7) ~ "-1",
@@ -2687,10 +2687,10 @@ ggplot(filter(plot_df, scene != "else")) +
   geom_point(data = select(plot_df, x, y), aes(x, y), alpha = 0.2, col = "black") +
   theme(legend.position = "none") +
   labs(x = "Y", y = "X") +
-  transition_states(scene, state_length = 10, transition_length = 1) +
-  enter_fade() +
-  exit_fade() +
-  ease_aes('sine-in-out')
+  transition_states(scene, state_length = 10, transition_length = 1) 
+  # enter_fade() +
+  # exit_fade() +
+  # ease_aes('sine-in-out')
 ```
 
 In Figure \@ref(fig:condexp3) as well we have drawn a quadratic line through the data points.
