@@ -11,6 +11,7 @@ description: |
     Course notes for SM-4331 Advanced Statistics (UBD).
 link-citations: yes
 # github-repo: rstudio/bookdown-demo
+always_allow_html: true
 ---
 
 # About {-}

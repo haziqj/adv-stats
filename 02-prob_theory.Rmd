@@ -1411,7 +1411,6 @@ F_Y(y)
 The above is somewhat of an informal derivation of the cdf of the transformed variable $Y$.
 For more mathematical details, please see C&B Section 2.1.
 The main message here is that we need to keep track of the set $A_y=\{x \in \cX \mid g(x) \leq y \}$, and it depends on whether or not $g$ is increasing or decreasing.
-
 From here, the pdf of $Y$ can be obtained by differentiating the cdf (in the continuous case).
 The following theorem formalises this approach.
 
@@ -1443,11 +1442,175 @@ f_X\big(g^{-1}(y)\big)  \frac{\ddif}{\ddif y}g^{-1}(y) &g \text{ increasing} \\
 $$
 :::
 
+<br>
+
+::: {.example}
+Let $X\sim\Unif(-1,1)$ (continuous). The pdf of $X$ is given by
+$$
+f_X(x) = \begin{cases}
+1/2 & x \in (-1,1) \\
+0 & \text{otherwise.}
+\end{cases}
+$$
+Let $Y=X^2$.
+By symmetry, $|X|\sim\Unif(0,1)$; and $Y=|X|^2$ is a smooth, invertible function of $|X|$. Hence
+\begin{align*}
+f_Y(y) 
+&= f_{|X|}(\sqrt y)\left| \frac{\ddif}{\ddif y} \sqrt y \right| \\
+&= 1 \cdot \frac{1}{2\sqrt y}
+\end{align*}
+for $0<y<1$. 
+Note however, $Y=X^2$ is not uniformly distributed anymore.
+:::
+
+### Probability integral transform
+
+A special and very useful kind of transformation is the *probability integral transform (PIT)*.
+Suppose $X$ is continuous, and let $Y=F_X(X)$.
+Here, $Y$ is transformed using the cdf of $X$, and is considered a random variable still because it's a function of a random variable.
+Then, the distribution of $Y$ is uniform on $(0,1)$!
+
+::: {.theorem name="Probability integral transform (PIT)"}
+Let $X$ have continuous cdf $F_X(x)$ and define the random variable $Y$ as $Y=F_X(X)$. Then $Y$ is uniformly distributed on $(0,1)$, that is, $Y\sim\Unif(0,1)$ and 
+$$
+f_Y(y) = \begin{cases}
+1 & 0<y<1\\
+0 & \text{otherwise} \\
+\end{cases}
+$$
+with $\bbP(Y\leq y)=y=F_Y(y)$ for $y\in(0,1)$.
+:::
+
+::: {.proof}
+For $Y=F_X(X)$ we have, for $0<y<1$,
+\begin{align*}
+\bbP(Y \leq y)
+&= \bbP\big(F_x(X) \leq y\big) \\
+&= \bbP\big(X \leq F^{-1}_X(y) \big) \\
+&= F_X\big( F^{-1}_X(y) \big) \\
+&= y.
+\end{align*}
+
+At the endpoints we have $\bbP(Y \leq y) = 1$ for $y\geq 1$ and $\bbP(Y \leq y) = 0$ for $y\leq 0$, since there is zero probability outside the interval $(0,1)$.
+Thus $Y$ has a uniform distribution.
+
+Note that in the above proof, we used the fact that $F_X$ is a monotone increasing function, and thus the equality 
+$$
+\bbP\big(F^{-1}_X(F_X(X)) \leq F^{-1}_X(y) \big) = \bbP\big(X \leq F^{-1}_X(y) \big)
+$$
+holds. There are two cases:
+
+- Suppose $F_X$ is strictly increasing. Then it is true that $F^{-1}_X(F_X(x))=x$, since the inverse is uniquely defined.
+
+- Suppose $F_X$ is increasing but with "flat" parts. Then there are regions $A$ of the cdf where the inverse is not uniquely defined. But for $x\in A$, the above equality still holds true because $\bbP(X\leq x) = \bbP(X \leq x^*) = y^*$, where $x^* = \inf\{x | x\in A, F_X(x) = y^* \}$. In essence, the flat cdf denotes a region of 0 probability. For instance, suppose the region $A=[x_1,x_2]$. Then $\bbP(X\leq x) = \bbP(X \leq x_1)$ for any $x \in A$.
+
+```{r pitflatcdf, echo = FALSE, message = FALSE, warning = FALSE, out.width = "100%", fig.height = 3.5, fig.cap = "(a) a strictly increasing cdf has a unique inverse; while (b) a non-decreasing cdf has regions in which there is zero probability, so the cdf inverse is the infimum of the \\(x\\) in that range."}
+x <- seq(-6, 6, length = 10)
+tibble(
+  x = x,
+  y = iprobit::expit(x)
+) %>%
+  ggplot(aes(x, y)) +
+  geom_smooth(method = "glm", se = FALSE, color = "black", size = 1,
+              method.args = list(family = "quasibinomial")) +
+  geom_hline(yintercept = 1, linetype = "dashed", col = "grey") +
+  geom_hline(yintercept = 0, linetype = "dashed", col = "grey") +
+  geom_segment(col = "red3", x = -Inf, xend = -1, y = iprobit::expit(-1), 
+               yend = iprobit::expit(-1), size = 0.5, linetype = "dotted") +  
+  geom_segment(col = "red3", x = -1, xend = -1, y = iprobit::expit(-1), 
+               yend = -Inf, size = 0.5, linetype = "dotted") +    
+  labs(y = expression(F[X](x)))  +
+  scale_y_continuous(breaks = c(0, iprobit::expit(-1), 1), labels = c(0, "y", 1)) +
+  scale_x_continuous(breaks = -1, labels = expression(x)) -> p1
+
+x <- seq(-6, 6, length = 200)
+my_cdf <- function(z) ifelse(z < -1, iprobit::expit(z), ifelse(z < 2, iprobit::expit(-1), iprobit::expit(z-3)))
+tibble(
+  x = x,
+  y = my_cdf(x) 
+) %>%
+  ggplot(aes(x, y)) +
+  geom_line(size = 1) +
+  geom_hline(yintercept = 1, linetype = "dashed", col = "grey") +
+  geom_hline(yintercept = 0, linetype = "dashed", col = "grey") +
+  geom_segment(col = "red3", x = -Inf, xend = -1, y = iprobit::expit(-1), 
+               yend = iprobit::expit(-1), size = 0.5, linetype = "dotted") +
+  geom_segment(col = "red3", x = -1, xend = -1, y = iprobit::expit(-1), 
+               yend = -Inf, size = 0.5, linetype = "dotted") +  
+  geom_segment(col = "red3", x = 2, xend = 2, y = iprobit::expit(-1), 
+               yend = -Inf, size = 0.5, linetype = "dotted") +    
+  labs(y = expression(F[X](x))) +
+  scale_y_continuous(breaks = c(0, iprobit::expit(-1), 1), labels = c(0, "y", 1)) +
+  scale_x_continuous(breaks = c(-1, 2), labels = c(expression(x[1]), expression(x[2]))) -> p2
+
+cowplot::plot_grid(p1, p2, nrow = 1, labels = c("(a)", "(b)"))
+```
+:::
+
+The PIT is useful for various statistical purposes, both theoretical and practical. 
+A particular application of note is the *simulation* of an arbitrary random variable $X$ on a computer^[Also called *inverse transform sampling*].
+
+::: {.example}
+Let $X$ be a random variable with an exponential distribution with unit mean.
+Its cdf is $F_X(x) = 1 - e^{-x}$ for $x>0$.
+By the PIT, we have that $U=1-e^{-X}$ is uniformly distributed on $(0,1)$.
+
+Working a bit backwards, with $U\sim\Unif(0,1)$ suppose there is (strictly) monotone transformation $T:[0,1]\to\bbR$ such that $T(U) := X$. We notice that
+\begin{align*}
+F_X(x) &= \bbP(X \leq x) \\
+&= \bbP\big(T(U) \leq x \big)\\
+&= \bbP\big(U \leq T^{-1}(x)\big) \\
+&= T^{-1}(x)
+\end{align*}
+where the last step follows since $U$ is uniformly distributed on $(0,1)$.
+Therefore, $F_X$ is the inverse function of $T$, or equivalently $T(u)=F_X^{-1}(u)$ for $u\in[0,1]$.
+It is then possible to generate $X\sim\Exp(1)$ using the algorithm below:
+
+1. Generate $\bU = \{U_1,\dots,U_n\} \sim\Unif(0,1)$.
+2. Transform the samples $\bU \mapsto \bX$ using the function $T(u) = F_X^{-1}(u) = -\log(1-u)$.
+3. Then $\bX = \{X_1,\dots,X_n\}$ is a sample from $\Exp(1)$.
+
+The `R` code below shows how to implement this in practice. As we can see, the PIT method and the 'direct' method using `R`'s built in function `rexp()` generates very similar results.
+
+```{r pitexample}
+set.seed(2911)
+n <- 1000
+
+# Generate Unif(0,1) r.v.
+U <- runif(n, min = 0, max = 1) %>% sort()
+head(U)
+
+# Generate Exp(1) r.v. using PIT
+X <- -log(1-U)
+head(X)
+
+# Generate Exp(1) r.v. using R built in function
+Z <- rexp(n, rate = 1) %>% sort()
+head(Z)
+```
+
+```{r pitexampleplot, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 3.5, fig.cap = "Comparison of histogram and frequency polygon of the samples generated using PIT and the 'direct' method in R."}
+plot_df <- bind_rows(
+  tibble(x = X, type = "PIT"),
+  tibble(x = Z, type = "Direct")
+)
+ggplot(plot_df, aes(x)) +
+  geom_histogram(data = filter(plot_df, type == "PIT"), alpha = 0.4,
+                 fill = iprior::gg_col_hue(2)[2]) +
+  geom_histogram(data = filter(plot_df, type == "Direct"), alpha = 0.4,
+                 fill = iprior::gg_col_hue(2)[1]) +  
+  geom_freqpoly(aes(col = type), size = 1) +
+  labs(fill = NULL, col = NULL, x = "Samples", y = "Count")
+```
+
+:::
+
 ## Multiple random variables
 
 In the real world, data collection often involves more than one variable, so methods to analyse these kinds of data do exist.
 In particular, probability models may well be extended to involve more than one random variable.
 These are known as *multivariate models*.
+
 
 ### Bivariate distributions
 
@@ -1893,7 +2056,6 @@ Often time we will want to know the mean of $g(X)$.
 
 ::: {.theorem}
 Let $X$ be a r.v. with pdf $f_X(x)$, and let $Y=g(X)$. Then
-\vspace{-.5em}
 \[
 \E(Y) = \int g(x)f_X(x)\dint x.
 \]
@@ -1908,40 +2070,68 @@ The $k$th central moment is defined as $\E((X-\mu)^k)$, where $\mu:=\E(X)$.
 ### Properties of expectations
 
 Let $X$ be a r.v., and $a,b,c\in\bbR$ be constants.
-Here are some important properties of expectations [you should really know these!]. They also work for $g(X)$ too.
+Here are some important properties of expectations. 
 
 - $\E(aX +bX +c) = a\E(X) + b\E(X) + c$ (linearity of expectations)
 - If $Y$ is a r.v. s.t. $X\perp Y$, then $\E(XY) = \E(X)\E(Y)$
 - If $X\geq 0$ for all $x$, then $\E(X)\geq 0$
 - If $a \leq X \leq b$ for all $x$, then $a \leq \E(X) \leq b$
-- $\E(X) = \min_b \E((X-b)^2)$ (see Example 2.2.6 C\&B)
+- $\E(X) = \min_b \E((X-b)^2)$^[See Example 2.2.6 C\&B.]
 
-As a corollary, if $X_1,\dots,X_n$ are r.v. and $a_1,\dots,a_n$ are constants, then
+Note that the above properties work for any transformations of $X$ too.
+For instance,  $\E(ag(X) +bg(X) +c) = a\E(g(X)) + b\E(g(X)) + c$. Just think of $Y=g(X)$ as a new random variable. 
+
+::: {.myalert}
+If $X$ and $Y$ are [not]{.ul} independent, then $\E(XY) \neq \E(X)\E(Y)$.
+:::
+
+::: {.mynote}
+The last property above implies that the mean of a random variable is the minimiser of the (expected) quadratic loss function:
+The closer $b$ is to $X$, then the smaller the value of $(X-b)^2$.
+We can also ask what is the expected value of $b$ which minimises this quantity, and the answer is the mean of $X$.
+The interpretation here is that $\E(X)$ is a good guess of the value of $X$! At least, as measured by this quadratic loss function.
+:::
+
+
+
+As a corollary to the linearity property, if $X_1,\dots,X_n$ are r.v. and $a_1,\dots,a_n$ are constants, then
 \[
 \E\left(\sum_{i=1}^n a_iX_i \right) = \sum_{i=1}^n a_i\E(X_i).
 \]
-Additionally, if $X_1,\dots,X_n$ are independent,
+Additionally, if $X_1,\dots,X_n$ are **independent**,
 \[
 \E\left(\prod_{i=1}^n a_iX_i \right) = \prod_{i=1}^n \E(X_i).
 \]
 
+::: {.mycheck}
+These properties are used extensively throughout statistics, so please take the time to memorise and learn these.
+It will make tackling questions in the later chapter much easier!
+:::
+
 ### Variance
 
-Aside from the mean of a r.v., perhaps the most important moment is the second central moment, more commonly known as the variance.
+Aside from the mean of a random variable (its first central moment), another important concept is the second central moment, more commonly known as the variance.
 
 ::: {.definition name="Variance"}
-Let $X$ be a r.v. with mean $\mu$. The variance of $X$ is defined
+Let $X$ be a r.v. with mean $\mu$. The *variance* of $X$ is defined
 \[
 \Var(X) = \E\big[(X-\mu)^2\big],
 \]
-assuming this expectation exists. The standard deviation is $\text{sd}(X) = \sqrt{\Var(X)}$.
+assuming this expectation exists. The *standard deviation* is $\text{sd}(X) = \sqrt{\Var(X)}$.
 :::
 
-- The symbol $\sigma^2$ is often used to denote the variance, and $\sigma$ the standard deviation.
-- An alternative formula is $\sigma^2 = \E(X^2) - \{\E(X)\}^2$.
-- This variance is **not to be confused** with the sample variance of a set of observations $\{x_1,\dots,x_n\}$, i.e. $s^2 = \frac{1}{n}\sum_{i=1}^n (x_i-\bar x_n)^2$ (although, inspect the two formulae for similarities!).
+The symbol $\sigma^2$ is often used to denote the variance, and $\sigma$ the standard deviation.
+An alternative (and arguably easier) formula for the variance is $$\sigma^2 = \E(X^2) - \{\E(X)\}^2$$.
+But take caution, that this formula can be less precise than the one given in the definition above.
+Especially when $X$ takes very large (or very small) values, then correspondingly $\E(X^2)$ and $\E(X)$ will be very large (very small) too.
+Computationally, there is a limited number of integers the computer can store (its single-precision floating point), and once this is exceeded the numbers get less precise.
+On the other hand, the formula in the definition avoids this issue because the difference between $X$ and its mean is "tamed" in a way--the expected value is zero!
 
-The variance measures the spread of a distribution. That is, how far apart or close together the "mass" of a distribution are.
+::: {.myalert}
+This variance is **not to be confused** with the *sample variance() of a set of observations $\{x_1,\dots,x_n\}$, i.e. $s^2 = \frac{1}{n}\sum_{i=1}^n (x_i-\bar x_n)^2$. However, do inspect the two formulae for similarities!
+:::
+
+The variance measures the spread of a distribution, that is, how far apart or close together the "mass" of a distribution are.
 To illustrate this, have a look at the following $\N(0,\sigma^2)$ pdfs for different values of $\sigma^2$.
 
 ```{r normaldist, echo = FALSE, fig.height = 3}
@@ -1955,60 +2145,93 @@ ggplot(plot.df, aes(x, value, group = variable, col = variable)) +
   labs(col = expression(sigma^2), y = expression(f[X](x)))
 ```
 
+Larger values of $\sigma$ indicate a wider spread (away from the mean), and conversely, smaller values indicate a smaller spread, where values are close together near the mean.
+The variance will become an important criterion when determining how good or bad an parameter estimator is.
+More on this in Chapter 4!
+
 ### Covariance and correlation
 
-The covariance and correlation between $X$ and $Y$ measure how strong the linear relationship is between $X$ and $Y$.
+Suppose we had two random variables, and we wanted to see how each random variable behaves in their respective domains, but also together.
+That is, are larger values of $X$ associated with larger or smaller values of $X$, or is there no relationship at all?
+We introduce the concept of covariance and correlation, both of which measure how strong the *linear relationship* is between $X$ and $Y$.
 
-::: {.definition name="Covariance and correlation"}
-For two r.v. $X$ and $Y$ with finite means $\mu_X$ and $\mu_Y$ resp., and variances $\sigma^2_X$ and $\sigma^2_Y$ resp., the covariance between $X$ and $Y$ is 
+::: {.definition name="Covariance"}
+For two random variables $X$ and $Y$ with finite means $\mu_X$ and $\mu_Y$ respectively, the covariance between $X$ and $Y$ is 
 
 \[
-\Cov(X,Y) = \E\big[(X-\mu_X)(Y-\mu_Y) \big].
+\Cov(X,Y) = \E\big[(X-\mu_X)(Y-\mu_Y) \big],
 \]
+assuming this expectation exists.
+If the variances of the two random variables are finite, then the covariance between them exists.
+:::
 
-Their correlation is the number defined by 
+As with the variance formula, there is also an alternative formula for the covariance given by $$\Cov(X,Y) = \E(XY) -\E(X)\E(Y).$$
+This formula is also susceptible to catastrophic cancellation, and should be avoided in computer programs^[See this article: https://en.wikipedia.org/wiki/Covariance#Numerical_computation].
+Note that the covariance of $X$ with itself is $\sigma^2$, which can be seen by plugging in $X$ for $Y$ in the formula above.
+
+The magnitude of the covariance by itself does not reflect how strong the relationship between $X$ and $Y$ is, so this is where correlation comes in.
+
+::: {.definition name="Correlation"}
+For two r.v. $X$ and $Y$ with finite means $\mu_X$ and $\mu_Y$ resp., and variances $\sigma^2_X$ and $\sigma^2_Y$ resp., the correlation between $X$ and $Y$ is the number $\rho\in[-1,1]$ defined by
 
 \[
 \rho_{XY} :=  \frac{\Cov(X,Y)}{\sigma_X\sigma_Y}
 \]
 :::
 
-- An alternative formula is $\E(XY) -\E(X)\E(Y)$.
-- The covariance of $X$ with itself is $\sigma^2$, while the correlation of $X$ with itself is 1. Try and work this out yourself!
+The value $\rho_{XY}=0$ implies that there is no linear relationship at all between $X$ and $Y$.
+On the other hand, $\rho_{XY}=1$  ($\rho_{XY}=-1$) implies a perfect  positive (negative) linear relationship.
+In fact, $|\rho_{XY}=1|$ if and only if $\exists a\neq 0,b\in\bbR$ such that $\bbP(Y=aX+b)=1$. 
+If $a>0$ then $\rho_{XY}=1$, and if $a<0$ then $\rho_{XY}=-1$.
 
-The magnitude of the covariance by itself does not reflect how strong the relationship between $X$ and $Y$ is, so this is where the correlation comes in.
+The relationship between covariance/correlation with independence is the following: If $X$ and $Y$ are independent, then $\Cov(X,Y) =\rho_{XY}=0$. This can easily be proven using properties of expectations.
 
-- $\rho_{XY}$ takes values between -1 and 1.
-- $\rho_{XY}=0$ implies that there is no linear relationship at all between $X$ and $Y$.
-- On the other hand, $\rho_{XY}=1$  ($\rho_{XY}=-1$) implies a perfect  positive (negative) linear relationship.
-- In fact, $|\rho_{XY}=1|$ iff $\exists a\neq 0,b\in\bbR$ s.t. $\bbP(Y=aX+b)=1$. If $a>0$ then $\rho_{XY}=1$, and if $a<0$ then $\rho_{XY}=-1$.
-- If $X$ and $Y$ are independent, then $\Cov(X,Y) =\rho_{XY}=0$. Ttry and prove this!
-
-::: {.remark}
-If $\Cov(X,Y)=\rho_{XY}=0$, then $X$ and $Y$ are \textbf{not necessarily} independent.
+::: {.myalert}
+The converse however is not true!
+If $\Cov(X,Y)=\rho_{XY}=0$, then $X$ and $Y$ are **not necessarily** independent.
+The reverse statement is true for normal random variables, but not in general. 
+This is one of the properties of normal distributions which we'll cover in the next chapter.
 :::
+
+What does *linear* relationship mean? 
+As the name implies, a strong covariance/correlation allows us to draw a straight line through the points plotted in a 2-dimensional scatterplot.
+Let's take a look.
 
 Let $X,Y\iid\N(0,1)$.
 We can draw some random values in `R`, and produce a scatterplot to see the relationship between them.
 
-```{r corr1, echo = -1, fig.height = 3, fig.width = 3, out.height = ".55\\textheight", fig.align = "center"}
+```{r corr1, fig.height = 4, fig.width = 4, out.width = "60%", fig.align = "center"}
 set.seed(789)
 X <- rnorm(n = 100, mean = 0, sd = 1)
 Y <- rnorm(n = 100, mean = 0, sd = 1)
 qplot(X, Y, geom = "point")
 ```
 
+Since the objects `X` and `Y` are drawn separately, they are independent of each other.
+If we were to draw a straight line through the data points above, how would we draw such a line?
+There does not seem to be a "right" way of doing it.
+This illustrates the concept of zero correlation.
+
 Now suppose $Y=2X + Z$, where $Z\sim\N(0,1)$.
-Now, $\Cov(X,Y)= 2$, and $\Var(Y)=2$.
+Now, $\Cov(X,Y)= 2$, and $\Var(Y)=2$--try and work this out yourself!
 Theoretically, $\rho_{XY}=2/\sqrt{1\cdot 2}\approx 0.71$. 
 
-```{r corr2, fig.height = 3, fig.width = 3, out.height = ".55\\textheight", fig.align = "center"}
+```{r corr2, fig.height = 4, fig.width = 4, out.width = "60%", fig.align = "center"}
 Z <- rnorm(n = 100, mean = 0, sd = 1)
 Y <- 2 * X + Z
+cor(X, Y)  # calculate sample correlation
 qplot(X, Y, geom = "point")
 ```
 
+As the two random variables are positively correlated, a pattern emerges in the scatterplot, where it seems natural to draw a straight line between the points.
+Positive correlation suggests that higher values of $X$ are associated with higher values of $Y$, and vice versa.
+
 ### Properties of variances and covariances
+
+In this section, we shall state some properties of variances and covariances without proof. 
+You may work this out for yourself, or refer to the textbooks for proofs.
+While the properties for variance and covariances look similar, there are subtle differences between them. 
+Make sure you note these differences, and study them properly, and preferably commit them to memory so we can make use of these in later calculations.
 
 Let $X$ and $Y$ be random variables, and $a\neq0,b\in\bbR$ be constants.
 
@@ -2031,31 +2254,177 @@ Let $X,Y,W,V$ be r.v., and $a,b,c,d\in\bbR$. Then
 - $\Cov(X+Y,W+V)=\Cov(X,Y) + \Cov(X, V) + \Cov(Y,W) + \Cov(Y,V)$
 
 ::: {.example}
-Let $X\sim\N(0,1)$, and $Y=2X+1$. Then $$\Var(Y)=\Var(2X+1)=4\Var(X) = 4$$. Further, $$\Cov(X,Y)=\Cov(X,2X+1)=2\Cov(X,X)=2\Var(X)=2$$.
+Let $X\sim\N(0,1)$, and $Y=2X+1$. Then $$\Var(Y)=\Var(2X+1)=4\Var(X) = 4.$$ Further, $$\Cov(X,Y)=\Cov(X,2X+1)=2\Cov(X,X)=2\Var(X)=2.$$
 :::
 
-### Variance-covariance matrix
+### Multivariate means and covariances
 
-Consider a random vector $(X_1,\dots,X_n)^\top$ whose mean is $(\mu_1,\dots,\mu_n)^\top$.
-The variance-covariance matrix, usually denoted $\bSigma\in\bbR^{n\times n}$, is defined to be
+In the previous section, we discussed bivariate and multivariate random variables.
+Let's take a look briefly at how one would define expectations and variances for these types of variables.
+We'll study the more general $p$-dimensional random variable, and hopefully you'll be able to interpolate to bivariate cases yourself.
+
+Consider a random vector $\bX = (X_1,\dots,X_p)^\top$ with pdf given by $f_{\bX}(\bx)$ and support over $\bbR^p$.
+We define the mean of this random vector as the component-wise mean of the random variables.
+
+::: {.definition name="Mean vector"}
+Let $\bX\in\bbR^p$ be a random vector as described. The *mean vector* of $\bX$ is 
+$$
+\bmu = (\mu_1,\dots,\mu_p)^\top,
+$$
+where each $\mu_k$ is the mean of each component of the random vector, i.e.
+$$
+\mu_k = \E(X_k) = \begin{cases}
+\sum_x x\bbP(X_k=x) & \text{discrete case} \\
+\int_x xf_{X_k}(x) \dint x & \text{continuous case} \\
+\end{cases}
+$$
+This is assuming that each of these mean components $\mu_k$ are finite.
+:::
+
+In order to calculate the mean vector from scratch, we need the marginal distributions of each of the components of $\bX$.
+
+In a similar manner we may define the *variance-covariance* matrix.
+That is, we compute each of the variance of the components of the random vector and collect them into a matrix. 
+Additionally, we have to compute each pairwise covariance to complete populating the matrix.
+
+::: {.definition name="Variance-covariance matrix"}
+Let $\bX\in\bbR^p$ be a random vector as described. The *variance-covariance matrix* of $\bX$ is the $p \times p$ square, symmetric matrix $\bSigma=(\sigma_{ij})$ where each entry is defined by
+\begin{align*}
+\sigma_{ij} 
+&= \E\big[(X_i-\mu_i)(X_j-\mu_j) \big] 
+\end{align*}
+for all $i,j=1,\dots,p$.
+:::
+
+Realise that to compute the variance-covariance matrix, one requires the pairwise joint pdfs of the components of $\bX$.
+For illustration, we can see that the $\bSigma$ matrix looks something like this:
 
 \[
 \bSigma = \begin{pmatrix}
-\Var(X_1)   &\Cov(X_1,X_2) &\cdots &\Cov(X_1,X_n) \\
-\Cov(X_2,X_1)   &\Var(X_2) &\cdots &\Cov(X_2,X_n) \\
+\Var(X_1)   &\Cov(X_1,X_2) &\cdots &\Cov(X_1,X_p) \\
+\Cov(X_2,X_1)   &\Var(X_2) &\cdots &\Cov(X_2,X_p) \\
 \vdots &\vdots &\ddots&\vdots \\
-\Cov(X_n,X_1)   &\Cov(X_n,X_2) &\cdots &\Var(X_n) \\
+\Cov(X_p,X_1)   &\Cov(X_p,X_2) &\cdots &\Var(X_p) \\
 \end{pmatrix}
 \]
 
-The correlation matrix is similar in structure to the above, except the off-diagonals are filled with $\rho_{X_iX_j}$ and the diagonals are all 1. Can you figure out why this is?
+The $p$ diagonal entries of $\bSigma$ are the variances of each $X_k$, which there are $p$ of them.
+The off-diagonal entries are the covariances.
+It is symmetric because $\Cov(X_i,X_j)=\Cov(X_j,X_i)$.
 
-### Conditional expectations
+The correlation matrix is similar in structure to the above, with the difference that each entry in the matrix is 
+$$
+\sigma_{ij} = \frac{\E\big[(X_i-\mu_i)(X_j-\mu_j) \big]}{\sigma_i\sigma_j} = \rho_{X_iX_j},
+$$
+where $\sigma_k$ is the standard deviation of each of the components $X_k$.
+As a result, the correlation matrix has all diagonals equal to 1, and the off-diagonals represent the correlations between the random variables.
 
-Conditional pmfs/pdfs are also useful for calculating *conditional expectations*, i.e. the average value of a random variable $X$ given some information about another r.v. $Y$ which might affect it.
+::: {.mynote}
+An important type of correlation matrix is the identity matrix $\bI_p$, where all the diagonals are 1 and the off-diagonals are 0. 
+As we discussed, this does not necessarily imply that the components of $\bX$ are independent.
+However, in the special case of the (multivariate) normal distribution, the identity matrix correlation matrix implies $p$ independent unit variance normal variates.
+:::
+
+::: {.example}
+Here we'll look at a bivariate random variable $\bX=(X_1,X_2)^\top\in[0,1]^2$, whose pdf is given by
+$$
+f_{X_1,X_2}(x_1,x_2) = \frac{1}{2} + \frac{3}{4}(x_1^2 + x_2^2).
+$$
+The pdf can be visualised as follows.
+
+```{r bivariateexample, echo = FALSE}
+library(plotly)
+allxy <- expand.grid(x1 = seq(0, 1, len = 100),
+                     x2 = seq(0, 1, len = 100))
+allxy$z <- 0.5 + 0.75 * (allxy$x1 ^ 2 + allxy$x2 ^ 2)
+
+f <- reshape2::acast(allxy, x1 ~ x2, value.var = "z")
+
+x <- y <- as.numeric(rownames(f))
+plot_ly(z = f, type = "surface", x = x, y = y) %>%
+  # add_surface(contours = list(
+  #   z = list(show = TRUE, usecolormap = TRUE, highlightcolor="#ff0000", 
+  #            project = list(z=TRUE))
+  # )) %>%
+  layout(scene = list(
+    zaxis = list(title = "f(x1,x2)"),
+    xaxis = list(title = "x1"),
+    yaxis = list(title = "x2"))
+  )
+```
+
+Let's compute the means and variances of each components $X_1$ and $X_2$. For this, we need the marginal pdfs.
+$$
+f_{X_1}(x) = \int_{0}^1 \left(\frac{1}{2} + \frac{3}{4}(x^2 + y^2) \right) \dint y = \frac{3}{4}(x^2 + 1)
+$$
+and by symmetry,
+$$
+f_{X_2}(x) = \frac{3}{4}(x^2 + 1).
+$$
+Both of these pdfs are valid, since they both integrate to 1 in the unit interval region of integration.
+Since they are identically distributed, $\E(X_1)=\E(X_2)$ and $\Var(X_1)=\Var(X_2)$.
+We compute these in turn.
+
+\begin{align*}
+\E(X_1) &= \int_0^1 x\frac{3}{4}(x^2 + 1) \dint x = \frac{9}{16} = \E(X_2),
+\end{align*}
+and
+\begin{align*}
+\Var(X_1) &= \int_0^1 \left(x - \frac{9}{16}\right)^2 \frac{3}{4}(x^2 + 1) \dint x = 0.0836 = \Var(X_2).
+\end{align*}
+
+As for the covariance, this is computed as follows.
+\begin{align*}
+\Cov(X_1,X_2) &= \int_0^1 \int_0^1 \left(x - \frac{9}{16}\right)\left(y - \frac{9}{16}\right) \left( \frac{1}{2} + \frac{3}{4}(x^2 + y^2) \right) \dint x \dint y \\
+&= -0.00391
+\end{align*}
+
+Therefore, the mean vector for $(X,Y)$ is
+$$
+\bmu = \begin{pmatrix}
+\mu_1\\
+\mu_2
+\end{pmatrix}
+=
+\begin{pmatrix}
+9/16 \\
+9/16
+\end{pmatrix}
+$$
+while the variance-covariance matrix is
+$$
+\bSigma = \begin{pmatrix}
+\Var(X_1) & \Cov(X_1,X_2) \\
+\Cov(X_1,X_2) & \Var(X_2) \\
+\end{pmatrix} 
+=
+\begin{pmatrix}
+0.0836 & -0.00391 \\
+-0.00391 & 0.0836 \\
+\end{pmatrix}.
+$$
+If we were to convert the above $2\times 2$ matrix to a correlation matrix, we would need to divide each entry by $\sqrt{\Var(X_1)\Var(X_2)}=0.0836$, thus yielding the correlation matrix $\bPhi$
+$$
+\bPhi = \begin{pmatrix}
+1 & \rho(X_1,X_2) \\
+\rho(X_1,X_2) & 1 \\
+\end{pmatrix} 
+=
+\begin{pmatrix}
+1 & -0.05 \\
+-0.05 & 1 \\
+\end{pmatrix}.
+$$
+:::
+
+### Conditional expectations and variance
+
+In the previous section, we looked at conditional probability functions, both in the discrete and continuous case.
+These conditional pmfs/pdfs are also useful for calculating *conditional expectations*, i.e. the "average" value of a random variable $X$ given some information about another random variable $Y$ which might affect it.
+We define it as follows.
 
 ::: {.definition name="Conditional expectation"}
-The conditional expectation of a function of a r.v. $X$, $g(X)$ say, given a value of a nother r.v. $Y=y$, is
+The *conditional expectation* of a function of a random variable $X$, $g(X)$ say, given a value of another random variable $Y=y$, is
 \[
 \E\left[g(X)|Y=y\right] =
 \begin{cases}
@@ -2065,29 +2434,53 @@ The conditional expectation of a function of a r.v. $X$, $g(X)$ say, given a val
 \]
 :::
 
-- All of the properties of the usual expectations are applicable.
-- However, whereas $\E(X)$ is a number (non-random), $\E(X|Y=y)$ is a function of $y$. If we have not observed $Y$, then $\E(X|Y)$ is a random variable.
+In particular, we might be interested in $\E(X|Y)$, which is obtained using $g(X)=X$ in the above definition.
+Notice that to calculate the conditional expectations, we require the conditional distributions.
+
+::: {.mynote}
+Conditional expectations behave quite like regular expectations, so that all of the properties of the usual expectations are applicable.
+However, whereas $\E(X)$ is a number (non-random), $\E(X|Y=y)$ is a function of $y$. 
+More importantly, if we have [not observed]{.ul} $Y$, then $\E(X|Y)$ is a **random variable**.
+:::
+
+There are some additional properties related to conditional expectations that are somewhat intuitive. 
+We list them here for reference.
+
+- $\E(g(X) | X) = g(X)$--"the given variable is a constant"
+
+- $\E(g(X) Y | X) = g(X) \E(Y|X)$--since $g(X)$ given $X$ is a constant, we can pull it out of the expectation.
+
+- If $X \perp Y$, then $\E(Y|X)=\E(Y)$--since the distribution of $Y$ does not depend on $X$.
+
+Let's take a look at an example.
 
 ::: {.example}
 
 Suppose we draw $Y\sim\Unif(0,1)$. 
 After we observe $Y=y\in[0,1]$, we draw $X|(Y=y) \sim \Unif(y,1)$.
-Intuitively, we expect that $\E(X|Y=y)$ to be half-way between $y$ and 1, i.e. $(1+y)/2$.
+That is, conditional on the observed value of $Y$, we draw another uniform distribution whose value is at least $Y$ and at most $1$.
+Intuitively, since this is a uniform distribution, we expect that $\E(X|Y=y)$ to be half-way between $y$ and 1, i.e. $(1+y)/2$.
 
-In fact, $f_{X|Y}(x|y) = (1-y)^{-1}$, so
+In fact this is indeed the case, since $f_{X|Y}(x|y) = (1-y)^{-1}$, so
 \begin{align*}
-\E(X|Y=y) &= \int_y^1 xf_{X|Y}(x|y) \dint x \\ &= \frac{1}{1-y} \int_y^1  x \dint x  
-=\frac{1-y^2}{2(1-y)} = \frac{(1-y)(1+y)}{2(1-y)} =\frac{1+y}{2}.
+\E(X|Y=y) 
+&= \int_y^1 xf_{X|Y}(x|y) \dint x \\ 
+&= \frac{1}{1-y} \int_y^1  x \dint x  \\
+&=\frac{1-y^2}{2(1-y)} \\
+&= \frac{(1-y)(1+y)}{2(1-y)} \\
+&=\frac{1+y}{2}.
 \end{align*}
 
-However, if $Y$ has not been observed yet, then $\E(X|Y)=(1+Y)/2$ is a r.v. whose value is $\E(X|Y=y)=(1+y)/2$ once observed.
+However, if $Y$ has not been observed yet, then $\E(X|Y)=(1+Y)/2$ is a random variable whose value is $\E(X|Y=y)=(1+y)/2$ once observed.
 
 :::
 
-If $\E(X|Y)$ is a r.v., what is its mean?
+If $\E(X|Y)$ is a random variable, then it must have a distribution.
+Sometimes this is easy to figure out, but other times it is not so straightforward. 
+However, we have a result to easily obtain the mean of this random variable $\E(X|Y)$.
 
-::: {.theorem name="Rule of iterated expectations/Law of total expectations"}
-If $X$ and $Y$ are two r.v., then
+::: {.theorem #lawoftotalexp name="Rule of iterated expectations/Law of total expectations"}
+If $X$ and $Y$ are two random variables, then
 \[
 {\E}_Y\left[\E(X|Y)\right] = \E(X),
 \]
@@ -2095,31 +2488,69 @@ provided the expectation exists.
 More generally, $\E(g(X)) = \E\left[\E(g(X)|Y)\right]$ for any function $g$.
 :::
 
-The total average $\E(X)$ is the average $\E_Y(\cdot)$ of the case-by-case averages $\E(X|Y)$ over $Y$.
+::: {.mynote}
+The interpretation of the above theorem is the following: The total average $\E(X)$ is the average of the case-by-case averages $\E(X|Y)$ over $Y$.
+:::
 
 ::: {.proof}
+We can show this for the continuous case, but the proof is easily adapted for the discrete case.
 \begin{align*}
 {\E}_Y\left[\E(X|Y)\right] 
 &= \int \left( \int x f_{X|Y}(x|y)\dint x \right) f_Y(y)\dint y \\
 &= \int \int x \cdot \overbrace{f_{X|Y}(x|y) f_Y(y)}^{f_{X,Y}(x,y)}  \dint y \dint x  \\
 &= \int  x \cdot \overbrace{\int f_{X,Y}(x,y) \dint y}^{f_X(x)}   \dint x  \\
-&= \E(X)
+&= \E(X).
 \end{align*}
 :::
 
-### Conditional variance
+<br>
+
+This is a nice example taken from [Wikipedia](https://en.wikipedia.org/wiki/Law_of_total_expectation) which intuitively explains the Rule of Iterated Expectations:
+
+::: {.example}
+Suppose that only two factories supply light bulbs to the market. Factory $X$'s bulbs work for an average of 5000 hours, whereas factory $Y$'s bulbs work for an average of 4000 hours. 
+It is known that factory $X$ supplies 60% of the total bulbs available. 
+What is the expected length of time $L$ that a purchased bulb will work for?
+
+Without knowing anything about Theorem \@ref(thm:lawoftotalexp), we would intuitively work out that
+$$
+\E(L) = 5000 \times 0.6 + 4000 \times 0.4 = 4600.
+$$
+In fact, this is an application of the law of total expectations.
+Let 
+
+- $\bbP(X)=0.6$ be the probability that the purchased bulb was manufactured by factory $X$ (information given);
+- $\bbP(X)=1-0.6=0.4$ be the probability that the purchased bulb was manufactured by factory $Y$ (deduced by law of total probability);
+- $\E(L|X)=5000$ is the expected lifetime of a bulb manufactured by $X$ (information given);
+- $\E(L|Y)=4000$ is the expected lifetime of a bulb manufactured by $Y$ (information given);
+
+Then $\E(L)$, the expected length of time of a purchased bulb at random will be
+$$
+\E(L) = \E(L|X)\bbP(X) + \E(L|Y) \bbP(Y) = 4600.
+$$
+:::
+
+A related concept is the "conditional variance" of a random variable, defined below.
 
 ::: {.definition name="Conditional variance"}
-The conditional variance of a r.v. $X$ given $Y=y$ is
+The *conditional variance* of a function of a random variable $X$, $g(X)$ say, given a value of another random variable $Y=y$, is
+$$
+\Var(g(X)|Y=y) = \E \left[ \left(g(X) - \E(g(X)|Y=y)\right)^2 \,\Big|\, Y=y\right],
+$$
+provided this expectation exists. 
+:::
+
+In particular, 
 \[
 \Var(X|Y=y) = \E \left[ \left(X - \E(X|Y=y)\right)^2 \,\Big|\, Y=y\right].
 \]
-:::
-
-- An alternative formula: 
+There is an alternative formula for the conditional variance, similar to what we have seen in the regular variance case:
 \[
 \Var(X|Y=y) = \E \left(X^2 | Y=y\right) - \left\{ \E(X|Y=y) \right\}^2.
 \]
+The warnings about catastrophic cancellation applies here as well!
+
+
 
 The law of total variance states that
 \[
@@ -2138,6 +2569,120 @@ See also: https://math.stackexchange.com/a/3377007
 ```{r, echo = FALSE, fig.align = "center", out.width = "80%"}
 knitr::include_graphics("figure/lawoftotalvariance.png")
 ```
+
+### Additional explainers
+
+Let $(X,Y)$ be a bivariate random variable with some pdf $f(x,y)$.
+To illustrate the concepts we've been talking about so far, consider drawing a random sample of size $n$ from this distribution.
+The scatterplot is shown below, with values of $X$ on the vertical axis, and $Y$ on the horizontal axis.
+
+
+```{r condexp1, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 4}
+set.seed(112)
+n <- 500
+xmax <- 5
+x <- runif(n, -xmax, xmax)
+y <- rnorm(n, mean = x ^ 2, sd = xmax - abs(x))
+plot_df <- tibble(x = x, y = y)
+
+library(ggExtra)
+ggplot(plot_df, aes(x, y)) +
+  geom_point() +
+  labs(x = "Y", y = "X") +
+  scale_x_continuous(breaks = seq(-xmax, xmax, by = 1))
+```
+
+The first thing to note is that there is clearly a dependence between $X$ and $Y$.
+In the region of $X>0$, values of $Y$ increase as $X$ increases, and we see a similar pattern in the opposite direction, i.e. in the region of $X<0$, values of $Y$ increase as $X$ decreases.
+In other words, values of $Y$ increases as $|X|$ increases.
+We say there is a *non-linear* dependence of $X$ on $Y$ (a straight line plotted through the points will not sufficiently capture the relationship between them).
+
+Next, suppose we colour the the points by the values of $X$.
+In the plot below, large values of $X$ are coloured on the yellow end of the spectrum, while small values of $X$ are coloured dark blue.
+The marginal distribution of $X$ is akin to "flattening" the horizontal axis until every point lies in a straight vertical line.
+The vertical histogram on the right side gives a representation of how distributed the points are along this flat vertical line. 
+The *mass* of the distribution seems to lie in the middle, perhaps somewhere in between 0 and 5.
+If we calculated the sample mean of all the observed $X$ values, this would given (an estimate) for the *marginal* expectation of $X$.
+This is marked in the plot by the horizontal dashed line.
+
+
+```{r condexp2, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 4}
+ggplot(plot_df, aes(x, y, col = y)) +
+  geom_point() +
+  geom_hline(yintercept = 8, linetype = "dashed", col = "grey70") +
+  annotate("text", -4.8, 9, label = "E(X)", col = "grey70") +
+  labs(x = "Y", y = "X") +
+  scale_color_viridis_c() +
+  scale_x_continuous(breaks = seq(-xmax, xmax, by = 1)) +
+  theme(legend.position = "none") -> p
+
+ggplot(plot_df, aes(y = y, fill = cut(y, 100))) +
+  geom_histogram(show.legend = FALSE) +
+  # scale_x_reverse() +
+  scale_fill_viridis_d() +
+  theme_void() +
+  theme(plot.margin = unit(c(1, 0, 25, 0), "pt")) -> marghisty
+
+# ggplot(plot_df, aes(x = x, fill = cut(y, 100))) +
+#   geom_histogram(show.legend = FALSE) +
+#   # scale_x_reverse() +
+#   scale_fill_viridis_d() +
+#   theme_void() +
+#   theme(plot.margin = unit(c(0, 0, 0, 30), "pt")) -> marghistx
+
+cowplot::plot_grid(p, marghisty, nrow = 1, rel_widths = c(1, 0.1))
+```
+
+Similarly, we can get the marginal distribution for $Y$ as well as the marginal expectation of $Y$ by flattening the vertical axis.
+
+::: {.mynote}
+When we speak about "flattening" the horizontal axis, this is essentially what we do when we compute the marginal distribution, 
+$$
+f_X(x) = \int_y f_{X,Y}(x,y) \dint y
+$$
+as we are *marginalising* over the values of $Y$.
+What results is the distribution of $X$!
+
+From here, we can compute the *marginal* expectation of $X$, i.e.
+$$
+\E(X) = \int_x x \cdot \overbrace{\left( \int_y f_{X,Y}(x,y) \dint y \right)}^{f_X(x)} \dint x
+$$
+:::
+
+Now, imagine that we concentrate on vertical strips of the scatterplot centred on various values of $Y$. 
+When we concentrate on just one strip, the distribution of $X$ then changes, and thus the expected value *conditional on this value of $Y$* also changes.
+We clearly see that the distribution changes depending on where we draw the vertical strip, i.e. what the value of $Y$ is.
+This is the concept for *conditional distributions* and *conditional expectations*.
+
+```{r condexp3, cache = TRUE, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 4, gganimate = list(rewind = FALSE), fig.cap = "test", include = knitr::is_html_output()}
+plot_df %>%
+  mutate(scene = case_when(
+    (x > -1.3) & (x < -0.7) ~ "-1",
+    (x > 4.2) & (x < 4.8) ~ "4.5",
+    (x > 1.7) & (x < 2.3) ~ "2",
+    (x > -3.3) & (x < -2.7) ~ "-3",
+    (x > -0.3) & (x < 0.3) ~ "0",
+    TRUE ~ "else"
+  )) -> plot_df
+
+quadratic_df <- tibble(x = x, y = x ^ 2)
+
+ggplot(filter(plot_df, scene != "else")) +
+  geom_rect(aes(xmin = as.numeric(scene) - 0.3, xmax = as.numeric(scene) + 0.3, 
+                ymin = -Inf, ymax = Inf, fill = scene, group = scene), col = NA, alpha = 0.01) +
+  geom_line(data = quadratic_df, aes(x, y)) +
+  geom_boxplot(aes(as.numeric(scene), y, group = scene, col = scene),
+               outlier.shape = NA, width = 0.5) +  
+  geom_point(aes(x, y, col = scene)) +
+  geom_point(data = select(plot_df, x, y), aes(x, y), alpha = 0.2, col = "black") +
+  theme(legend.position = "none") +
+  labs(x = "Y", y = "X") +
+  transition_states(scene, state_length = 10, transition_length = 1) +
+  enter_fade() +
+  exit_fade() +
+  ease_aes('sine-in-out')
+```
+
 
 
 ## Moment generating functions
