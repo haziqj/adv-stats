@@ -3638,7 +3638,65 @@ From here, we can compute the \emph{marginal} expectation of \(X\), i.e.
 Now, imagine that we concentrate on vertical strips of the scatterplot centred on various values of \(Y\).
 When we concentrate on just one strip, the distribution of \(X\) then changes, and thus the expected value \emph{conditional on this value of \(Y\)} also changes.
 We clearly see that the distribution changes depending on where we draw the vertical strip, i.e.~what the value of \(Y\) is.
-This is the concept for \emph{conditional distributions} and \emph{conditional expectations}.
+This is the concept for \emph{conditional distributions}.
+
+From these conditional distributions, we can clearly visualise the and \emph{conditional expectations} and \emph{conditional variances} through the boxplots at different locations of \(Y\) (see Figure \ref{fig:condexp3}).
+For instance, the boxplots at \(Y=0\) are definitely wider than that at \(Y=5\)--there is more variability at \(Y=0\) and less at \(Y=5\).
+Also, at \(Y=0\), the mean of the points within the green strip is about 0--we can think of this as roughly representing \(\E(X|Y=0)=0\).
+The conditional mean changes for different locations of \(Y\).
+For \(Y=5\) for instance, the conditional mean of \(X\) is about 20.
+
+In Figure \ref{fig:condexp3} as well we have drawn a quadratic line through the data points.
+This line actually represents the curve \(g(y)=\E(X|Y=y)\).
+That is to say, the mean of \(X\) conditional on the value of \(Y=y\) is represented along this curve.
+The relationship between the curve and the total expectation \(\E(X)\) is that \(\E(X)\) is the average of all values of the curve \(\E(X|Y=y)\) weighted by the probability distribution of \(Y\).
+Since the distribution of \(Y\) is pretty uniform (see Figure \ref@(fig:condexp2)), this explains why the dotted horizontal line is somewhere in the middle of the black curve.
+This explains the law of total expectations.
+
+We can also illustrate the law of total variance using this graphic.
+Consider any point in this scatterplot, and its distance to the overall mean \(\E(X)\).
+It can be split into two parts, as follows:
+\begin{equation}
+\overbrace{X - \E(X)}^{\text{blue part}} = \overbrace{X - \E(X|Y)}^{\text{red part}} + \overbrace{\E(X|Y) - \E(X)}^{\text{green part}} \label{eq:condvariancebreakdown}
+\end{equation}
+This is illustrated in the following graphic:
+
+\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/condexp4-1} \end{center}
+
+If this is the case, using the formula for the variance as well as properties of expectations on \eqref{eq:condvariancebreakdown}, we get the relationship
+\begin{align*}
+\{X - \E(X)\}^2 &= \left\{X - \E(X|Y) + \E(X|Y) - \E(X) \right\}^2 \\
+&= \left\{X - \E(X|Y)\right\}^2 + \left\{\E(X|Y) - \E(X) \right\}^2 \\
+&\hspace{2em}+ 2 \left\{X - \E(X|Y)\right\} \left\{\E(X|Y) - \E(X) \right\} \\
+\Rightarrow \E\{X - \E(X)\}^2
+&= E\left\{X - \E(X|Y)\right\}^2 + \E\left\{\E(X|Y) - \E(X) \right\}^2 \\
+&\hspace{2em}+ \cancelto{0}{2 \E \left\{X - \E(X|Y)\right\} \left\{\E(X|Y) - \E(X) \right\}} \\
+\Rightarrow \Var(X) &= \E\{\Var(X|Y) \} + \Var\{\E(X|Y)\}
+\end{align*}
+
+as required.
+Some additional algebra to support the above:
+
+\begin{align*}
+\E\left\{X - \E(X|Y)\right\}^2 
+&=\E\left\{\E\left[\left\{X - \E(X|Y)\right\}^2 \mid Y \right]\right\}\\
+&\text{by the Law of Total Expectations} \\
+&= \E\left\{\Var(X|Y) \right\}
+\end{align*}
+
+\begin{align*}
+\E\left\{\E(X|Y) - \E(X) \right\}^2
+&= \E\left\{\E(X|Y) - \E\big(\E(X|Y)\big) \right\}^2 \\
+&- \Var\left\{ \E(X|Y) \right\}
+\end{align*}
+
+\begin{align*}
+\E \bigg\{\big(X - \E(X|Y)\big) \overbrace{\big(\E(X|Y) - \E(X)\big)}^{g(Y)} \bigg\} 
+&= \E\left\{g(Y) \big(X - \E(X|Y)\big) \right\}\\ 
+&= \E_Y \left[ \E\left\{g(Y) \big(X - \E(X|Y)\big) \right\} \mid Y \right] \\
+&= \E_Y \left[ g(Y) \left\{ \big(\E(X|Y) - \E(X|Y)\big) \right\} \mid Y \right] \\
+&= 0
+\end{align*}
 
 \hypertarget{moment-generating-functions}{%
 \section{Moment generating functions}\label{moment-generating-functions}}
