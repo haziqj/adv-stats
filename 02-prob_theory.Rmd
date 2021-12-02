@@ -2579,7 +2579,7 @@ The scatterplot is shown below, with values of $X$ on the vertical axis, and $Y$
 
 ```{r condexp1, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 4}
 set.seed(112)
-n <- 500
+n <- 1000
 xmax <- 5
 x <- runif(n, -xmax, xmax)
 y <- rnorm(n, mean = x ^ 2, sd = xmax - abs(x))
@@ -2623,14 +2623,15 @@ ggplot(plot_df, aes(y = y, fill = cut(y, 100))) +
   theme_void() +
   theme(plot.margin = unit(c(1, 0, 25, 0), "pt")) -> marghisty
 
-# ggplot(plot_df, aes(x = x, fill = cut(y, 100))) +
-#   geom_histogram(show.legend = FALSE) +
-#   # scale_x_reverse() +
-#   scale_fill_viridis_d() +
-#   theme_void() +
-#   theme(plot.margin = unit(c(0, 0, 0, 30), "pt")) -> marghistx
+ggplot(plot_df, aes(x = x, fill = cut(y, 100))) +
+  geom_histogram(show.legend = FALSE) +
+  # scale_x_reverse() +
+  scale_fill_viridis_d() +
+  theme_void() +
+  theme(plot.margin = unit(c(0, 0, 0, 30), "pt")) -> marghistx
 
-cowplot::plot_grid(p, marghisty, nrow = 1, rel_widths = c(1, 0.1))
+cowplot::plot_grid(marghistx, NULL, p, marghisty, nrow = 2, rel_widths = c(1, 0.1),
+                   rel_heights = c(0.1, 1))
 ```
 
 Similarly, we can get the marginal distribution for $Y$ as well as the marginal expectation of $Y$ by flattening the vertical axis.
@@ -2652,9 +2653,16 @@ $$
 Now, imagine that we concentrate on vertical strips of the scatterplot centred on various values of $Y$. 
 When we concentrate on just one strip, the distribution of $X$ then changes, and thus the expected value *conditional on this value of $Y$* also changes.
 We clearly see that the distribution changes depending on where we draw the vertical strip, i.e. what the value of $Y$ is.
-This is the concept for *conditional distributions* and *conditional expectations*.
+This is the concept for *conditional distributions*.
 
-```{r condexp3, cache = TRUE, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 4, gganimate = list(rewind = FALSE), fig.cap = "test", include = knitr::is_html_output()}
+From these conditional distributions, we can clearly visualise the and *conditional expectations* and *conditional variances* through the boxplots at different locations of $Y$ (see Figure \@ref(fig:condexp3)).
+For instance, the boxplots at $Y=0$ are definitely wider than that at $Y=5$--there is more variability at $Y=0$ and less at $Y=5$.
+Also, at $Y=0$, the mean of the points within the green strip is about 0--we can think of this as roughly representing $\E(X|Y=0)=0$.
+The conditional mean changes for different locations of $Y$. 
+For $Y=5$ for instance, the conditional mean of $X$ is about 20.
+
+
+```{r condexp3, cache = TRUE, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 4, gganimate = list(nframes = 30, fps = 30, rewind = FALSE), fig.cap = "The distribution of \\(X\\) conditional on different values of \\(Y\\).", include = knitr::is_html_output()}
 plot_df %>%
   mutate(scene = case_when(
     (x > -1.3) & (x < -0.7) ~ "-1",
@@ -2669,10 +2677,12 @@ quadratic_df <- tibble(x = x, y = x ^ 2)
 
 ggplot(filter(plot_df, scene != "else")) +
   geom_rect(aes(xmin = as.numeric(scene) - 0.3, xmax = as.numeric(scene) + 0.3, 
-                ymin = -Inf, ymax = Inf, fill = scene, group = scene), col = NA, alpha = 0.01) +
+                ymin = -Inf, ymax = Inf, fill = scene, group = scene), col = NA, alpha = 0.008) +
   geom_line(data = quadratic_df, aes(x, y)) +
   geom_boxplot(aes(as.numeric(scene), y, group = scene, col = scene),
                outlier.shape = NA, width = 0.5) +  
+  geom_hline(yintercept = 8, linetype = "dashed", col = "grey70") +
+  annotate("text", -4.8, 9, label = "E(X)", col = "grey70") +
   geom_point(aes(x, y, col = scene)) +
   geom_point(data = select(plot_df, x, y), aes(x, y), alpha = 0.2, col = "black") +
   theme(legend.position = "none") +
@@ -2682,6 +2692,84 @@ ggplot(filter(plot_df, scene != "else")) +
   exit_fade() +
   ease_aes('sine-in-out')
 ```
+
+In Figure \@ref(fig:condexp3) as well we have drawn a quadratic line through the data points.
+This line actually represents the curve $g(y)=\E(X|Y=y)$.
+That is to say, the mean of $X$ conditional on the value of $Y=y$ is represented along this curve.
+The relationship between the curve and the total expectation $\E(X)$ is that $\E(X)$ is the average of all values of the curve $\E(X|Y=y)$ weighted by the probability distribution of $Y$.
+Since the distribution of $Y$ is pretty uniform (see Figure \ref@(fig:condexp2)), this explains why the dotted horizontal line is somewhere in the middle of the black curve.
+This explains the law of total expectations.
+
+We can also illustrate the law of total variance using this graphic.
+Consider any point in this scatterplot, and its distance to the overall mean $\E(X)$.
+It can be split into two parts, as follows:
+\begin{equation}
+\overbrace{X - \E(X)}^{\text{blue part}} = \overbrace{X - \E(X|Y)}^{\text{red part}} + \overbrace{\E(X|Y) - \E(X)}^{\text{green part}} (\#eq:condvariancebreakdown)
+\end{equation}
+This is illustrated in the following graphic:
+
+```{r condexp4, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 3.33, fig.width = 5, out.width = "100%"}
+one_point_df <- filter(plot_df, x < -1, x >-2, y > 10)
+
+library(ggbrace)
+ggplot(plot_df, aes(x, y)) +
+  geom_point(alpha = 0.15) +
+  geom_line(data = quadratic_df, aes(x, y)) +
+  geom_hline(yintercept = 8, linetype = "dashed", col = "grey70") +
+  geom_segment(x = -1.69, xend = - 1.69, y = 13.1, yend = 1.69 ^ 2, linetype = "dotted") +
+  # geom_segment(x = -1.69, xend = - 1.69, y = 8, yend = 1.69 ^ 2, col = "red3", size = 1) +
+  geom_brace(aes(c(-1.6, -1.5), c(8, 13.1)), rotate = 90, inherit.aes = FALSE, 
+             inherit.data = FALSE, col = "steelblue3", size = 1) +
+  annotate("text", label = "X - E(X)", x = -1.1, y = 10.5, col = "steelblue3") +
+  geom_brace(aes(c(-1.8, -1.9), c(1.69^2, 13.1)), rotate = 270, inherit.aes = FALSE, 
+             inherit.data = FALSE, col = "red3", size = 1) +
+  annotate("text", label = "X - E(X|Y)", x = -2.4, y = 8, col = "red3") +  
+  geom_brace(aes(c(-1.6, -1.5), c(8, 1.69^2)), rotate = 90, inherit.aes = FALSE, 
+             inherit.data = FALSE, col = "#50C878", size = 1) +
+  annotate("text", label = "E(X)-E(X|Y)", x = -0.9, y = 5.4, col = "#50C878") +
+  
+  geom_point(data =one_point_df, size = 3, shape = 13, fill = "black") +
+  annotate("text", -4.8, 8.6, label = "E(X)", col = "grey70") +  
+  labs(x = "Y", y = "X") +
+  scale_x_continuous(breaks = seq(-xmax, xmax, by = 1)) +
+  coord_cartesian(xlim = c(-5, 0), ylim = c(0, 15))
+```
+
+
+If this is the case, using the formula for the variance as well as properties of expectations on \@ref(eq:condvariancebreakdown), we get the relationship
+\begin{align*}
+\{X - \E(X)\}^2 &= \left\{X - \E(X|Y) + \E(X|Y) - \E(X) \right\}^2 \\
+&= \left\{X - \E(X|Y)\right\}^2 + \left\{\E(X|Y) - \E(X) \right\}^2 \\
+&\hspace{2em}+ 2 \left\{X - \E(X|Y)\right\} \left\{\E(X|Y) - \E(X) \right\} \\
+\Rightarrow \E\{X - \E(X)\}^2
+&= E\left\{X - \E(X|Y)\right\}^2 + \E\left\{\E(X|Y) - \E(X) \right\}^2 \\
+&\hspace{2em}+ \cancelto{0}{2 \E \left\{X - \E(X|Y)\right\} \left\{\E(X|Y) - \E(X) \right\}} \\
+\Rightarrow \Var(X) &= \E\{\Var(X|Y) \} + \Var\{\E(X|Y)\}
+\end{align*}
+
+as required.
+Some additional algebra to support the above:
+
+\begin{align*}
+\E\left\{X - \E(X|Y)\right\}^2 
+&=\E\left\{\E\left[\left\{X - \E(X|Y)\right\}^2 \mid Y \right]\right\}\\
+&\text{by the Law of Total Expectations} \\
+&= \E\left\{\Var(X|Y) \right\}
+\end{align*}
+
+\begin{align*}
+\E\left\{\E(X|Y) - \E(X) \right\}^2
+&= \E\left\{\E(X|Y) - \E\big(\E(X|Y)\big) \right\}^2 \\
+&- \Var\left\{ \E(X|Y) \right\}
+\end{align*}
+
+\begin{align*}
+\E \bigg\{\big(X - \E(X|Y)\big) \overbrace{\big(\E(X|Y) - \E(X)\big)}^{g(Y)} \bigg\} 
+&= \E\left\{g(Y) \big(X - \E(X|Y)\big) \right\}\\ 
+&= \E_Y \left[ \E\left\{g(Y) \big(X - \E(X|Y)\big) \right\} \mid Y \right] \\
+&= \E_Y \left[ g(Y) \left\{ \big(\E(X|Y) - \E(X|Y)\big) \right\} \mid Y \right] \\
+&= 0
+\end{align*}
 
 
 
