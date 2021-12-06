@@ -2550,25 +2550,107 @@ There is an alternative formula for the conditional variance, similar to what we
 \]
 The warnings about catastrophic cancellation applies here as well!
 
+Similar to the law of total expectations, we have a result involving conditional variances.
 
+::: {.theorem #lawoftotalvariance name="Law of total variance"}
+If $X$ and $Y$ are two random variables, then
+$$
+\Var_Y(X) = {\E}_Y\left[\Var(X|Y) \right] + {\Var}_Y\left[\E(X|Y) \right].
+$$
+:::
 
-The law of total variance states that
-\[
-\Var(X) = {\E}_Y\left[\Var(X|Y) \right] + {\Var}_Y\left[\E(X|Y) \right].
-\]
-
-Note that, in this context, both $\Var(X|Y)$ and $\E(X|Y)$ are random variables.
-The variance of $X$ is the sum of two parts:
+The above theorem also works for more general functions of $X$.
+Note that, in this context, both $\Var(X|Y)$ and $\E(X|Y)$ are random variables, as they depend on the (unknown) value of $Y$.
+The law of total variance states that the total variability of $X$ is the sum of two parts:
 
 1. The average of the variance of $X$ over all possible values of the r.v. $Y$. This is called the average *within-sample variance*.
 2. The variance of the conditional expectation of $X$ given $Y$. This is called the *between-sample variance* (of the conditional averages).
 
-See also: https://math.stackexchange.com/a/3377007
+The next section provides some additional explainers involving conditional expectations and variances, and also gives a proof for Theorem \@ref(thm:lawoftotalvariance).
+
+::: {.mynote}
+It is always advisable to keep track of which distribution the expectation is taken under.
+For instance,
+$$
+\E_X(X) = \int x f_X(x) \dint x
+$$
+is the expectation of $X$ using the pdf of $X$. 
+There is little ambiguity here so we needn't put a subscript for the expectation and it's fine to write it simply as $\E(X)$.
+On the other hand,
+$$
+\E_Y(X) = \int X f_Y(y) \dint y = X \int f_Y(y) \dint y = X
+$$
+which makes sense because $X$ is constant in $Y$ so gets pulled out of the expectation.
+Keeping track of expectations is even more important when using iterated expectations under the law of total expectations and total variance!
+
+:::
+<!-- See also: https://math.stackexchange.com/a/3377007 -->
 
 
-```{r, echo = FALSE, fig.align = "center", out.width = "80%"}
-knitr::include_graphics("figure/lawoftotalvariance.png")
-```
+<!-- ```{r, echo = FALSE, fig.align = "center", out.width = "80%"} -->
+<!-- knitr::include_graphics("figure/lawoftotalvariance.png") -->
+<!-- ``` -->
+
+::: {.example}
+Here's a problem faced by actuaries (in the field of insurance and actuarial science).
+Insurance companies are interested in the *loss amount* of insuring their customers.
+Those that are classified as "high risk" of course tend to have a higher loss amount compared to those classified as "low risk", and each category has its own distribution.
+
+Let $U$ be the uniform distribution on the unit interval $(0,1)$.
+Suppose that a large population of insureds is composed of "high risk" and "low risk" individuals.
+The proportion of insured classified as "low risk" is $p\in(0,1)$.
+Let the random loss amount $X$ of a "low risk" insured be $U$; and let the random loss amount $X$ of a "high risk" insured be $U$ shifted by a positive constant $w>0$, i.e. $U+w$.
+
+> What is the variance of the loss amount of an insured randomly selected from this population?
+
+For convenience, let $Y=1$ if a person is categorised as "high risk" and $Y=0$ if they are categorised as "low risk".
+Then $Y$ is a Bernoulli random variable
+$$
+Y = \begin{cases}
+1 & \text{w.p. } 1-p \\
+0 & \text{w.p. } p
+\end{cases}
+$$
+The information that we have is the following: $X|(Y=0)\sim \Unif(0,1)$, while $X|(Y=1)\sim \Unif(w,w+1)$.
+This is because a random variable shifted by a constant is still uniform, and the endpoints are shifted by that constant.
+Thus, we know (or at least we can check from Wikipedia!--don't worry though, we'll cover properties of commonly used distributions in the next chapter)
+\begin{align*}
+\E(X|Y=0)   &= \frac{1}{2}  &     \E(X|Y=1) &= w + \frac{1}{2} \\
+\Var(X|Y=0) &= \frac{1}{12} &   \Var(X|Y=1) &= \frac{1}{12} \\
+\end{align*}
+
+The law of total variance gives us a way to compute the total variance $\Var(X)$:
+\begin{align*}
+\Var(X)
+&= \E_Y\left[ \Var(X|Y) \right] + \Var_Y\left[\E(X|Y) \right] \\
+&= \E_Y \left[ \frac{1}{12}\right ] + \Var_Y \left[  wY + \frac{1}{2} \right] \\
+&= \frac{1}{12} + w^2 \Var(Y) \\
+&= \frac{1}{12} + w^2p(1-p)
+\end{align*}
+
+In the above we made use of properties of expectations and variances to make computing the total variance easier.
+For the first part of the sum, notice that the conditional variance of $Y$ is $1/12$ no matter the value of $Y$, hence it is a constant, and the expectation of a constant is that constant itself.
+As for the second part, the conditional expectation $\E(X|Y)$ can be written as a function of $Y$ as $wY + 1/2$--if $Y=0$ then the expectation is $1/2$, but if it is $Y=1$ then the expectation is $w+1/2$.
+Since $w$ is a constant, it is pulled out and squared, and the + 1/2 bit has zero variance.
+
+Out of interest, the total expectation can be computed as 
+$$
+\E(X) = p\cdot \E(X|Y=0) + (1-p) \E(X|Y=1) = \frac{1}{2} + (1-p)w,
+$$
+but it would be wrong to do something similar to the variance.
+That is,
+$$
+\Var(X) \neq p\cdot \Var(X|Y=0) + (1-p) \Var(X|Y=1) = \frac{1}{12}.
+$$
+
+It is not possible for the total variance to be the same as the conditional variances, because the mean loss in the two cases are different!
+The uncertainty in the risk classes introduces additional varibility in the loss for a randomly selected insured individual, so should be higher than $1/12$.
+
+
+:::
+
+
+
 
 ### Additional explainers
 
@@ -2577,7 +2659,7 @@ To illustrate the concepts we've been talking about so far, consider drawing a r
 The scatterplot is shown below, with values of $X$ on the vertical axis, and $Y$ on the horizontal axis.
 
 
-```{r condexp1, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 4}
+```{r condexp1, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 4, fig.cap = "Scatter plot of randomly sampled values from a bivariate distribution. We can see a U-shape relationship between the two random variables."}
 set.seed(112)
 n <- 1000
 xmax <- 5
@@ -2606,11 +2688,13 @@ If we calculated the sample mean of all the observed $X$ values, this would give
 This is marked in the plot by the horizontal dashed line.
 
 
-```{r condexp2, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 4}
+```{r condexp2, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 4, fig.cap = "Illustration of the marginal distributions of \\(X\\) and \\(Y\\) together with their respective means."}
 ggplot(plot_df, aes(x, y, col = y)) +
   geom_point() +
   geom_hline(yintercept = 8, linetype = "dashed", col = "grey70") +
   annotate("text", -4.8, 9, label = "E(X)", col = "grey70") +
+  geom_vline(xintercept = 0, linetype = "dashed", col = "grey70") +
+  annotate("text", -0.3, 24, label = "E(Y)", col = "grey70") +
   labs(x = "Y", y = "X") +
   scale_color_viridis_c() +
   scale_x_continuous(breaks = seq(-xmax, xmax, by = 1)) +
@@ -2676,23 +2760,29 @@ plot_df %>%
 quadratic_df <- tibble(x = x, y = x ^ 2)
 
 ggplot(filter(plot_df, scene != "else")) +
-  geom_rect(aes(xmin = as.numeric(scene) - 0.3, xmax = as.numeric(scene) + 0.3, 
-                ymin = -Inf, ymax = Inf, fill = scene, group = scene), col = NA, alpha = 0.008) +
+  geom_rect(aes(xmin = as.numeric(scene) - 0.3, xmax = as.numeric(scene) + 0.3,
+                ymin = -Inf, ymax = Inf, col = scene, group = scene), fill = NA,
+            linetype = "dotted") +
   geom_line(data = quadratic_df, aes(x, y)) +
   geom_boxplot(aes(as.numeric(scene), y, group = scene, col = scene),
                outlier.shape = NA, width = 0.5) +  
   geom_hline(yintercept = 8, linetype = "dashed", col = "grey70") +
   annotate("text", -4.8, 9, label = "E(X)", col = "grey70") +
-  geom_point(aes(x, y, col = scene)) +
-  geom_point(data = select(plot_df, x, y), aes(x, y), alpha = 0.2, col = "black") +
+  geom_point(aes(x, y, col = scene), alpha = 0.8) +
+  geom_point(data = select(plot_df, x, y), aes(x, y), shape = 1, alpha = 0.3, 
+             col = "black") +
   theme(legend.position = "none") +
   labs(x = "Y", y = "X") +
-  transition_states(scene, state_length = 10, transition_length = 1) 
-  # enter_fade() +
-  # exit_fade() +
-  # ease_aes('sine-in-out')
+  scale_x_continuous(breaks = seq(-xmax, xmax, by = 1)) -> p
+  
+p + transition_states(scene, state_length = 10, transition_length = 1) +
+  enter_fade() +
+  exit_fade() +
+  ease_aes('sine-in-out')
 ```
-
+```{r condexp3pdf, cache = TRUE, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 4, fig.cap = "The distribution of \\(X\\) conditional on different values of \\(Y\\).", include = !knitr::is_html_output()}
+p
+```
 In Figure \@ref(fig:condexp3) as well we have drawn a quadratic line through the data points.
 This line actually represents the curve $g(y)=\E(X|Y=y)$.
 That is to say, the mean of $X$ conditional on the value of $Y=y$ is represented along this curve.
@@ -2708,7 +2798,7 @@ It can be split into two parts, as follows:
 \end{equation}
 This is illustrated in the following graphic:
 
-```{r condexp4, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 3.33, fig.width = 5, out.width = "100%"}
+```{r condexp4, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 3.33, fig.width = 5, out.width = "100%", fig.cap = "The distance between any point and the grand mean is the sum of two parts: a) the distance between the point and the conditional mean; and b) the distance between the conditional mean and the grand mean."}
 one_point_df <- filter(plot_df, x < -1, x >-2, y > 10)
 
 library(ggbrace)
@@ -2775,39 +2865,68 @@ Some additional algebra to support the above:
 
 ## Moment generating functions
 
+Interestingly, the concept of *moments* in statistics is borrowed from physics, in the sense that the moment of a function are measures relating to the shape of a function's graph.
+Wikipedia states that if a function represents mass, the first moment is the center of the mass, and the second moment is the rotational inertia.
+In statistics, we concern ourselves with moments of probability functions.
+
+
+::: {.definition name="Moments"}
+The $k$th *moment* of a random variable $X$ is 
+$$
+m_k = \E(X^2).
+$$
+The $k$th *central moment* of $X$ is
+$$
+\mu_k = \E\left[(X-\mu)^k \right],
+$$
+where $\mu=\mu_1'=\E(X)$. 
+The $k$th *standardised moment* of $X$ is
+$$
+\tilde\mu_k = \E\left[\left(\frac{X-\mu}{\sigma}\right)^k \right],
+$$
+where $\sigma^2 = \mu_2$. 
+:::
+
+Some common moments of a random variable $X$ are as follows.
+
+- The first moment is the *mean* or *expectation*.
+- The second central moment is the *variance*.
+- The third standardised moment is the *skewness*, a measure of asymmetry of the pdf about its mean.
+- The fourth standardised moment is the *kurtosis*, a measure of "tailed-ness" of aa pdf.
+
 ### Moment generating functions
 
-As the name implies, the moment generating function (mgf) is used for finding *moments* of a r.v..
-Other uses:
+There is a function in statistics which is useful for finding moments of a random variable, called the *moment generating function*.
 
-- Characterising a distribution
-- Finding distributions of *sums of r.v.*
-- As a tool in statistical proofs
-
-\begin{definition}[Moment generating function]
-Let $X\sim f_X(x)$. For $t\in\bbR$, the moment generating function (mgf) of $X$ is defined by
+::: {.definition name="Moment generating function"}
+Let $X\sim f_X(x)$. For $t\in\bbR$, the *moment generating function (mgf)* of $X$ is defined by
 \[
 M_X(t) = \E(e^{tX}) = \begin{cases}
 \sum_x e^{tx} f_X(x) &\text{if $X$ discrete} \\
 \int e^{tx} f_X(x) \dint x &\text{if $X$ continuous} \\
 \end{cases}
 \]
-provided this expectation exists in ``some neighbourhood of 0''.
-\end{definition}
+provided this expectation exists in "some neighbourhood of 0".
+:::
 
-### Generating moments
+While the primary use of the mgf is for finding moments of a random variable, it has also these other uses (read on further down for properties of mgfs):
 
-Consider the following:
+- Characterising a distribution.
+- Finding distributions of sums of random variables.
+- As a tool in statistical proofs
 
-\begin{align*}
+How exactly does it "generate" moments? Consider finding the first derivative of $M_X(t)$ evaluated at $t=0$:
+
+\begin{align}
 \frac{\ddif}{\ddif t}M_X(t) \bigg|_{t=0}
-&= \frac{\ddif}{\ddif t}  \E(e^{tX}) \bigg|_{t=0} \\
-&=  \E\left[  \frac{\ddif}{\ddif t}e^{tX} \right]\bigg|_{t=0} \\
-&= \E[Xe^{tX}] \Big|_{t=0} \\ 
-&= \E(X).
-\end{align*}
+&= \frac{\ddif}{\ddif t}  \E(e^{tX}) \bigg|_{t=0} \nonumber \\
+&=  \E\left[  \frac{\ddif}{\ddif t}e^{tX} \right]\bigg|_{t=0} (\#eq:mgf)   \\
+&= \E[Xe^{tX}] \Big|_{t=0}  \nonumber \\ 
+&= \E(X). \nonumber
+\end{align}
 
-We can iterate the steps again to generate the $k$-th moment of $X$ by taking $k$ derivatives and setting $t=0$. Note that this relies on being able to *interchange the order of differentiation and integration*. See §2.4 C&B. For "nice distributions" generally there are no problems.
+We get exactly the first moment.
+These steps can be iterated to generate the $k$-th moment of $X$, i.e. by taking $k$ derivatives and setting $t=0$. 
 
 ::: {.theorem}
 If $X$ has mgf $M_X(t)$, then 
@@ -2818,22 +2937,49 @@ If $X$ has mgf $M_X(t)$, then
 That is, the $k$-th moment is equal to the $k$-th derivative of $M_X(t)$ evaluated at $t=0$.
 :::
 
-::: {.example}
-Let $X\sim\Exp(1/r)$ with $f_X(x)=r e^{-r x}$ for $x\in[0,\infty)$. Then for $t<r$,
-\[
-M_X(t) = \int_0^\infty e^{tx}\cdot r e^{- r x} \dint x = r \int_0^\infty e^{(t- r)x} \dint x = \frac{ r}{ r-  t}.
-\]
-$\E(X)=M_X'(t)\big|_{t=0}=\frac{r}{(r-t)^2}\Big|_{t=0}=1/r$.
+::: {.mynote}
+There are two subtle things going on here when we use the mgf.
+The first one is that obtaining moments relies on being able to *interchange the order of differentiation and integration*, because for continuous distributions,
+$$
+\frac{\ddif}{\ddif t}  \E(e^{tX}) = \frac{\ddif}{\ddif t} \left(\int e^{tx}f_X(x)\dint x \right)
+$$
+and in \@ref(eq:mgf) above, it is assumed we can interchange the order of differentiation and integration so that
+$$
+\frac{\ddif}{\ddif t}  \E(e^{tX}) = \int \left( \frac{\ddif}{\ddif t}  e^{tx} \right) f_X(x) \dint x = \E\left(Xe^{tX}\right).
+$$
+For "nice" and well-behaved random variables, there are generally no problems.
+See Section 2.4 of C&B. 
+
+The second thing is that statement about the expectation "existing in some neighbourhood of 0". 
+This is so that when we plug in $t=0$ in the expression for the mgf, we get a valid expectation.
+If this is not the case, then the moment does not exist.
 :::
 
-### Properties of mgf
+::: {.example}
+Let $X\sim\Exp(1/r)$ with $f_X(x)=r e^{-r x}$ for $x\in[0,\infty)$. 
+This is an exponential distribution with rate parameter $r$.
+Then for $t<r$,
+\begin{align*}
+M_X(t) 
+&= \int_0^\infty e^{tx}\cdot r e^{- r x} \dint x  \\
+&= r \int_0^\infty e^{(t- r)x} \dint x \\
+&= \frac{ r}{ r-  t}.
+\end{align*}
+Thus, $\E(X)=M_X'(t)\big|_{t=0}=\frac{r}{(r-t)^2}\Big|_{t=0}=1/r$.
+Indeed, the expectation of the exponential distribution is given as the inverse rate.
+We'll meet the exponential distribution in more detail in the next chapter.
+:::
 
-- If $Y=aX+b$, then $M_Y(t)=e^{bt}M_X(at)$.
+Here are some properties of mgfs that are worth noting.
+
+- If $Y=aX+b$, then $M_Y(t)=e^{bt}M_X(at)$. 
 - If $X_1,\dots,X_n$ are independent and $Y=\sum_{i=1}^n X_i$, then $M_Y(t)=\prod_{i=1}^n M_{X_i}(t)$.
-- If $X$ and $Y$ are r.v. s.t. $M_X(t)=M_Y(t)$ for all $t$ in an open interval around 0, then $F_X(x)=F_Y(x)$ for all $x$.
+- If $X$ and $Y$ are random variables s.t. $M_X(t)=M_Y(t)$ for all $t$ in an open interval around 0, then $F_X(x)=F_Y(x)$ for all $x$.
 
-The mgf has the property that it uniquely defined a distribution.
+The mgf has the property that it uniquely defined a distribution. 
 That is, if two distributions have identical mgfs then they have the same distribution.
+This way, we can usually identify distributions from a recognisable mgf.
+We'll see some examples of this in action in the later chapters.
 
 ## Exercises
 
