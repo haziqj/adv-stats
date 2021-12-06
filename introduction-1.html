@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.1 Introduction | SM-4331 Advanced Statistics</title>
+  <title>5.1 Introduction | SM-4331 Advanced Statistics</title>
   <meta name="description" content="Course notes for SM-4331 Advanced Statistics (UBD)." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.1 Introduction | SM-4331 Advanced Statistics" />
+  <meta property="og:title" content="5.1 Introduction | SM-4331 Advanced Statistics" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.1 Introduction | SM-4331 Advanced Statistics" />
+  <meta name="twitter:title" content="5.1 Introduction | SM-4331 Advanced Statistics" />
   
   <meta name="twitter:description" content="Course notes for SM-4331 Advanced Statistics (UBD)." />
   
@@ -24,15 +24,15 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2021-12-02" />
+<meta name="date" content="2021-12-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="inequalities-convergences-and-normal-random-samples.html"/>
-<link rel="next" href="inequalities.html"/>
+<link rel="prev" href="hypothesis-testing.html"/>
+<link rel="next" href="likelihood-ratio-test.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -246,8 +246,6 @@ TeX: {extensions: ["cancel.js"]}
 <li class="chapter" data-level="1.9" data-path="moment-generating-functions.html"><a href="moment-generating-functions.html"><i class="fa fa-check"></i><b>1.9</b> Moment generating functions</a>
 <ul>
 <li class="chapter" data-level="1.9.1" data-path="moment-generating-functions.html"><a href="moment-generating-functions.html#moment-generating-functions-1"><i class="fa fa-check"></i><b>1.9.1</b> Moment generating functions</a></li>
-<li class="chapter" data-level="1.9.2" data-path="moment-generating-functions.html"><a href="moment-generating-functions.html#generating-moments"><i class="fa fa-check"></i><b>1.9.2</b> Generating moments</a></li>
-<li class="chapter" data-level="1.9.3" data-path="moment-generating-functions.html"><a href="moment-generating-functions.html#properties-of-mgf"><i class="fa fa-check"></i><b>1.9.3</b> Properties of mgf</a></li>
 </ul></li>
 <li class="chapter" data-level="1.10" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.10</b> Exercises</a>
 <ul>
@@ -258,40 +256,38 @@ TeX: {extensions: ["cancel.js"]}
 <ul>
 <li class="chapter" data-level="" data-path="commonly-used-probability-models.html"><a href="commonly-used-probability-models.html#learning-objectives-1"><i class="fa fa-check"></i>Learning objectives</a></li>
 <li class="chapter" data-level="" data-path="commonly-used-probability-models.html"><a href="commonly-used-probability-models.html#readings-1"><i class="fa fa-check"></i>Readings</a></li>
-<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
-<li class="chapter" data-level="2.2" data-path="discrete-models.html"><a href="discrete-models.html"><i class="fa fa-check"></i><b>2.2</b> Discrete models</a>
+<li class="chapter" data-level="2.1" data-path="discrete-models.html"><a href="discrete-models.html"><i class="fa fa-check"></i><b>2.1</b> Discrete models</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="discrete-models.html"><a href="discrete-models.html#point-mass-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Point mass distribution</a></li>
-<li class="chapter" data-level="2.2.2" data-path="discrete-models.html"><a href="discrete-models.html#uniform-distribution"><i class="fa fa-check"></i><b>2.2.2</b> Uniform distribution</a></li>
-<li class="chapter" data-level="2.2.3" data-path="discrete-models.html"><a href="discrete-models.html#bernoulli-distribution"><i class="fa fa-check"></i><b>2.2.3</b> Bernoulli distribution</a></li>
-<li class="chapter" data-level="2.2.4" data-path="discrete-models.html"><a href="discrete-models.html#binomial-distribution"><i class="fa fa-check"></i><b>2.2.4</b> Binomial distribution</a></li>
-<li class="chapter" data-level="2.2.5" data-path="discrete-models.html"><a href="discrete-models.html#geometric-distribution"><i class="fa fa-check"></i><b>2.2.5</b> Geometric distribution</a></li>
-<li class="chapter" data-level="2.2.6" data-path="discrete-models.html"><a href="discrete-models.html#negative-binomial"><i class="fa fa-check"></i><b>2.2.6</b> Negative binomial</a></li>
-<li class="chapter" data-level="2.2.7" data-path="discrete-models.html"><a href="discrete-models.html#poisson-distribution"><i class="fa fa-check"></i><b>2.2.7</b> Poisson distribution</a></li>
+<li class="chapter" data-level="2.1.1" data-path="discrete-models.html"><a href="discrete-models.html#point-mass-distribution"><i class="fa fa-check"></i><b>2.1.1</b> Point mass distribution</a></li>
+<li class="chapter" data-level="2.1.2" data-path="discrete-models.html"><a href="discrete-models.html#uniform-distribution"><i class="fa fa-check"></i><b>2.1.2</b> Uniform distribution</a></li>
+<li class="chapter" data-level="2.1.3" data-path="discrete-models.html"><a href="discrete-models.html#bernoulli-distribution"><i class="fa fa-check"></i><b>2.1.3</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="2.1.4" data-path="discrete-models.html"><a href="discrete-models.html#binomial-distribution"><i class="fa fa-check"></i><b>2.1.4</b> Binomial distribution</a></li>
+<li class="chapter" data-level="2.1.5" data-path="discrete-models.html"><a href="discrete-models.html#geometric-distribution"><i class="fa fa-check"></i><b>2.1.5</b> Geometric distribution</a></li>
+<li class="chapter" data-level="2.1.6" data-path="discrete-models.html"><a href="discrete-models.html#negative-binomial"><i class="fa fa-check"></i><b>2.1.6</b> Negative binomial</a></li>
+<li class="chapter" data-level="2.1.7" data-path="discrete-models.html"><a href="discrete-models.html#poisson-distribution"><i class="fa fa-check"></i><b>2.1.7</b> Poisson distribution</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="continuous-models.html"><a href="continuous-models.html"><i class="fa fa-check"></i><b>2.3</b> Continuous models</a>
+<li class="chapter" data-level="2.2" data-path="continuous-models.html"><a href="continuous-models.html"><i class="fa fa-check"></i><b>2.2</b> Continuous models</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="continuous-models.html"><a href="continuous-models.html#continuous-uniform-distribution"><i class="fa fa-check"></i><b>2.3.1</b> Continuous uniform distribution</a></li>
-<li class="chapter" data-level="2.3.2" data-path="continuous-models.html"><a href="continuous-models.html#exponential-distribution"><i class="fa fa-check"></i><b>2.3.2</b> Exponential distribution</a></li>
-<li class="chapter" data-level="2.3.3" data-path="continuous-models.html"><a href="continuous-models.html#gamma-distribution"><i class="fa fa-check"></i><b>2.3.3</b> Gamma distribution</a></li>
-<li class="chapter" data-level="2.3.4" data-path="continuous-models.html"><a href="continuous-models.html#beta-distribution"><i class="fa fa-check"></i><b>2.3.4</b> Beta distribution</a></li>
+<li class="chapter" data-level="2.2.1" data-path="continuous-models.html"><a href="continuous-models.html#continuous-uniform-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Continuous uniform distribution</a></li>
+<li class="chapter" data-level="2.2.2" data-path="continuous-models.html"><a href="continuous-models.html#exponential-distribution"><i class="fa fa-check"></i><b>2.2.2</b> Exponential distribution</a></li>
+<li class="chapter" data-level="2.2.3" data-path="continuous-models.html"><a href="continuous-models.html#gamma-distribution"><i class="fa fa-check"></i><b>2.2.3</b> Gamma distribution</a></li>
+<li class="chapter" data-level="2.2.4" data-path="continuous-models.html"><a href="continuous-models.html#beta-distribution"><i class="fa fa-check"></i><b>2.2.4</b> Beta distribution</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="normal-distribution.html"><a href="normal-distribution.html"><i class="fa fa-check"></i><b>2.4</b> Normal distribution</a>
+<li class="chapter" data-level="2.3" data-path="normal-distribution.html"><a href="normal-distribution.html"><i class="fa fa-check"></i><b>2.3</b> Normal distribution</a>
 <ul>
-<li class="chapter" data-level="2.4.1" data-path="normal-distribution.html"><a href="normal-distribution.html#location-parameter"><i class="fa fa-check"></i><b>2.4.1</b> Location parameter</a></li>
-<li class="chapter" data-level="2.4.2" data-path="normal-distribution.html"><a href="normal-distribution.html#scale-parameter"><i class="fa fa-check"></i><b>2.4.2</b> Scale parameter</a></li>
-<li class="chapter" data-level="2.4.3" data-path="normal-distribution.html"><a href="normal-distribution.html#linear-transformations-of-normal-random-variables"><i class="fa fa-check"></i><b>2.4.3</b> Linear transformations of normal random variables</a></li>
-<li class="chapter" data-level="2.4.4" data-path="normal-distribution.html"><a href="normal-distribution.html#the-normal-cdf"><i class="fa fa-check"></i><b>2.4.4</b> The normal cdf</a></li>
-<li class="chapter" data-level="2.4.5" data-path="normal-distribution.html"><a href="normal-distribution.html#rule"><i class="fa fa-check"></i><b>2.4.5</b> 68–95–99.7 Rule</a></li>
+<li class="chapter" data-level="2.3.1" data-path="normal-distribution.html"><a href="normal-distribution.html#location-and-scale-parameter"><i class="fa fa-check"></i><b>2.3.1</b> Location and scale parameter</a></li>
+<li class="chapter" data-level="2.3.2" data-path="normal-distribution.html"><a href="normal-distribution.html#linear-transformations-of-normal-random-variables"><i class="fa fa-check"></i><b>2.3.2</b> Linear transformations of normal random variables</a></li>
+<li class="chapter" data-level="2.3.3" data-path="normal-distribution.html"><a href="normal-distribution.html#the-normal-cdf"><i class="fa fa-check"></i><b>2.3.3</b> The normal cdf</a></li>
+<li class="chapter" data-level="2.3.4" data-path="normal-distribution.html"><a href="normal-distribution.html#rule"><i class="fa fa-check"></i><b>2.3.4</b> 68–95–99.7 Rule</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="some-relationships.html"><a href="some-relationships.html"><i class="fa fa-check"></i><b>2.5</b> Some relationships</a>
+<li class="chapter" data-level="2.4" data-path="some-relationships.html"><a href="some-relationships.html"><i class="fa fa-check"></i><b>2.4</b> Some relationships</a>
 <ul>
-<li class="chapter" data-level="2.5.1" data-path="some-relationships.html"><a href="some-relationships.html#poisson-binomial-relationship"><i class="fa fa-check"></i><b>2.5.1</b> Poisson-Binomial relationship</a></li>
-<li class="chapter" data-level="2.5.2" data-path="some-relationships.html"><a href="some-relationships.html#poisson-exponential"><i class="fa fa-check"></i><b>2.5.2</b> Poisson-Exponential</a></li>
-<li class="chapter" data-level="2.5.3" data-path="some-relationships.html"><a href="some-relationships.html#poisson-gamma"><i class="fa fa-check"></i><b>2.5.3</b> Poisson-Gamma</a></li>
-<li class="chapter" data-level="2.5.4" data-path="some-relationships.html"><a href="some-relationships.html#normal-approximations"><i class="fa fa-check"></i><b>2.5.4</b> Normal approximations</a></li>
+<li class="chapter" data-level="2.4.1" data-path="some-relationships.html"><a href="some-relationships.html#poisson-binomial-relationship"><i class="fa fa-check"></i><b>2.4.1</b> Poisson-Binomial relationship</a></li>
+<li class="chapter" data-level="2.4.2" data-path="some-relationships.html"><a href="some-relationships.html#poisson-exponential"><i class="fa fa-check"></i><b>2.4.2</b> Poisson-Exponential</a></li>
+<li class="chapter" data-level="2.4.3" data-path="some-relationships.html"><a href="some-relationships.html#poisson-gamma"><i class="fa fa-check"></i><b>2.4.3</b> Poisson-Gamma</a></li>
+<li class="chapter" data-level="2.4.4" data-path="some-relationships.html"><a href="some-relationships.html#normal-approximations"><i class="fa fa-check"></i><b>2.4.4</b> Normal approximations</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.6</b> Exercises</a>
+<li class="chapter" data-level="2.5" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.5</b> Exercises</a>
 <ul>
 <li class="chapter" data-level="" data-path="exercises-1.html"><a href="exercises-1.html#hand-in-questions-1"><i class="fa fa-check"></i>Hand-in questions</a></li>
 </ul></li>
@@ -300,13 +296,13 @@ TeX: {extensions: ["cancel.js"]}
 <ul>
 <li class="chapter" data-level="" data-path="inequalities-convergences-and-normal-random-samples.html"><a href="inequalities-convergences-and-normal-random-samples.html#learning-objectives-2"><i class="fa fa-check"></i>Learning objectives</a></li>
 <li class="chapter" data-level="" data-path="inequalities-convergences-and-normal-random-samples.html"><a href="inequalities-convergences-and-normal-random-samples.html#readings-2"><i class="fa fa-check"></i>Readings</a></li>
-<li class="chapter" data-level="3.1" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>3.1</b> Introduction</a>
+<li class="chapter" data-level="3.1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>3.1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="introduction-1.html"><a href="introduction-1.html#random-sampling"><i class="fa fa-check"></i><b>3.1.1</b> Random sampling</a></li>
-<li class="chapter" data-level="3.1.2" data-path="introduction-1.html"><a href="introduction-1.html#independent-and-identical-r.v."><i class="fa fa-check"></i><b>3.1.2</b> Independent and identical r.v.</a></li>
-<li class="chapter" data-level="3.1.3" data-path="introduction-1.html"><a href="introduction-1.html#statistic"><i class="fa fa-check"></i><b>3.1.3</b> Statistic</a></li>
-<li class="chapter" data-level="3.1.4" data-path="introduction-1.html"><a href="introduction-1.html#sampling-distribution"><i class="fa fa-check"></i><b>3.1.4</b> Sampling distribution</a></li>
-<li class="chapter" data-level="3.1.5" data-path="introduction-1.html"><a href="introduction-1.html#large-sample-approximation"><i class="fa fa-check"></i><b>3.1.5</b> Large-sample approximation</a></li>
+<li class="chapter" data-level="3.1.1" data-path="introduction.html"><a href="introduction.html#random-sampling"><i class="fa fa-check"></i><b>3.1.1</b> Random sampling</a></li>
+<li class="chapter" data-level="3.1.2" data-path="introduction.html"><a href="introduction.html#independent-and-identical-r.v."><i class="fa fa-check"></i><b>3.1.2</b> Independent and identical r.v.</a></li>
+<li class="chapter" data-level="3.1.3" data-path="introduction.html"><a href="introduction.html#statistic"><i class="fa fa-check"></i><b>3.1.3</b> Statistic</a></li>
+<li class="chapter" data-level="3.1.4" data-path="introduction.html"><a href="introduction.html#sampling-distribution"><i class="fa fa-check"></i><b>3.1.4</b> Sampling distribution</a></li>
+<li class="chapter" data-level="3.1.5" data-path="introduction.html"><a href="introduction.html#large-sample-approximation"><i class="fa fa-check"></i><b>3.1.5</b> Large-sample approximation</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="inequalities.html"><a href="inequalities.html"><i class="fa fa-check"></i><b>3.2</b> Inequalities</a>
 <ul>
@@ -398,12 +394,12 @@ TeX: {extensions: ["cancel.js"]}
 <ul>
 <li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#learning-objectives-4"><i class="fa fa-check"></i>Learning objectives</a></li>
 <li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#readings-4"><i class="fa fa-check"></i>Readings</a></li>
-<li class="chapter" data-level="5.1" data-path="introduction-2.html"><a href="introduction-2.html"><i class="fa fa-check"></i><b>5.1</b> Introduction</a>
+<li class="chapter" data-level="5.1" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>5.1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="5.1.1" data-path="introduction-2.html"><a href="introduction-2.html#a-general-paradigm"><i class="fa fa-check"></i><b>5.1.1</b> A general paradigm</a></li>
-<li class="chapter" data-level="5.1.2" data-path="introduction-2.html"><a href="introduction-2.html#p-values"><i class="fa fa-check"></i><b>5.1.2</b> <span class="math inline">\(p\)</span>-values</a></li>
-<li class="chapter" data-level="5.1.3" data-path="introduction-2.html"><a href="introduction-2.html#accept-h_0"><i class="fa fa-check"></i><b>5.1.3</b> Accept <span class="math inline">\(H_0\)</span>?</a></li>
-<li class="chapter" data-level="5.1.4" data-path="introduction-2.html"><a href="introduction-2.html#uniformity-of-p-values"><i class="fa fa-check"></i><b>5.1.4</b> Uniformity of <span class="math inline">\(p\)</span>-values</a></li>
+<li class="chapter" data-level="5.1.1" data-path="introduction-1.html"><a href="introduction-1.html#a-general-paradigm"><i class="fa fa-check"></i><b>5.1.1</b> A general paradigm</a></li>
+<li class="chapter" data-level="5.1.2" data-path="introduction-1.html"><a href="introduction-1.html#p-values"><i class="fa fa-check"></i><b>5.1.2</b> <span class="math inline">\(p\)</span>-values</a></li>
+<li class="chapter" data-level="5.1.3" data-path="introduction-1.html"><a href="introduction-1.html#accept-h_0"><i class="fa fa-check"></i><b>5.1.3</b> Accept <span class="math inline">\(H_0\)</span>?</a></li>
+<li class="chapter" data-level="5.1.4" data-path="introduction-1.html"><a href="introduction-1.html#uniformity-of-p-values"><i class="fa fa-check"></i><b>5.1.4</b> Uniformity of <span class="math inline">\(p\)</span>-values</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="likelihood-ratio-test.html"><a href="likelihood-ratio-test.html"><i class="fa fa-check"></i><b>5.2</b> Likelihood ratio test</a>
 <ul>
@@ -437,11 +433,11 @@ TeX: {extensions: ["cancel.js"]}
 <ul>
 <li class="chapter" data-level="" data-path="interval-estimation.html"><a href="interval-estimation.html#learning-objectives-5"><i class="fa fa-check"></i>Learning objectives</a></li>
 <li class="chapter" data-level="" data-path="interval-estimation.html"><a href="interval-estimation.html#readings-5"><i class="fa fa-check"></i>Readings</a></li>
-<li class="chapter" data-level="6.1" data-path="introduction-3.html"><a href="introduction-3.html"><i class="fa fa-check"></i><b>6.1</b> Introduction</a>
+<li class="chapter" data-level="6.1" data-path="introduction-2.html"><a href="introduction-2.html"><i class="fa fa-check"></i><b>6.1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="introduction-3.html"><a href="introduction-3.html#coverage-probability"><i class="fa fa-check"></i><b>6.1.1</b> Coverage probability</a></li>
-<li class="chapter" data-level="6.1.2" data-path="introduction-3.html"><a href="introduction-3.html#confidence-regions"><i class="fa fa-check"></i><b>6.1.2</b> Confidence regions</a></li>
-<li class="chapter" data-level="6.1.3" data-path="introduction-3.html"><a href="introduction-3.html#methods-for-obtaining-confidence-regions"><i class="fa fa-check"></i><b>6.1.3</b> Methods for obtaining confidence regions</a></li>
+<li class="chapter" data-level="6.1.1" data-path="introduction-2.html"><a href="introduction-2.html#coverage-probability"><i class="fa fa-check"></i><b>6.1.1</b> Coverage probability</a></li>
+<li class="chapter" data-level="6.1.2" data-path="introduction-2.html"><a href="introduction-2.html#confidence-regions"><i class="fa fa-check"></i><b>6.1.2</b> Confidence regions</a></li>
+<li class="chapter" data-level="6.1.3" data-path="introduction-2.html"><a href="introduction-2.html#methods-for-obtaining-confidence-regions"><i class="fa fa-check"></i><b>6.1.3</b> Methods for obtaining confidence regions</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="pivots.html"><a href="pivots.html"><i class="fa fa-check"></i><b>6.2</b> Pivots</a>
 <ul>
@@ -493,118 +489,129 @@ TeX: {extensions: ["cancel.js"]}
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction-1" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Introduction</h2>
-<div id="random-sampling" class="section level3" number="3.1.1">
-<h3><span class="header-section-number">3.1.1</span> Random sampling</h3>
-<p>Collection of data <span class="math inline">\(X_1,\dots,X_n\)</span> in an experiment consists of several observations on a variable of interest <span class="math inline">\(X\)</span>.</p>
-<ul>
-<li>Time to failure for <span class="math inline">\(n\)</span> identical circuit boards.</li>
-<li>Yield (in tonnes) of <span class="math inline">\(n\)</span> seasonal harvest for <em>Laila</em> variety paddy.</li>
-<li>Voter preferences for <span class="math inline">\(n\)</span> individuals in the US.</li>
-</ul>
-<p>We can <strong>model</strong> this mathematically by declaring <span class="math inline">\(X_1,\dots,X_n\)</span> to be random variables sampled from a population whose pdf or pmf is <span class="math inline">\(f_{{\boldsymbol X}}({\boldsymbol x})\)</span>.
-We typically write
+<div id="introduction-1" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Introduction</h2>
+<p>The task: to assess what the data say about the plausibility of a specific hypothesis about <span class="math inline">\(\theta\)</span>, e.g. a <u>simple hypothesis</u> of the form
 <span class="math display">\[
-X_1,\dots,X_n \,\overset{\text{iid}}{\sim}\,f_{{\boldsymbol X}}.
-\]</span></p>
-<div class=".{myalert}">
-<p>We impose the distribution <span class="math inline">\(f_{{\boldsymbol X}}\)</span> onto the data as an <u>assumption</u>!
-As the British statistician George Box once famously said, “all models are wrong, but some are useful”.</p>
-</div>
-</div>
-<div id="independent-and-identical-r.v." class="section level3" number="3.1.2">
-<h3><span class="header-section-number">3.1.2</span> Independent and identical r.v.</h3>
-<p>Usually, the samples are taken in such a way</p>
+H_0: \theta = \theta_0
+\]</span>
+where <span class="math inline">\(\theta_0\)</span> is a specified candidate value for <span class="math inline">\(\theta\)</span>, typically corresponding to an underlying subject-matter theory.
+Some examples:</p>
 <ul>
-<li>that the value of one observation has no effect on or relationship with any of the other observations (i.e. <span class="math inline">\(X_1,\dots,X_n\)</span> are independent); and</li>
-<li>the pdf/pmf of each observation is <span class="math inline">\(f(x)\)</span> (i.e. identical).</li>
+<li>In tossing a coin, <span class="math inline">\(\theta = 1/2\)</span> means that the coin is ‘fair’</li>
+<li>Is the true average height of males in Brunei truly <span class="math inline">\(\mu=1.65\)</span>?</li>
+<li>In linear regression, test the significance of the slope parameter <span class="math inline">\(\beta_1=0\)</span></li>
 </ul>
-<p>In this case,
+<p>A hypothesis under test is often called the <em>null hypothesis</em>, because it often relates to the absence (or nullity) of some conceivable <strong>effect</strong>. In the coin hypothesis example, <span class="math inline">\(\theta=1/2\)</span> corresponds to absence of bias towards heads or tails.</p>
+<p>The null hypothesis is often more complex than this, specifying a <em>set</em> of <span class="math inline">\(\theta\)</span> values, say <span class="math inline">\(\theta\in\Theta_0\)</span>, rather than a single value. This is known as a <u>composite hypothesis</u>.</p>
+<p>From Chapter 4, we already have a notion of <em>relative</em> plausibility for two candidate parameter values <span class="math inline">\(\theta_1\)</span> and <span class="math inline">\(\theta_2\)</span>, namely the likelihood ratio
 <span class="math display">\[
-f_{{\boldsymbol X}}(x_1,\dots,x_n) = \prod_{i=1}^n f(x_i)
-\]</span></p>
-<p>In particular, if the population pdf/pmf is a member of a <em>parametric family</em>, say one of those introduced in Part 2, then we can write
-<span class="math display">\[
-f_{{\boldsymbol X}}(x_1,\dots,x_n|\theta) = \prod_{i=1}^n f(x_i|\theta)
-\]</span></p>
-<p>We could then use the random samples to <em>infer</em> about the (unknown) parameter <span class="math inline">\(\theta\)</span>. More on this in the coming parts.</p>
-<div id="side-note-finite-population-sampling" class="section level4 unnumbered mycheck">
-<h4>Side note: Finite population sampling</h4>
-<p>We have just defined sampling from an <em>infinite</em> population. Sometimes, sampling is done from a <em>finite</em> population, that is, the population consists only of possible observations <span class="math inline">\(\{x_1,\dots,x_N \}\)</span>.</p>
-<p>There are several approaches to this which may or may not yield independent samples:</p>
+\frac{L(\theta_1|{\boldsymbol x})}{L(\theta_2|{\boldsymbol x})}.
+\]</span>
+Plainly, the use of the LR boils down to either “accepting” the <span class="math inline">\(\theta_1\)</span> value, or rejecting it in favour of <span class="math inline">\(\theta_2\)</span>.
+For instance, if this ratio is found to be much larger than 1, then <span class="math inline">\(\theta_1\)</span> is much more plausible than <span class="math inline">\(\theta_2\)</span> on the basis of the data <span class="math inline">\({\boldsymbol x}\)</span>.</p>
+<p>We will see how likelihood ratios are the key to an <em>optimal</em> assessment of the plausibility of a hypothesis.</p>
+<div id="a-general-paradigm" class="section level3" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> A general paradigm</h3>
+<p>A general paradigm:</p>
 <ul>
-<li>sampling with vs without replacement</li>
-<li>simple random sampling vs complex random sampling</li>
-<li>single-stage sampling vs multi-stage sampling</li>
-<li>etc.</li>
+<li><p>Identify, somehow, a <em>test statistic</em> <span class="math inline">\(W({\boldsymbol X})\)</span>, which is such that larger values of <span class="math inline">\(W\)</span> represent stronger evidence against <span class="math inline">\(H_0\)</span>;</p></li>
+<li><p>Measure the <em>strength</em> of the evidence against <span class="math inline">\(H_0\)</span> in any realised value <span class="math inline">\(W({\boldsymbol x})\)</span> by calculating the <span class="math inline">\(p\)</span>-value (see next slide).</p></li>
 </ul>
-<p>Very important topic in <strong>survey methodology</strong>.
-For more details see C&amp;B §5.1, as well as 2019 lecture slides (Chapter 2).
-In this course, we deal only with the infinite population model.</p>
+<div class="mycheck">
+<p>If the <span class="math inline">\(p\)</span>-value is very small, then evidence as strong as <span class="math inline">\(W({\boldsymbol x})\)</span> (or stronger) is found only rarely under <span class="math inline">\(H_0\)</span>, and so <span class="math inline">\(W({\boldsymbol x})\)</span> represents strong evidence against <span class="math inline">\(H_0\)</span>.</p>
 </div>
 </div>
-<div id="statistic" class="section level3" number="3.1.3">
-<h3><span class="header-section-number">3.1.3</span> Statistic</h3>
+<div id="p-values" class="section level3" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> <span class="math inline">\(p\)</span>-values</h3>
 <div class="definition">
-<p><span id="def:unlabeled-div-68" class="definition"><strong>Definition 3.1  (Statistic) </strong></span>A statistic is any function <span class="math inline">\(T_n = T(X_1,\dots,X_n)\)</span>. It cannot depend on unknown parameters, only on observables.</p>
-</div>
-<p>Here are two very commonly used statistics:</p>
-<ul>
-<li><p>The sample mean
+<p><span id="def:pval" class="definition"><strong>Definition 5.1  (\(p\)-value) </strong></span>Let <span class="math inline">\(W({\boldsymbol X})\)</span> be a test statistic such that large values of <span class="math inline">\(W\)</span> give evidence that <span class="math inline">\(H_1\)</span> is true. For each sample point <span class="math inline">\({\boldsymbol x}\)</span>, define the <span class="math inline">\(p\)</span>-value to be
 <span class="math display">\[
-\bar X = \frac{1}{n}\sum_{i=1}^n X_i
-\]</span></p></li>
-<li><p>The (unbiased) sample variance
-<span class="math display">\[
-S^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i-\bar X)^2
-\]</span></p></li>
-</ul>
-<div class="lemma">
-<p><span id="lem:unlabeled-div-69" class="lemma"><strong>Lemma 3.1  </strong></span>Let <span class="math inline">\(X_1,\dots,X_n\)</span> be a r.v. with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2&lt;\infty\)</span>. Then</p>
-<ul>
-<li><span class="math inline">\(\mathop{\mathrm{E}}(\bar X) = \mu\)</span>.</li>
-<li><span class="math inline">\(\mathop{\mathrm{Var}}(\bar X) = \frac{\sigma^2}{n}\)</span>.</li>
-<li><span class="math inline">\(\mathop{\mathrm{E}}(S^2)=\sigma^2\)</span>.</li>
-</ul>
-</div>
-<p>The proof of this can be found in C&amp;B, Theorem 5.2.6.</p>
-</div>
-<div id="sampling-distribution" class="section level3" number="3.1.4">
-<h3><span class="header-section-number">3.1.4</span> Sampling distribution</h3>
-<p>Realise that</p>
-<ul>
-<li>A statistic <span class="math inline">\(T_n\)</span> is itself a r.v..</li>
-<li>If it is random, it has a distribution.</li>
-<li>Along with having a distribution, all of concepts and properties we discussed in Parts 1 &amp; 2 apply.</li>
-</ul>
-<div class="mycheck">
-<p>Think about the statement above, “a statistic <span class="math inline">\(T_n\)</span> is itself a r.v.”–can you rationalise why this is? Suppose you collect some data and plug these values into a statistics function (e.g. the sample mean). Will the value of the sample mean be the same each time, or will it depend on the (random) values of the data?</p>
-</div>
-<p>A very common theme in inferential statistics is to figure out what the distribution of <span class="math inline">\(T_n\)</span> is in repeated sampling.</p>
-<ul>
-<li>In parametric statistics for example, the statistic <span class="math inline">\(T_n\)</span> may serve as an <em>estimator</em> for the true unknown value <span class="math inline">\(\theta\)</span>.</li>
-<li>How do we know that <span class="math inline">\(T_n\)</span> is a <em>good</em> estimator? It takes different values with repeated sampling, is it typically close to <span class="math inline">\(\theta\)</span>? How close?</li>
-</ul>
-</div>
-<div id="large-sample-approximation" class="section level3" number="3.1.5">
-<h3><span class="header-section-number">3.1.5</span> Large-sample approximation</h3>
-<p>Some statistics have easily-derived sampling distribution; others do not.
-For instance, suppose each <span class="math inline">\(X_i\sim\mathop{\mathrm{N}}(\mu,\sigma^2)\)</span>. Then
-<span class="math display" id="eq:samplemeandist">\[\begin{equation}
-\bar X \sim \mathop{\mathrm{N}}(\mu, \sigma^2/n). \tag{3.1}
-\end{equation}\]</span></p>
-<div class="mycheck">
-<p>The above fact <a href="introduction-1.html#eq:samplemeandist">(3.1)</a> is very important and pops up all the time in statistics. Have a go at proving the distribution of the sample mean.</p>
-</div>
-<p>Generally speaking statistics derived from normal random samples have ‘easy’ distributions (we’ll see this later).
-But what is the distribution of
-<span class="math display">\[
-n^{-1}\sum_{i=1}^n \tan^{-1}(X_i)?
+p_\theta({\boldsymbol x}) = \sup_{\theta\in\Theta_0} \Pr\!{}_\theta\left(W({\boldsymbol X}) \geq W({\boldsymbol x}) \right).
 \]</span></p>
-<p>We use approximate distributions, which can be found by using <em>asymptotic</em> arguments.
-That is, we consider the behaviour of the distribution of the complicated statistics <span class="math inline">\(T_n\)</span> as <span class="math inline">\(n\to\infty\)</span>.
-For this, we first need to study inequalities and convergences.</p>
+</div>
+<p>In statistical hypothesis testing, the <span class="math inline">\(p\)</span>-value (or probability value) is the probability of obtaining test results at least as extreme as the results actually observed during the test, assuming that the null hypothesis is correct. Some general remarks:</p>
+<ul>
+<li>The <span class="math inline">\(p\)</span>-value is a statistic.</li>
+<li>The <span class="math inline">\(p\)</span>-value is indeed a <u><strong>p</strong></u>robability value which lies between 0 and 1.</li>
+<li>The <span class="math inline">\(p\)</span>-value reports the result of a test on a more continuous scale, rather than just the dichotomous decision “Reject/Do not reject <span class="math inline">\(H_0\)</span>”.</li>
+</ul>
+<div class="example">
+<p><span id="exm:binom" class="example"><strong>Example 5.1  </strong></span>Let <span class="math inline">\(X_1,\dots,X_{20} \in \{T,H\}\)</span> be the outcomes of an experiment of tossing a coin 20 times, i.e.
+<span class="math display">\[\Pr(X = H) = \pi = 1 - \Pr(X=T), \ \ \ \pi \in (0,1).\]</span>
+Let <span class="math inline">\(W= [X_1=H] + \cdots + [X_{20}=H]\)</span>.
+Then <span class="math inline">\(W\sim\mathop{\mathrm{Bin}}(20,\pi)\)</span>, and an estimate of <span class="math inline">\(\pi\)</span> is <span class="math inline">\(\hat\pi=\bar X\)</span>.
+We would like to assess whether or not the hypothesis that “the coin is fair” is true.
+That is,</p>
+<p><span class="math display">\[H_0: \ \pi = 0.5 \hspace{2em}\text{v.s.}\hspace{2em} H_1: \ \pi \neq 0.5\]</span></p>
+<p>Let <span class="math inline">\(W\)</span> be the test statistic, and suppose we observe <span class="math inline">\(W=17\)</span>.
+Intuitively, large values of <span class="math inline">\(W\)</span> indicate evidence against the coin being fair, and would favour the <code>Heads' outcome more than</code>Tails’.</p>
+<p>Under the assumption <span class="math inline">\(H_0:\pi=0.5\)</span> is true, then
+<span class="math display">\[\begin{align*}
+p({\boldsymbol X}) = \Pr_{\pi=0.5} (W \geq 17) = \sum_{w=17}^{20} \frac{20!}{w!(20-w)!} 0.5^w(1-0.5)^{20-w} = 0.0013
+\end{align*}\]</span></p>
+<p>This is the (one-sided) <span class="math inline">\(p\)</span>-value favouring the ‘Heads’ outcome.</p>
+<p>On the other hand, small values of <span class="math inline">\(W\)</span>  indicate evidence against the coin being fair; evidence in favour of a ‘Tails’ outcome being more likely than a ‘Heads’.
+Let <span class="math inline">\(Y\)</span> be the number of Tails observed, so <span class="math inline">\(Y=20-W\)</span>, which has a <span class="math inline">\(\mathop{\mathrm{Bin}}(20,1-\pi)\)</span> distribution.</p>
+<p>The <span class="math inline">\(p\)</span>-value for the observed <span class="math inline">\(Y=20-17=3\)</span> observation would be
+<span class="math display">\[\begin{align*}
+p({\boldsymbol X}) = \Pr_{\pi=0.5} (Y \leq 3) = \sum_{y=0}^{3} \frac{20!}{y!(20-y)!} 0.5^y(1-0.5)^{20-y} = 0.0013
+\end{align*}\]</span></p>
+<p>This is the (one-sided) <span class="math inline">\(p\)</span>-value favouring the ‘Tails’ outcome, which is the same as above due to symmetry.
+Combining the two <span class="math inline">\(p\)</span>-values together gives the two-sided <span class="math inline">\(p\)</span>-value, <span class="math inline">\(p({\boldsymbol X})=0.0026\)</span>.
+This gives a measure of how unlikely <span class="math inline">\(H_0:\pi=0.5\)</span> holds given the observed 17 out of 20 `Heads’ outcome.</p>
+</div>
+<div class="mycheck">
+<p>As a remark, the answer cannot possibly be resulted from the estimator <span class="math inline">\(\hat\pi\)</span>, for</p>
+<ul>
+<li>if <span class="math inline">\(\hat\pi=0.9\)</span>, then <span class="math inline">\(H_0\)</span> is unlikely to be true.</li>
+<li>if <span class="math inline">\(\hat\pi=0.45\)</span>, then <span class="math inline">\(H_0\)</span> is may be true (but also may be untrue).</li>
+<li>if <span class="math inline">\(\hat\pi=0.7\)</span>, then what?</li>
+</ul>
+<p>Furthermore, <span class="math inline">\(\hat\pi=\bar X\)</span> is a random variable, so will vary from sample to sample!</p>
+</div>
+</div>
+<div id="accept-h_0" class="section level3" number="5.1.3">
+<h3><span class="header-section-number">5.1.3</span> Accept <span class="math inline">\(H_0\)</span>?</h3>
+<p>It is not possible to “prove” a negative. When the <span class="math inline">\(p\)</span>-value is large, it means that there is a lack of evidence to prove something exists–it does not prove something does not exist!</p>
+<div class="myalert">
+<p><strong>Not reject <span class="math inline">\(\neq\)</span> Accept</strong></p>
+<p>A statistical test is  to accept a hypothesis. A large <span class="math inline">\(p\)</span>-value is indeed indicative of the null hypothesis being likely, but the philosophically correct attitude would be to conclude that  (as opposed to accepting the null).</p>
+</div>
+<p>With this in mind, note that for the most part we will be viewing the statistical testing problem as a problem in which one of two actions is going to be taken: the assertion of <span class="math inline">\(H_0\)</span> or <span class="math inline">\(H_1\)</span>.</p>
+<p>At the end of the day, we can never know for certain what the truth is; we can only act on probability and likelihood based on the observed data.</p>
+</div>
+<div id="uniformity-of-p-values" class="section level3" number="5.1.4">
+<h3><span class="header-section-number">5.1.4</span> Uniformity of <span class="math inline">\(p\)</span>-values</h3>
+<p>Here’s an interesting fact:</p>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-146" class="theorem"><strong>Theorem 5.1  (Uniformity of \(p\)-values) </strong></span>If <span class="math inline">\(\theta_0\)</span> is a point null hypothesis for the parameter of continuous <span class="math inline">\({\boldsymbol X}\)</span>, then a correctly calculated <span class="math inline">\(p\)</span>-value <span class="math inline">\(p_W({\boldsymbol X})\)</span> based on any test statistic <span class="math inline">\(W\)</span>, is such that
+<span class="math display">\[
+p_w({\boldsymbol X}) \sim \mathop{\mathrm{Unif}}(0,1)
+\]</span>
+in repeated sampling under <span class="math inline">\(H_0\)</span>.</p>
+</div>
+<p>This result is useful especially for <em>checking the validity</em> of a complicated <span class="math inline">\(p\)</span>-value calculation:</p>
+<ol style="list-style-type: decimal">
+<li>Simulate (on a computer) several new data sets from the null distribution.</li>
+<li>For each simulated data set, apply the <span class="math inline">\(p\)</span>-value calculation and save the result.</li>
+<li>Assess the collection of resulting <span class="math inline">\(p\)</span>-values–do they seem to be uniformly distributed?</li>
+</ol>
+<div class="proof">
+<p><span id="unlabeled-div-147" class="proof"><em>Proof</em>. </span>This is a consequence of the <em>probability integral transform</em>: Suppose that a continuous r.v. <span class="math inline">\(T\)</span> has cdf <span class="math inline">\(F_T(t), \forall t\)</span>. Then the r.v. <span class="math inline">\(Y=F_T(T)\sim\mathop{\mathrm{Unif}}(0,1)\)</span> because:
+<span class="math display">\[
+F_Y(y)=\Pr(Y\leq y) = \Pr(F_T(T)\leq y) = \Pr\big(T \leq F^{-1}_T(y)\big) = F_T\left(F^{-1}_T(y) \right) = y,
+\]</span>
+which is the cdf of a <span class="math inline">\(\mathop{\mathrm{Unif}}(0,1)\)</span> distribution.</p>
+<p>For any data <span class="math inline">\({\boldsymbol x}\)</span>,
+<span class="math display">\[
+p_W({\boldsymbol x}) =  \Pr\!{}_{\theta_0}\left(W({\boldsymbol X}) \geq W({\boldsymbol x}) \right) = 1 - F\big( W({\boldsymbol x}) \big),
+\]</span>
+where <span class="math inline">\(F\)</span> is the cdf (under <span class="math inline">\(H_0\)</span>) of <span class="math inline">\(W({\boldsymbol X})\)</span>. Hence, <span class="math inline">\(p_W({\boldsymbol x})=1-Y\)</span> where <span class="math inline">\(Y\sim\mathop{\mathrm{Unif}}(0,1)\)</span> by the probability integral transform. But clearly if <span class="math inline">\(Y\sim\mathop{\mathrm{Unif}}(0,1)\)</span>, then so is <span class="math inline">\(1-Y\)</span>.</p>
+</div>
+<div class="mycheck">
+<p><strong>Probability Integral Transform</strong></p>
+</div>
 </div>
 </div>
             </section>
@@ -612,8 +619,8 @@ For this, we first need to study inequalities and convergences.</p>
           </div>
         </div>
       </div>
-<a href="inequalities-convergences-and-normal-random-samples.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="inequalities.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="hypothesis-testing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="likelihood-ratio-test.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -644,7 +651,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/haziqj/adv-stats/edit/main/04-inequalities_etc.Rmd",
+"link": "https://github.com/haziqj/adv-stats/edit/main/06-hyp_test.Rmd",
 "text": "Edit"
 },
 "history": {

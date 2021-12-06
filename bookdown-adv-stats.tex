@@ -319,7 +319,7 @@
 
 \title{SM-4331 Advanced Statistics}
 \author{Dr Haziq Jamil}
-\date{2021-12-02}
+\date{2021-12-06}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -3576,13 +3576,18 @@ There is an alternative formula for the conditional variance, similar to what we
 \]
 The warnings about catastrophic cancellation applies here as well!
 
-The law of total variance states that
-\[
-\Var(X) = {\E}_Y\left[\Var(X|Y) \right] + {\Var}_Y\left[\E(X|Y) \right].
-\]
+Similar to the law of total expectations, we have a result involving conditional variances.
 
-Note that, in this context, both \(\Var(X|Y)\) and \(\E(X|Y)\) are random variables.
-The variance of \(X\) is the sum of two parts:
+\begin{theorem}[Law of total variance]
+\protect\hypertarget{thm:lawoftotalvariance}{}\label{thm:lawoftotalvariance}If \(X\) and \(Y\) are two random variables, then
+\[
+\Var_Y(X) = {\E}_Y\left[\Var(X|Y) \right] + {\Var}_Y\left[\E(X|Y) \right].
+\]
+\end{theorem}
+
+The above theorem also works for more general functions of \(X\).
+Note that, in this context, both \(\Var(X|Y)\) and \(\E(X|Y)\) are random variables, as they depend on the (unknown) value of \(Y\).
+The law of total variance states that the total variability of \(X\) is the sum of two parts:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3593,9 +3598,79 @@ The variance of \(X\) is the sum of two parts:
   The variance of the conditional expectation of \(X\) given \(Y\). This is called the \emph{between-sample variance} (of the conditional averages).
 \end{enumerate}
 
-See also: \url{https://math.stackexchange.com/a/3377007}
+The next section provides some additional explainers involving conditional expectations and variances, and also gives a proof for Theorem \ref{thm:lawoftotalvariance}.
 
-\begin{center}\includegraphics[width=0.8\linewidth]{figure/lawoftotalvariance} \end{center}
+It is always advisable to keep track of which distribution the expectation is taken under.
+For instance,
+\[
+\E_X(X) = \int x f_X(x) \dint x
+\]
+is the expectation of \(X\) using the pdf of \(X\).
+There is little ambiguity here so we needn't put a subscript for the expectation and it's fine to write it simply as \(\E(X)\).
+On the other hand,
+\[
+\E_Y(X) = \int X f_Y(y) \dint y = X \int f_Y(y) \dint y = X
+\]
+which makes sense because \(X\) is constant in \(Y\) so gets pulled out of the expectation.
+Keeping track of expectations is even more important when using iterated expectations under the law of total expectations and total variance!
+
+\begin{example}
+Here's a problem faced by actuaries (in the field of insurance and actuarial science).
+Insurance companies are interested in the \emph{loss amount} of insuring their customers.
+Those that are classified as ``high risk'' of course tend to have a higher loss amount compared to those classified as ``low risk'', and each category has its own distribution.
+
+Let \(U\) be the uniform distribution on the unit interval \((0,1)\).
+Suppose that a large population of insureds is composed of ``high risk'' and ``low risk'' individuals.
+The proportion of insured classified as ``low risk'' is \(p\in(0,1)\).
+Let the random loss amount \(X\) of a ``low risk'' insured be \(U\); and let the random loss amount \(X\) of a ``high risk'' insured be \(U\) shifted by a positive constant \(w>0\), i.e.~\(U+w\).
+
+\begin{quote}
+What is the variance of the loss amount of an insured randomly selected from this population?
+\end{quote}
+
+For convenience, let \(Y=1\) if a person is categorised as ``high risk'' and \(Y=0\) if they are categorised as ``low risk''.
+Then \(Y\) is a Bernoulli random variable
+\[
+Y = \begin{cases}
+1 & \text{w.p. } 1-p \\
+0 & \text{w.p. } p
+\end{cases}
+\]
+The information that we have is the following: \(X|(Y=0)\sim \Unif(0,1)\), while \(X|(Y=1)\sim \Unif(w,w+1)\).
+This is because a random variable shifted by a constant is still uniform, and the endpoints are shifted by that constant.
+Thus, we know (or at least we can check from Wikipedia!--don't worry though, we'll cover properties of commonly used distributions in the next chapter)
+\begin{align*}
+\E(X|Y=0)   &= \frac{1}{2}  &     \E(X|Y=1) &= w + \frac{1}{2} \\
+\Var(X|Y=0) &= \frac{1}{12} &   \Var(X|Y=1) &= \frac{1}{12} \\
+\end{align*}
+
+The law of total variance gives us a way to compute the total variance \(\Var(X)\):
+\begin{align*}
+\Var(X)
+&= \E_Y\left[ \Var(X|Y) \right] + \Var_Y\left[\E(X|Y) \right] \\
+&= \E_Y \left[ \frac{1}{12}\right ] + \Var_Y \left[  wY + \frac{1}{2} \right] \\
+&= \frac{1}{12} + w^2 \Var(Y) \\
+&= \frac{1}{12} + w^2p(1-p)
+\end{align*}
+
+In the above we made use of properties of expectations and variances to make computing the total variance easier.
+For the first part of the sum, notice that the conditional variance of \(Y\) is \(1/12\) no matter the value of \(Y\), hence it is a constant, and the expectation of a constant is that constant itself.
+As for the second part, the conditional expectation \(\E(X|Y)\) can be written as a function of \(Y\) as \(wY + 1/2\)--if \(Y=0\) then the expectation is \(1/2\), but if it is \(Y=1\) then the expectation is \(w+1/2\).
+Since \(w\) is a constant, it is pulled out and squared, and the + 1/2 bit has zero variance.
+
+Out of interest, the total expectation can be computed as
+\[
+\E(X) = p\cdot \E(X|Y=0) + (1-p) \E(X|Y=1) = \frac{1}{2} + (1-p)w,
+\]
+but it would be wrong to do something similar to the variance.
+That is,
+\[
+\Var(X) \neq p\cdot \Var(X|Y=0) + (1-p) \Var(X|Y=1) = \frac{1}{12}.
+\]
+
+It is not possible for the total variance to be the same as the conditional variances, because the mean loss in the two cases are different!
+The uncertainty in the risk classes introduces additional varibility in the loss for a randomly selected insured individual, so should be higher than \(1/12\).
+\end{example}
 
 \hypertarget{additional-explainers}{%
 \subsection{Additional explainers}\label{additional-explainers}}
@@ -3604,7 +3679,14 @@ Let \((X,Y)\) be a bivariate random variable with some pdf \(f(x,y)\).
 To illustrate the concepts we've been talking about so far, consider drawing a random sample of size \(n\) from this distribution.
 The scatterplot is shown below, with values of \(X\) on the vertical axis, and \(Y\) on the horizontal axis.
 
-\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/condexp1-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/condexp1-1} 
+
+}
+
+\caption{Scatter plot of randomly sampled values from a bivariate distribution. We can see a U-shape relationship between the two random variables.}\label{fig:condexp1}
+\end{figure}
 
 The first thing to note is that there is clearly a dependence between \(X\) and \(Y\).
 In the region of \(X>0\), values of \(Y\) increase as \(X\) increases, and we see a similar pattern in the opposite direction, i.e.~in the region of \(X<0\), values of \(Y\) increase as \(X\) decreases.
@@ -3619,7 +3701,14 @@ The \emph{mass} of the distribution seems to lie in the middle, perhaps somewher
 If we calculated the sample mean of all the observed \(X\) values, this would given (an estimate) for the \emph{marginal} expectation of \(X\).
 This is marked in the plot by the horizontal dashed line.
 
-\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/condexp2-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/condexp2-1} 
+
+}
+
+\caption{Illustration of the marginal distributions of \(X\) and \(Y\) together with their respective means.}\label{fig:condexp2}
+\end{figure}
 
 Similarly, we can get the marginal distribution for \(Y\) as well as the marginal expectation of \(Y\) by flattening the vertical axis.
 
@@ -3646,6 +3735,15 @@ Also, at \(Y=0\), the mean of the points within the green strip is about 0--we c
 The conditional mean changes for different locations of \(Y\).
 For \(Y=5\) for instance, the conditional mean of \(X\) is about 20.
 
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/condexp3pdf-1} 
+
+}
+
+\caption{The distribution of \(X\) conditional on different values of \(Y\).}\label{fig:condexp3pdf}
+\end{figure}
+
 In Figure \ref{fig:condexp3} as well we have drawn a quadratic line through the data points.
 This line actually represents the curve \(g(y)=\E(X|Y=y)\).
 That is to say, the mean of \(X\) conditional on the value of \(Y=y\) is represented along this curve.
@@ -3661,7 +3759,14 @@ It can be split into two parts, as follows:
 \end{equation}
 This is illustrated in the following graphic:
 
-\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/condexp4-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/condexp4-1} 
+
+}
+
+\caption{The distance between any point and the grand mean is the sum of two parts: a) the distance between the point and the conditional mean; and b) the distance between the conditional mean and the grand mean.}\label{fig:condexp4}
+\end{figure}
 
 If this is the case, using the formula for the variance as well as properties of expectations on \eqref{eq:condvariancebreakdown}, we get the relationship
 \begin{align*}
@@ -3701,24 +3806,48 @@ Some additional algebra to support the above:
 \hypertarget{moment-generating-functions}{%
 \section{Moment generating functions}\label{moment-generating-functions}}
 
-\hypertarget{moment-generating-functions-1}{%
-\subsection{Moment generating functions}\label{moment-generating-functions-1}}
+Interestingly, the concept of \emph{moments} in statistics is borrowed from physics, in the sense that the moment of a function are measures relating to the shape of a function's graph.
+Wikipedia states that if a function represents mass, the first moment is the center of the mass, and the second moment is the rotational inertia.
+In statistics, we concern ourselves with moments of probability functions.
 
-As the name implies, the moment generating function (mgf) is used for finding \emph{moments} of a r.v..
-Other uses:
+\begin{definition}[Moments]
+The \(k\)th \emph{moment} of a random variable \(X\) is
+\[
+m_k = \E(X^2).
+\]
+The \(k\)th \emph{central moment} of \(X\) is
+\[
+\mu_k = \E\left[(X-\mu)^k \right],
+\]
+where \(\mu=\mu_1'=\E(X)\).
+The \(k\)th \emph{standardised moment} of \(X\) is
+\[
+\tilde\mu_k = \E\left[\left(\frac{X-\mu}{\sigma}\right)^k \right],
+\]
+where \(\sigma^2 = \mu_2\).
+\end{definition}
+
+Some common moments of a random variable \(X\) are as follows.
 
 \begin{itemize}
 \tightlist
 \item
-  Characterising a distribution
+  The first moment is the \emph{mean} or \emph{expectation}.
 \item
-  Finding distributions of \emph{sums of r.v.}
+  The second central moment is the \emph{variance}.
 \item
-  As a tool in statistical proofs
+  The third standardised moment is the \emph{skewness}, a measure of asymmetry of the pdf about its mean.
+\item
+  The fourth standardised moment is the \emph{kurtosis}, a measure of ``tailed-ness'' of aa pdf.
 \end{itemize}
 
+\hypertarget{moment-generating-functions-1}{%
+\subsection{Moment generating functions}\label{moment-generating-functions-1}}
+
+There is a function in statistics which is useful for finding moments of a random variable, called the \emph{moment generating function}.
+
 \begin{definition}[Moment generating function]
-Let $X\sim f_X(x)$. For $t\in\bbR$, the moment generating function (mgf) of $X$ is defined by
+Let \(X\sim f_X(x)\). For \(t\in\bbR\), the \emph{moment generating function (mgf)} of \(X\) is defined by
 \[
 M_X(t) = \E(e^{tX}) = \begin{cases}
 \sum_x e^{tx} f_X(x) &\text{if $X$ discrete} \\
@@ -3728,20 +3857,30 @@ M_X(t) = \E(e^{tX}) = \begin{cases}
 provided this expectation exists in ``some neighbourhood of 0''.
 \end{definition}
 
-\hypertarget{generating-moments}{%
-\subsection{Generating moments}\label{generating-moments}}
+While the primary use of the mgf is for finding moments of a random variable, it has also these other uses (read on further down for properties of mgfs):
 
-Consider the following:
+\begin{itemize}
+\tightlist
+\item
+  Characterising a distribution.
+\item
+  Finding distributions of sums of random variables.
+\item
+  As a tool in statistical proofs
+\end{itemize}
 
-\begin{align*}
+How exactly does it ``generate'' moments? Consider finding the first derivative of \(M_X(t)\) evaluated at \(t=0\):
+
+\begin{align}
 \frac{\ddif}{\ddif t}M_X(t) \bigg|_{t=0}
-&= \frac{\ddif}{\ddif t}  \E(e^{tX}) \bigg|_{t=0} \\
-&=  \E\left[  \frac{\ddif}{\ddif t}e^{tX} \right]\bigg|_{t=0} \\
-&= \E[Xe^{tX}] \Big|_{t=0} \\ 
-&= \E(X).
-\end{align*}
+&= \frac{\ddif}{\ddif t}  \E(e^{tX}) \bigg|_{t=0} \nonumber \\
+&=  \E\left[  \frac{\ddif}{\ddif t}e^{tX} \right]\bigg|_{t=0} \label{eq:mgf}   \\
+&= \E[Xe^{tX}] \Big|_{t=0}  \nonumber \\ 
+&= \E(X). \nonumber
+\end{align}
 
-We can iterate the steps again to generate the \(k\)-th moment of \(X\) by taking \(k\) derivatives and setting \(t=0\). Note that this relies on being able to \emph{interchange the order of differentiation and integration}. See §2.4 C\&B. For ``nice distributions'' generally there are no problems.
+We get exactly the first moment.
+These steps can be iterated to generate the \(k\)-th moment of \(X\), i.e.~by taking \(k\) derivatives and setting \(t=0\).
 
 \begin{theorem}
 If \(X\) has mgf \(M_X(t)\), then
@@ -3752,16 +3891,38 @@ If \(X\) has mgf \(M_X(t)\), then
 That is, the \(k\)-th moment is equal to the \(k\)-th derivative of \(M_X(t)\) evaluated at \(t=0\).
 \end{theorem}
 
-\begin{example}
-Let \(X\sim\Exp(1/r)\) with \(f_X(x)=r e^{-r x}\) for \(x\in[0,\infty)\). Then for \(t<r\),
+There are two subtle things going on here when we use the mgf.
+The first one is that obtaining moments relies on being able to \emph{interchange the order of differentiation and integration}, because for continuous distributions,
 \[
-M_X(t) = \int_0^\infty e^{tx}\cdot r e^{- r x} \dint x = r \int_0^\infty e^{(t- r)x} \dint x = \frac{ r}{ r-  t}.
+\frac{\ddif}{\ddif t}  \E(e^{tX}) = \frac{\ddif}{\ddif t} \left(\int e^{tx}f_X(x)\dint x \right)
 \]
-\(\E(X)=M_X'(t)\big|_{t=0}=\frac{r}{(r-t)^2}\Big|_{t=0}=1/r\).
+and in \eqref{eq:mgf} above, it is assumed we can interchange the order of differentiation and integration so that
+\[
+\frac{\ddif}{\ddif t}  \E(e^{tX}) = \int \left( \frac{\ddif}{\ddif t}  e^{tx} \right) f_X(x) \dint x = \E\left(Xe^{tX}\right).
+\]
+For ``nice'' and well-behaved random variables, there are generally no problems.
+See Section 2.4 of C\&B.
+
+The second thing is that statement about the expectation ``existing in some neighbourhood of 0''.
+This is so that when we plug in \(t=0\) in the expression for the mgf, we get a valid expectation.
+If this is not the case, then the moment does not exist.
+
+\begin{example}
+Let \(X\sim\Exp(1/r)\) with \(f_X(x)=r e^{-r x}\) for \(x\in[0,\infty)\).
+This is an exponential distribution with rate parameter \(r\).
+Then for \(t<r\),
+\begin{align*}
+M_X(t) 
+&= \int_0^\infty e^{tx}\cdot r e^{- r x} \dint x  \\
+&= r \int_0^\infty e^{(t- r)x} \dint x \\
+&= \frac{ r}{ r-  t}.
+\end{align*}
+Thus, \(\E(X)=M_X'(t)\big|_{t=0}=\frac{r}{(r-t)^2}\Big|_{t=0}=1/r\).
+Indeed, the expectation of the exponential distribution is given as the inverse rate.
+We'll meet the exponential distribution in more detail in the next chapter.
 \end{example}
 
-\hypertarget{properties-of-mgf}{%
-\subsection{Properties of mgf}\label{properties-of-mgf}}
+Here are some properties of mgfs that are worth noting.
 
 \begin{itemize}
 \tightlist
@@ -3770,11 +3931,13 @@ M_X(t) = \int_0^\infty e^{tx}\cdot r e^{- r x} \dint x = r \int_0^\infty e^{(t- 
 \item
   If \(X_1,\dots,X_n\) are independent and \(Y=\sum_{i=1}^n X_i\), then \(M_Y(t)=\prod_{i=1}^n M_{X_i}(t)\).
 \item
-  If \(X\) and \(Y\) are r.v. s.t. \(M_X(t)=M_Y(t)\) for all \(t\) in an open interval around 0, then \(F_X(x)=F_Y(x)\) for all \(x\).
+  If \(X\) and \(Y\) are random variables s.t. \(M_X(t)=M_Y(t)\) for all \(t\) in an open interval around 0, then \(F_X(x)=F_Y(x)\) for all \(x\).
 \end{itemize}
 
 The mgf has the property that it uniquely defined a distribution.
 That is, if two distributions have identical mgfs then they have the same distribution.
+This way, we can usually identify distributions from a recognisable mgf.
+We'll see some examples of this in action in the later chapters.
 
 \hypertarget{exercises}{%
 \section{Exercises}\label{exercises}}
@@ -3974,20 +4137,50 @@ That is, if two distributions have identical mgfs then they have the same distri
 \hypertarget{commonly-used-probability-models}{%
 \chapter{Commonly-used probability models}\label{commonly-used-probability-models}}
 
+Distributions in statistics serve two main purposes:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  To describe the assumed behaviour of the observations made in an experiment, survey or other study;
+\item
+  To calibrate the values of derived statistics used in constructing confidence regions, hypothesis tests, etc.
+\end{enumerate}
+
+Some distributions are much used for both purposes (the normal distribution being the prime example).
+
+In this chapter, we will focus on some distributions used for the first purpose.
+Distributions used mainly for the second purpose (these include the \(\chi^2\), \(t\) and \(F\) distributions) will be described later, in Chapter 3.
+
+We will meet a \emph{family} of distributions--a family which is indexed by one or more \emph{parameters} (c.f. parametric family).
+This allow us to vary certain characteristics of the distribution while staying with one functional form.
+For example, consider several random variables \(X_k\sim\N(k,1)\), for a couple of values of \(k\).
+That is, \(X_k\) is a normal distribution with mean \(k\) and variance 1.
+These are distinct distributions (e.g., \(\Pr(X_{10} < 0) \ll \Pr(X_0 < 0)\)) yet have similar characteristics (e.g.~they are all bell-shaped).
+
+\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/normaldist_param-1} \end{center}
+
+Starting from this chapter onwards, we will denote probability using the notation `\(\Pr\)' rather than the blackboard bold symbol `\(\bbP\)' as we did previously.
+Either symbol is fine, but I feel `\(\bbP\)' is used to denote the probability measure of an event, and is traditionally used in probability theory.
+Of course when we write \(\Pr(X<a)\) we really mean the probability measure of the event \(\{ X < a\}\) so really the measure theoretic stuff is there regardless (or maybe we should write it \(\bbP(\{X < a\})\) to be proper?).
+
+The point is, write it any way you want. It should be fine. Just so you know, I'll be using `\(\Pr\)' from here on out.
+
 \hypertarget{learning-objectives-1}{%
 \subsection*{Learning objectives}\label{learning-objectives-1}}
 \addcontentsline{toc}{subsection}{Learning objectives}
 
-By the end of this chapter, you will be able to:
+By the end of this chapter, you will be:
 
 \begin{itemize}
 \tightlist
 \item
-  do this
+  Familiar with commonly used discrete and continuous probability models, including their general properties and characteristics, and situations in which that distribution is used to model data.
 \item
-  do that
+  Able to compute probabilities involving normal distributions using the standard normal tables.
 \item
-  and this
+  Discovering some relationships between certain distributions, and how these relationships can be exploited in approximate calculations.
 \end{itemize}
 
 \hypertarget{readings-1}{%
@@ -4018,48 +4211,37 @@ By the end of this chapter, you will be able to:
   Topics not covered: Cauchy, lognormal and double exponential (Laplace) distributions, exponential families, location and scale families
 \end{itemize}
 
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
-
-Distributions in statistics serve two main purposes:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  To describe the assumed behaviour of the observations made in an experiment, survey or other study;
-\item
-  To calibrate the values of derived statistics used in constructing confidence regions, hypothesis tests, etc.
-\end{enumerate}
-
-Some distributions are much used for both purposes (the normal distribution being the prime example).
-
-In this Part we will focus on some distributions used for the first purpose.
-Distributions used mainly for the second purpose (these include the \(\chi^2\), \(t\) and \(F\) distributions) will be described later, in Part 3.
-
-We deal with a \emph{family} of distributions.
-This family is indexed by one or more \emph{parameters} (c.f. parametric family), which allow us to vary certain characteristics of the distribution while staying with one functional form.
-
-For example, consider r.v.s \(X_k\sim\N(k,1)\).
-These are distinct distributions yet have similar characteristics.
-
-\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/normaldist_param-1} \end{center}
-
 \hypertarget{discrete-models}{%
 \section{Discrete models}\label{discrete-models}}
+
+In this section, we'll be describing commonly used \textbf{discrete} probability distributions.
 
 \hypertarget{point-mass-distribution}{%
 \subsection{Point mass distribution}\label{point-mass-distribution}}
 
-\(X\) has a point mass distribution at \(a\), written \(X\sim \delta_a\), if \(\Pr(X=a) = 1\), in which case
+The random variable \(X\) has a point mass distribution at \(a\), written \(X\sim \delta_a\), if \(\Pr(X=a) = 1\), in which case
 \[
 F(x) = \begin{cases}
 0 &x<a \\
-1 &x\geq 1.
+1 &x\geq a.
 \end{cases}
 \]
 
 The probability mass function is \(f(x)=1\) for \(x=a\), and 0 otherwise.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/pointmasspdfcdf-1} 
+
+}
+
+\caption{Pdf and cdf of the point mass distribution.}\label{fig:pointmasspdfcdf}
+\end{figure}
+
+The mean and variance are trivial: \(\E(X)=a\) and \(\Var(X)=0\), because the ``random'' variable \(X\) takes on the value \(a\) with probability 1 (certainty).
+
+There isn't much practical use for point mass distributions to be honest, but sometimes they are used to describe \emph{mixture} distributions.
+For example, a random variable might be equal to \(0\) half of the time, but may be normally distributed the other half of the time.
 
 \hypertarget{uniform-distribution}{%
 \subsection{Uniform distribution}\label{uniform-distribution}}
@@ -4068,19 +4250,52 @@ Let \(k>1\) be a given integer. The discrete uniform distribution on \(\{1,\dots
 \[
 f(x) = \frac{1}{k}, \hspace{2em} x=1,\dots,k.
 \]
-We write \(X\sim\Unif\{1,\dots,k\}\).
+We write \(X\sim\Unif\{1,\dots,k\}\). Its mean and variance are
 
 \begin{itemize}
 \tightlist
 \item
-  \(\E(X)=\frac{k+1}{2}\).
+  \(\E(X)=\frac{k+1}{2}\); and
 \item
   \(\Var(X)=\frac{k^2-1}{12}\).
-\item
-  If \(k=1\), then it is the point mass distribution.
 \end{itemize}
 
+The mean of the discrete uniform is intuitive; it is the half-way point between 1 and \(k\).
 The discrete uniform (and the point mass) is appeallingly simple but has relatively few ``real'' statistical applications.
+
+\begin{proof}
+Using the arithmetic series formulae \(\sum_{i=1}^n x = n(n+1)/2\) and \(\sum_{i=1}^n x^2 = n(n+1)(2n+1)/6\), we have
+
+\begin{align*}
+\E(X) &= \sum_{x=1}^k \frac{x}{k}\\
+&= \frac{k(k+1)}{2k}  \\
+&= \frac{k+1}{2},
+\end{align*}
+and
+\begin{align*}
+\E(X^2) &= \sum_{x=1}^k  \frac{x^2}{k}\\
+&= \frac{k(k+1)(2k+1)}{6k}  \\
+&= \frac{(k+1)(2k+1)}{6},
+\end{align*}
+hence
+\begin{align*}
+\Var(X) &= \E(X^2) - \E^2(X) \\
+&= \frac{(k+1)(2k+1)}{6} - \frac{(k+1)^2}{4} \\
+&= \frac{2(k+1)(2k+1)-3(k+1)^2}{12} \\
+&= \frac{k^2-1}{12}.
+\end{align*}
+\end{proof}
+
+If \(k=1\), then it is the point mass distribution. But actually, we can use whatever labels we want for the values \(1,2,\dots,k\). For example, suppose we are picking between 3 colours uniformly, then we can describe a uniform distribution on \(\{1 = \text{red}, 2= \text{green}, 3=\text{blue} \}\).
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/uniformpdfcdf-1} 
+
+}
+
+\caption{Pdf and cdf of the discrete uniform distribution for \(k=4\).}\label{fig:uniformpdfcdf}
+\end{figure}
 
 \hypertarget{bernoulli-distribution}{%
 \subsection{Bernoulli distribution}\label{bernoulli-distribution}}
@@ -4101,6 +4316,7 @@ Suppose we are interested in the outcome of a (single) random trial, which can e
 
 Typically we assign the value `1' to denote success, and `0' to denote failure.
 This has no qualitative meaning whatsoever, the important thing is that there are only two distinct possible outcomes.
+As a consequence, any discrete random variable that can take on only two possible outcomes is a Bernoulli random variable.
 
 Let \(X\) be the r.v. denoting the outcome of success (\(X=1\)) or failure (\(X=0\)) of a binary trial.
 Further let the pmf for \(X\) be
@@ -4115,8 +4331,6 @@ We say that \(X\) has a Bernoulli distribution written \(X\sim\Bern(p)\).
 \begin{itemize}
 \tightlist
 \item
-  The pmf can also be written \(f(x)=p^x(1-p)^{1-x}\).
-\item
   The expectation is
   \[
   \E(X) = \sum_x xf(x) = 1\cdot p + 0 \cdot (1-p) = p.
@@ -4128,12 +4342,28 @@ We say that \(X\) has a Bernoulli distribution written \(X\sim\Bern(p)\).
   \]
 \end{itemize}
 
-Consider the pmf for the Bernoulli distribution above. What do you get when you plug in \(x=1\) and \(x=0\)?
+Again the expectation is intuitive here.
+If a proportion \(p\) of the time we get success, then surely the expectation must be this proportion \(p\).
+
+The pmf for the Bernoulli distribution can also be written \(f(x)=p^x(1-p)^{1-x}\).
+Try plugging in \(x=1\) and \(x=0\) into this function.
+Do you get the appropriate probabilities?
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/bernoullipdfcdf-1} 
+
+}
+
+\caption{Pdf and cdf of the Bernoulli distribution.}\label{fig:bernoullipdfcdf}
+\end{figure}
 
 \hypertarget{binomial-distribution}{%
 \subsection{Binomial distribution}\label{binomial-distribution}}
 
-The binomial describes the distribution of the number of ``successes'' in \(n\) independent and identical binary ``trials''. That is, suppose we have a situation such that
+A related distribution to the Bernoulli is the binomial distribution.
+It describes the distribution of the number of ``successes'' in \(n\) independent and identical binary ``trials''.
+That is, suppose we have a situation such that
 
 \begin{itemize}
 \tightlist
@@ -4153,14 +4383,13 @@ The pmf of \(X\) is
 f(x|n,p) = {n \choose x}p^x (1-p)^{n-x}.
 \]
 \(X\) has support (possible values it can take) over \(\{0,1,2,\dots,n\}\).
-
 The mean and variance are \(\E(X)=np\) and \(\Var(X)=np(1-p)\).
 
 \begin{proof}
 Here's the proof for the mean.
 \begin{align*}
 \E(X) 
-= \sum_{x=0}^n x \frac{n!}{x!(n-x)!} p^x (1-p)^{n-x} 
+&= \sum_{x=0}^n x \frac{n!}{x!(n-x)!} p^x (1-p)^{n-x} \\
 &= \sum_{x=1}^n x \frac{n!}{x!(n-x)!} p^x (1-p)^{n-x} \\
 &=\sum_{x=1}^n n \cdot \overbrace{\frac{(n-1)!}{(x-1)!(n-x)!}}^{{n-1 \choose x-1}} \cdot p^{x-1+1} (1-p)^{(n-1)-(x-1)} \\
 &= np \overbrace{\sum_{x-1=0}^n  {n-1 \choose x-1} p^{x-1} (1-p)^{n-x}}^{=1} \\
@@ -4170,25 +4399,23 @@ Obtaining the variance follows similar steps.
 \end{proof}
 
 Try to replicate the proof above and obtain \(\E(X^2)\) for the binomial distribution. After that, you may obtain \(\Var(X)\) using the usual formula.
+An alternative way is to use mgfs--keep on reading.
 
-Other properties and results
+For the more astute of you, you might have realised that the binomial distribution is simply counting the number of successes in many independent Bernoulli trials.
+Indeed, that is the case.
 
-\begin{itemize}
-\tightlist
-\item
-  If \(n=1\) then \(X\) is a Bernoulli r.v.
-\item
-  \(\Pr(X=0)=(1-p)^n\); \(\Pr(X=1)=p^n\)
-\item
-  Let \(X_1,\dots,X_n\iid\Bern(p)\), then
-  \[
-  X = \sum_{i=1}^n X_i \sim \Bin(n,p)
-  \]
-\end{itemize}
+\begin{lemma}
+Let \(X_1,\dots,X_n\iid\Bern(p)\), then
+\[
+X = \sum_{i=1}^n X_i \sim \Bin(n,p)
+\]
+\end{lemma}
 
-One way to prove the above statement is by using mgfs.
+The lemma is proven using mgfs, and is left to you as an exercise.
+First, obtain the mgf for Bernoulli and binomial distributions.
+Then use the sum property of the mgfs characterise the distribution of the sum.
 
-From this we can more easily derive
+Using the lemma above, we can more easily derive that
 \[
 \E(X) = \E\left(\sum_{i=1}^n X_i \right) = \sum_{i=1}^n \E(X_i) = np
 \]
@@ -4196,12 +4423,22 @@ and
 \[
 \Var(X) = \Var\left(\sum_{i=1}^n X_i \right) = \sum_{i=1}^n \Var(X_i) = np(1-p)
 \]
+simply using properties of expectations and variances.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/binomialpdfcdf-1} 
+
+}
+
+\caption{Pdf and cdf of the binomial distribution with \(p=0.3\).}\label{fig:binomialpdfcdf}
+\end{figure}
 
 \hypertarget{geometric-distribution}{%
 \subsection{Geometric distribution}\label{geometric-distribution}}
 
-The geometric distribution is a type of `waiting time' distribution.
-We count the number of Bernoulli trials to get the first success.
+The geometric distribution is a type of ``waiting time'' distribution.
+It involves counting the number of Bernoulli trials to get the first success.
 Let \(X\) be distributed geometrically, \(X\sim\Geom(p)\), where \(p\) is the probability of success. Clearly,
 \[
   f(x|p)=(1-p)^{x-1}p.
@@ -4209,9 +4446,14 @@ Let \(X\) be distributed geometrically, \(X\sim\Geom(p)\), where \(p\) is the pr
 The support of \(X\) is \(\{1,2,3,\dots\}\); it is countably infinite.
 
 This is a valid pmf since
-\[
-\sum_{x=1}^\infty f(x|p) = \sum_{x=1}^\infty (1-p)^{x-1}p = \frac{p}{1-(1-p)} = 1.
-\]
+\begin{align*}
+\sum_{x=1}^\infty f(x|p) 
+&= \sum_{x=1}^\infty (1-p)^{x-1}p  \\
+&= \frac{p}{1-(1-p)} = 1.
+\end{align*}
+
+This required knowledge of the infinite geometric series \(\sum_{k=0}^\infty ar^k = a/(1-r)\) for \(|r|<1\).
+The mean and variance of the geometric distribution are:
 
 \begin{itemize}
 \tightlist
@@ -4232,6 +4474,15 @@ that
 \]
 We shall mainly use the first version of the geometric distribution in this course, but be aware of the alternative version as well.
 
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/geometricpdfcdf-1} 
+
+}
+
+\caption{Pdf and cdf of the geometric distribution with \(p=0.4\).}\label{fig:geometricpdfcdf}
+\end{figure}
+
 \hypertarget{negative-binomial}{%
 \subsection{Negative binomial}\label{negative-binomial}}
 
@@ -4245,6 +4496,7 @@ Denote this by \(X\sim\NBin(r,p)\). The pmf is
 The pmf is easy to justify: In order to get \(X=x\), a total of \(r-1\) successes must have occurred in the previous \(x-1\) number of trials. Then, the pmf follows directly from the binomial pmf.
 
 Clearly, the support of \(X\) is \(\{r, r+1, r+2, \dots \}\).
+The expectation and variance of \(X\) are
 
 \begin{itemize}
 \tightlist
@@ -4252,15 +4504,39 @@ Clearly, the support of \(X\) is \(\{r, r+1, r+2, \dots \}\).
   \(\E(X)=\frac{r}{p}\).
 \item
   \(\Var(X)=\frac{r(1-p)}{p^2}\).
-\item
-  If \(r=1\), then \(X\) is the geometric distribution.
 \end{itemize}
+
+Note that if \(r=1\), then \(X\) is the geometric distribution.
 
 The name `negative binomial' comes from noting that \(Y=X-r\), the number of failures seen before the \(r\)th success, has pmf
 \[
   f(y|r,p) = (-1)^y{-r \choose y} p^r(1-p)^{r-y},
 \]
 which looks suspiciously close to the binomial pmf\footnote{Details in C\&B, p.95}.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/negbinomialpdfcdf-1} 
+
+}
+
+\caption{Pdf and cdf of the negative binomial distribution with \(p=0.3\) and \(r=5\).}\label{fig:negbinomialpdfcdf}
+\end{figure}
+
+Just a caution to say that the negative binomial has many different parameterisations.
+It all depends whether
+
+\begin{itemize}
+\tightlist
+\item
+  The random variable \(X\) is counting the number of trials until a fixed success, or counting the number of successes before a fixed number of failures occur;
+\item
+  \(p\) denotes success or failure;
+\item
+  \(r\) denotes success or failure.
+\end{itemize}
+
+See here for more details: \url{https://en.wikipedia.org/wiki/Negative_binomial_distribution\#Alternative_formulations}
 
 \hypertarget{poisson-distribution}{%
 \subsection{Poisson distribution}\label{poisson-distribution}}
@@ -4279,7 +4555,7 @@ The Poisson is the most standard assumption for the distribution of a count of e
   The number of patients arriving in an emergency room between 10pm and 11pm.
 \end{itemize}
 
-Let \(X\) be the number of occurrences in this interval, such that the mean number of occurrences \(\lambda\) in the given interval (sometimes called the rate or intensity) is known and is finite. Then \(X\sim\Pois(\lambda)\), and
+Let \(X\) be the number of occurrences in this interval, such that the mean number of occurrences \(\lambda\) in the given interval (sometimes called the rate or intensity) is known and is finite. Then \(X\sim\Pois(\lambda),\) and
 \[
 f(x|\lambda) = \frac{e^{-\lambda}\lambda^x}{x!},
 \]
@@ -4287,7 +4563,7 @@ for \(x=0,1,2,\dots\)
 
 To work out the mean, we make use of the Taylor series expansion.
 Recall that \(e^x=\sum_{k=0}^\infty \frac{x^k}{k!}\).
-Using this fact we can derive the moments.
+Using this fact we can derive the moments through the mgf.
 
 \begin{align*}
 M_X(t)
@@ -4308,8 +4584,19 @@ The proof uses mgf and the characterizing property of the mgf.
 
 Have a go at the proof using properties of the mgf.
 
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/poissonpdfcdf-1} 
+
+}
+
+\caption{Pdf and cdf of the negative binomial distribution with \(\lambda=3\).}\label{fig:poissonpdfcdf}
+\end{figure}
+
 \hypertarget{continuous-models}{%
 \section{Continuous models}\label{continuous-models}}
+
+In this section, we'll study commonly used continuous distributions.
 
 \hypertarget{continuous-uniform-distribution}{%
 \subsection{Continuous uniform distribution}\label{continuous-uniform-distribution}}
@@ -4319,6 +4606,7 @@ The continuous uniform distribution is usually taken to have support on an inter
   f_X(x) = \frac{1}{b-a}
 \]
 for \(x\in[a,b]\) and 0 otherwise.
+The mean and variance are
 
 \begin{itemize}
 \tightlist
@@ -4328,7 +4616,18 @@ for \(x\in[a,b]\) and 0 otherwise.
   \(\Var(X)=\frac{(a-b)^2}{12}\).
 \end{itemize}
 
+Note the similarities between the means and variances above and in the discrete case!
+
 The plot of the pdf gives a ``rectangular'' shape, so probabilities can also be found geometrically, as we previously saw in \protect\hyperlink{exm:unitsquare}{Chapter 1}.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/uniformctspdfcdf-1} 
+
+}
+
+\caption{Pdf and cdf of the negative binomial distribution with \(p=0.3\) and \(r=5\).}\label{fig:uniformctspdfcdf}
+\end{figure}
 
 \hypertarget{exponential-distribution}{%
 \subsection{Exponential distribution}\label{exponential-distribution}}
@@ -4353,23 +4652,29 @@ The pdf is
 f_X(x) = \frac{1}{\lambda} e^{-x/\lambda}.
 \]
 
+\(X\) has support over \([0,\infty)\), and \(\lambda >0\) is known as the ``scale'' parameter. The value \(r=1/\lambda\) is known as the ``rate''. The mean and variance are:
+
 \begin{itemize}
 \tightlist
-\item
-  \(X\) has support over \([0,\infty]\).
-\item
-  \(\lambda >0\) is known as the ``scale'' parameter. The value \(1/\lambda\) is known as the ``rate''.
 \item
   \(\E(X)=\lambda\).
 \item
   \(\Var(X)=\lambda^2\).
-\item
-  \(aX\sim\Exp(a\lambda)\) for \(a>0\).
 \end{itemize}
+
+Since \(\lambda\) is a scale parameter, the following property holds: \(aX\sim\Exp(a\lambda)\) for \(a>0\).
+What this is saying is that if we stretch (or contract) the scale of \(X\) by some amount \(a>0\), then the underlying distribution will still be the same.
 
 The pdf experiences ``exponential decay''--long wait times between two events occurring becomes more and more unlikely.
 
-\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/expdist-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/expdist-1} 
+
+}
+
+\caption{Pdf of the exponential distribution.}\label{fig:expdist}
+\end{figure}
 
 The exponential distribution has a very special property: it is
 memoryless, in the sense that for all \(t>s>0\),
@@ -4390,26 +4695,30 @@ You will prove the memoryless fact in one of the exercises for this chapter.
 \hypertarget{gamma-distribution}{%
 \subsection{Gamma distribution}\label{gamma-distribution}}
 
-The gamma distribution generalises the exponential.
+The gamma distribution generalises the exponential distribution.
 It is also used for modelling durations (lengths of time intervals).
 Let \(X\sim\Gamma(\alpha,\beta)\).
 The pdf is
 \[
   f_X(x) = \frac{1}{\Gamma(\alpha)\beta^\alpha} x^{\alpha-1} e^{- x/\beta}
 \]
+where \(\Gamma(\alpha)=\int_0^\infty y^{\alpha-1}e^{-y}\dint y\) is called the Gamma function.
+Again here, \(X\) has support over \([0,\infty]\).
+\(\alpha>0\) is the ``shape'' parameter, and \(\beta >0\) is the ``scale'' parameter.
+The mean and variance are as follows:
 
 \begin{itemize}
 \tightlist
 \item
-  \(X\) has support over \([0,\infty]\).
-\item
-  \(\alpha>0\) is the ``shape'' parameter, and \(\beta >0\) is the ``scale'' parameter.
-\item
   \(\E(X)=\alpha\beta\).
 \item
   \(\Var(X)=\alpha\beta^2\).
-\item
-  \(\Gamma(\alpha)=\int_0^\infty y^{\alpha-1}e^{-y}\dint y\) is called the Gamma function.
+\end{itemize}
+
+Some other properties of the gamma distribution are:
+
+\begin{itemize}
+\tightlist
 \item
   \(\Gamma(1,\lambda) \equiv \Exp(\lambda)\).
 \item
@@ -4428,46 +4737,55 @@ Be aware that there is an alternative parameterisation of the exponential and ga
   \(Y \sim \Gamma(\alpha,s)\), where \(f_Y(y)=\frac{1}{\Gamma(\alpha)s^\alpha} y^{\alpha-1} e^{-y/s}\). Here \(s\) is the \textbf{scale} parameter. The shape parameter is obtained via \(\beta=1/s\).
 \end{itemize}
 
-Looks similar to the exponential pdf, but more generic.
-Effect of changing the shape parameter:
+\begin{figure}
 
-\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/gammadist1-1} \end{center}
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/gammadist1-1} 
+
+}
+
+\caption{Pdf of the gamma distribution.}\label{fig:gammadist1}
+\end{figure}
 
 \hypertarget{beta-distribution}{%
 \subsection{Beta distribution}\label{beta-distribution}}
 
-The beta distributions are distributions on the unit interval \([0,1]\), or on any other interval \([a,b]\) by transformation \(X \mapsto aX + b\).
+The beta distributions are distributions on the unit interval \([0,1]\), or on any other interval \([a,b]\) by transformation \(X \mapsto X(b-a) + a\).
 It is used to model the behaviour of random variables limited to intervals of finite length in a wide variety of disciplines.
 Let \(X\sim \Betadist(\alpha,\beta)\).
 The pdf is
 \[
   f_X(x) = \frac{1}{B(\alpha,\beta)} x^{\alpha-1} (1-x)^{\beta-1}.
 \]
+where \(B(\alpha,\beta)\) is the so-called beta function
+\[B(\alpha,\beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}.\]
+The parameters \(\alpha>0\) and \(\beta>0\) are known as the ``shape'' parameters.
+The mean and variance are
 
 \begin{itemize}
 \tightlist
 \item
-  \(X\) has support over \([0,1]\).
-\item
-  \(\alpha>0\) and \(\beta>0\) are known as the ``shape'' parameters.
-\item
   \(\E(X)=\frac{\alpha}{\alpha+\beta}\).
 \item
   \(\Var(X)=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}\).
-\item
-  \(B(\alpha,\beta)\) is the beta function \(B(\alpha,\beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}\).
-\item
-  \(\Betadist(1,1)\equiv \Unif(0,1)\).
 \end{itemize}
 
-Pdf of beta distribution
+On interesting fact is that when \(\alpha=\beta=1\), we have the uniform distribution.
+I.e., \(\Betadist(1,1)\equiv \Unif(0,1)\).
 
-\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/betadist-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/betadist-1} 
+
+}
+
+\caption{Pdf of the beta distribution.}\label{fig:betadist}
+\end{figure}
 
 \hypertarget{normal-distribution}{%
 \section{Normal distribution}\label{normal-distribution}}
 
-The normal distribution\footnote{Here's a nice short exploration of the normal distribution: \url{https://bookdown.org/cquirk/LetsExploreStatistics/lets-explore-the-normal-distribution.html}} is the most important distribution in statistics.
+The normal distribution\footnote{Here's a nice short exploration of the normal distribution: \url{https://bookdown.org/cquirk/LetsExploreStatistics/lets-explore-the-normal-distribution.html}} is arguably the most important distribution in statistics.
+There are several reasons for this, including:
 
 \begin{itemize}
 \tightlist
@@ -4479,67 +4797,26 @@ The normal distribution\footnote{Here's a nice short exploration of the normal d
   Often, the normal distribution is used for the error term in standard statistical models (e.g.~linear regression).
 \end{itemize}
 
-Let \(X\) be distributed according to a normal distribution with mean \(\mu\) and variance \(\sigma^2\). We write \(X\sim\N(\mu,\sigma^2)\).
+Let us introduce the normal distribution.
+Let \(X\) be distributed according to a normal distribution with mean \(\mu\) and variance \(\sigma^2\).
+We write \(X\sim\N(\mu,\sigma^2)\).
 The pdf of \(X\) is
 \[
 f_X(x|\mu,\sigma^2)= \frac{1}{\sigma\sqrt{2\pi}}\exp\left[-\frac{(x-\mu)^2}{2\sigma^2} \right]
 \]
+\(X\) has support over \(\bbR\).
 
-\begin{itemize}
-\tightlist
-\item
-  \(X\) has support over \(\bbR\).
-\item
-  \(\E(X)=\mu\).
-\item
-  \(\Var(X)=\sigma^2\).
-\item
-  The normal distribution is \textbf{symmetric} about \(\mu\).
-\item
-  The mode and median of \(X\) is also \(\mu\).
-\end{itemize}
+The normal distribution is so important that all my previous teachers have made their students (including me) memorise the pdf of the normal distribution.
+In continuing tradition, you should too!
+
+The normal distribution is \textbf{symmetric} about \(\mu\).
+The mode and median of \(X\) is also \(\mu\).
 
 \begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/normalpdf-1} \end{center}
 
-\hypertarget{location-parameter}{%
-\subsection{Location parameter}\label{location-parameter}}
-
-The \(\mu\) parameter is also called the ``location'' parameter, since it determines where the bell curve is placed.
-
-\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/location_param-1} \end{center}
-
-\hypertarget{scale-parameter}{%
-\subsection{Scale parameter}\label{scale-parameter}}
-
-The \(\sigma^2\) parameter is also called the ``scale'' parameter, since it determines how spread out the curve is.
-
-\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/scale_param-1} \end{center}
-
-\hypertarget{linear-transformations-of-normal-random-variables}{%
-\subsection{Linear transformations of normal random variables}\label{linear-transformations-of-normal-random-variables}}
-
-For any constants \(c, d \in \bbR\), the r.v. \(Y=cX + d\) also has a normal distribution.
-
-\begin{itemize}
-\tightlist
-\item
-  \(\E(Y)=\E(cX+d)=c\mu + d\).
-\item
-  \(\Var(Y) = \Var(cX+d) = c^2 \sigma^2\).
-\end{itemize}
-
-The facts above are proven using mgf. See the exercises at the end of this chapter.
-
-In particular, a very important transformation is the standardisation
-\[
-  Z = \frac{X-\mu}{\sigma}
-\]
-resulting in the \textbf{standard normal distribution} \(Z\sim\N(0,1)\).
-It has pdf
-\[
-\phi(z) = \frac{1}{\sqrt{2\pi}}e^{-\frac{z^2}{2}},
-\]
-specially denoted by the greek letter `\(\phi\)'.
+The celebrated mathematician Carl Friedrich Gauss has the honour of having the normal distribution named after him.
+The normal distribution is often known as the Gaussian distribution.
+Actually, it is named as such because the \emph{kernel} (i.e.~the insides) of the pdf contains a Gaussian function, i.e.~functions of the form \(f(x)=a\exp\left(- \frac{(x-b)^2}{2c^2} \right)\), which Gauss studied quite a lot.
 
 \begin{figure}
 
@@ -4556,8 +4833,50 @@ specially denoted by the greek letter `\(\phi\)'.
 
 }
 
-\caption{10 Deustche Mark banknote.}\label{fig:deutschemark}
+\caption{10 Deustche Mark banknote. You know you've made it far when your pdf (used to) appears on a country's banknote.}\label{fig:deutschemark}
 \end{figure}
+
+\hypertarget{location-and-scale-parameter}{%
+\subsection{Location and scale parameter}\label{location-and-scale-parameter}}
+
+The \(\mu\) parameter is also called the ``location'' parameter, since it determines where the bell curve is placed.
+Changing the location parameter changes the location of the bell curve.
+
+\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/location_param-1} \end{center}
+
+The \(\sigma^2\) parameter is also called the ``scale'' parameter, since it determines how spread out the curve is.
+Here we see the effect of changing the scale parameter.
+
+\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/scale_param-1} \end{center}
+
+\hypertarget{linear-transformations-of-normal-random-variables}{%
+\subsection{Linear transformations of normal random variables}\label{linear-transformations-of-normal-random-variables}}
+
+For any constants \(c, d \in \bbR\), the r.v. \(Y=cX + d\) also has a normal distribution.
+This fact makes the normal distribution such a convenient distribution to work with.
+Using the properties of expectations and variances,
+
+\begin{itemize}
+\tightlist
+\item
+  \(\E(Y)=\E(cX+d)=c\mu + d\).
+\item
+  \(\Var(Y) = \Var(cX+d) = c^2 \sigma^2\).
+\end{itemize}
+
+The facts above are proven using mgf. See the exercises at the end of this chapter.
+
+In particular, a very important transformation is the \emph{standardisation}
+\[
+  Z = \frac{X-\mu}{\sigma}
+\]
+resulting in the \emph{standard normal distribution} \(Z\sim\N(0,1)\).
+The standard normal has mean 0 and variance 1.
+It has pdf
+\[
+\phi(z) = \frac{1}{\sqrt{2\pi}}e^{-\frac{z^2}{2}},
+\]
+specially denoted by the greek letter `\(\phi\)'.
 
 \hypertarget{the-normal-cdf}{%
 \subsection{The normal cdf}\label{the-normal-cdf}}
@@ -4569,7 +4888,7 @@ F_X(x) = \int_{-\infty}^x
 \]
 where \(\Phi(z)=\int_{-\infty}^z \phi(\tilde z) \dint \tilde z\) is the cdf of \(Z=\frac{X-\mu}{\sigma}\).
 
-Values of \(\Phi(\cdot)\) must be read from a table, as the integrals above are \emph{intractable} (no closed form solution). Download the statistical tables.
+Values of \(\Phi(\cdot)\) must be read from a table\footnote{Download the statistical tables from here: \url{https://haziqj.ml/stat-tables/}}, as the integrals above are \emph{intractable} (no closed form solution).
 Some results worth noting:
 
 \begin{itemize}
@@ -4588,7 +4907,8 @@ Some results worth noting:
   \(P(|Z| \geq a) = P(\{Z < -a\} \cup \{Z >a\}) = 2\big(1-\Phi(a)\big)\)
 \end{itemize}
 
-We can use \texttt{R} to calculate probabilities:
+Of course, we can use computers to calculate these probabilities as well.
+In \texttt{R}, we do:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4602,7 +4922,8 @@ We can use \texttt{R} to calculate probabilities:
 
 Some values of \(\Phi(\cdot)\) worth remembering:
 
-\begin{itemize}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
   \(\Phi(0) = 0.5\)
@@ -4610,14 +4931,24 @@ Some values of \(\Phi(\cdot)\) worth remembering:
   \(\Phi(1.64) \approx 0.95\)
 \item
   \(\Phi(1.96) \approx 0.975\)
-\end{itemize}
+\item
+  \(\Phi(2.33) \approx 0.99\)
+\item
+  \(\Phi(2.58) \approx 0.995\)
+\end{enumerate}
 
-The last one, for example, says that
+These values often come up when doing confidence intervals or hypothesis-test type questions.
+The third one, for example, says that
 \begin{align*}
 \Pr(\mu- 1.96\sigma \leq X \leq \mu+ 1.96\sigma) 
 &= \Pr\left( \left| \frac{X-\mu}{\sigma} \right| \leq 1.96 \right)\\
-&= 2\Phi(1.96)-1\approx 0.95
+&= 2\Phi(1.96)-1\approx 0.95,
 \end{align*}
+giving us an approximate probability statement as follows:
+
+\begin{quote}
+The probability that a standardised normal random variable is within \(\pm 1.96\) in value is approximately 0.95.
+\end{quote}
 
 \hypertarget{rule}{%
 \subsection{68--95--99.7 Rule}\label{rule}}
@@ -4628,6 +4959,10 @@ Incidentally, there is a shorthand to remember the percentage of values that lie
 
 \hypertarget{some-relationships}{%
 \section{Some relationships}\label{some-relationships}}
+
+There are several interesting relationships between the various distributions we have encountered.
+Making use of these relationships allow us to find an alternative and possibly easier way of calculating required probabilities or expectations, although some relationships might only be approximate.
+We discuss them below.
 
 \hypertarget{poisson-binomial-relationship}{%
 \subsection{Poisson-Binomial relationship}\label{poisson-binomial-relationship}}
@@ -4641,12 +4976,34 @@ X \approx \Pois(np)
 when \(n\) is large and \(p\) is small.
 Typically the rule of thumb is \(n>20\) and \(np<5\) or \(n(1-p)<5\).
 
-\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/poisbin1-1} \end{center}
+\begin{figure}
 
-\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/poisbin2-1} \end{center}
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/poisbin1-1} 
 
-\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/poisbin3-1} \end{center}
+}
 
+\caption{When \(n\) is small, then the two distributions are not quite identical.}\label{fig:poisbin1}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/poisbin2-1} 
+
+}
+
+\caption{When \(n\) is large but \(p\) is not small, then the approximation does not work.}\label{fig:poisbin2}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/poisbin3-1} 
+
+}
+
+\caption{The two conditions (\(n\) large and \(p\) small) is required for the approximation to work.}\label{fig:poisbin3}
+\end{figure}
+
+We'll attempt a kind of a sketch proof for this approximate relationship.
 Let \(\lambda=np\). Consider the limit of as \(n\to\infty\) of the binomial pmf:
 
 \begin{align*}
@@ -4662,17 +5019,14 @@ Let \(\lambda=np\). Consider the limit of as \(n\to\infty\) of the binomial pmf:
 &= \Pr(Y=x), Y\sim\Pois(\lambda).
 \end{align*}
 
-Some details\ldots{}
-
+In the above, the limit of the first time is 1 because:
 \begin{align*}
 \frac{n!}{n^x(n-x)!}
 &= \frac{n(n-1)(n-2)\cdots 3\cdot 2 \cdot 1}{n \cdot n \cdots n \cdot (n-x)(n-x-1)\cdots 3\cdot 2 \cdot 1} \\
 &= \frac{n}{n}\frac{n-1}{n} \cdots \frac{n-x+1}{n}
 \end{align*}
-
 and each term converges to 1 as \(n\to\infty\).
-Also by definition,
-
+Furthermore, the appearance of the exponential in the second term is through the very definition of exponentials, i.e.
 \[
 e^a = \lim_{n\to\infty }\left(1 + \frac{a}{n} \right)^n.
 \]
@@ -4680,7 +5034,17 @@ e^a = \lim_{n\to\infty }\left(1 + \frac{a}{n} \right)^n.
 \hypertarget{poisson-exponential}{%
 \subsection{Poisson-Exponential}\label{poisson-exponential}}
 
-The exponential distribution is the probability distribution of the time between events in a Poisson point process, i.e., a process in which events occur continuously and independently at a constant average rate.
+We discussed previously how
+
+\begin{itemize}
+\tightlist
+\item
+  the Poisson distribution is used to model the number of occurences in a given unit of time (or space); and
+\item
+  the exponential distribution is used to model the waiting time until occurence of an event.
+\end{itemize}
+
+The two are actually connected: The exponential distribution is the probability distribution of the time between events in a Poisson point process, i.e., a process in which events occur continuously and independently at a constant average rate.
 
 \begin{figure}
 
@@ -4691,6 +5055,7 @@ The exponential distribution is the probability distribution of the time between
 \caption{Poisson-exponential process.}\label{fig:exppoissonprocess}
 \end{figure}
 
+To see how they are related, consider the following example.
 Let
 
 \begin{itemize}
@@ -4698,40 +5063,39 @@ Let
 \item
   \(N_t\) be the number of phone calls during time period \(t\); and
 \item
-  \(X_t\) be the waiting time until the next phone call from one at \(t\).
+  \(X_t\) be the waiting time (minutes) until the next phone call from one at \(t\).
 \end{itemize}
 
+\(N_t\) can be modelled using a Poisson distribution, and \(X_t\) by an exponential distribution.
 By definition, the two events are equivalent: \(\{X_t > x \} \equiv \{N_t = N_{t+x}\}\).
-Then \(\Pr(X_t \leq x) = 1 - \Pr(N_t - N_{t+x}=0)\).
+What this is saying is that the event that I have to wait more than \(x\) minutes for a phone call is the same as the event that there are no phone calls between time \(t\) and \(t+x\), for any given \(t\).
+If so, then \[\Pr(X_t \leq x) = 1 - \Pr(N_t - N_{t+x}=0).\]
 
-\begin{itemize}
-\tightlist
-\item
-  \(\Pr(N_t - N_{t+x}=0)\) is the probability of no calls between time period \(t+x\) and \(t\), which is also the same as saying that there are no calls in \(x\) amount of time, \(\Pr(N_x=0)\).
-\item
-  Assume that \(N_t\) is a Poisson process with rate \(\lambda\) per unit time \(t\). So \(N_x \sim \Pois(\lambda x)\) and \(\Pr(N_x=0) = e^{-\lambda x}\).
-\item
-  Substituting this into the above, we get
-  \[
+Note that \(\Pr(N_t - N_{t+x}=0)\) is also the same as saying that there are no calls in \(x\) amount of time, \(\Pr(N_x=0)\).
+Assume that \(N_t\) is a Poisson process with rate \(\lambda\) per unit time \(t\).
+So \(N_x \sim \Pois(\lambda x)\) and \(\Pr(N_x=0) = e^{-\lambda x}\).
+Substituting this into the above, we get
+\[
   \Pr(X_t \leq x) = 1 - e^{-\lambda x}
-  \]
-  which is the cdf of an \(\Exp(\lambda)\) distribution.
-\end{itemize}
+\]
+which is the cdf of an \(\Exp(\lambda)\) distribution.
 
 \hypertarget{poisson-gamma}{%
 \subsection{Poisson-Gamma}\label{poisson-gamma}}
 
-More generally, the Poisson and gamma (which includes exponential) are closely related when the gamma \underline{shape parameter is an integer}.
-
+Since the gamma distribution generalises the exponential, we also have a more general relationship between the Poisson and the gamma distribution.
+Both are closely related when the gamma \uline{shape parameter is an integer}.
 Specifically, if \(X\sim\Gamma(\alpha,\beta)\), then for any \(x>0\),
 \[
 \Pr(X>x) = \Pr(Y<\alpha),
 \]
 where \(Y\sim\Pois(x/\beta)\).
+
 The special case for the exponential distribution is easily seen: Set \(\alpha=1\), then
 \[
 \Pr(X>x) = \Pr(Y<1) = \Pr(Y=0) = e^{-x/\beta}.
 \]
+So \(X\) has an \(\Exp(\beta)\) distribution (scale parameter \(\beta\)).
 
 \hypertarget{normal-approximations}{%
 \subsection{Normal approximations}\label{normal-approximations}}
@@ -4978,8 +5342,8 @@ By the end of this chapter, you will be able to:
   Topics not covered here: Order statistics, almost-sure convergence, consistency (will be covered in Part 4), strong LLN, multivariate delta method, Hoeffding's inequality, Mill's inequality,
 \end{itemize}
 
-\hypertarget{introduction-1}{%
-\section{Introduction}\label{introduction-1}}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
 
 \hypertarget{random-sampling}{%
 \subsection{Random sampling}\label{random-sampling}}
@@ -5540,7 +5904,7 @@ However, \[\E(X_n^2) = n^2 \cdot \Pr(X_n = n^2) + 0  \cdot \Pr(X_n = 0) = n \to 
 \hypertarget{relationship-between-convergences}{%
 \subsection{Relationship between convergences}\label{relationship-between-convergences}}
 
-\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-12-1} \end{center}
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 You can find the proof of the above statements in Wasserman (Theorem 5.4). The proof is fairly easy to follow but for brevity will not be repeated here.
 
@@ -7877,8 +8241,8 @@ By the end of this chapter, you will be able to:
   Topics not covered here: Bayesian tests, union-intersection and intersection-union tests, score test
 \end{itemize}
 
-\hypertarget{introduction-2}{%
-\section{Introduction}\label{introduction-2}}
+\hypertarget{introduction-1}{%
+\section{Introduction}\label{introduction-1}}
 
 The task: to assess what the data say about the plausibility of a specific hypothesis about \(\theta\), e.g.~a \uline{simple hypothesis} of the form
 \[
@@ -8914,8 +9278,8 @@ By the end of this chapter, you will be able to:
   Topics not covered here: Bayesian intervals, pivots based on cdfs, test-related optimality, Bayesian optimality, loss function optimality, sinterval using core statistic
 \end{itemize}
 
-\hypertarget{introduction-3}{%
-\section{Introduction}\label{introduction-3}}
+\hypertarget{introduction-2}{%
+\section{Introduction}\label{introduction-2}}
 
 The task: to report a \emph{set} \(C\subset \Theta\) of plausible values for the unknown parameter \(\theta\), rather than a single point estimate.
 The set \(C=C(\bx)\) is
