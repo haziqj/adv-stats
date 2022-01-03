@@ -319,7 +319,7 @@
 
 \title{SM-4331 Advanced Statistics}
 \author{Dr Haziq Jamil}
-\date{2021-12-06}
+\date{2022-01-03}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -353,280 +353,6 @@
 
 These are the course notes for SM-4331 Advanced Statistics, a fourth-year module taken by students at Universiti Brunei Darussalam (UBD).
 The course covers the mathematical theory behind statistical inference concepts.
-
-\hypertarget{contents}{%
-\section*{Contents}\label{contents}}
-\addcontentsline{toc}{section}{Contents}
-
-Welcome to SM-4331!
-This is a Level 4 Major Option module weighing 4 MCs.
-Students typically take this module in their fourth year (final or penultimate semester).
-It is highly recommended for students having a strong interest in statistics and probability, especially students whose final year project involves a statistical component.
-SM-2205 Intermediate Statistics is a pre-requisite for this module, for which all students should have taken.
-SM-4331 Advanced Statistics complements SM-4337 Applied Statistics and SM-4339 Survival Analysis very nicely, so it will be beneficial to take these modules together.
-
-This class is all about deepening your understanding about statistical inference.
-There will be an emphasis on the mathematical aspects and theorem proving of important statistical concepts, and less on practical applications (this is left for SM-4337).
-Thus, it is a class about asking the question `why?', rather than `how?'.
-However, most concepts introduced will be accompanied with \texttt{R} code for students to explore in their own time.
-By the end of this module, hopefully, students will appreciate and be able to understand why things work the way they do in the statistical world.
-
-Past student feedback on this module is that it is on the difficult side.
-Well, it is \emph{advanced} statistics, after all.
-Taking past feedback into account, I have redesigned this module to make it so that students get to follow the content better.
-For more details, see the Class Philosophy section below.
-
-\hypertarget{goals}{%
-\subsection*{Goals}\label{goals}}
-\addcontentsline{toc}{subsection}{Goals}
-
-We will first revisit in further detail the fundamental building blocks of mathematical statistics, beginning with set theory, probability theory and probability distributions.
-We will also learn about convergences of random variables in order to understand several very important results in statistics (e.g.~the law of large numbers and the central limit theorem).
-The syllabus then focusses on the three important statistical inference activities: point estimation, interval estimation, and hypothesis testing.
-To cap things off, we will tackle linear regression, arguably the most important statistical tool at a practitioner's disposal, from a mathematical aspect.
-
-\hypertarget{incidental-learning-outcomes}{%
-\subsection*{Incidental learning outcomes}\label{incidental-learning-outcomes}}
-\addcontentsline{toc}{subsection}{Incidental learning outcomes}
-
-Besides the core content of mathematical statistics that we will cover in this module, I really hope my students will be able to realise the following incidental learning outcomes:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  To be able to present your arguments in a logical and cohesive manner, at the same time gain confidence in public speaking.
-\item
-  To train you to \textbf{read more}. I simply cannot emphasise enough how important reading is to your intellectual development. It will undoubtedly also improve your grammar and expand your vocabulary. Need some inspirational quotes? Here are several:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \emph{A reader lives a thousand lives before he dies. The man who never reads lives only one.}
-  \item
-    \emph{Reading is the gateway skill that makes all other learning possible.}
-  \item
-    \emph{She read books as one would breathe air, to fill up and live.}
-  \item
-    \emph{A book is a device to light the imagination.}
-  \end{itemize}
-\item
-  To connect statistical theory with applied computation via exploration of \texttt{R} code. If you've never learnt a programming language before, now is a good time to start. Sometimes the code is given so you can just copy and paste into an \texttt{R} terminal and see what happens for yourself!
-\item
-  To be self-independent in your studies. I understand that attending weekly, physical classes gives you a form of structure, makes you comfortable. Having video lectures that you can view in your own time is the opposite of this. Moreover, there are no notes to be had. This is an opportunity to instil self-discipline in yourself if you haven't had any to begin with, or to strengthen it if you've had some! If you stick to the schedule, complete all the tasks, you will do well.
-\end{enumerate}
-
-\hypertarget{module-information}{%
-\section*{Module information}\label{module-information}}
-\addcontentsline{toc}{section}{Module information}
-
-\hypertarget{class-format}{%
-\subsection*{Class format}\label{class-format}}
-\addcontentsline{toc}{subsection}{Class format}
-
-Blended learning (mixture of face-to-face and online teaching). As per current university guidelines, I am instructed to conduct at least 40\% of the course through online learning. Therefore, the format is as follows:
-
-\begin{itemize}
-\item
-  \textbf{Video lectures}. Each topic will be presented via videos released incrementally topic by topic. You may view these at your leisure, but you should aim to complete the viewings before the next set of videos are released. You are encouraged to take notes. There will not be any face-to-face or Zoom lectures.
-\item
-  \textbf{Tutorials}. We will have a 2-hour tutorial class (face-to-face) every other week. You will volunteer or be called upon to present the answers to the exercises. Another format we might do is ``breakout sessions'' where you split into small groups and tutor each other.
-\item
-  \textbf{Breather/Recap sessions}. We will dedicate a 2-hour face-to-face class every other week to recap the completed part. During these sessions, you will have the opportunity to clarify any concept or idea that you are still unsure of. No new materials will be taught, it is only for answering questions. You may not ask about the ``starred'' questions in the tutorials directly.
-\end{itemize}
-
-Two weekly sessions are timetabled: \emph{Tuesdays 1410-1600} and \emph{Wednesdays 1150-1340}. Tuesday sessions will be for tutorials and Wednesdays for breather/recap sessions.
-Note that since we are doing video lectures, we will only see each other every other week.
-Classes will be in FOS 2.18, unless otherwise told.
-
-\hypertarget{assessment}{%
-\subsection*{Assessment}\label{assessment}}
-\addcontentsline{toc}{subsection}{Assessment}
-
-\hypertarget{formative-assessment}{%
-\subsubsection*{Formative assessment}\label{formative-assessment}}
-\addcontentsline{toc}{subsubsection}{Formative assessment}
-
-\begin{itemize}
-\tightlist
-\item
-  1 \(\times\) mock exam in Week 14
-\item
-  Exercise sheets
-\end{itemize}
-
-\hypertarget{summative-assessment}{%
-\subsubsection*{Summative assessment}\label{summative-assessment}}
-\addcontentsline{toc}{subsubsection}{Summative assessment}
-
-\begin{itemize}
-\item
-  \textbf{60\% examination}: Closed-book, real-life and invigilated with ``typical'' worked out solutions type questions. The scheduled date for the exam is \emph{Tuesday, 4 May 2021, 2.00-4.00pm} at Chancellor Hall (more details closer to the date). Answer 4 out of 5 questions. Calculators are allowed. A minimal formulae sheet will be provided, as well as statistical tables.
-\item
-  \textbf{20\% topical tests}: Open-book, multiple choice format, online submission through Canvas. There will be seven tests in total, corresponding to each topic/part of the module. In total, there are 100 equally weighted questions (0.2 points each) so each test will have 10-15 questions depending on the topic. Each test will be available as soon as a new topic is taught, and will be available until the next topic is taught. You may take the test at any time in between. You will have 12 hours to complete the test once you start it. \textbf{NO RETAKES}.
-\item
-  \textbf{10\% tutorials}: There are 7 planned tutorial sessions, corresponding to 7 exercise sheets. The majority of the questions are for practice (formative assessment), but there will 1-3 ``starred'' questions which you will have to hand in for grading. The total marks for all of these star questions will be 100, which then counts for 10\% of the overall summative mark.
-\item
-  \textbf{10\% participation}: I will give you marks based on your participation during tutorial sessions, breather/recap sessions, as well as online Canvas discussion groups. The marks will reflect your participation level for the entire semester. The rubric is found in the table below.
-\item
-  \textbf{(BONUS) 5\% notes}: If you take notes for this course, you may submit them to me for grading. I will grade based on aesthetics (tidiness, organisation, readability) as well as content (did you grasp the key concepts? did you do all the little ``green checks'' from the lectures?). Check the schedule for submission dates.
-\end{itemize}
-
-\includegraphics{figure/participation.png}
-
-\hypertarget{key-data}{%
-\subsection*{Key data}\label{key-data}}
-\addcontentsline{toc}{subsection}{Key data}
-
-\begin{itemize}
-\tightlist
-\item
-  Past class sizes: 2016S2 = 57, 2017S2 = 70, 2018S2 = 18, 2019S2 = 9, 2020S2 = 9 (avg: 32.6)
-\item
-  SFE grade average: 3.7 / 5.0 (74.0 \%)
-\end{itemize}
-
-\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/studentperf-1} \end{center}
-
-\hypertarget{course-policy}{%
-\section*{Course policy}\label{course-policy}}
-\addcontentsline{toc}{section}{Course policy}
-
-Here I detail several policies pertaining to my course that I have in place.
-
-\hypertarget{communication-policy}{%
-\subsection*{Communication policy}\label{communication-policy}}
-\addcontentsline{toc}{subsection}{Communication policy}
-
-I am usually quick to respond to student e-mails, despite receiving about a gazillion of them each day. Perhaps it is partly due to my dislike of leaving things unattended and obsession to get things moving (this is my problem, not yours).
-In an effort to preserve my mental health, perhaps have a think first whether that e-mail is necessary. Here are some guidelines.
-
-\begin{itemize}
-\item
-  If you are unable to come to tutorials or recap/breather class, and you're afraid of losing participation marks, then you are responsible for giving me a \textbf{note in hard copy} that documents the reason for the missed class. An e-mail is unnecessary unless the impromptu absence involved missing an exam.
-\item
-  If you are emailing for an extension (star questions) or a remake (topical tests), the answer is always ``no''. The deadlines are flexible already as it is, so schedule your time accordingly.
-\item
-  If you missed a class and wanted to know what was discussed, I sincerely think you're missing the point. The classes are meant for you to ask the questions and for me to see your level of understanding. By not being there you miss out on both counts.
-\item
-  If you have a question about the syllabus, perhaps read this syllabus.
-\item
-  If you have a genuine question about the course contents, sure you could e-mail me. But why not post it up as a Canvas discussion and earn points?
-\end{itemize}
-
-I do not give out my WhatsApp number to my students. I think there should be clear boundaries between students and instructors, and this, in my opinion crosses that boundary. I have e-mail on my phone (for better or worse) so it really makes no difference if you WhatsApp or if you e-mail. E-mail communication is official, which means that you are accountable for what you say to me, and more importantly for what I say to you. Note that Canvas message is equal to e-mail.
-
-\hypertarget{attendance-policy}{%
-\subsection*{Attendance policy}\label{attendance-policy}}
-\addcontentsline{toc}{subsection}{Attendance policy}
-
-\hypertarget{students}{%
-\subsubsection*{Students}\label{students}}
-\addcontentsline{toc}{subsubsection}{Students}
-
-I understand that sometimes unexpected things come about that delays us or prevents us altogether from class. Really, I do--I have spent 9 years in formal tertiary training learning about random events.
-However, I also believe that \emph{those who want to will make time, and those who don't want to will make excuses}.
-So unless there is an excusable reason for your absence (or tardiness) then your participation marks will be affected.
-
-\hypertarget{teacher}{%
-\subsubsection*{Teacher}\label{teacher}}
-\addcontentsline{toc}{subsubsection}{Teacher}
-
-Ah, the life of an early-career academic.
-I often get asked what exactly does a professor do?
-Well, we split our time between research, teaching and admin work, often not in equal parts unfortunately.
-What this means for you is that sometimes there are ``urgent'' non-teaching matters that apparently require my attention, which may happen to clash with our schedule.
-I don't expect this to happen very often (in the last 4 semesters I have only had to cancel/reschedule classes due to these reasons: marshall duties during convocation, UBD open day, Wawasan 2035 meeting, research travel).
-But if they do, I promise that
-
-\begin{itemize}
-\tightlist
-\item
-  I will firstly do my best to keep our scheduled time together. Quite frankly, I'd rather talk about statistics with you than anything else.
-\item
-  Failing that, I will keep you informed well ahead of time.
-\item
-  I will reschedule the missed hours at a suitable time for everyone's benefit.
-\end{itemize}
-
-\hypertarget{conduct}{%
-\subsection*{Conduct}\label{conduct}}
-\addcontentsline{toc}{subsection}{Conduct}
-
-\begin{itemize}
-\item
-  The medium of instruction is english. This means that I will officially lecture in english, converse in english, and write in english. I expect you to do the same. This is often misconstrued as shying away from our mother tongue (malay), but I assure you my intentions are noble. The majority of students will converse in anything other than proper english outside my class, so for the little time we spend together, at the very least you can get to practice your language skills.
-\item
-  I intend to provide a safe and conducive environment for learning for my students, especially in tutorial classes. This means that you will not be ridiculed for making mistakes, or not knowing things, or forgetting things, etc. The purpose is to genuinely gauge your developmental level, and the only way I can do that is if you try. We will also not rudely interject or diminish each other's ideas, or worse yet, each other's character. Please be respectful.
-\item
-  I expect each one of you to do the tests by yourself. This means no collaborative work, although it's fine to ``Google'' stuff if you need to or consult a dictionary for some tricky words. You may think, well it is open-book after all, so why can't we discuss among ourselve the solutions? Here's a secret: The tests are not meant to test your knowledge or ability, they are there to \emph{force} you to refer back to your notes and reading materials :) Together with the note-writing process, these tests will reinforce the mind-map you have created in your brain, allowing you better recall, so you'll do better in the exam, which you are sitting for by yourself. Trust the process, trust me, and don't cheat.
-\end{itemize}
-
-\hypertarget{learning-management-system}{%
-\subsection*{Learning Management System}\label{learning-management-system}}
-\addcontentsline{toc}{subsection}{Learning Management System}
-
-I'm a believer in LM systems like Canvas. Therefore this is the main avenue for me to distribute learning materials (slides, exercise sheets, solutions, etc.) as well as post announcements.
-Canvas has an app for students that you may wish to download onto your smartphones (you can get notifications too).
-Alternatively, keep checking Canvas on your computers on a regular basis.
-
-Canvas will also be the avenue for submissions.
-COVID-19 has made me realise that I much prefer marking on my iPad.
-If you can upload a PDF copy of your work (I'm referring to the ``starred'' tutorial questions) that would be really great.
-Otherwise, you may drop a hard copy of your work into my pigeonhole.
-
-\hypertarget{resources}{%
-\section*{Resources}\label{resources}}
-\addcontentsline{toc}{section}{Resources}
-
-\hypertarget{this-course}{%
-\subsection*{This course}\label{this-course}}
-\addcontentsline{toc}{subsection}{This course}
-
-\begin{itemize}
-\tightlist
-\item
-  My lecture slides
-\item
-  This book
-\end{itemize}
-
-\hypertarget{textbooks}{%
-\subsection*{Textbooks}\label{textbooks}}
-\addcontentsline{toc}{subsection}{Textbooks}
-
-I estimate that you will probably only absorb 40\% of the material through my lectures alone.
-Please supplement your understanding by reading the texts.
-These books are written by professors and course instructors who have uncountably more experience than I have, and are more able to explain the statistical concepts much better than I ever could.
-I used these books myself during my undergraduate years so I trust they will beneficial for you as they were for me!
-
-\begin{itemize}
-\tightlist
-\item
-\item
-\end{itemize}
-
-\hypertarget{miscellaneous}{%
-\subsection*{Miscellaneous}\label{miscellaneous}}
-\addcontentsline{toc}{subsection}{Miscellaneous}
-
-\begin{itemize}
-\tightlist
-\item
-  \href{https://twitter.com/danialAhamdani/status/1332679355756003332}{A Twitter thread on education resources}
-\item
-  \href{http://svmiller.com/blog/2014/09/taking-good-notes/}{Taking Good Notes}
-\item
-  \href{http://svmiller.com/blog/2016/05/fun-with-attendance-grades/}{Fun with Attendance and Grades (i.e.~Students Should Attend Class)}
-\end{itemize}
-
-Really recommended:
-
-\begin{itemize}
-\item
-  \href{https://youtu.be/eDMGDhyDxuY}{All About that Bayes: Probability, Statistics, and the Quest to Quantify Uncertainty}. Talk by Dr.~Kristin Lennox on YouTube.
-\item
-  \url{https://www.qualitydigest.com/inside/standards-column/secret-foundation-statistical-inference-120115.html}
-\end{itemize}
 
 \hypertarget{part-introduction}{%
 \part{Introduction}\label{part-introduction}}
@@ -903,9 +629,9 @@ Hopefully you can now appreciate how statistics is an inherently applied subject
 
 What is the difference between probability and statistics? The following figure might be helpful.
 
-\begin{center}\includegraphics[width=0.48\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-3-1} \end{center}
+\begin{center}\includegraphics[width=0.48\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-1-1} \end{center}
 
-\begin{center}\includegraphics[width=0.48\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-4-1} \end{center}
+\begin{center}\includegraphics[width=0.48\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-2-1} \end{center}
 
 Probability is a highly mathematical subject (although maybe the name doesn't seem to suggest it, it really has its origin in abstract measure theory). In probability, we ask questions like
 
@@ -1047,7 +773,7 @@ There are several things that we can do to sets much like we can do to numbers i
 
 \begin{itemize}
 \item
-  The \textbf{complement} of an event \(A\), written \(A^c\), is the set of all elements that are not in \(A\): \(A^c = \{\omega | \omega\not\in A \}\).
+  The \textbf{complement} of an event \(A\), written \(A^c\), is the set of all elements that are not in \(A\): \(A^c = \{\omega \mid \omega\not\in A \}\).
 \item
   The complement of \(\Omega\) is the empty set \(\emptyset = \{\}\).
 \item
@@ -1207,7 +933,7 @@ Let's take a look at some examples of \(\sigma\)-algebras.
 \item
   The trivial \(\sigma\)-algebra: \[\big\{ \{\}, \Omega \big\}.\] This corresponds the case of no information.
 \item
-  The power set of the sample space \(\Omega\): \[\big\{ A | A \subseteq \Omega \big\}.\] This corresponds the case of full information.
+  The power set of the sample space \(\Omega\): \[\big\{ A \mid A \subseteq \Omega \big\}.\] This corresponds the case of full information.
 \item
   The collection \(\big\{ \{\}, A, A^c, \Omega \big\}\) is a \(\sigma\)-algebra, for any \(A\subseteq \Omega\).
 \item
@@ -1385,7 +1111,7 @@ Two six-sided dice are thrown and the outcome for both dice are recorded.
 \item
   As there are 36 possible outcomes, the sample space is
   \[
-  \Omega = \big\{ \omega_{ij}=\{i,j\} | i,j =1,\dots,6 \big\}
+  \Omega = \big\{ \omega_{ij}=\{i,j\} \mid i,j =1,\dots,6 \big\}
   \]
 \item
   Suppose we are interested in the event \(E\) defined to be \emph{`the sum of the two scores is 6'}. These would be the events
@@ -1598,13 +1324,13 @@ All we need to show is the existence of one such subset of \([0,1]\) whose measu
 
 Define an equivalence relation on \([0,1]\) by the following:
 \[x\sim y \Rightarrow y-x \in \bbQ\]
-That is, two real numbers \(x\) and \(y\) are deemed to be the same if their difference is a rational number. We would like to separate all the real numbers \(x\in[0,1]\) by this equivalence relation, and collect them into groups called equivalence classes, denoted by \([x]\). Here, \([x]\) is the set \(\{y \in [0,1] | x \sim y\}.\) For instance,
+That is, two real numbers \(x\) and \(y\) are deemed to be the same if their difference is a rational number. We would like to separate all the real numbers \(x\in[0,1]\) by this equivalence relation, and collect them into groups called equivalence classes, denoted by \([x]\). Here, \([x]\) is the set \(\{y \in [0,1] \mid x \sim y\}.\) For instance,
 
 \begin{itemize}
 \item
-  The equivalence class of \(0\) is the set of real numbers \(x\) such that \(x \sim 0\), i.e.~\([0] = \{y \in [0,1] | y-0\in\bbQ \}\), which is the set of all rational numbers in \([0,1]\).
+  The equivalence class of \(0\) is the set of real numbers \(x\) such that \(x \sim 0\), i.e.~\([0] = \{y \in [0,1] \mid y-0\in\bbQ \}\), which is the set of all rational numbers in \([0,1]\).
 \item
-  The equivalence class of an irrational number \(z_1\in[0,1]\) is clearly not in \([0]\), thus would represent a different equivalent class \([z_1]=\{y \in [0,1] | y-z \in \bbQ \}\).
+  The equivalence class of an irrational number \(z_1\in[0,1]\) is clearly not in \([0]\), thus would represent a different equivalent class \([z_1]=\{y \in [0,1] \mid y-z_1 \in \bbQ \}\).
 \item
   Yet another irrational number \(z_2\not\in [z_1]\) would exist, i.e.~a number \(z_2\in[0,1]\) such that \(z_2-z_1 \not\in\bbQ\), and thus would represent another equivalence class \([z_2]\).
 \item
@@ -1972,7 +1698,7 @@ The sample space of the coin flips is \(\Omega = \{\text{HH}, \text{HT}, \text{T
 The sample space of \(X\) is \(S = \{0,1,2 \}\).
 The mapping of the random variable is illustrated as follows:
 
-\begin{center}\includegraphics[width=0.48\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-6-1} \end{center}
+\begin{center}\includegraphics[width=0.48\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 \end{example}
 
@@ -2165,7 +1891,7 @@ f_X(x) = \begin{cases}
 \end{cases}
 \]
 
-\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-7-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 \end{example}
 
@@ -2286,9 +2012,9 @@ F_X(x)
 \end{align*}
 while \(F_X(x) = 0\) for \(x<a\), and \(F_X(x)=1\) for \(x>b\).
 
-\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-8-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
-\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-9-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 \end{example}
 
@@ -2713,7 +2439,7 @@ If we plot the pdf surface, it would look something like the following sketch:
 
 }
 
-\caption{Pdf surface plot of the uniform distribution on the unit square.}\label{fig:unnamed-chunk-10}
+\caption{Pdf surface plot of the uniform distribution on the unit square.}\label{fig:unnamed-chunk-8}
 \end{figure}
 
 Any probability of interest would be calculated by finding the volume of interest.
@@ -5298,6 +5024,17 @@ Discrete & Continous \\
 \hypertarget{inequalities-convergences-and-normal-random-samples}{%
 \chapter{Inequalities, convergences, and normal random samples}\label{inequalities-convergences-and-normal-random-samples}}
 
+In this chapter, we lay more advanced groundwork for the upcoming inference chapters.
+Here, we will take a look at the concept of \emph{convergence} as applied to random variables.
+You would have come across convergence of sequences before, but when that sequence is random, does ``convergence'' even have a sensible meaning?
+It turns out we can define such concepts even for random variables.
+Establishing convergence concepts allows us to also establish very important limit theorems used frequently in statistics.
+
+Also included in this chapter is a study of the distributions derived from normal random samples.
+As the normal distributions is used all the time in inferential statistics, the properties of normal random samples has been studied extensively.
+In particular, normal random samples give rise to the \(\chi^2\), \(t\) and \(F\) distributions--all of which I'm sure you have heard of in the context of statistical testing.
+Here, we will take a look in detail as to how they are derived, and how we can use them when calculating probabilities of interest.
+
 \hypertarget{learning-objectives-2}{%
 \subsection*{Learning objectives}\label{learning-objectives-2}}
 \addcontentsline{toc}{subsection}{Learning objectives}
@@ -5307,11 +5044,15 @@ By the end of this chapter, you will be able to:
 \begin{itemize}
 \tightlist
 \item
-  do this
+  Apply probability inequalities and inequalities based on expectations to compute approximate bounds and in proving other mathematical theorems.
 \item
-  do that
+  Understand the notion of three types of convergences as applied to random variables, namely convergence in probability, convergence in distribution, and mean-square convergence.
 \item
-  and this
+  Be familiar with two important limit theorems in statistics: The (weak) Law of Large Numbers; and the Central Limit Theorem.
+\item
+  Use Slutzky's theorem and the delta method in probability-based calculations and inference problems.
+\item
+  Define and use the distributions derived from normal random samples: \(\chi^2\), Student's \(t\), and \(F\) distributions.
 \end{itemize}
 
 \hypertarget{readings-2}{%
@@ -5345,10 +5086,9 @@ By the end of this chapter, you will be able to:
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-\hypertarget{random-sampling}{%
-\subsection{Random sampling}\label{random-sampling}}
-
-Collection of data \(X_1,\dots,X_n\) in an experiment consists of several observations on a variable of interest \(X\).
+Statistical inference involves data points, which as we discussed previously, displays a duality between being information and also random variables.
+Typically, collecting data \(X_1,\dots,X_n\) in an experiment means recording several observations on a a particular variable of interest \(X\).
+For example.
 
 \begin{itemize}
 \tightlist
@@ -5360,19 +5100,26 @@ Collection of data \(X_1,\dots,X_n\) in an experiment consists of several observ
   Voter preferences for \(n\) individuals in the US.
 \end{itemize}
 
-We can \textbf{model} this mathematically by declaring \(X_1,\dots,X_n\) to be random variables sampled from a population whose pdf or pmf is \(f_{\bX}(\bx)\).
+We can \textbf{model} this mathematically by declaring \(\bX = (X_1,\dots,X_n)^\top\) to be random variables sampled from a population whose pdf or pmf is \(f_{\bX}(\bx)\).
 We typically write
 \[
-X_1,\dots,X_n \iid f_{\bX}.
+(X_1,\dots,X_n)^\top \iid f_{\bX}.
 \]
 
-We impose the distribution \(f_{\bX}\) onto the data as an \uline{assumption}!
-As the British statistician George Box once famously said, ``all models are wrong, but some are useful''.
+There are two points to note here:
 
-\hypertarget{independent-and-identical-r.v.}{%
-\subsection{Independent and identical r.v.}\label{independent-and-identical-r.v.}}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  We have indeed treated all observations \(\bX\) as being sampled from a multivariate distribution. In general this is the proper way of doing it, unless we impose a further assumption of independence and identical distributions (see next section).
+\item
+  In most practical situations, we usually collect more than one \emph{kind} of data, e.g.~demographic data for study participants age, weight, height, etc. This is called \emph{multivariable data}. We will focus on \emph{univariate} statistics in this course for the most part.
+\end{enumerate}
 
-Usually, the samples are taken in such a way
+\hypertarget{independent-and-identical-random-variable}{%
+\subsection{Independent and identical random variable}\label{independent-and-identical-random-variable}}
+
+In an experiment, the samples are usually taken in such a way
 
 \begin{itemize}
 \tightlist
@@ -5382,21 +5129,19 @@ Usually, the samples are taken in such a way
   the pdf/pmf of each observation is \(f(x)\) (i.e.~identical).
 \end{itemize}
 
-In this case,
+In this case (remember definition of independence for pdfs),\\
 \[
 f_{\bX}(x_1,\dots,x_n) = \prod_{i=1}^n f(x_i)
 \]
 
-In particular, if the population pdf/pmf is a member of a \emph{parametric family}, say one of those introduced in Part 2, then we can write
+In particular, if the population pdf/pmf is a member of a \emph{parametric family}, say one of those introduced in Chapter 2, then we can write
 \[
-f_{\bX}(x_1,\dots,x_n|\theta) = \prod_{i=1}^n f(x_i|\theta)
+f_{\bX}(x_1,\dots,x_n|\theta) = \prod_{i=1}^n f(x_i|\theta).
 \]
+This is because identical distribution assumption would mean each of the random variables is assumed to come from the same family of distribution with the same parameter.
+We could then use the random samples to \emph{infer} about the (unknown) parameter \(\theta\). More on this in the next chapter.
 
-We could then use the random samples to \emph{infer} about the (unknown) parameter \(\theta\). More on this in the coming parts.
-
-\hypertarget{side-note-finite-population-sampling}{%
-\subsubsection*{Side note: Finite population sampling}\label{side-note-finite-population-sampling}}
-\addcontentsline{toc}{subsubsection}{Side note: Finite population sampling}
+\textbf{Side note: Finite population sampling}
 
 We have just defined sampling from an \emph{infinite} population. Sometimes, sampling is done from a \emph{finite} population, that is, the population consists only of possible observations \(\{x_1,\dots,x_N \}\).
 
@@ -5421,11 +5166,15 @@ In this course, we deal only with the infinite population model.
 \hypertarget{statistic}{%
 \subsection{Statistic}\label{statistic}}
 
+Throughout the course we will refer to an object called a ``statistic''. Note the singular use of the word.
+
 \begin{definition}[Statistic]
 A statistic is any function \(T_n = T(X_1,\dots,X_n)\). It cannot depend on unknown parameters, only on observables.
 \end{definition}
 
-Here are two very commonly used statistics:
+In essence, a statistic is a manipulation of information, usually in a way to condence the information from samples.
+Suppose \(X_1,\dots,X_n\) is a random sample with mean \(\mu\) and variance \(\sigma^2\).
+Here are some examples of statistics (the first two are really common statistics)
 
 \begin{itemize}
 \item
@@ -5438,11 +5187,37 @@ Here are two very commonly used statistics:
   \[
   S^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i-\bar X)^2
   \]
+\item
+  The maximum of the sample
+  \[
+  \max(X_1,\dots,X_n)
+  \]
+\item
+  Any value of the sample itself
+  \[
+  X_i
+  \]
+  These however, are \textbf{not} statistics, because they involve parameter values of the underlying probability distribution.
+\item
+  The quantity
+  \[
+  \frac{\bar X - \mu}{\sigma/\sqrt n}
+  \]
+\item
+  Any expectation
+  \[
+  \E(g(X)) = \int g(x) f(x|\theta)\dint x
+  \]
 \end{itemize}
+
+Practically speaking, we can calculate statistics if we have the data points.
+But we cannot calculate non-statistics because we have to ask ourselves ``what is the value of \(\theta\)'' in order to proceed!
+
+Since the sample mean and sample variance are commonly used statistics, it's important to know the following properties:
 
 \begin{lemma}
 
-Let \(X_1,\dots,X_n\) be a r.v. with mean \(\mu\) and variance \(\sigma^2<\infty\). Then
+Let \(X_1,\dots,X_n\) be a random variable with mean \(\mu\) and variance \(\sigma^2<\infty\). Then
 
 \begin{itemize}
 \tightlist
@@ -5458,6 +5233,9 @@ Let \(X_1,\dots,X_n\) be a r.v. with mean \(\mu\) and variance \(\sigma^2<\infty
 
 The proof of this can be found in C\&B, Theorem 5.2.6.
 
+Do try out the proof of this lemma by yourself.
+The first two should be doable by now, but perhaps the last one is a little bit challenging.
+
 \hypertarget{sampling-distribution}{%
 \subsection{Sampling distribution}\label{sampling-distribution}}
 
@@ -5466,30 +5244,27 @@ Realise that
 \begin{itemize}
 \tightlist
 \item
-  A statistic \(T_n\) is itself a r.v..
+  A statistic \(T_n\) is itself a random variable.
 \item
-  If it is random, it has a distribution.
+  If it is random, it has a distribution, even if we might not know what it is.
 \item
-  Along with having a distribution, all of concepts and properties we discussed in Parts 1 \& 2 apply.
+  Along with having a distribution, all of concepts and properties we discussed in Chapters 1 \& 2 apply.
 \end{itemize}
 
-Think about the statement above, ``a statistic \(T_n\) is itself a r.v.''--can you rationalise why this is? Suppose you collect some data and plug these values into a statistics function (e.g.~the sample mean). Will the value of the sample mean be the same each time, or will it depend on the (random) values of the data?
+Think about the statement above, ``a statistic \(T_n\) is itself a random variable''--can you rationalise why this is? Suppose you collect some data and plug these values into a statistics function (e.g.~the sample mean). Will the value of the sample mean be the same each time, or will it depend on the (random) values of the data?
 
 A very common theme in inferential statistics is to figure out what the distribution of \(T_n\) is in repeated sampling.
+The reason for this is in parameteric statistics, the statistic \(T_n\) may serve as an \emph{estimator} for the true unknown value \(\theta\).
+But since we've established that \(T_n\) itself is a random variable, and different samples will give different values, how do we convince ourselves that \(T_n\) is actually a \emph{good} estimator?
 
-\begin{itemize}
-\tightlist
-\item
-  In parametric statistics for example, the statistic \(T_n\) may serve as an \emph{estimator} for the true unknown value \(\theta\).
-\item
-  How do we know that \(T_n\) is a \emph{good} estimator? It takes different values with repeated sampling, is it typically close to \(\theta\)? How close?
-\end{itemize}
+One way perhaps is to consider the values of \(T_n\) under \emph{repeated sampling}, and whether its value is ``typically close'' to the true value \(\theta\)?
+In the next chapter especially, we will take a look at this problem in detail.
 
 \hypertarget{large-sample-approximation}{%
 \subsection{Large-sample approximation}\label{large-sample-approximation}}
 
 Some statistics have easily-derived sampling distribution; others do not.
-For instance, suppose each \(X_i\sim\N(\mu,\sigma^2)\). Then
+For instance, suppose each \(X_i\sim\N(\mu,\sigma^2)\). Then it is well known that
 \begin{equation}
 \bar X \sim \N(\mu, \sigma^2/n). \label{eq:samplemeandist}
 \end{equation}
@@ -5502,9 +5277,13 @@ But what is the distribution of
 n^{-1}\sum_{i=1}^n \tan^{-1}(X_i)?
 \]
 
-We use approximate distributions, which can be found by using \emph{asymptotic} arguments.
+If being exact is difficult, maybe we can compromise by using approximate distributions, which can be found by using \emph{asymptotic} arguments.
 That is, we consider the behaviour of the distribution of the complicated statistics \(T_n\) as \(n\to\infty\).
-For this, we first need to study inequalities and convergences.
+This is what we often refer to as its large-sample approximation.
+
+But of course, we have to take care of the mathematics because when dealing with infinite quantities, a lot of things can go wrong.
+What we need to establish is that the limiting behaviour of our statistics of interest actually do what we expect them to do.
+For this, we need to study inequalities and convergences.
 
 \hypertarget{inequalities}{%
 \section{Inequalities}\label{inequalities}}
@@ -5530,15 +5309,15 @@ There are four main inequalities that we will learn:
 \subsection{Markov's inequality}\label{markovs-inequality}}
 
 In probability theory, Markov's inequality gives an upper bound for the
-probability that a \emph{non-negative} r.v. exceeds some positive constant.
+probability that a \emph{non-negative} random variable exceeds some positive constant.
 
 \begin{lemma}[Markov's inequality]
-Let \(X\geq 0\) be a non-negative r.v. and \(\E(X) < \infty\). Then, for any
+Let \(X\geq 0\) be a non-negative random variable and \(\E(X) < \infty\). Then, for any
 \(t>0\), \[\Pr(X\geq t) \leq \frac{\E(X)}{t}.\]
 \end{lemma}
 
 Markov's inequality relate probabilities to expectations, and provides
-bounds for the cumulative distribution function of a r.v..
+bounds for the cumulative distribution function of a random variable.
 
 \begin{proof}
 Let \(f(x)\) be the pdf of \(X\). Since \(X\geq 0\), \[\begin{aligned}
@@ -5551,11 +5330,15 @@ Let \(f(x)\) be the pdf of \(X\). Since \(X\geq 0\), \[\begin{aligned}
 \end{proof}
 
 \begin{corollary}
-For any r.v. \(X\) and any constant \(t>0\), \[\begin{aligned}
+For any random variable \(X\) and any constant \(t>0\), \[\begin{aligned}
       \Pr(|X|\geq t) &\leq \frac{E|X|}{t} \ \ \ \text{ provided } E|X|<\infty \\
       \Pr(|X|\geq t) &\leq \frac{E\big(|X|^k\big)}{t^k} \ \ \ \text{ provided } E\big(|X|^k\big)<\infty
     \end{aligned}\]
 \end{corollary}
+
+Note that there is no mistake in the corollary statement above (if you were wondering about whether there should be a power of \(k\) in the probability statement).
+
+Can you prove the corollary to Markov's inequality? The steps are similar to the proof of the original Markov's inequality.
 
 The tail probability \(\Pr(|X|\geq t)\) is a useful measure in insurance and
 risk management in finance. The more moments \(X\) has, the smaller the
@@ -5569,7 +5352,7 @@ than a certain fraction of values can be more than a certain distance
 from the mean.
 
 \begin{lemma}[Chebyshev's inequality]
-Suppose a r.v. \(X\) has mean \(\mu\) and variance \(\sigma^2\). Then, for any
+Suppose a random variable \(X\) has mean \(\mu\) and variance \(\sigma^2\). Then, for any
 \(t>0\), \[\Pr(|X-\mu| \geq t\sigma) \leq \frac{1}{t^2}.\]
 \end{lemma}
 
@@ -5678,10 +5461,10 @@ Examples of concave functions: \(g_3(x) = -x^2\) and \(g_4(x) = \log(x)\).
 
 \begin{center}\includegraphics[width=0.8\linewidth]{figure/01-jensen} \end{center}
 
-In the context of probability theory, we consider expectations of \emph{convex} functions of r.v.s
+In the context of probability theory, we consider expectations of \emph{convex} functions of random variables
 
 \begin{lemma}[Jensen's inequality]
-Let \(X\) be a r.v. and \(g\) a convex function. Then, \[\E\left[g(X) \right] \geq g\left(\E X \right)\]
+Let \(X\) be a random variable and \(g\) a convex function. Then, \[\E\left[g(X) \right] \geq g\left(\E X \right)\]
 \end{lemma}
 
 It follows directly from Jensen's inequality, the following:
@@ -5740,18 +5523,18 @@ There are some subtle issues here:
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  \(|X_n-X|\) itself is a r.v., i.e.~it takes difference values in the
+  \(|X_n-X|\) itself is a random variable, i.e.~it takes difference values in the
   sample space \(\Omega\). Therefore, \(|X_n - X|\to 0\) should hold
   (almost) entirely on the sample space. This calls for a probability
   statement.
 \item
-  Since r.v. have distributions, we may also consider convergence of
+  Since random variable have distributions, we may also consider convergence of
   their distributions \(F_{X_n}(x)\to F_X(x)\) for all \(x\).
 \end{enumerate}
 
-We need better tools to rigorously discuss the concept of convergence of r.v.s.
-Let \(X_1,X_2,\dots\) be a sequence of r.v., and \(X\)
-be another r.v.. The main types of convergence for r.v. that we will study are as follows:
+We need better tools to rigorously discuss the concept of convergence of random variables.
+Let \(X_1,X_2,\dots\) be a sequence of random variable, and \(X\)
+be another random variable. The main types of convergence for random variable that we will study are as follows:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5767,6 +5550,8 @@ be another r.v.. The main types of convergence for r.v. that we will study are a
 \hypertarget{convergence-in-probability}{%
 \subsection{Convergence in probability}\label{convergence-in-probability}}
 
+This is probably the most intuitive concept of what we would expect for a random variable to converge.
+
 \begin{definition}[Convergence in probability]
 \(X_n\) converges to \(X\) in probability if for any constant \(\epsilon>0\),
 \[\lim_{n\to\infty} \Pr(|X_n-X|\geq\epsilon) = 0.\]
@@ -5780,10 +5565,10 @@ An equivalent definition is
 \]
 
 In words: ``the probability of an `unusual' outcome becomes smaller and smaller as the sequence progresses''.
-Here, \(X\) may be a r.v. or a constant.
+Here, \(X\) may be a random variable or a constant.
 
 \begin{example}
-Let \(X_i\iid \Unif(0,1)\). Define another r.v. \(Y_n=\min\{X_1,\dots,X_n\}\). Does \(Y_n\) converge to something? Draw some samples:
+Let \(X_i\iid \Unif(0,1)\). Define another random variable \(Y_n=\min\{X_1,\dots,X_n\}\). Does \(Y_n\) converge to something? Draw some samples:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5826,12 +5611,19 @@ as \(n\to \infty\). There are two cases, i) \(\epsilon > 1\) or ii) \(\epsilon \
 as \(n\to \infty\). Hence \(Y_n \xrightarrow{\text{P}} 0\).
 \end{example}
 
+Here's another way of thinking about convergence in probability.
+Consider a random variable \(X_n\) converging to \(X\) as \(n\to\infty\).
+Suppose at every point \(n\) we can draw a probability distribution curve of the random variable \(X_n\).
+For small values of \(n\), the curve might look flat, since very early on it's not converging yet.
+But as the values of \(n\) increases, we can steadily see that the curve becomes more concentrated around the value of \(X\).
+Eventually, it will be so concentrated around \(X\) that the probability of \(X_n\) taking values outside a certain band (\(\pm\epsilon\)) will be virtually zero.
+
 \begin{center}\includegraphics[width=1\linewidth]{bookdown-adv-stats_files/figure-latex/limits3-1} \end{center}
 
 \hypertarget{convergence-in-distribution}{%
 \subsection{Convergence in distribution}\label{convergence-in-distribution}}
 
-Instead of considering the convergence of the r.v. itself, we consider the convergence of the \emph{distribution} of the sequence of r.v.s.
+Instead of considering the convergence of the random variable itself, we consider the convergence of the \emph{distribution} of the sequence of random variables.
 
 \begin{definition}[Convergence in distribution]
 \(X_n\) converges to \(X\) in distribution if
@@ -5843,12 +5635,12 @@ We write
 \begin{itemize}
 \tightlist
 \item
-  Again here \(X\) may be a constant, since a constant is a r.v. with probability mass concentrated on a single point.
+  Again here \(X\) may be a constant, since a constant is a random variable with probability mass concentrated on a single point.
 \item
   We can also write \(X_n{\xrightarrow{\text{D}}} F_X\), where \(F_X\) is the cdf of \(X\). However, the notation \(X_n{\xrightarrow{\text{P}}} F_X\) does not make sense!
 \end{itemize}
 
-Convergence in probability implies convergence in distribution, but \uline{not the other way around} (\textbf{unless} the limiting r.v. is a point mass).
+Convergence in probability implies convergence in distribution, but \uline{not the other way around} (\textbf{unless} the limiting random variable is a point mass).
 
 \begin{example}
 Let \(X\sim\N(0,1)\) and \(X_n=-X\) for all \(n \geq 1\). Then, clearly
@@ -5867,7 +5659,8 @@ So we cannot have that \(\Pr(|X_n-X|\geq\epsilon) \to 0\) as \(n\to\infty\).
 \hypertarget{mean-square-convergence}{%
 \subsection{Mean-square convergence}\label{mean-square-convergence}}
 
-It is sometimes more convenient to consider the mean-square convergence:
+In most practical situations, proving convergence in probability or distribution can be quite tough.
+It is therefore more convenient to consider the mean-square convergence.
 
 \begin{definition}[Mean-square convergence]
 \(X_n\) converges in mean-square to \(X\) if
@@ -5904,7 +5697,9 @@ However, \[\E(X_n^2) = n^2 \cdot \Pr(X_n = n^2) + 0  \cdot \Pr(X_n = 0) = n \to 
 \hypertarget{relationship-between-convergences}{%
 \subsection{Relationship between convergences}\label{relationship-between-convergences}}
 
-\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-11-1} \end{center}
+The following diagram ties the three notions of convergences for random variables together.
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-adv-stats_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 You can find the proof of the above statements in Wasserman (Theorem 5.4). The proof is fairly easy to follow but for brevity will not be repeated here.
 
@@ -5925,9 +5720,15 @@ It is typically easier to prove convergence in mean-square, which thus also impl
 \hypertarget{slutzkys-theorem}{%
 \subsection{Slutzky's Theorem}\label{slutzkys-theorem}}
 
+On another practical note, once we figure out that \(X_n\to X\) in probability say, we are usually also interested in whether functions of \(X_n\) also converge.
+For instance, suppose we calculate two sample means \(\bar X_n\) and \(\bar Y_n\) from the same experiment.
+Can we combine the two? I.e., does \(\frac{1}{2}(\bar X_n + \bar Y_n)\) converge meaningfully?
+
+Instead of trying to prove ``manually'' convergence for new functions of random variables, we have Slutzky's theorem to the rescue!
+
 \begin{theorem}[Slutzky's Theorem]
 
-Let \(X_n\), \(Y_n\), \(X\), and \(Y\) be r.v., \(g\) a continuous function, and
+Let \(X_n\), \(Y_n\), \(X\), and \(Y\) be random variable, \(g\) a continuous function, and
 \(c\) a real constant. Then,
 
 \begin{itemize}
@@ -5964,8 +5765,38 @@ Let \(X_n\), \(Y_n\), \(X\), and \(Y\) be r.v., \(g\) a continuous function, and
 \(Y_n{\xrightarrow{\text{D}}} Y\), it does \textbf{not} in general imply that
 \(X_n+Y_n{\xrightarrow{\text{D}}} X+Y\).
 
+Unfortunately the proof is not straightforward, so we shall skip it for now.
+Interested readers can definitely look up the proof in the suggested textbooks.
+
+\begin{example}
+Consider two sequences:
+
+\begin{itemize}
+\tightlist
+\item
+  \(X_n = X\) where \(X\sim\N(0,1\); and
+\item
+  \(Y_n = 2 + e^{-n}\).
+\end{itemize}
+
+Evidently \(X_n \to \N(0,1)\) in distribution as \(n\to\infty\), since all the values of \(X_n\) are drawn from a standard normal.
+Further, \(Y_n\) itself is not a random variable--it is a regular sequence, and we can clearly see that \(Y_n \to 2\) as \(n\to\infty\).
+Technically, we can still say \(Y_n{\xrightarrow{\text{D}}} 2\), so Slutzky's theorem applies:
+
+\[
+Z_n = X_nY_n \xrightarrow{\text{D}} 2 \times \N(0,1) \equiv \N(0,4).
+\]
+
+Similarly,
+\[
+W_n = X_n + Y_n \xrightarrow{\text{D}} 2 + \N(0,1) \equiv \N(2,1).
+\]
+\end{example}
+
 \hypertarget{limit-theorems}{%
 \section{Limit theorems}\label{limit-theorems}}
+
+In this section, we'll cover two very important theorems in statistics: The Law of Large Numbers and The Central Limit Theorem.
 
 \hypertarget{the-weak-law-of-large-numbers}{%
 \subsection{The (weak) Law of Large Numbers}\label{the-weak-law-of-large-numbers}}
@@ -5973,7 +5804,7 @@ Let \(X_n\), \(Y_n\), \(X\), and \(Y\) be r.v., \(g\) a continuous function, and
 Perhaps the best application of convergence in probability.
 
 \begin{theorem}[The weak law of large numbers; WLLN]
-Let \(X_1,X_2,\dots\) be iid r.v.s with mean \(\mu\) and variance \(\sigma^2\).
+Let \(X_1,X_2,\dots\) be iid random variables with mean \(\mu\) and variance \(\sigma^2\).
 Let \(\bar X_n\) denote the sample mean, i.e.~\[\bar X_n = \frac{1}{n}\sum_{i=1}^n X_i.\]
 Then, as \(n\to\infty\),
 \[\bar X_n{\xrightarrow{\text{P}}} \mu.\]
@@ -6035,7 +5866,7 @@ The LLN assures us that \(\bar X_n\) eventually will be indistinguishable from \
 However, we would still be interested in the distribution of \(\bar X_n\) in order to make \emph{probabilistic statements} about \(\bar X_n\).
 
 \begin{theorem}[Central Limit Theorem; CLT]
-Let \(X_1,\dots,X_n\) be iid r.v. with mean \(\mu\) and variance \(\sigma^2\), and let \(\bar X_n\) denote the sample mean. Then
+Let \(X_1,\dots,X_n\) be iid random variable with mean \(\mu\) and variance \(\sigma^2\), and let \(\bar X_n\) denote the sample mean. Then
 \[
 \bar Z_n := \frac{\bar X_n - \mu}{\sigma/\surd n} \xrightarrow{\text D} \N(0,1)
 \]
@@ -6124,6 +5955,7 @@ We can also use this to retrieve \(\bar X_{20}=3.45\) using the same random seed
 \hypertarget{gauging-the-error-of-sample-mean-estimator}{%
 \subsection{Gauging the error of sample mean estimator}\label{gauging-the-error-of-sample-mean-estimator}}
 
+The CLT can be used as a quick way to obtain confidence statements for the sample mean.
 A natural estimator for the population mean \(\mu=\E(X_i)\) is the sample mean \(\bar X_n\).
 By the CLT, we can easily gauge the error of this estimation as follows:
 \[\begin{aligned}
@@ -6133,7 +5965,7 @@ By the CLT, we can easily gauge the error of this estimation as follows:
   \end{aligned}\]
 
 So with \(\epsilon\), \(n\), and \(\sigma\) given, we can find the value \(\Phi(\sqrt{n}\epsilon/\sigma)\) from the standard normal table.
-For instance, let \(\epsilon := 2\sigma/\sqrt{n} = 2 \sqrt{\Var(\bar X_n)}\).
+For instance, let \(\epsilon := 2\sigma/\sqrt{n} = 2 \sqrt{\Var(\bar X_n)}\)\footnote{You might be wondering why I chose this value. It's totally abitrary. It allows us to rearrange the probability statement in order to make use of the CLT to bound the probability statement within 2 standard deviations from the mean.}.
 Then
 \[
 \begin{aligned}
@@ -6166,11 +5998,11 @@ which implies that replacing \(\sigma\) with \(S_n\) in CLT applications yields 
 \hypertarget{delta-method}{%
 \section{Delta method}\label{delta-method}}
 
-We may be interested in the distribution of a transformation of a r.v. instead of the actual r.v. itself.
+We may be interested in the distribution of a transformation of a random variable instead of the actual random variable itself.
 For this, we use the delta method.
 
 \begin{theorem}[The delta method]
-Suppose that \(X_n\) is a sequence of r.v. satisfying \(\sqrt n(X_n - \mu)/\sigma {\xrightarrow{\text{D}}} \N(0,1)\).
+Suppose that \(X_n\) is a sequence of random variable satisfying \(\sqrt n(X_n - \mu)/\sigma {\xrightarrow{\text{D}}} \N(0,1)\).
 Let \(g\) be a differentiable function s.t. \(g'(\mu)\neq 0\). Then
 \[
 \frac{\sqrt n \big(g(X_n)-g(\mu)\big)}{|g'(\mu)|\sigma} {\xrightarrow{\text{D}}} \N(0,1).
@@ -6195,6 +6027,8 @@ Using the delta method, we deduce that
 \]
 \end{example}
 
+We'll definitely make use of the delta method in the next chapter, when we consider point estimation.
+
 \hypertarget{normal-random-samples}{%
 \section{Normal random samples}\label{normal-random-samples}}
 
@@ -6214,7 +6048,7 @@ Then,
 \begin{itemize}
 \tightlist
 \item
-  \(\bar X\) and \(S^2\) are independent r.v.s
+  \(\bar X\) and \(S^2\) are independent random variables
 \item
   \(\bar X \sim \N(\mu,\sigma^2/n)\)
 \item
@@ -6225,7 +6059,8 @@ Then,
 
 \end{theorem}
 
-Given that the above theorem mentions two kinds of distribution (that you may have heard of) but we have yet to discuss, we'll circle back to the proof othis theorem after covering the \(\chi^2\) and \(t\) distributions.
+The above theorem mentions two kinds of distribution (that you may have heard of) but we are yet to discuss.
+We'll circle back to the proof othis theorem after covering the \(\chi^2\) and \(t\) distributions.
 
 \hypertarget{chi2-distribution}{%
 \subsection{\texorpdfstring{\(\chi^2\)-distribution}{\textbackslash chi\^{}2-distribution}}\label{chi2-distribution}}
@@ -6327,7 +6162,7 @@ statistics, because:
 \end{itemize}
 
 \begin{definition}[$t$-distribution]
-Suppose we have two r.v. \(Z\sim\N(0,1)\) and \(X\sim\chi^2_k\) such that \(X\) and \(Z\) are independent.
+Suppose we have two random variable \(Z\sim\N(0,1)\) and \(X\sim\chi^2_k\) such that \(X\) and \(Z\) are independent.
 Then, the distribution of the random variable
 \[T = \frac{Z}{\sqrt{X/k}}\] is called the \(t\)-distribution with \(k\in\bbN\)
 degrees of freedom. We write \(T\sim t_k\).
@@ -6607,7 +6442,7 @@ freedom.
 \item
   Suppose that \(\bar X\) and \(S^2\) are calculate from an iid random sample \(X_1,\dots,X_n\) with \(\Var(X_i)=\sigma^2\). We know that \(\E(S^2)=\sigma^2\) from Q2(a). Prove that \(\E(S)\leq \sigma\). \emph{Hint: Use Jensen's inequality.}
 \item
-  Fill in the details of the proof of the delta method: Suppose that \(X_n\) is a sequence of r.v.s satisfying \(\sqrt n (X_n-\mu)/\sigma \xrightarrow{\text{D}}\N(0,1)\), and let \(g\) be a differentiable function s.t. \(g'(\mu)\neq 0\).
+  Fill in the details of the proof of the delta method: Suppose that \(X_n\) is a sequence of random variables satisfying \(\sqrt n (X_n-\mu)/\sigma \xrightarrow{\text{D}}\N(0,1)\), and let \(g\) be a differentiable function s.t. \(g'(\mu)\neq 0\).
 
   \begin{enumerate}
   \def\labelenumii{(\alph{enumii})}

@@ -6,7 +6,7 @@ fig:areaunderpdf
 fig:bijective
 fig:pitflatcdf
 fig:pitexampleplot
-fig:unnamed-chunk-10
+fig:unnamed-chunk-8
 fig:bivariateprob
 fig:condexp1
 fig:condexp2
@@ -99,8 +99,7 @@ normal-approximations
 exercises-1
 inequalities-convergences-and-normal-random-samples
 introduction
-random-sampling
-independent-and-identical-r.v.
+independent-and-identical-random-variable
 statistic
 sampling-distribution
 large-sample-approximation
