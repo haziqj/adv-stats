@@ -1,13 +1,27 @@
 # Inequalities, convergences, and normal random samples
 
+In this chapter, we lay more advanced groundwork for the upcoming inference chapters.
+Here, we will take a look at the concept of *convergence* as applied to random variables. 
+You would have come across convergence of sequences before, but when that sequence is random, does "convergence" even have a sensible meaning?
+It turns out we can define such concepts even for random variables.
+Establishing convergence concepts allows us to also establish very important limit theorems used frequently in statistics.
+
+Also included in this chapter is a study of the distributions derived from normal random samples.
+As the normal distributions is used all the time in inferential statistics, the properties of normal random samples has been studied extensively. 
+In particular, normal random samples give rise to the $\chi^2$, $t$ and $F$ distributions--all of which I'm sure you have heard of in the context of statistical testing.
+Here, we will take a look in detail as to how they are derived, and how we can use them when calculating probabilities of interest.
+
+
 ### Learning objectives {-}
 
 ::: {.learningobjectives}
 By the end of this chapter, you will be able to:
 
-- do this
-- do that
-- and this
+- Apply probability inequalities and inequalities based on expectations to compute approximate bounds and in proving other mathematical theorems.
+- Understand the notion of three types of convergences as applied to random variables, namely convergence in probability, convergence in distribution, and mean-square convergence.
+- Be familiar with two important limit theorems in statistics: The (weak) Law of Large Numbers; and the Central Limit Theorem.
+- Use Slutzky's theorem and the delta method in probability-based calculations and inference problems.
+- Define and use the distributions derived from normal random samples: $\chi^2$, Student's $t$, and $F$ distributions.
 :::
 
 ### Readings {-}
@@ -22,46 +36,55 @@ By the end of this chapter, you will be able to:
 
 ## Introduction
 
-### Random sampling
-
-Collection of data $X_1,\dots,X_n$  in an experiment consists of several observations on a variable of interest $X$.
+Statistical inference involves data points, which as we discussed previously, displays a duality between being information and also random variables.
+Typically, collecting data $X_1,\dots,X_n$ in an experiment means recording several observations on a a particular variable of interest $X$.
+For example.
 
 - Time to failure for $n$ identical circuit boards.
 - Yield (in tonnes) of $n$ seasonal harvest for *Laila* variety paddy.
 - Voter preferences for $n$ individuals in the US.
 
-We can **model** this mathematically by declaring $X_1,\dots,X_n$ to be random variables sampled from a population whose pdf or pmf is $f_{\bX}(\bx)$.
+We can **model** this mathematically by declaring $\bX = (X_1,\dots,X_n)^\top$ to be random variables sampled from a population whose pdf or pmf is $f_{\bX}(\bx)$.
 We typically write
 \[
-X_1,\dots,X_n \iid f_{\bX}.
+(X_1,\dots,X_n)^\top \iid f_{\bX}.
 \]
 
-::: .{myalert}
-We impose the distribution $f_{\bX}$ onto the data as an [assumption]{.ul}!
-As the British statistician George Box once famously said, "all models are wrong, but some are useful".
+::: {.mynote}
+There are two points to note here:
+
+1. We have indeed treated all observations $\bX$ as being sampled from a multivariate distribution. In general this is the proper way of doing it, unless we impose a further assumption of independence and identical distributions (see next section).
+
+2. In most practical situations, we usually collect more than one *kind* of data, e.g. demographic data for study participants age, weight, height, etc. This is called *multivariable data*. We will focus on *univariate* statistics in this course for the most part.
+
 :::
 
-### Independent and identical r.v.
+<!-- ::: .{myalert} -->
+<!-- We impose the distribution $f_{\bX}$ onto the data as an [assumption]{.ul}! -->
+<!-- As the British statistician George Box once famously said, "all models are wrong, but some are useful". -->
+<!-- ::: -->
 
-Usually, the samples are taken in such a way 
+### Independent and identical random variable
+
+In an experiment, the samples are usually taken in such a way 
 
 - that the value of one observation has no effect on or relationship with any of the other observations (i.e. $X_1,\dots,X_n$ are independent); and
 - the pdf/pmf of each observation is $f(x)$ (i.e. identical).
 
-In this case, 
+In this case (remember definition of independence for pdfs),  
 \[
 f_{\bX}(x_1,\dots,x_n) = \prod_{i=1}^n f(x_i)
 \]
 
-In particular, if the population pdf/pmf is a member of a *parametric family*, say one of those introduced in Part 2, then we can write
+In particular, if the population pdf/pmf is a member of a *parametric family*, say one of those introduced in Chapter 2, then we can write
 \[
-f_{\bX}(x_1,\dots,x_n|\theta) = \prod_{i=1}^n f(x_i|\theta)
+f_{\bX}(x_1,\dots,x_n|\theta) = \prod_{i=1}^n f(x_i|\theta).
 \]
-
-We could then use the random samples to *infer* about the (unknown) parameter $\theta$. More on this in the coming parts.
+This is because identical distribution assumption would mean each of the random variables is assumed to come from the same family of distribution with the same parameter.
+We could then use the random samples to *infer* about the (unknown) parameter $\theta$. More on this in the next chapter.
 
 ::: {.mycheck}
-#### Side note: Finite population sampling {-}
+**Side note: Finite population sampling**
 
 We have just defined sampling from an *infinite* population. Sometimes, sampling is done from a *finite* population, that is, the population consists only of possible observations $\{x_1,\dots,x_N \}$.
 
@@ -73,17 +96,21 @@ There are several approaches to this which may or may not yield independent samp
 - etc.
 
 Very important topic in **survey methodology**. 
-For more details see C\&B §5.1, as well as  2019 lecture slides (Chapter 2).
+For more details see C\&B §5.1, as well as 2019 lecture slides (Chapter 2).
 In this course, we deal only with the infinite population model.
 :::
 
 ### Statistic
 
+Throughout the course we will refer to an object called a "statistic". Note the singular use of the word.
+
 ::: {.definition name="Statistic"}
 A statistic is any function $T_n = T(X_1,\dots,X_n)$. It cannot depend on unknown parameters, only on observables.
 :::
 
-Here are two very commonly used statistics:
+In essence, a statistic is a manipulation of information, usually in a way to condence the information from samples.
+Suppose $X_1,\dots,X_n$ is a random sample with mean $\mu$ and variance $\sigma^2$.
+Here are some examples of statistics (the first two are really common statistics)
 
 - The sample mean 
 \[
@@ -95,8 +122,34 @@ Here are two very commonly used statistics:
 S^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i-\bar X)^2
 \]
 
+- The maximum of the sample 
+$$
+\max(X_1,\dots,X_n)
+$$
+
+- Any value of the sample itself
+$$
+X_i
+$$
+These however, are **not** statistics, because they involve parameter values of the underlying probability distribution.
+
+-  The quantity
+$$
+\frac{\bar X - \mu}{\sigma/\sqrt n}
+$$
+
+- Any expectation
+$$
+\E(g(X)) = \int g(x) f(x|\theta)\dint x
+$$
+
+Practically speaking, we can calculate statistics if we have the data points.
+But we cannot calculate non-statistics because we have to ask ourselves "what is the value of $\theta$" in order to proceed!
+
+Since the sample mean and sample variance are commonly used statistics, it's important to know the following properties:
+
 ::: {.lemma}
-Let $X_1,\dots,X_n$ be a r.v. with mean $\mu$ and variance $\sigma^2<\infty$. Then
+Let $X_1,\dots,X_n$ be a random variable with mean $\mu$ and variance $\sigma^2<\infty$. Then
 
 - $\E(\bar X) = \mu$.
 - $\Var(\bar X) = \frac{\sigma^2}{n}$.
@@ -105,28 +158,35 @@ Let $X_1,\dots,X_n$ be a r.v. with mean $\mu$ and variance $\sigma^2<\infty$. Th
 
 The proof of this can be found in C\&B, Theorem 5.2.6.
 
+::: {.mycheck}
+Do try out the proof of this lemma by yourself. 
+The first two should be doable by now, but perhaps the last one is a little bit challenging.
+:::
+
 
 ### Sampling distribution
 
 Realise that
 
-- A statistic $T_n$ is itself a r.v.. 
-- If it is random, it has a distribution.
-- Along with having a distribution, all of concepts and properties we discussed in Parts 1 & 2 apply.
+- A statistic $T_n$ is itself a random variable. 
+- If it is random, it has a distribution, even if we might not know what it is.
+- Along with having a distribution, all of concepts and properties we discussed in Chapters 1 & 2 apply.
 
 ::: {.mycheck}
-Think about the statement above, "a statistic $T_n$ is itself a r.v."--can you rationalise why this is? Suppose you collect some data and plug these values into a statistics function (e.g. the sample mean). Will the value of the sample mean be the same each time, or will it depend on the (random) values of the data?
+Think about the statement above, "a statistic $T_n$ is itself a random variable"--can you rationalise why this is? Suppose you collect some data and plug these values into a statistics function (e.g. the sample mean). Will the value of the sample mean be the same each time, or will it depend on the (random) values of the data?
 :::
 
 A very common theme in inferential statistics is to figure out what the distribution of $T_n$ is in repeated sampling. 
+The reason for this is in parameteric statistics, the statistic $T_n$ may serve as an *estimator* for the true unknown value $\theta$.
+But since we've established that $T_n$ itself is a random variable, and different samples will give different values, how do we convince ourselves that $T_n$ is actually a *good* estimator? 
 
-- In parametric statistics for example, the statistic $T_n$ may serve as an *estimator* for the true unknown value $\theta$.
-- How do we know that $T_n$ is a *good* estimator? It takes different values with repeated sampling, is it typically close to $\theta$? How close?
+One way perhaps is to consider the values of $T_n$ under *repeated sampling*, and whether its value is "typically close" to the true value $\theta$?
+In the next chapter especially, we will take a look at this problem in detail.
 
 ### Large-sample approximation
 
 Some statistics have easily-derived sampling distribution; others do not.
-For instance, suppose each $X_i\sim\N(\mu,\sigma^2)$. Then
+For instance, suppose each $X_i\sim\N(\mu,\sigma^2)$. Then it is well known that
 \begin{equation}
 \bar X \sim \N(\mu, \sigma^2/n). (\#eq:samplemeandist)
 \end{equation}
@@ -142,9 +202,13 @@ But what is the distribution of
 n^{-1}\sum_{i=1}^n \tan^{-1}(X_i)?
 \]
 
-We use approximate distributions, which can be found by using *asymptotic* arguments.
+If being exact is difficult, maybe we can compromise by using approximate distributions, which can be found by using *asymptotic* arguments.
 That is, we consider the behaviour of the distribution of the complicated statistics $T_n$ as $n\to\infty$.
-For this, we first need to study inequalities and convergences.
+This is what we often refer to as its large-sample approximation.
+
+But of course, we have to take care of the mathematics because when dealing with infinite quantities, a lot of things can go wrong.
+What we need to establish is that the limiting behaviour of our statistics of interest actually do what we expect them to do.
+For this, we need to study inequalities and convergences.
 
 ## Inequalities
 
@@ -161,15 +225,15 @@ There are four main inequalities that we will learn:
 ### Markov's inequality
 
 In probability theory, Markov's inequality gives an upper bound for the
-probability that a *non-negative* r.v. exceeds some positive constant.
+probability that a *non-negative* random variable exceeds some positive constant.
 
 ::: {.lemma name="Markov's inequality"}
-Let $X\geq 0$ be a non-negative r.v. and $\E(X) < \infty$. Then, for any
+Let $X\geq 0$ be a non-negative random variable and $\E(X) < \infty$. Then, for any
 $t>0$, $$\Pr(X\geq t) \leq \frac{\E(X)}{t}.$$
 :::
 
 Markov's inequality relate probabilities to expectations, and provides
-bounds for the cumulative distribution function of a r.v..
+bounds for the cumulative distribution function of a random variable.
 
 ::: {.proof}
 Let $f(x)$ be the pdf of $X$. Since $X\geq 0$, $$\begin{aligned}
@@ -184,10 +248,16 @@ Let $f(x)$ be the pdf of $X$. Since $X\geq 0$, $$\begin{aligned}
 <br>
 
 ::: {.corollary}
-For any r.v. $X$ and any constant $t>0$, $$\begin{aligned}
+For any random variable $X$ and any constant $t>0$, $$\begin{aligned}
       \Pr(|X|\geq t) &\leq \frac{E|X|}{t} \ \ \ \text{ provided } E|X|<\infty \\
       \Pr(|X|\geq t) &\leq \frac{E\big(|X|^k\big)}{t^k} \ \ \ \text{ provided } E\big(|X|^k\big)<\infty
     \end{aligned}$$
+:::
+
+Note that there is no mistake in the corollary statement above (if you were wondering about whether there should be a power of $k$ in the probability statement).
+
+::: {.mycheck}
+Can you prove the corollary to Markov's inequality? The steps are similar to the proof of the original Markov's inequality.
 :::
 
 
@@ -202,7 +272,7 @@ than a certain fraction of values can be more than a certain distance
 from the mean.
 
 ::: {.lemma name="Chebyshev's inequality"}
-Suppose a r.v. $X$ has mean $\mu$ and variance $\sigma^2$. Then, for any
+Suppose a random variable $X$ has mean $\mu$ and variance $\sigma^2$. Then, for any
 $t>0$, $$\Pr(|X-\mu| \geq t\sigma) \leq \frac{1}{t^2}.$$
 :::
 
@@ -311,10 +381,10 @@ knitr::include_graphics("figure/01-jensen.png")
 
 
 
-In the context of probability theory, we consider expectations of *convex* functions of r.v.s
+In the context of probability theory, we consider expectations of *convex* functions of random variables
 
 ::: {.lemma name="Jensen's inequality"}
-Let $X$ be a r.v. and $g$ a convex function. Then, $$\E\left[g(X) \right] \geq g\left(\E X \right)$$
+Let $X$ be a random variable and $g$ a convex function. Then, $$\E\left[g(X) \right] \geq g\left(\E X \right)$$
 :::
 
 
@@ -346,7 +416,7 @@ Some examples:
 -   $\lim_{n\to\infty}(1+1/n)^n = e$.
 
 
-```{r limits1, echo = FALSE}
+```{r limits1, echo = FALSE, fig.height = 4}
 plot.df <- tibble(x = 1:25)
 plot.df$y <- 1 / (plot.df$x) ^ {1/1.2}
 eps <- 0.15
@@ -373,7 +443,7 @@ Does the concept of limits even make sense?
 Is it possible to "trap" the sequence between an upper and lower bound as the sequence progresses?
 This is what we will be exploring in this section.
 
-```{r limits2, echo = FALSE}
+```{r limits2, echo = FALSE, fig.height = 4}
 set.seed(123)
 plot.df <- tibble(x = 1:25)
 plot.df$y <- 1 / (plot.df$x) ^ {1/1.2} + rnorm(nrow(plot.df), sd = 0.1)
@@ -400,23 +470,25 @@ We can in fact say similar things about sequences of **random variables**, e.g. 
 $(X_n)$ if $|X_n - X|\to 0$ as $n\to\infty$. 
 There are some subtle issues here:
 
-1.  $|X_n-X|$ itself is a r.v., i.e. it takes difference values in the
+1.  $|X_n-X|$ itself is a random variable, i.e. it takes difference values in the
     sample space $\Omega$. Therefore, $|X_n - X|\to 0$ should hold
     (almost) entirely on the sample space. This calls for a probability
     statement.
 
-2.  Since r.v. have distributions, we may also consider convergence of
+2.  Since random variable have distributions, we may also consider convergence of
     their distributions $F_{X_n}(x)\to F_X(x)$ for all $x$.
 
-We need better tools to rigorously discuss the concept of convergence of r.v.s.
-Let $X_1,X_2,\dots$ be a sequence of r.v., and $X$
-be another r.v.. The main types of convergence for r.v. that we will study are as follows:
+We need better tools to rigorously discuss the concept of convergence of random variables.
+Let $X_1,X_2,\dots$ be a sequence of random variable, and $X$
+be another random variable. The main types of convergence for random variable that we will study are as follows:
 
 1. Convergence in probability
 2. Convergence in distribution
 3. Convergence in mean-square
 
 ### Convergence in probability
+
+This is probably the most intuitive concept of what we would expect for a random variable to converge.
 
 ::: {.definition name="Convergence in probability"}
 $X_n$ converges to $X$ in probability if for any constant $\epsilon>0$,
@@ -431,10 +503,10 @@ An equivalent definition is
 \]
 
 In words: "the probability of an 'unusual' outcome becomes smaller and smaller as the sequence progresses".
-Here, $X$ may be a r.v. or a constant.
+Here, $X$ may be a random variable or a constant.
 
 ::: {.example}
-Let $X_i\iid \Unif(0,1)$. Define another r.v. $Y_n=\min\{X_1,\dots,X_n\}$. Does $Y_n$ converge to something? Draw some samples:
+Let $X_i\iid \Unif(0,1)$. Define another random variable $Y_n=\min\{X_1,\dots,X_n\}$. Does $Y_n$ converge to something? Draw some samples:
 
 ```{r convprob}
 set.seed(123)
@@ -459,6 +531,13 @@ $$
 $$
 as $n\to \infty$. Hence $Y_n \xrightarrow{\text{P}} 0$.
 :::
+
+Here's another way of thinking about convergence in probability.
+Consider a random variable $X_n$ converging to $X$ as $n\to\infty$.
+Suppose at every point $n$ we can draw a probability distribution curve of the random variable $X_n$. 
+For small values of $n$, the curve might look flat, since very early on it's not converging yet.
+But as the values of $n$ increases, we can steadily see that the curve becomes more concentrated around the value of $X$.
+Eventually, it will be so concentrated around $X$ that the probability of $X_n$ taking values outside a certain band ($\pm\epsilon$) will be virtually zero.
 
 ```{r limits3, echo = FALSE, fig.height = 3.5}
 set.seed(123)
@@ -504,7 +583,7 @@ ggplot() +
 
 ### Convergence in distribution
 
-Instead of considering the convergence of the r.v. itself, we consider the convergence of the *distribution* of the sequence of r.v.s.
+Instead of considering the convergence of the random variable itself, we consider the convergence of the *distribution* of the sequence of random variables.
 
 ::: {.definition name="Convergence in distribution"}
 $X_n$ converges to $X$ in distribution if
@@ -513,10 +592,10 @@ We write
 $X_n\xrightarrow{\text{D}}X$.
 :::
 
-- Again here $X$ may be a constant, since a constant is a r.v. with probability mass concentrated on a single point.
+- Again here $X$ may be a constant, since a constant is a random variable with probability mass concentrated on a single point.
 - We can also write $X_n{\xrightarrow{\text{D}}} F_X$, where $F_X$ is the cdf of $X$. However, the notation $X_n{\xrightarrow{\text{P}}} F_X$ does not make sense!
 
-Convergence in probability implies convergence in distribution, but [not the other way around]{.ul} (**unless** the limiting r.v. is a point mass).
+Convergence in probability implies convergence in distribution, but [not the other way around]{.ul} (**unless** the limiting random variable is a point mass).
 
 ::: {.example}
 Let $X\sim\N(0,1)$ and $X_n=-X$ for all $n \geq 1$. Then, clearly
@@ -534,7 +613,8 @@ So we cannot have that $\Pr(|X_n-X|\geq\epsilon) \to 0$ as $n\to\infty$.
 
 ### Mean-square convergence 
 
-It is sometimes more convenient to consider the mean-square convergence:
+In most practical situations, proving convergence in probability or distribution can be quite tough.
+It is therefore more convenient to consider the mean-square convergence.
 
 ::: {.definition name="Mean-square convergence"}
 $X_n$ converges in mean-square to $X$ if
@@ -571,7 +651,9 @@ $X_n\centernot{\xrightarrow{\text{m.s.}}}0$.
 
 ### Relationship between convergences 
 
-```{r, echo=FALSE, engine='tikz', out.width ="80%"}
+The following diagram ties the three notions of convergences for random variables together.
+
+```{r, echo=FALSE, engine='tikz', out.width ="80%", fig.align = "center"}
 \definecolor{navyblue}{RGB}{0, 47, 92}
 \definecolor{charcoal}{RGB}{54,69,79}
 \definecolor{gray}{RGB}{128, 128, 128}
@@ -611,8 +693,16 @@ It is typically easier to prove convergence in mean-square, which thus also impl
 
 ### Slutzky's Theorem
 
+On another practical note, once we figure out that $X_n\to X$ in probability say, we are usually also interested in whether functions of $X_n$ also converge.
+For instance, suppose we calculate two sample means $\bar X_n$ and $\bar Y_n$ from the same experiment.
+Can we combine the two? I.e., does $\frac{1}{2}(\bar X_n + \bar Y_n)$ converge meaningfully?
+
+Instead of trying to prove "manually" convergence for new functions of random variables, we have Slutzky's theorem to the rescue!
+
+
+
 ::: {.theorem name="Slutzky's Theorem"}
-Let $X_n$, $Y_n$, $X$, and $Y$ be r.v., $g$ a continuous function, and
+Let $X_n$, $Y_n$, $X$, and $Y$ be random variable, $g$ a continuous function, and
 $c$ a real constant. Then,
 
 - If $X_n{\xrightarrow{\text{P}}} X$ and $Y_n{\xrightarrow{\text{P}}} Y$,
@@ -636,14 +726,66 @@ $Y_n{\xrightarrow{\text{D}}} Y$, it does \textbf{not} in general imply that
 $X_n+Y_n{\xrightarrow{\text{D}}} X+Y$.
 :::
 
+Unfortunately the proof is not straightforward, so we shall skip it for now. 
+Interested readers can definitely look up the proof in the suggested textbooks.
+
+::: {.example}
+Consider two sequences:
+
+- $X_n = X$ where $X\sim\N(0,1$; and
+- $Y_n = 2 + e^{-n}$.
+
+Evidently $X_n \to \N(0,1)$ in distribution as $n\to\infty$, since all the values of $X_n$ are drawn from a standard normal.
+Further, $Y_n$ itself is not a random variable--it is a regular sequence, and we can clearly see that $Y_n \to 2$ as $n\to\infty$.
+Technically, we can still say $Y_n{\xrightarrow{\text{D}}} 2$, so Slutzky's theorem applies:
+
+$$
+Z_n = X_nY_n \xrightarrow{\text{D}} 2 \times \N(0,1) \equiv \N(0,4).
+$$
+
+Similarly,
+$$
+W_n = X_n + Y_n \xrightarrow{\text{D}} 2 + \N(0,1) \equiv \N(2,1).
+$$
+:::
+
+<!-- The above example can be illustrated by drawing $N=10,000$ samples from each of $Z_n$ and $W_n$ for various values of $n$. -->
+
+<!-- ```{r slutzky1, echo = FALSE} -->
+<!-- N <- 10000 -->
+<!-- n <- c(10, 50, 1000) -->
+
+<!-- create_tab <- function(nn) { -->
+<!--   tibble( -->
+<!--     n = nn, -->
+<!--     Xn = rnorm(N), -->
+<!--     Yn = 2 + exp(-nn/1000) -->
+<!--   ) %>% -->
+<!--     mutate(XnYn = Xn * Yn, XnplusYn = Xn + Yn) -->
+<!-- } -->
+<!-- bind_rows( -->
+<!--   create_tab(n[1]), -->
+<!--   create_tab(n[2]), -->
+<!--   create_tab(n[3]) -->
+<!-- ) -> plot_df -->
+
+<!-- ggplot(plot_df, aes(XnYn)) + -->
+<!--   geom_histogram() + -->
+<!--   facet_grid(n ~ .) -->
+
+<!-- ``` -->
+
+
 ## Limit theorems
+
+In this section, we'll cover two very important theorems in statistics: The Law of Large Numbers and The Central Limit Theorem.
 
 ### The (weak) Law of Large Numbers
 
 Perhaps the best application of convergence in probability.
 
 ::: {.theorem name="The weak law of large numbers; WLLN"}
-Let $X_1,X_2,\dots$ be iid r.v.s with mean $\mu$ and variance $\sigma^2$. 
+Let $X_1,X_2,\dots$ be iid random variables with mean $\mu$ and variance $\sigma^2$. 
 Let $\bar X_n$ denote the sample mean, i.e. $$\bar X_n = \frac{1}{n}\sum_{i=1}^n X_i.$$ 
 Then, as $n\to\infty$,
 $$\bar X_n{\xrightarrow{\text{P}}} \mu.$$
@@ -703,7 +845,7 @@ The LLN assures us that $\bar X_n$ eventually will be indistinguishable from $\m
 However, we would still be interested in the distribution of $\bar X_n$ in order to make *probabilistic statements* about $\bar X_n$.
 
 ::: {.theorem name="Central Limit Theorem; CLT"}
-Let $X_1,\dots,X_n$ be iid r.v. with mean $\mu$ and variance $\sigma^2$, and let $\bar X_n$ denote the sample mean. Then
+Let $X_1,\dots,X_n$ be iid random variable with mean $\mu$ and variance $\sigma^2$, and let $\bar X_n$ denote the sample mean. Then
 \[
 \bar Z_n := \frac{\bar X_n - \mu}{\sigma/\surd n} \xrightarrow{\text D} \N(0,1)
 \]
@@ -793,6 +935,7 @@ cowplot::plot_grid(p1, p2, p3, p4, ncol = 2)
 
 ### Gauging the error of sample mean estimator
 
+The CLT can be used as a quick way to obtain confidence statements for the sample mean.
 A natural estimator for the population mean $\mu=\E(X_i)$ is the sample mean $\bar X_n$. 
 By the CLT, we can easily gauge the error of this estimation as follows:
 $$\begin{aligned}
@@ -802,7 +945,7 @@ $$\begin{aligned}
   \end{aligned}$$
 
 So with $\epsilon$, $n$, and $\sigma$ given, we can find the value $\Phi(\sqrt{n}\epsilon/\sigma)$ from the standard normal table.
-For instance, let $\epsilon := 2\sigma/\sqrt{n} = 2 \sqrt{\Var(\bar X_n)}$. 
+For instance, let $\epsilon := 2\sigma/\sqrt{n} = 2 \sqrt{\Var(\bar X_n)}$^[You might be wondering why I chose this value. It's totally abitrary. It allows us to rearrange the probability statement in order to make use of the CLT to bound the probability statement within 2 standard deviations from the mean.]. 
 Then
 $$
 \begin{aligned}
@@ -838,11 +981,11 @@ which implies that replacing $\sigma$ with $S_n$ in CLT applications yields the 
 
 ## Delta method
 
-We may be interested in the distribution of a transformation of a r.v. instead of the actual r.v. itself. 
+We may be interested in the distribution of a transformation of a random variable instead of the actual random variable itself. 
 For this, we use the delta method.
 
 ::: {.theorem name="The delta method"}
-Suppose that $X_n$ is a sequence of r.v. satisfying $\sqrt n(X_n - \mu)/\sigma {\xrightarrow{\text{D}}} \N(0,1)$.
+Suppose that $X_n$ is a sequence of random variable satisfying $\sqrt n(X_n - \mu)/\sigma {\xrightarrow{\text{D}}} \N(0,1)$.
 Let $g$ be a differentiable function s.t. $g'(\mu)\neq 0$. Then
 \[
 \frac{\sqrt n \big(g(X_n)-g(\mu)\big)}{|g'(\mu)|\sigma} {\xrightarrow{\text{D}}} \N(0,1).
@@ -868,6 +1011,8 @@ Using the delta method, we deduce that
 \]
 :::
 
+We'll definitely make use of the delta method in the next chapter, when we consider point estimation.
+
 ## Normal random samples
 
 Given that the normal distribution is very often used, the properties of normal random samples have been studied extensively.
@@ -881,13 +1026,14 @@ $$\bar X = \frac{1}{n}\sum_{i=1}^n X_i, \hspace{2em}
 
 Then,
 
-- $\bar X$ and $S^2$ are independent r.v.s
+- $\bar X$ and $S^2$ are independent random variables
 - $\bar X \sim \N(\mu,\sigma^2/n)$
 - $(n-1)S^2/\sigma^2 \sim \chi^2_{n-1}$
 - $\frac{\sqrt n (\bar X - \mu)}{S} = \frac{\bar X - \mu}{\text{SE}(\bar X)} \sim t_{n-1}$
 :::
 
-Given that the above theorem mentions two kinds of distribution (that you may have heard of) but we have yet to discuss, we'll circle back to the proof othis theorem after covering the $\chi^2$ and $t$ distributions.
+The above theorem mentions two kinds of distribution (that you may have heard of) but we are yet to discuss.
+We'll circle back to the proof othis theorem after covering the $\chi^2$ and $t$ distributions.
 
 ### $\chi^2$-distribution 
 
@@ -991,7 +1137,7 @@ statistics, because:
     constructed based on the $t$-distribution.
 
 ::: {.definition name="$t$-distribution"}
-Suppose we have two r.v. $Z\sim\N(0,1)$ and  $X\sim\chi^2_k$ such that $X$ and $Z$ are independent.
+Suppose we have two random variable $Z\sim\N(0,1)$ and  $X\sim\chi^2_k$ such that $X$ and $Z$ are independent.
 Then, the distribution of the random variable
 $$T = \frac{Z}{\sqrt{X/k}}$$ is called the $t$-distribution with $k\in\bbN$
 degrees of freedom. We write $T\sim t_k$.
@@ -1286,7 +1432,7 @@ knitr::include_graphics("figure/fisher.jpg")
 
 3. Suppose that $\bar X$ and $S^2$ are calculate from an iid random sample $X_1,\dots,X_n$ with $\Var(X_i)=\sigma^2$. We know that $\E(S^2)=\sigma^2$ from Q2(a). Prove that $\E(S)\leq \sigma$. *Hint: Use Jensen's inequality.*
 
-4. Fill in the details of the proof of the delta method: Suppose that $X_n$ is a sequence of r.v.s satisfying $\sqrt n (X_n-\mu)/\sigma \xrightarrow{\text{D}}\N(0,1)$, and let $g$ be a differentiable function s.t. $g'(\mu)\neq 0$.
+4. Fill in the details of the proof of the delta method: Suppose that $X_n$ is a sequence of random variables satisfying $\sqrt n (X_n-\mu)/\sigma \xrightarrow{\text{D}}\N(0,1)$, and let $g$ be a differentiable function s.t. $g'(\mu)\neq 0$.
 
    (a) Show that $X_n \xrightarrow{\text{P}} \mu$ in probability.
    

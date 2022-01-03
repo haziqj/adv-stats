@@ -64,7 +64,7 @@ E = \Big\{ \bomega \, \big|\, \omega_1 = T, \omega_2 = H, \omega_i \in \{H,T\} \
 
 There are several things that we can do to sets much like we can do to numbers in arithmetic. Here is an abridged version of set operations.
 
-- The **complement** of an event $A$, written $A^c$, is the set of all elements that are not in $A$: $A^c = \{\omega | \omega\not\in A \}$.
+- The **complement** of an event $A$, written $A^c$, is the set of all elements that are not in $A$: $A^c = \{\omega \mid \omega\not\in A \}$.
 - The complement of $\Omega$ is the empty set $\emptyset = \{\}$.
 - The  **union** of events $A$ and $B$ (thought of as "A or B or both") is defined
 \[
@@ -202,7 +202,7 @@ Let's take a look at some examples of $\sigma$-algebras.
 
 1. The trivial $\sigma$-algebra: $$\big\{ \{\}, \Omega \big\}.$$ This corresponds the case of no information. 
 
-2. The power set of the sample space $\Omega$: $$\big\{ A | A \subseteq \Omega \big\}.$$ This corresponds the case of full information. 
+2. The power set of the sample space $\Omega$: $$\big\{ A \mid A \subseteq \Omega \big\}.$$ This corresponds the case of full information. 
 
 3. The collection $\big\{ \{\}, A, A^c, \Omega \big\}$ is a $\sigma$-algebra, for any $A\subseteq \Omega$. 
 
@@ -342,7 +342,7 @@ Two six-sided dice are thrown and the outcome for both dice are recorded.
 
 - As there are 36 possible outcomes, the sample space is 
 $$
-\Omega = \big\{ \omega_{ij}=\{i,j\} | i,j =1,\dots,6 \big\}
+\Omega = \big\{ \omega_{ij}=\{i,j\} \mid i,j =1,\dots,6 \big\}
 $$
 
 - Suppose we are interested in the event $E$ defined to be *'the sum of the two scores is 6'*. These would be the events
@@ -615,11 +615,11 @@ All we need to show is the existence of one such subset of $[0,1]$ whose measure
 
 Define an equivalence relation on $[0,1]$ by the following: 
 $$x\sim y \Rightarrow y-x \in \bbQ$$
-That is, two real numbers $x$ and $y$ are deemed to be the same if their difference is a rational number. We would like to separate all the real numbers $x\in[0,1]$ by this equivalence relation, and collect them into groups called equivalence classes, denoted by $[x]$. Here, $[x]$ is the set $\{y \in [0,1] | x \sim y\}.$ For instance, 
+That is, two real numbers $x$ and $y$ are deemed to be the same if their difference is a rational number. We would like to separate all the real numbers $x\in[0,1]$ by this equivalence relation, and collect them into groups called equivalence classes, denoted by $[x]$. Here, $[x]$ is the set $\{y \in [0,1] \mid x \sim y\}.$ For instance, 
 
-- The equivalence class of $0$ is the set of real numbers $x$ such that $x \sim 0$, i.e. $[0] = \{y \in [0,1] | y-0\in\bbQ \}$, which is the set of all rational numbers in $[0,1]$.
+- The equivalence class of $0$ is the set of real numbers $x$ such that $x \sim 0$, i.e. $[0] = \{y \in [0,1] \mid y-0\in\bbQ \}$, which is the set of all rational numbers in $[0,1]$.
 
-- The equivalence class of an irrational number $z_1\in[0,1]$ is clearly not in $[0]$, thus would represent a different equivalent class $[z_1]=\{y \in [0,1] | y-z \in \bbQ \}$.
+- The equivalence class of an irrational number $z_1\in[0,1]$ is clearly not in $[0]$, thus would represent a different equivalent class $[z_1]=\{y \in [0,1] \mid y-z_1 \in \bbQ \}$.
 
 - Yet another irrational number $z_2\not\in [z_1]$ would exist, i.e. a number $z_2\in[0,1]$ such that $z_2-z_1 \not\in\bbQ$, and thus would represent another equivalence class $[z_2]$.
 
