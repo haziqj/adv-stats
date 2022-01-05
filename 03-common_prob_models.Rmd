@@ -1004,6 +1004,8 @@ There are several interesting relationships between the various distributions we
 Making use of these relationships allow us to find an alternative and possibly easier way of calculating required probabilities or expectations, although some relationships might only be approximate.
 We discuss them below.
 
+![](figure/distributions.jpg)
+
 ### Poisson-Binomial relationship
 
 The Poisson distribution plays a useful approximation role for some of the other main discrete distributions. 
