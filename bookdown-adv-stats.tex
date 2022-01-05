@@ -319,7 +319,7 @@
 
 \title{SM-4331 Advanced Statistics}
 \author{Dr Haziq Jamil}
-\date{2022-01-03}
+\date{2022-01-05}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -3539,7 +3539,7 @@ In statistics, we concern ourselves with moments of probability functions.
 \begin{definition}[Moments]
 The \(k\)th \emph{moment} of a random variable \(X\) is
 \[
-m_k = \E(X^2).
+m_k = \E(X^k).
 \]
 The \(k\)th \emph{central moment} of \(X\) is
 \[
@@ -3781,7 +3781,7 @@ We'll see some examples of this in action in the later chapters.
 \item
   Let \(X_1,\dots,X_n\iid \Unif(0,1)\) and let \(Y_n=\max\{X_1,\dots,X_n\}\). Find \(\E(Y_n)\). \emph{Hint: Find out the distribution of \(Y_n\) by looking at the cdf of \(Y_n\).}
 \item
-  Let \(X\Unif(0,1)\). Let \(0<a<b<1\). Let
+  Let \(X\sim\Unif(0,1)\). Let \(0<a<b<1\). Let
   \[
    Y = \begin{cases}
   1 & 0<x<b \\
@@ -3854,7 +3854,7 @@ We'll see some examples of this in action in the later chapters.
   \def\labelenumii{(\alph{enumii})}
   \tightlist
   \item
-    Find the mean of \(X\). \textbf{{[}12 marks{]}}
+    Find the mean of \(X\). \textbf{{[}2 marks{]}}
   \item
     Find the standard deviation of \(X\). \textbf{{[}3 marks{]}}
   \end{enumerate}
@@ -5019,6 +5019,8 @@ Discrete & Continous \\
   \item
     Show that the probability that he takes home the last fish he catches is \((1-\pi^2)/2\). \emph{Hint: Use the fact that \(\sum_{k=0}^\infty\frac{e^{-\lambda}\lambda^{2k+1}}{(2k+1)!}=(1-e^{-2\lambda})/2\).} \textbf{{[}3 marks{]}}
   \end{enumerate}
+\item
+  There are two types of batteries in a bin. When in use, type \(i\) batteries last (in hours) an exponentially distributed time with rate \(\lambda_i\), \(i=1,2\). A battery that is randomly chosen from the bin will be a type \(i\) battery with probability \(p_i\), \(p_1+p_2=1\). If a randomly chosen battery is still operating after \(t\) hours of use, what is the probability it will still be operating after an additional \(s\) hours? \textbf{{[}3 marks{]}}
 \end{enumerate}
 
 \hypertarget{inequalities-convergences-and-normal-random-samples}{%
