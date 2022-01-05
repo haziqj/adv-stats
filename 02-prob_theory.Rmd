@@ -2873,7 +2873,7 @@ In statistics, we concern ourselves with moments of probability functions.
 ::: {.definition name="Moments"}
 The $k$th *moment* of a random variable $X$ is 
 $$
-m_k = \E(X^2).
+m_k = \E(X^k).
 $$
 The $k$th *central moment* of $X$ is
 $$
@@ -3053,7 +3053,7 @@ f_{X,Y}(x,y) = \begin{cases}
 
 13. Let $X_1,\dots,X_n\iid \Unif(0,1)$ and let $Y_n=\max\{X_1,\dots,X_n\}$. Find $\E(Y_n)$. *Hint: Find out the distribution of $Y_n$ by looking at the cdf of $Y_n$.*
   
-14. Let $X\Unif(0,1)$. Let $0<a<b<1$. Let
+14. Let $X\sim\Unif(0,1)$. Let $0<a<b<1$. Let
 \[
  Y = \begin{cases}
  	1 & 0<x<b \\
@@ -3098,7 +3098,7 @@ f_{X,Y}(x,y) = \begin{cases}
 
 3. Suppose we generate a random variable $X$ in the following way. First we flip a fair coin.  If the coin is heads, take $X$ to have a $\Unif(0,1)$ distribution. If the coin is tails, take $X$ to have a $\Unif(3,4)$ distribution.
 
-   (a) Find the mean of $X$. **[12 marks]**
+   (a) Find the mean of $X$. **[2 marks]**
    (b) Find the standard deviation of $X$. **[3 marks]**
 
 

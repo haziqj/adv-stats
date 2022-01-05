@@ -1,3 +1,95 @@
+--- 
+title: "SM-4331 Advanced Statistics"
+author: "Dr Haziq Jamil"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib, syllabus.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+    Course notes for SM-4331 Advanced Statistics (UBD).
+link-citations: yes
+# github-repo: rstudio/bookdown-demo
+always_allow_html: true
+---
+
+# url: your book url like https://bookdown.org/yihui/bookdown
+
+Placeholder
+
+
+
+<!--chapter:end:index.Rmd-->
+
+
+# (PART) Introduction {-}
+# What is statistics? {-}
+
+Placeholder
+
+
+##  Learning statistics {-}
+## Population, sample and parametric models {-}
+### Population vs sample {-}
+### Parametric models {-}
+### A sample: a set of data or random variables?--A duality {-}
+###  Variability of estimates {-}
+##### [BMW M example]{.ul} {-}
+##### [AITI example]{.ul} {-}
+## Probability and statistics {-}
+
+<!--chapter:end:01-intro.Rmd-->
+
+
+# (PART) Prepare {-}
+# Probability theory primer
+
+Placeholder
+
+
+### Learning objectives {-}
+### Readings {-}
+## Elementary set theory
+### Set operations
+### Partitions
+## Axiomatic probability
+### Probability as a measure
+### Axioms of probability
+### Derived probability results
+### Why measure theory?
+## Conditioning and independence
+### Bayes Theorem
+### Independence
+## Random variables
+### Distribution functions
+### Identically distributed r.v.
+## Probability functions
+### Probability mass function
+### Probability density functions
+## Transformations
+### Probability integral transform
+## Multiple random variables
+### Bivariate distributions
+### Marginal distributions
+### Conditional distributions
+### Independent random variables
+## Expectations
+### Expectations of functions of r.v.
+### Properties of expectations
+### Variance
+### Covariance and correlation
+### Properties of variances and covariances
+### Multivariate means and covariances
+### Conditional expectations and variance
+### Additional explainers
+## Moment generating functions
+### Moment generating functions
+## Exercises
+### Hand-in questions {-}
+
+<!--chapter:end:02-prob_theory.Rmd-->
+
 # Commonly-used probability models
 
 Distributions in statistics serve two main purposes:
@@ -1299,4 +1391,169 @@ h_T(t) = \frac{f_T(t)}{1-F_T(t)}=-\frac{\ddif }{\ddif t} \log(1-F_T(t)).
 
 
 
+
+
+<!--chapter:end:03-common_prob_models.Rmd-->
+
+
+# Inequalities, convergences, and normal random samples
+
+Placeholder
+
+
+### Learning objectives {-}
+### Readings {-}
+## Introduction
+### Independent and identical random variable
+### Statistic
+### Sampling distribution
+### Large-sample approximation
+## Inequalities
+### Markov's inequality
+### Chebyshev's inequality
+### Cauchy-Schwartz inequality 
+### Jensen's inequality
+## Convergence of random variables
+### Convergence in probability
+### Convergence in distribution
+### Mean-square convergence 
+### Relationship between convergences 
+### Slutzky's Theorem
+## Limit theorems
+### The (weak) Law of Large Numbers
+### The Central Limit Theorem 
+### Gauging the error of sample mean estimator
+### CLT with $\sigma^2$ unknown
+## Delta method
+## Normal random samples
+### $\chi^2$-distribution 
+###  Student's $t$-distribution 
+### Proof of Theorem \@ref(thm:propertynormalsamp)
+### $F$-distribution 
+### The analysis of variance
+## Exercises
+### Hand-in questions {-}
+
+<!--chapter:end:04-inequalities_etc.Rmd-->
+
+
+# (PART) Inference {-}
+# Point estimation
+
+Placeholder
+
+
+### Learning objectives {-}
+### Readings {-}
+## The likelihood
+### Calculating the likelihood
+### Likelihood ratio
+### Log likelihood
+## Sufficiency
+### The factorisation theorem
+### Minimal sufficient statistic
+## Point estimators
+## Method of moments
+## Method of maximum likelihood
+### Finding the MLE
+### Invariance of MLE
+## Evaluating estimators
+### Bias
+### Variance and standard error
+### Mean squared error
+## Cramér-Rao lower bound (CRLB)
+### Fisher information
+### Variance reduction: Rao-Blackwellisation
+## Large sample properties of estimators
+### Consistency
+### Consistency vs unbiasedness 
+### Consistency of MLEs
+### Efficiency
+### Asymptotic normality and consistency
+### Efficiency of MLE
+### Efficiency of transformations of MLE
+### Application of asymptotic normality
+## Exercises
+### Hand-in questions {-}
+
+<!--chapter:end:05-point_est.Rmd-->
+
+
+# Hypothesis testing
+
+Placeholder
+
+
+### Learning objectives {-}
+### Readings {-}
+## Introduction
+### A general paradigm
+### $p$-values
+### Accept $H_0$?
+### Uniformity of $p$-values
+## Likelihood ratio test
+### Log likelihood ratio test statistic
+### Example: Normal with known variance
+### Example: Normal with unknown variance ($t$-test)
+## The Neyman-Pearson approach
+### Performance of a test
+### Relation to $p$-values
+## Type I and II errors
+### Minimising errors
+### Optimality of the LR test
+## One-sided tests
+## Approximate tests
+### Asymptotic distribution of LRTs
+### Wilk's theorem
+### The Wald test
+## Exercises
+### Hand-in questions {-}
+
+<!--chapter:end:06-hyp_test.Rmd-->
+
+
+# Interval estimation
+
+Placeholder
+
+
+### Learning objectives {-}
+### Readings {-}
+## Introduction
+### Coverage probability
+### Confidence regions
+### Methods for obtaining confidence regions
+## Pivots
+### From pivot to confidence interval
+## Inverting a test statistic
+### Discrete distributions
+## Desirable confidence sets
+## Intervals based on ML methods
+## The bootstrap method
+### Empirical distribution
+### Bootstrap variance estimation
+#### Step 1: Bootstrap variance estimation
+#### Step 2: Bootstrap variance estimation
+#### Summary of bootstrap procedure
+## Bootstrap confidence intervals
+### Normal bootstrap interval
+### Bootstrap percentile interval
+### Bootstrap pivotal interval
+### Which one to use?
+## Exercises
+### Hand-in questions {-}
+
+<!--chapter:end:07-conf_int.Rmd-->
+
+# (APPENDIX) Appendix {-} 
+
+# Exam tips
+
+<!--chapter:end:a-exam_tips.Rmd-->
+
+`r if (knitr::is_html_output()) '
+# References {-}
+'`
+
+<!--chapter:end:references.Rmd-->
 
