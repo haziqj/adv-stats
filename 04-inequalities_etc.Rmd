@@ -1513,7 +1513,9 @@ Let $X_1,\dots,X_n\iid f(x)$. Answer the following questions in cases where $f(x
 
 ### Hand-in questions {-}
 
-1. State and prove Chebyshev's inequality for a random variable $X$. **[3 marks]**
+1. (a) State and prove Chebyshev's inequality for a random variable $X$. **[3 marks]**
+
+   (b) Let $Y$ be a random variable with mean $\mu = 50$ and variance $\sigma^2=25$. Find the bounds on the probability of the random variable having a value between 40 and 60. **[2 marks]**
 
 2. (a) Let $X\sim\chi^2_k$. Prove that $\E(X) = k$ and $\Var(X)=2k$. **[2 marks]**
 

@@ -2,14 +2,27 @@
 
 # Point estimation
 
+In this chapter, we will be studying the first of three statistical inference activities, namely *point estimation*.
+When we studied probability and distributions, the parameters of those distributions were treated as known information, and from there we calculate probabilities or expectations related to those distributions.
+In statistical inference however, the intent is the opposite. 
+That is, the parameters of the distributions are unknown and we are supposed to *infer* what they are from the clues that are available to us. 
+The clues here refer to the data that is collected, assumed to be distributed according to some probability distribution whose parameters are to be found out.
+Figuring out what the values of the parameters should be is called *point estimation*.
+
+Actually, there are many ways and methods of performing point estimation.
+By far the most common way (at least that is a starting point in these kind of discussions) is the method of maximum likelihood. 
+It is an intuitive measure of the plausibility a certain parameter of interest given the observed data.
+We shall study this extensively, and in fact, the next two chapters do indeed revolve around the concept of likelihood.
+
 ### Learning objectives {-}
 
 ::: {.learningobjectives}
 By the end of this chapter, you will be able to:
 
-- do this
-- do that
-- and this
+- Construct the likelihood function based on any given assumed probability distribution, and hence compute the maximum likelihood estimator.
+- Obtain a point estimator by way of the method of moments.
+- Evaluate the quality of any point estimator by means of its bias, variance, and mean-squared error.
+- Asymptotically evaluate the qualities of point estimators in suitable circumstances, and in particular be familiar with the large sample properties of the MLE.
 :::
 
 ### Readings {-}
@@ -51,8 +64,15 @@ If $L(\theta_1|\bx) > L(\theta_2|\bx)$, then the data $\bx$ were more likely to 
 Consider a sequence of $n$ coin tosses, and let $X_i$ denote the outcome of the $i$th coin toss. Assume that $X_i\sim\Bern(p)$, where $p$ is the probability of heads. We know that the total number of heads $\sum_{i=1}^n X_i$ is distributed $\Bin(n,p)$. 
 
 Suppose the outcome of $n=10$ coin tosses happens to be 
-$$\bx = \{H, T, H, T, T, H, H, T, H, H \}.$$ 
-Then $L(0.6|\bx) > L(0.5|\bx)$.
+$$\{H, T, H, T, T, H, H, T, H, H \},$$ 
+i.e. $X=\sum_{i=1}^n X_i = 6$ (the total number of heads).
+
+The likelihood function is just the pmf of the binomial with $p$ as its input, and $X=6$  as the given information:
+$$
+L(p|X) = {10 \choose 6} p^6(1-p)^{4} 
+$$
+Clearly, and even intuitively, $L(0.6|X) > L(0.2|X)$, say.
+That is, it is more plausible that $p=0.6$ rather than $p=0.2$, given that 6 out of 10 heads turned up.
 :::
 
 ### Calculating the likelihood
@@ -71,9 +91,8 @@ dbinom(x = 6, size = 10, prob = seq(0, 1, by = 0.1)) %>%
     round(digits = 4)
 ```
 
-Plot of the likelihood
 
-```{r likeg1, echo = FALSE, fig.height = 8, out.width = "80%", fig.align = "center"}
+```{r likeg1, include = FALSE}
 ggplot(data.frame(x = 0:10, y = dbinom(0:10, 10, 0.6)), aes(x, y)) +
   geom_bar(stat = "identity") +
   scale_x_continuous(breaks = c(0:10)) +
@@ -90,11 +109,25 @@ ggplot(data.frame(x = x, y = y), aes(x, y)) +
   scale_x_continuous(breaks = seq(0, 1, by = 0.2)) +
   labs(x = "Probability of heads, p", y = "L(p|x)",
        title = "Likelihood of Bin(10,p) given fixed data x") -> p2
+```
 
-cowplot::plot_grid(p1, p2, ncol = 1)
+Plotting the likelihood, we clearly see how the likelihood is a function of $p$ the parameter (on the horizontal axis), and the function outputs the likelihood on the vertical axis.
+Moreover, the likelihood function is continuous, even though the underlying data distribution is discrete (binomial). 
+That's because we are evaluating the likelihood of the probability of success $p$ in the continuous interval $[0,1]$.
+
+```{r likeg2, echo = FALSE, fig.height = 4, out.width = "100%", fig.align = "center"}
+p2
+```
+
+And just to reiterate, the probability mass function, when plotted, will show vertical bars or lines because here the input is of the pmf is $x$, the number of heads, which is clearly discrete.
+
+```{r likeg3, echo = FALSE, fig.height = 4, out.width = "100%", fig.align = "center"}
+p1
 ```
 
 ### Likelihood ratio
+
+The term likelihood ratio gives the *relative* plausibility of two candidate parameter values.
 
 ::: {.definition name="Likelihood ratio"}
 The relative plausibility of candidate parameter values, $\theta_1$ and $\theta_2$ say, is measured by the likelihood ratio
@@ -290,19 +323,24 @@ Obviously, if a sufficient statistic is scalar, then it must be minimal!
 
 ## Point estimators
 
-Recall: $X_1,\dots,X_n\sim f(x|\theta)$ is a random sample, where $f$ is known but the parameter $\theta$ of the pdf is unknown. Often, we may specify $\theta\in\Theta$, where $\Theta$ is the *parameter space*. 
+Consider the following setup.
+A random sample $X_1,\dots,X_n$ is obtained, such that each value is assumed to be distributed according to the pdf $f(x|\theta)$.
+Here the function form $f$ is known but the parameter $\theta$ of the pdf is unknown. 
+Often, we may specify $\theta\in\Theta$, where $\Theta$ is the *parameter space*. 
 Note that $\theta$ may be a vector $\theta=(\theta_1,\dots,\theta_p)^\top$.
 
 ::: {.example}
+Just a simple example explaining parameter spaces--it may be unidimensional or multidimensional.
+
 For $\N(\mu,\sigma^2)$, $\theta = (\mu,\sigma^2)^\top$, so $p=2$ and $\Theta = \bbR \times \bbR_{\geq 0}$.
 
 For $\Pois(\lambda)$, $\theta=\lambda$ and $\Theta=\bbR_{\geq 0}$.
 
 :::
 
-The goal of **point estimation**:
+The goal of **point estimation** is the following:
 
-> Provide a single "best guess" of $\theta$, based on observations $X_1,\dots,X_n$.
+> Provide a [single]{.ul} "best guess" of $\theta$, based on observations $X_1,\dots,X_n$.
 
 Formally, we may write
 
@@ -311,7 +349,7 @@ $$
 $$
 
 as a point estimator for $\theta$, where $T(\bX)$ is a statistic.
-
+That is to say, we can give a best guess of what $\theta$ might be by manipulating the only observable stuff that we know, which is the data $X_1,\dots,X_n$.
 
 ::: {.mycheck}
 We use the term "estimator" to denote the function that gives the estimate. 
@@ -324,15 +362,18 @@ The standard convention is to denote estimators/estimates of parameters with hat
 $\theta$ or $\theta_0$).
 :::
 
-A good estimator should make $|\hat\theta-\theta|$ as small as possible, despite
+So how exactly might we come up with an estimator?
+Surely there are many different ways, but what is clear is that a good estimator should definitely be very close to the true value!
+That is, a good estimator should make the quantity $|\hat\theta-\theta|$ as small as possible, despite
 
-i. $\theta$ being unknown; and
+i. the true value $\theta$ being unknown; and
 
-ii. the value of $\hat\theta$ changes with the sample observed.
+ii. the value of $\hat\theta$ changes with the sample observed (it is random!).
 
-We will make use of the sampling properties of the r.v. $\hat\theta$ to quantify (and qualify) its worth as an estimator for $\theta$.
+Luckily, we did study some useful tools with regards to convergences of random variables in the last chapter.
+In particular, we will make use of the sampling properties of the random variable $\hat\theta$ to quantify (and qualify) its worth as an estimator for $\theta$.
 
-We will consider three main aspects of point estimation
+In the next parts, we will consider three main aspects of point estimation
 
 1. General methods for *finding* a point estimator
     a. Method of moments (MOM)
@@ -347,6 +388,9 @@ We will consider three main aspects of point estimation
 
 ## Method of moments
 
+
+One such method of estimation of population parameters is called the *method of moments*.
+
 ::: {.definition name="Method of moments estimator"}
 Suppose that $U(\bX)$ is any statistic such that
 \[
@@ -359,13 +403,17 @@ where $m(\cdot)$ is invertible. Then
 is called the method of moments (MOM) estimator of $\theta$ based on $U$.
 :::
 
-The moment here is the mean, i.e. the first moment, of $U(\bX)$. A more precise name for this estimator would be 'the MOM estimator based on the first moment of $U$'.
+The moment here is the mean, i.e. the first moment, of $U(\bX)$. 
+A more precise name for this estimator would be 'the MOM estimator based on the first moment of $U$'.
+As we can see, the key idea is to express population moments (i.e. expectations) as functions of the parameters of interest, which we can then substitute for the sample moments.
 
-There are two main situations where moments other than the first moment are needed:
+While it is common to only use the first moments, there are two main situations where moments other than the first moment are needed:
 
 1. **When $m(\theta)$ either does not involve $\theta$, or is otherwise not invertible.** We might then consider using instead the second moment, $\E(U^2) = m_2(\theta)$, say. If $m_2(\theta)$ is invertible, then MOM based on $U_2$ can be used in order to define an estimator. 
 
 2. **When $\theta=(\theta_1,\dots,\theta_p)^\top$ is a vector.** I.e., there is more than one unknown parameter. The number of moments used (the number of equations to solve) must be equal to the dimensionality of $\theta$ (the number of unknowns).
+
+Let's now look at two examples illustrating the method of moments.
 
 ::: {.example}
 
@@ -403,6 +451,9 @@ $$
 
 ## Method of maximum likelihood
 
+The other point estimation method we will be studying is the maximum likelihood estimator.
+As the name implies, this uses the likelihood function.
+
 ::: {.definition name="Maximum likelihood (ML) estimator"}
 The ML estimator of $\theta$ is $\hat\theta$ which is such that
 $$
@@ -410,10 +461,11 @@ $$
 $$
 :::
 
-That is, the ML estimator is the value of $\theta$ which is the most likeliest value as judged by the likelihood function, given the data that was observed. 
-We are interested in the peak of the graph of $L(\theta|\bX)$ against $\theta$.
+The ML estimator is the value of $\theta$ which is the most likeliest value as judged by the likelihood function, given the data that was observed. 
+Geometrically, we are interested in the peak of the graph of $L(\theta|\bX)$ against $\theta$.
 
 In practice, $\hat\theta$ is most often found by locating the maximum of the *log-likelihood* $l(\theta|\bX) = \log L(\theta|\bX)$, which is computationally and algebraically simpler.
+The main reason for this is products of likelihoods become sums of log-likelihoods, which is arguably easier to deal with.
 
 Unfortunately, uniqueness is not guaranteed. But in many 'standard' statistical models, the MLE *is* uniquely defined by the likelihood function.
 
@@ -437,15 +489,19 @@ cowplot::plot_grid(p1, p2)
 
 ### Finding the MLE
 
-Typically we locate $\hat\theta$ by solving $l'(\hat\theta)=0$, and then checking that the stationary point is a maximum. Several points on this:
+To find the maxima of any graph, you might recall that such a point is called a stationary point and is obtained by differentiating.
+In other words, we locate $\hat\theta$ by solving $l'(\hat\theta)=0$, and then checking that the stationary point is a maximum. 
+However, several points of note must be said on this topic:
 
 - This still leaves open the possibility that the likelihood has multiple local maxima, at each of which the derivative is zero. It is wise to check $\l(\theta)$ for multimodal behaviour, e.g. by drawing a sketch of the function.
 
 - This strategy works for 'simple' enough problems, e.g. unidimensional parameters, or multidimensional parameter situations which reduce to complete information system (sets of simultaneous equations).
 
-- Numerical methods can be employed if explicit analytical forms for the MLE cannot be found. These estimators are found more often by iterative procedures built into computer software (e.g. Newton-Raphson, Fisher scoring, quasi-Newton, gradient descent, conjugate gradients, etc.).
+- Numerical methods can be employed if explicit analytical forms for the MLE cannot be found. These estimators are found more often by iterative procedures built into computer software (e.g. Newton-Raphson, Fisher scoring, quasi-Newton, gradient descent, conjugate gradients, etc.). 
 
 - Even then we might run into numerical issues (e.g. flat likelihood, multimodality, precision issues, etc.).
+
+Let us now consider a simple example of finding the MLE of the mean of a normal random sample.
 
 ::: {.example}
 Suppose that $Y_1,\dots,Y_n$ is an iid random sample from
@@ -469,7 +525,10 @@ Equating this to zero gives the MLE for $\mu$ $$\begin{aligned}
      \end{aligned}$$ Thus, $\hat\mu=\bar Y_n$.
 :::
 
-Finding the MLE numerically
+Finding the MLE numerically using R involves some kind of optimising function.
+In R, we can use the function called `optim()`.
+We first construct a function called `lik()` which is essentially a function whose input is the parameter value `theta` ($\mu$ in this case).
+The `optim()` function then searches for the optima by way of quasi-Newton methods (using pseudo/approximate derivatives).
 
 ```{r mlenumerical}
 X <- rnorm(n = 100, mean = 8, sd = 1)
@@ -540,6 +599,9 @@ Note that $\hat\psi$ can be infinite-valued, if $\hat\theta=0$ or $\hat\theta=1$
 
 :::
 
+This is extremely useful! That means, if we already found the MLE $\hat\theta$ for $\theta$, then the MLE of any function of the parameter $g(\theta)$ is simply $g(\hat\theta)$.
+We do not need to find the MLE again by reparameterising the likelihood function.
+
 ## Evaluating estimators
 
 An estimator is assessed through its distribution in repeated sampling from the assumed model.
@@ -552,25 +614,42 @@ We discuss three such properties:
 
 ### Bias
 
+Bias is a measure of the typical deviation of the estimator away from its true value.
+
 ::: {.definition name="Bias"}
 The bias of an estimator $\hat\theta$ is defined to be
-$$\text{Bias}_\theta(\hat\theta) = \E_\theta(\hat\theta) - \theta.$$
+$$\text{Bias}_\theta(\hat\theta) = {\E}_\theta(\hat\theta-\theta) - \theta = {\E}_\theta(\hat\theta) - \theta.$$
 :::
 
-- The subscript $\theta$ makes clear the fact that the expectation is taken under the distribution using $\theta$ as the true value of the parameter.
-- When $\E_\theta(\hat\theta) = \theta$,
-$\text{Bias}_\theta(\hat\theta)=0$ for all possible values of $\theta$,
-and in this case $\hat\theta$ is called an **unbiased estimator** for $\theta$.
-- Small bias, and even unbiasedness, is desirable.
+Note that the random variable in the expectation is actually $\hat\theta$.
+Thus, the distribution of $\hat\theta$ must be known (the pdf $f(\hat\theta)$ must be known ) in order to calculate the expectation.
+The subscript $\theta$ makes clear the fact that the expectation is taken under the distribution using $\theta$ as the true value of the parameter.
+That is,
+$$
+\text{Bias}_\theta(\hat\theta) = \int (\hat\theta-\theta) f(\hat\theta\mid\theta) \dint \hat\theta.
+$$
+
+The specific case that occurs when $\E_\theta(\hat\theta) = \theta$ results in $\text{Bias}_\theta(\hat\theta)=0$ for all possible values of $\theta$.
+We call $\hat\theta$ an *unbiased estimator* for $\theta$ in such cases.
+
+Definitely small bias for estimators is desirable, especially more so unbiased estimators.
+
 
 ### Variance and standard error
 
+As $\hat\theta$ is a random variable, we could calculate its variance.
+
 ::: {.definition name="Variance"}
 The variance of an estimator $\hat\theta$ is defined to be
-$$\Var_{\theta}(\hat\theta)=\E_\theta\left[\big(\hat\theta - \E(\hat\theta)\big)^2\right]$$
+$${\Var}_{\theta}(\hat\theta)=\E_\theta\left[\big(\hat\theta - \E(\hat\theta)\big)^2\right]$$
 :::
 
-This just uses the regular definition of the variance for random variables.
+This just uses the regular definition of the variance for random variables,
+$$
+{\Var}_\theta(\hat\theta) = \int (\hat\theta-\E\hat\theta)^2 f(\hat\theta\mid\theta) \dint \hat\theta.
+$$
+It also has the same interpretation as the variance of random variables, in that it gives a sense of the spread/scale of this estimator.
+Furthermore, we could look at the 'standard deviation', which has a special name when it comes to estimators.
 
 ::: {.definition name="Standard error"}
 The standard error of the estimator $\hat\theta$ is defined as the standard deviation of the variance of the estimator, i.e.
@@ -578,7 +657,7 @@ $$\text{se}(\hat\theta) = \sqrt{\Var_\theta(\hat\theta)}$$
 :::
 
 Obviously, we desire an estimator whose variability (in repeated sampling) is low.
-
+That is, an estimator whose calculated value is not too variable across multiple sampling scenarios would be really great to have, compared to an estimator which keeps on changing in value drastically.
 
 ::: {.mycheck}
 
@@ -595,25 +674,34 @@ knitr::include_graphics("figure/biasvariance1.png")
 
 ### Mean squared error
 
+The bias and variance are related through the following concept of mean squared error.
+
 :::{.definition name="Mean squared error of estimator"}
 The MSE of the estimator $\hat\theta$ is defined as
 $$\text{MSE}_\theta(\hat\theta) = \E_\theta\left[(\hat\theta - \theta)^2 \right] = \{\text{Bias}_\theta(\hat\theta) \}^2 + \Var_\theta(\hat\theta).$$
 :::
 
 ::: {.mycheck}
-As an exercise, prove the bias-variance decomposition above. Hare some hints on how to get started:
+As an exercise, prove the bias-variance decomposition above. Here some hints on how to get started:
 
-- hint 1
-- hint 2
+- Add and subtract the expectation of $\hat\theta$ in the expression:
+  $$
+  \left(\hat\theta - \E\hat\theta + \E\hat\theta - \theta\right)^2
+  $$
+   and expand the square.
+   
+- Try to show that $\E\left[(\hat\theta-\E\hat\theta)(\E\hat\theta-\theta)\right]=0$ using properties of expectations.
 :::
 
-There is a clear and direct relationship between the MSE of an estimator, and its bias and variance. For a given MSE,
+There is a clear and direct relationship between the MSE of an estimator, and its bias and variance. 
+Note that for a fixed MSE value,
 
-- Reducing the bias of an estimator implies that its variance will increase.
+- Reducing the bias of an estimator necessarily increases its variance.
 
 - Conversely, reducing the variance of an estimator implies that bias will increase.
 
-This is known as the **bias-variance** trade-off. It is typically impossible to do both simultaneously.
+This is known as the **bias-variance** trade-off. 
+It is typically impossible to do both simultaneously.
 
 
 ::: {.myalert}
@@ -1060,7 +1148,7 @@ The practical implication of the theorem is that the repeated-sampling distribut
 \[
 \hat\theta \approx \N\left(\theta, \cI(\theta)^{-1} \right).
 \]
-In particular, we can calculate an *approximate standard error* for $\hat\theta$ by estimating the quantity $\cI(\theta)$. Two choices:
+In particular, we can calculate an *approximate standard error* for $\hat\theta$ by estimating the quantity $\cI(\theta).$ We have two choices:
 
 1. The obvious 'plug-in' estimator using the *expected* Fisher information
 \[
@@ -1081,7 +1169,7 @@ Suppose that $X_1,\dots,X_n\iid\Pois(\lambda)$. Then
 \begin{align*}
 l(\lambda|\bX) &= \const - n\lambda +\sum_{i=1}^n X_i \log \lambda \\
 l'(\lambda|\bX) &= - n +\sum_{i=1}^n X_i / \lambda \\ 
--l''(\lambda|\bX) &=  \sum_{i=1}^n X_i / \lambda^2 \mycomment{(the observed Fisher information)}
+-l''(\lambda|\bX) &=  \sum_{i=1}^n X_i / \lambda^2 
 \end{align*}
 Hence $l'(\lambda)=0$ is solved at $\hat\lambda_n = \sum_{i=1}^n X_i / n =: \bar X_n$.
 
@@ -1237,7 +1325,11 @@ and obtain the bias, variance and mean squared error of each estimator.
 
 ### Hand-in questions {-}
 
-1. If $X_1,\dots,X_n$ is a random sample from the $\Gamma(\alpha,\beta)$ distribution, with $\alpha$ known, find the MLE of $\beta$. **[3 marks]**
+1.
+
+    (a) If $X_1,\dots,X_n$ is a random sample from the $\Gamma(\alpha,\beta)$ distribution, with $\alpha$ known, find the MLE of $\beta$. **[3 marks]**
+    
+    (b) Is the MLE for $\beta$ unbiased? What is its variance? **[3 marks]**
 
 2.  Let $X_1,\dots,X_n$ be a random sample from the pdf $f(x|\theta)=\theta x^{-2}$ for $0 < \theta \leq x < \infty$.
 
@@ -1246,40 +1338,6 @@ and obtain the bias, variance and mean squared error of each estimator.
     (b) Find the MLE of $\theta$. **[4 marks]**
     
 3. Let $X_1,\dots,X_n$ be a random sample from $\N(\mu,\sigma^2)$. Find the Fisher information for $\mu$ and $\sigma^2$. *Hint: It may be easier to consider $\theta=\sigma^2$ in your calculations.* **[4 marks]**
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

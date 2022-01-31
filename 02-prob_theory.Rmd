@@ -2993,7 +2993,7 @@ We'll see some examples of this in action in the later chapters.
    (e) If $A \cap B = \{\}$, then $\Pr(A\cup B) = \Pr(A) + \Pr(B)$
   
 
-2. This is called the ``Monty Hall Problem''. A prize is placed at random behind one of three doors. You pick a door. To be concrete, let’s suppose you always pick door 1. Now Monty Hall chooses one of the other two doors, opens it and shows you that it is empty. He then gives you the opportunity to keep your door or switch to the other unopened door. Should you stay or switch? Intuition suggests it doesn’t matter. The correct answer is that you should switch. Prove it. 
+2. This is called the "Monty Hall Problem". A prize is placed at random behind one of three doors. You pick a door. To be concrete, let’s suppose you always pick door 1. Now Monty Hall chooses one of the other two doors, opens it and shows you that it is empty. He then gives you the opportunity to keep your door or switch to the other unopened door. Should you stay or switch? Intuition suggests it doesn’t matter. The correct answer is that you should switch. Prove it. 
 
    It will help to specify the sample space and the relevant events carefully. Thus write $\Omega = \big\{(\omega_1,\omega_2) \,|\, \omega_i \in \{1,2,3\}\big\}$ where $\omega_1$ is where the prize is and $\omega_2$ is the door Monty opens.
   
@@ -3073,7 +3073,7 @@ and let
 
 ### Hand-in questions {-}
 
-1. A certain river floors every year. Suppose that the low-water mark is set at 1 and the high-water mark $Y$ has distribution function
+1. A certain river floods every year. Suppose that the low-water mark is set at 1 and the high-water mark $Y$ has distribution function
 \[
 F_Y(y) = \Pr(Y\leq y) = 1 - \frac{1}{y^2}, \hspace{2em} 1\leq y<\infty
 \]
