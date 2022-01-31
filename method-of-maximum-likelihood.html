@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2022-01-05" />
+<meta name="date" content="2022-01-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -464,26 +464,32 @@ TeX: {extensions: ["cancel.js"]}
             <section class="normal" id="section-">
 <div id="method-of-maximum-likelihood" class="section level2" number="4.5">
 <h2><span class="header-section-number">4.5</span> Method of maximum likelihood</h2>
+<p>The other point estimation method we will be studying is the maximum likelihood estimator.
+As the name implies, this uses the likelihood function.</p>
 <div class="definition">
 <p><span id="def:unlabeled-div-122" class="definition"><strong>Definition 4.5  (Maximum likelihood (ML) estimator) </strong></span>The ML estimator of <span class="math inline">\(\theta\)</span> is <span class="math inline">\(\hat\theta\)</span> which is such that
 <span class="math display">\[
 \hat\theta = \mathop{\mathrm{arg\,max}}_{\theta\in\Theta} L(\theta|{\boldsymbol X})
 \]</span></p>
 </div>
-<p>That is, the ML estimator is the value of <span class="math inline">\(\theta\)</span> which is the most likeliest value as judged by the likelihood function, given the data that was observed.
-We are interested in the peak of the graph of <span class="math inline">\(L(\theta|{\boldsymbol X})\)</span> against <span class="math inline">\(\theta\)</span>.</p>
-<p>In practice, <span class="math inline">\(\hat\theta\)</span> is most often found by locating the maximum of the <em>log-likelihood</em> <span class="math inline">\(l(\theta|{\boldsymbol X}) = \log L(\theta|{\boldsymbol X})\)</span>, which is computationally and algebraically simpler.</p>
+<p>The ML estimator is the value of <span class="math inline">\(\theta\)</span> which is the most likeliest value as judged by the likelihood function, given the data that was observed.
+Geometrically, we are interested in the peak of the graph of <span class="math inline">\(L(\theta|{\boldsymbol X})\)</span> against <span class="math inline">\(\theta\)</span>.</p>
+<p>In practice, <span class="math inline">\(\hat\theta\)</span> is most often found by locating the maximum of the <em>log-likelihood</em> <span class="math inline">\(l(\theta|{\boldsymbol X}) = \log L(\theta|{\boldsymbol X})\)</span>, which is computationally and algebraically simpler.
+The main reason for this is products of likelihoods become sums of log-likelihoods, which is arguably easier to deal with.</p>
 <p>Unfortunately, uniqueness is not guaranteed. But in many ‘standard’ statistical models, the MLE <em>is</em> uniquely defined by the likelihood function.</p>
 <p><img src="bookdown-adv-stats_files/figure-html/mleunique-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <div id="finding-the-mle" class="section level3" number="4.5.1">
 <h3><span class="header-section-number">4.5.1</span> Finding the MLE</h3>
-<p>Typically we locate <span class="math inline">\(\hat\theta\)</span> by solving <span class="math inline">\(l&#39;(\hat\theta)=0\)</span>, and then checking that the stationary point is a maximum. Several points on this:</p>
+<p>To find the maxima of any graph, you might recall that such a point is called a stationary point and is obtained by differentiating.
+In other words, we locate <span class="math inline">\(\hat\theta\)</span> by solving <span class="math inline">\(l&#39;(\hat\theta)=0\)</span>, and then checking that the stationary point is a maximum.
+However, several points of note must be said on this topic:</p>
 <ul>
 <li><p>This still leaves open the possibility that the likelihood has multiple local maxima, at each of which the derivative is zero. It is wise to check <span class="math inline">\(\l(\theta)\)</span> for multimodal behaviour, e.g. by drawing a sketch of the function.</p></li>
 <li><p>This strategy works for ‘simple’ enough problems, e.g. unidimensional parameters, or multidimensional parameter situations which reduce to complete information system (sets of simultaneous equations).</p></li>
 <li><p>Numerical methods can be employed if explicit analytical forms for the MLE cannot be found. These estimators are found more often by iterative procedures built into computer software (e.g. Newton-Raphson, Fisher scoring, quasi-Newton, gradient descent, conjugate gradients, etc.).</p></li>
 <li><p>Even then we might run into numerical issues (e.g. flat likelihood, multimodality, precision issues, etc.).</p></li>
 </ul>
+<p>Let us now consider a simple example of finding the MLE of the mean of a normal random sample.</p>
 <div class="example">
 <p><span id="exm:unlabeled-div-123" class="example"><strong>Example 4.10  </strong></span>Suppose that <span class="math inline">\(Y_1,\dots,Y_n\)</span> is an iid random sample from
 <span class="math inline">\(\mathop{\mathrm{N}}(\mu,1)\)</span>, with <span class="math inline">\(\mu\)</span> unknown. Then,
@@ -503,7 +509,10 @@ the log-likelihood function is <span class="math display">\[\begin{aligned}
        \Rightarrow \mu &amp;= \frac{1}{n}\sum_{i=1}^n Y_i =: \bar Y_n
      \end{aligned}\]</span> Thus, <span class="math inline">\(\hat\mu=\bar Y_n\)</span>.</p>
 </div>
-<p>Finding the MLE numerically</p>
+<p>Finding the MLE numerically using R involves some kind of optimising function.
+In R, we can use the function called <code>optim()</code>.
+We first construct a function called <code>lik()</code> which is essentially a function whose input is the parameter value <code>theta</code> (<span class="math inline">\(\mu\)</span> in this case).
+The <code>optim()</code> function then searches for the optima by way of quasi-Newton methods (using pseudo/approximate derivatives).</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="method-of-maximum-likelihood.html#cb52-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">8</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
 <span id="cb52-2"><a href="method-of-maximum-likelihood.html#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(X)</span></code></pre></div>
 <pre><code>## [1] 8.021617</code></pre>
@@ -538,6 +547,8 @@ transformation of <span class="math inline">\(\pi\)</span>. Therefore, the MLE f
 <span class="math display">\[\hat\nu = \log \frac{\hat\pi}{1-\hat\pi}.\]</span></p>
 <p>Note that <span class="math inline">\(\hat\psi\)</span> can be infinite-valued, if <span class="math inline">\(\hat\theta=0\)</span> or <span class="math inline">\(\hat\theta=1\)</span>.</p>
 </div>
+<p>This is extremely useful! That means, if we already found the MLE <span class="math inline">\(\hat\theta\)</span> for <span class="math inline">\(\theta\)</span>, then the MLE of any function of the parameter <span class="math inline">\(g(\theta)\)</span> is simply <span class="math inline">\(g(\hat\theta)\)</span>.
+We do not need to find the MLE again by reparameterising the likelihood function.</p>
 </div>
 </div>
             </section>

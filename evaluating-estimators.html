@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2022-01-05" />
+<meta name="date" content="2022-01-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -474,30 +474,41 @@ We discuss three such properties:</p>
 </ol>
 <div id="bias" class="section level3" number="4.6.1">
 <h3><span class="header-section-number">4.6.1</span> Bias</h3>
+<p>Bias is a measure of the typical deviation of the estimator away from its true value.</p>
 <div class="definition">
 <p><span id="def:unlabeled-div-125" class="definition"><strong>Definition 4.6  (Bias) </strong></span>The bias of an estimator <span class="math inline">\(\hat\theta\)</span> is defined to be
-<span class="math display">\[\text{Bias}_\theta(\hat\theta) = \mathop{\mathrm{E}}_\theta(\hat\theta) - \theta.\]</span></p>
+<span class="math display">\[\text{Bias}_\theta(\hat\theta) = {\mathop{\mathrm{E}}}_\theta(\hat\theta-\theta) - \theta = {\mathop{\mathrm{E}}}_\theta(\hat\theta) - \theta.\]</span></p>
 </div>
-<ul>
-<li>The subscript <span class="math inline">\(\theta\)</span> makes clear the fact that the expectation is taken under the distribution using <span class="math inline">\(\theta\)</span> as the true value of the parameter.</li>
-<li>When <span class="math inline">\(\mathop{\mathrm{E}}_\theta(\hat\theta) = \theta\)</span>,
-<span class="math inline">\(\text{Bias}_\theta(\hat\theta)=0\)</span> for all possible values of <span class="math inline">\(\theta\)</span>,
-and in this case <span class="math inline">\(\hat\theta\)</span> is called an <strong>unbiased estimator</strong> for <span class="math inline">\(\theta\)</span>.</li>
-<li>Small bias, and even unbiasedness, is desirable.</li>
-</ul>
+<p>Note that the random variable in the expectation is actually <span class="math inline">\(\hat\theta\)</span>.
+Thus, the distribution of <span class="math inline">\(\hat\theta\)</span> must be known (the pdf <span class="math inline">\(f(\hat\theta)\)</span> must be known ) in order to calculate the expectation.
+The subscript <span class="math inline">\(\theta\)</span> makes clear the fact that the expectation is taken under the distribution using <span class="math inline">\(\theta\)</span> as the true value of the parameter.
+That is,
+<span class="math display">\[
+\text{Bias}_\theta(\hat\theta) = \int (\hat\theta-\theta) f(\hat\theta\mid\theta) \mathop{\mathrm{d}}\hspace{0.5pt}\!\hat\theta.
+\]</span></p>
+<p>The specific case that occurs when <span class="math inline">\(\mathop{\mathrm{E}}_\theta(\hat\theta) = \theta\)</span> results in <span class="math inline">\(\text{Bias}_\theta(\hat\theta)=0\)</span> for all possible values of <span class="math inline">\(\theta\)</span>.
+We call <span class="math inline">\(\hat\theta\)</span> an <em>unbiased estimator</em> for <span class="math inline">\(\theta\)</span> in such cases.</p>
+<p>Definitely small bias for estimators is desirable, especially more so unbiased estimators.</p>
 </div>
 <div id="variance-and-standard-error" class="section level3" number="4.6.2">
 <h3><span class="header-section-number">4.6.2</span> Variance and standard error</h3>
+<p>As <span class="math inline">\(\hat\theta\)</span> is a random variable, we could calculate its variance.</p>
 <div class="definition">
 <p><span id="def:unlabeled-div-126" class="definition"><strong>Definition 4.7  (Variance) </strong></span>The variance of an estimator <span class="math inline">\(\hat\theta\)</span> is defined to be
-<span class="math display">\[\mathop{\mathrm{Var}}_{\theta}(\hat\theta)=\mathop{\mathrm{E}}_\theta\left[\big(\hat\theta - \mathop{\mathrm{E}}(\hat\theta)\big)^2\right]\]</span></p>
+<span class="math display">\[{\mathop{\mathrm{Var}}}_{\theta}(\hat\theta)=\mathop{\mathrm{E}}_\theta\left[\big(\hat\theta - \mathop{\mathrm{E}}(\hat\theta)\big)^2\right]\]</span></p>
 </div>
-<p>This just uses the regular definition of the variance for random variables.</p>
+<p>This just uses the regular definition of the variance for random variables,
+<span class="math display">\[
+{\mathop{\mathrm{Var}}}_\theta(\hat\theta) = \int (\hat\theta-\mathop{\mathrm{E}}\hat\theta)^2 f(\hat\theta\mid\theta) \mathop{\mathrm{d}}\hspace{0.5pt}\!\hat\theta.
+\]</span>
+It also has the same interpretation as the variance of random variables, in that it gives a sense of the spread/scale of this estimator.
+Furthermore, we could look at the ‘standard deviation’, which has a special name when it comes to estimators.</p>
 <div class="definition">
 <p><span id="def:unlabeled-div-127" class="definition"><strong>Definition 4.8  (Standard error) </strong></span>The standard error of the estimator <span class="math inline">\(\hat\theta\)</span> is defined as the standard deviation of the variance of the estimator, i.e.
 <span class="math display">\[\text{se}(\hat\theta) = \sqrt{\mathop{\mathrm{Var}}_\theta(\hat\theta)}\]</span></p>
 </div>
-<p>Obviously, we desire an estimator whose variability (in repeated sampling) is low.</p>
+<p>Obviously, we desire an estimator whose variability (in repeated sampling) is low.
+That is, an estimator whose calculated value is not too variable across multiple sampling scenarios would be really great to have, compared to an estimator which keeps on changing in value drastically.</p>
 <div class="mycheck">
 <p>These two properties measure different things about estimators:</p>
 <ul>
@@ -514,23 +525,30 @@ Figure 4.1: The difference between bias and variance.
 </div>
 <div id="mean-squared-error" class="section level3" number="4.6.3">
 <h3><span class="header-section-number">4.6.3</span> Mean squared error</h3>
+<p>The bias and variance are related through the following concept of mean squared error.</p>
 <div class="definition">
 <p><span id="def:unlabeled-div-128" class="definition"><strong>Definition 4.9  (Mean squared error of estimator) </strong></span>The MSE of the estimator <span class="math inline">\(\hat\theta\)</span> is defined as
 <span class="math display">\[\text{MSE}_\theta(\hat\theta) = \mathop{\mathrm{E}}_\theta\left[(\hat\theta - \theta)^2 \right] = \{\text{Bias}_\theta(\hat\theta) \}^2 + \mathop{\mathrm{Var}}_\theta(\hat\theta).\]</span></p>
 </div>
 <div class="mycheck">
-<p>As an exercise, prove the bias-variance decomposition above. Hare some hints on how to get started:</p>
+<p>As an exercise, prove the bias-variance decomposition above. Here some hints on how to get started:</p>
 <ul>
-<li>hint 1</li>
-<li>hint 2</li>
+<li><p>Add and subtract the expectation of <span class="math inline">\(\hat\theta\)</span> in the expression:
+<span class="math display">\[
+\left(\hat\theta - \mathop{\mathrm{E}}\hat\theta + \mathop{\mathrm{E}}\hat\theta - \theta\right)^2
+\]</span>
+and expand the square.</p></li>
+<li><p>Try to show that <span class="math inline">\(\mathop{\mathrm{E}}\left[(\hat\theta-\mathop{\mathrm{E}}\hat\theta)(\mathop{\mathrm{E}}\hat\theta-\theta)\right]=0\)</span> using properties of expectations.</p></li>
 </ul>
 </div>
-<p>There is a clear and direct relationship between the MSE of an estimator, and its bias and variance. For a given MSE,</p>
+<p>There is a clear and direct relationship between the MSE of an estimator, and its bias and variance.
+Note that for a fixed MSE value,</p>
 <ul>
-<li><p>Reducing the bias of an estimator implies that its variance will increase.</p></li>
+<li><p>Reducing the bias of an estimator necessarily increases its variance.</p></li>
 <li><p>Conversely, reducing the variance of an estimator implies that bias will increase.</p></li>
 </ul>
-<p>This is known as the <strong>bias-variance</strong> trade-off. It is typically impossible to do both simultaneously.</p>
+<p>This is known as the <strong>bias-variance</strong> trade-off.
+It is typically impossible to do both simultaneously.</p>
 <div class="myalert">
 <p>The bias-variance trade-off does not mean an estimator with low bias <strong>and</strong> low variance is impossible to achieve.It simply means <em>improving</em> one aspect of an estimator will worsen it in the other aspect.</p>
 </div>

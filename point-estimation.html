@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2022-01-05" />
+<meta name="date" content="2022-01-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -464,14 +464,25 @@ TeX: {extensions: ["cancel.js"]}
             <section class="normal" id="section-">
 <div id="point-estimation" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Point estimation</h1>
+<p>In this chapter, we will be studying the first of three statistical inference activities, namely <em>point estimation</em>.
+When we studied probability and distributions, the parameters of those distributions were treated as known information, and from there we calculate probabilities or expectations related to those distributions.
+In statistical inference however, the intent is the opposite.
+That is, the parameters of the distributions are unknown and we are supposed to <em>infer</em> what they are from the clues that are available to us.
+The clues here refer to the data that is collected, assumed to be distributed according to some probability distribution whose parameters are to be found out.
+Figuring out what the values of the parameters should be is called <em>point estimation</em>.</p>
+<p>Actually, there are many ways and methods of performing point estimation.
+By far the most common way (at least that is a starting point in these kind of discussions) is the method of maximum likelihood.
+It is an intuitive measure of the plausibility a certain parameter of interest given the observed data.
+We shall study this extensively, and in fact, the next two chapters do indeed revolve around the concept of likelihood.</p>
 <div id="learning-objectives-3" class="section level3 unnumbered">
 <h3>Learning objectives</h3>
 <div class="learningobjectives">
 <p>By the end of this chapter, you will be able to:</p>
 <ul>
-<li>do this</li>
-<li>do that</li>
-<li>and this</li>
+<li>Construct the likelihood function based on any given assumed probability distribution, and hence compute the maximum likelihood estimator.</li>
+<li>Obtain a point estimator by way of the method of moments.</li>
+<li>Evaluate the quality of any point estimator by means of its bias, variance, and mean-squared error.</li>
+<li>Asymptotically evaluate the qualities of point estimators in suitable circumstances, and in particular be familiar with the large sample properties of the MLE.</li>
 </ul>
 </div>
 </div>

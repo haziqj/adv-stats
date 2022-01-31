@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2022-01-05" />
+<meta name="date" content="2022-01-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -486,8 +486,14 @@ is called the <em>likelihood function</em> for <span class="math inline">\(\thet
 <div class="example">
 <p><span id="exm:unlabeled-div-107" class="example"><strong>Example 4.1  </strong></span>Consider a sequence of <span class="math inline">\(n\)</span> coin tosses, and let <span class="math inline">\(X_i\)</span> denote the outcome of the <span class="math inline">\(i\)</span>th coin toss. Assume that <span class="math inline">\(X_i\sim\mathop{\mathrm{Bern}}(p)\)</span>, where <span class="math inline">\(p\)</span> is the probability of heads. We know that the total number of heads <span class="math inline">\(\sum_{i=1}^n X_i\)</span> is distributed <span class="math inline">\(\mathop{\mathrm{Bin}}(n,p)\)</span>.</p>
 <p>Suppose the outcome of <span class="math inline">\(n=10\)</span> coin tosses happens to be
-<span class="math display">\[{\boldsymbol x}= \{H, T, H, T, T, H, H, T, H, H \}.\]</span>
-Then <span class="math inline">\(L(0.6|{\boldsymbol x}) &gt; L(0.5|{\boldsymbol x})\)</span>.</p>
+<span class="math display">\[\{H, T, H, T, T, H, H, T, H, H \},\]</span>
+i.e. <span class="math inline">\(X=\sum_{i=1}^n X_i = 6\)</span> (the total number of heads).</p>
+<p>The likelihood function is just the pmf of the binomial with <span class="math inline">\(p\)</span> as its input, and <span class="math inline">\(X=6\)</span> as the given information:
+<span class="math display">\[
+L(p|X) = {10 \choose 6} p^6(1-p)^{4} 
+\]</span>
+Clearly, and even intuitively, <span class="math inline">\(L(0.6|X) &gt; L(0.2|X)\)</span>, say.
+That is, it is more plausible that <span class="math inline">\(p=0.6\)</span> rather than <span class="math inline">\(p=0.2\)</span>, given that 6 out of 10 heads turned up.</p>
 </div>
 <div id="calculating-the-likelihood" class="section level3" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Calculating the likelihood</h3>
@@ -501,11 +507,16 @@ Then <span class="math inline">\(L(0.6|{\boldsymbol x}) &gt; L(0.5|{\boldsymbol 
 <span id="cb46-2"><a href="the-likelihood.html#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##  [1] 0.0000 0.0001 0.0055 0.0368 0.1115 0.2051 0.2508 0.2001 0.0881 0.0112
 ## [11] 0.0000</code></pre>
-<p>Plot of the likelihood</p>
-<p><img src="bookdown-adv-stats_files/figure-html/likeg1-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>Plotting the likelihood, we clearly see how the likelihood is a function of <span class="math inline">\(p\)</span> the parameter (on the horizontal axis), and the function outputs the likelihood on the vertical axis.
+Moreover, the likelihood function is continuous, even though the underlying data distribution is discrete (binomial).
+That’s because we are evaluating the likelihood of the probability of success <span class="math inline">\(p\)</span> in the continuous interval <span class="math inline">\([0,1]\)</span>.</p>
+<p><img src="bookdown-adv-stats_files/figure-html/likeg2-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>And just to reiterate, the probability mass function, when plotted, will show vertical bars or lines because here the input is of the pmf is <span class="math inline">\(x\)</span>, the number of heads, which is clearly discrete.</p>
+<p><img src="bookdown-adv-stats_files/figure-html/likeg3-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="likelihood-ratio" class="section level3" number="4.1.2">
 <h3><span class="header-section-number">4.1.2</span> Likelihood ratio</h3>
+<p>The term likelihood ratio gives the <em>relative</em> plausibility of two candidate parameter values.</p>
 <div class="definition">
 <p><span id="def:unlabeled-div-108" class="definition"><strong>Definition 4.1  (Likelihood ratio) </strong></span>The relative plausibility of candidate parameter values, <span class="math inline">\(\theta_1\)</span> and <span class="math inline">\(\theta_2\)</span> say, is measured by the likelihood ratio</p>
 <p><span class="math display">\[

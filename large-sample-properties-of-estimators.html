@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2022-01-05" />
+<meta name="date" content="2022-01-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -623,7 +623,7 @@ v(\theta) = \frac{\left[\psi&#39;(\theta) \right]^2}{{\mathcal I}_1(\theta)}.
 <span class="math display">\[
 \hat\theta \approx \mathop{\mathrm{N}}\left(\theta, {\mathcal I}(\theta)^{-1} \right).
 \]</span>
-In particular, we can calculate an <em>approximate standard error</em> for <span class="math inline">\(\hat\theta\)</span> by estimating the quantity <span class="math inline">\({\mathcal I}(\theta)\)</span>. Two choices:</p>
+In particular, we can calculate an <em>approximate standard error</em> for <span class="math inline">\(\hat\theta\)</span> by estimating the quantity <span class="math inline">\({\mathcal I}(\theta).\)</span> We have two choices:</p>
 <ol style="list-style-type: decimal">
 <li><p>The obvious ‘plug-in’ estimator using the <em>expected</em> Fisher information
 <span class="math display">\[
@@ -641,7 +641,7 @@ which is based directly on the curvature of the log-likelihood of <span class="m
 <p><span class="math display">\[\begin{align*}
 l(\lambda|{\boldsymbol X}) &amp;= \text{const.}- n\lambda +\sum_{i=1}^n X_i \log \lambda \\
 l&#39;(\lambda|{\boldsymbol X}) &amp;= - n +\sum_{i=1}^n X_i / \lambda \\ 
--l&#39;&#39;(\lambda|{\boldsymbol X}) &amp;=  \sum_{i=1}^n X_i / \lambda^2 \hspace{10pt}\rlap{\color{gray}\text{(the observed Fisher information)}}
+-l&#39;&#39;(\lambda|{\boldsymbol X}) &amp;=  \sum_{i=1}^n X_i / \lambda^2 
 \end{align*}\]</span>
 Hence <span class="math inline">\(l&#39;(\lambda)=0\)</span> is solved at <span class="math inline">\(\hat\lambda_n = \sum_{i=1}^n X_i / n =: \bar X_n\)</span>.</p>
 <p>The large-sample variance of <span class="math inline">\(\hat\lambda_n\)</span> is

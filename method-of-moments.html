@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2022-01-05" />
+<meta name="date" content="2022-01-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -464,6 +464,7 @@ TeX: {extensions: ["cancel.js"]}
             <section class="normal" id="section-">
 <div id="method-of-moments" class="section level2" number="4.4">
 <h2><span class="header-section-number">4.4</span> Method of moments</h2>
+<p>One such method of estimation of population parameters is called the <em>method of moments</em>.</p>
 <div class="definition">
 <p><span id="def:unlabeled-div-119" class="definition"><strong>Definition 4.4  (Method of moments estimator) </strong></span>Suppose that <span class="math inline">\(U({\boldsymbol X})\)</span> is any statistic such that
 <span class="math display">\[
@@ -475,12 +476,15 @@ where <span class="math inline">\(m(\cdot)\)</span> is invertible. Then
 \]</span>
 is called the method of moments (MOM) estimator of <span class="math inline">\(\theta\)</span> based on <span class="math inline">\(U\)</span>.</p>
 </div>
-<p>The moment here is the mean, i.e. the first moment, of <span class="math inline">\(U({\boldsymbol X})\)</span>. A more precise name for this estimator would be ‘the MOM estimator based on the first moment of <span class="math inline">\(U\)</span>’.</p>
-<p>There are two main situations where moments other than the first moment are needed:</p>
+<p>The moment here is the mean, i.e. the first moment, of <span class="math inline">\(U({\boldsymbol X})\)</span>.
+A more precise name for this estimator would be ‘the MOM estimator based on the first moment of <span class="math inline">\(U\)</span>’.
+As we can see, the key idea is to express population moments (i.e. expectations) as functions of the parameters of interest, which we can then substitute for the sample moments.</p>
+<p>While it is common to only use the first moments, there are two main situations where moments other than the first moment are needed:</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>When <span class="math inline">\(m(\theta)\)</span> either does not involve <span class="math inline">\(\theta\)</span>, or is otherwise not invertible.</strong> We might then consider using instead the second moment, <span class="math inline">\(\mathop{\mathrm{E}}(U^2) = m_2(\theta)\)</span>, say. If <span class="math inline">\(m_2(\theta)\)</span> is invertible, then MOM based on <span class="math inline">\(U_2\)</span> can be used in order to define an estimator.</p></li>
 <li><p><strong>When <span class="math inline">\(\theta=(\theta_1,\dots,\theta_p)^\top\)</span> is a vector.</strong> I.e., there is more than one unknown parameter. The number of moments used (the number of equations to solve) must be equal to the dimensionality of <span class="math inline">\(\theta\)</span> (the number of unknowns).</p></li>
 </ol>
+<p>Let’s now look at two examples illustrating the method of moments.</p>
 <div class="example">
 <p><span id="exm:unlabeled-div-120" class="example"><strong>Example 4.8  </strong></span>Let <span class="math inline">\(X_1,\dots,X_n\,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{Unif}}(0,\theta)\)</span>. Consider <span class="math inline">\(U({\boldsymbol X}) = \bar X_n = n^{-1}\sum_{i=1}^n X_i\)</span>, the sample mean. Then, since <span class="math inline">\(\mathop{\mathrm{E}}(X_i)=\theta/2\)</span>, we have
 <span class="math display">\[\begin{align*}
