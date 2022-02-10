@@ -1040,7 +1040,7 @@ The $\chi^2$-distribution is an important distribution in statistics.
 It is closely linked with the normal, Student's $t$ and $F$ distributions. Inference for the variance parameter $\sigma^2$ relies on $\chi^2$-distributions. 
 More importantly, most goodness-of-fit tests are based on $\chi^2$-distributions.
 
-::: {.definition #chisq name="\(\chi^2\)-distribution"}
+::: {.definition #chisq name="\\(\chi^2\\)-distribution"}
 
 Let $Z_1,\dots,Z_k \iid \N(0,1)$, i.e. each $Z_i$ has pdf $f(z_i) = (2\pi)^{-1/2}e^{-z_i^2/2}$ for $i=1,\dots,k$. 
 Then,
@@ -1135,7 +1135,7 @@ statistics, because:
 -   Confidence intervals for normal mean with unknown variance may be
     constructed based on the $t$-distribution.
 
-::: {.definition name="\(t\)-distribution"}
+::: {.definition name="\\(t\\)-distribution"}
 Suppose we have two random variable $Z\sim\N(0,1)$ and  $X\sim\chi^2_k$ such that $X$ and $Z$ are independent.
 Then, the distribution of the random variable
 $$T = \frac{Z}{\sqrt{X/k}}$$ is called the $t$-distribution with $k\in\bbN$
@@ -1258,7 +1258,7 @@ The $F$-distribution is another notable distribution in
 statistics. It commonly arises as the null distribution of a test
 statistic, particularly in the analysis of variance (ANOVA).
 
-::: {.definition name="\(F\)-distribution"}
+::: {.definition name="\\(F\\)-distribution"}
 Let $X_1 \sim \chi^2_{k_1}$ and $X_2 \sim \chi^2_{k_2}$. 
 Then, the distribution of $$Y = \frac{X_1/k_1}{X_2/k_2}$$ is called the $F$-distribution with $(k_1,k_2)$ degrees of freedom. 
 We write $Y\sim F_{k_1,k_2}$.
