@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2022-01-31" />
+<meta name="date" content="2022-02-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -486,7 +486,7 @@ We’ll circle back to the proof othis theorem after covering the <span class="m
 It is closely linked with the normal, Student’s <span class="math inline">\(t\)</span> and <span class="math inline">\(F\)</span> distributions. Inference for the variance parameter <span class="math inline">\(\sigma^2\)</span> relies on <span class="math inline">\(\chi^2\)</span>-distributions.
 More importantly, most goodness-of-fit tests are based on <span class="math inline">\(\chi^2\)</span>-distributions.</p>
 <div class="definition">
-<p><span id="def:chisq" class="definition"><strong>Definition 3.6  ($\chi^2$-distribution) </strong></span>Let <span class="math inline">\(Z_1,\dots,Z_k \,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{N}}(0,1)\)</span>, i.e. each <span class="math inline">\(Z_i\)</span> has pdf <span class="math inline">\(f(z_i) = (2\pi)^{-1/2}e^{-z_i^2/2}\)</span> for <span class="math inline">\(i=1,\dots,k\)</span>.
+<p><span id="def:chisq" class="definition"><strong>Definition 3.6  (\(\chi^2\)-distribution) </strong></span>Let <span class="math inline">\(Z_1,\dots,Z_k \,\overset{\text{iid}}{\sim}\,\mathop{\mathrm{N}}(0,1)\)</span>, i.e. each <span class="math inline">\(Z_i\)</span> has pdf <span class="math inline">\(f(z_i) = (2\pi)^{-1/2}e^{-z_i^2/2}\)</span> for <span class="math inline">\(i=1,\dots,k\)</span>.
 Then,
 <span class="math display">\[X = Z_1^2 + \dots + Z_k^2 = \sum_{i=1}^k Z_i^2\]</span>
 follows a <span class="math inline">\(\chi^2\)</span>-distribution with <span class="math inline">\(k\in\mathbb{N}\)</span> degrees of freedom.
@@ -547,7 +547,7 @@ application.</li>
 constructed based on the <span class="math inline">\(t\)</span>-distribution.</li>
 </ul>
 <div class="definition">
-<p><span id="def:unlabeled-div-102" class="definition"><strong>Definition 3.7  ($t$-distribution) </strong></span>Suppose we have two random variable <span class="math inline">\(Z\sim\mathop{\mathrm{N}}(0,1)\)</span> and <span class="math inline">\(X\sim\chi^2_k\)</span> such that <span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span> are independent.
+<p><span id="def:unlabeled-div-102" class="definition"><strong>Definition 3.7  (\(t\)-distribution) </strong></span>Suppose we have two random variable <span class="math inline">\(Z\sim\mathop{\mathrm{N}}(0,1)\)</span> and <span class="math inline">\(X\sim\chi^2_k\)</span> such that <span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span> are independent.
 Then, the distribution of the random variable
 <span class="math display">\[T = \frac{Z}{\sqrt{X/k}}\]</span> is called the <span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(k\in\mathbb{N}\)</span>
 degrees of freedom. We write <span class="math inline">\(T\sim t_k\)</span>.</p>
@@ -642,7 +642,7 @@ sample mean follows a <span class="math inline">\(t\)</span>-distribution! This 
 statistics. It commonly arises as the null distribution of a test
 statistic, particularly in the analysis of variance (ANOVA).</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-106" class="definition"><strong>Definition 3.8  ($F$-distribution) </strong></span>Let <span class="math inline">\(X_1 \sim \chi^2_{k_1}\)</span> and <span class="math inline">\(X_2 \sim \chi^2_{k_2}\)</span>.
+<p><span id="def:unlabeled-div-106" class="definition"><strong>Definition 3.8  (\(F\)-distribution) </strong></span>Let <span class="math inline">\(X_1 \sim \chi^2_{k_1}\)</span> and <span class="math inline">\(X_2 \sim \chi^2_{k_2}\)</span>.
 Then, the distribution of <span class="math display">\[Y = \frac{X_1/k_1}{X_2/k_2}\]</span> is called the <span class="math inline">\(F\)</span>-distribution with <span class="math inline">\((k_1,k_2)\)</span> degrees of freedom.
 We write <span class="math inline">\(Y\sim F_{k_1,k_2}\)</span>.</p>
 </div>
@@ -679,8 +679,8 @@ Define</p>
 <li>the group means <span class="math inline">\(\bar Y_j = n_j^{-1} \sum_{i=1}^{n_j} Y_{ij}\)</span>, <span class="math inline">\(j=1,\dots,m\)</span>.</li>
 </ul>
 <p>Consider the “total sum of squares” <span class="math inline">\(TSS = \sum_{i,j}(Y_{ij} - \bar Y)^2\)</span>, which can be decomposed into <span class="math display">\[TSS = 
-  {\color{gray!70}\overbrace{\color{black}\sum_{i,j} (Y_{ij} - \bar Y_j)^2}^{WSS}} +
-  {\color{gray!70}\overbrace{\color{black}\sum_{j} n_j(\bar Y_j - \bar Y)^2}^{BSS}}\]</span> where</p>
+  \overbrace{\sum_{i,j} (Y_{ij} - \bar Y_j)^2}^{WSS} +
+  \overbrace{\sum_{j} n_j(\bar Y_j - \bar Y)^2}^{BSS}\]</span> where</p>
 <ul>
 <li><span class="math inline">\(WSS\)</span> is the “within sum of squares” (how much variation among individuals
 in each group); and</li>

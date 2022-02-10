@@ -319,7 +319,7 @@
 
 \title{SM-4331 Advanced Statistics}
 \author{Dr Haziq Jamil}
-\date{2022-01-31}
+\date{2022-02-10}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -5694,8 +5694,7 @@ Then, for any \(\epsilon>0\),
 \(\Pr(|X_n|\geq\epsilon) = \Pr(X_n = n^2) = 1/n \to 0\) as \(n\to\infty\).
 Hence, \(X_n{\xrightarrow{\text{P}}}0\).
 
-However, \[\E(X_n^2) = n^2 \cdot \Pr(X_n = n^2) + 0  \cdot \Pr(X_n = 0) = n \to \infty\] hence
-\(X_n\centernot{\xrightarrow{\text{m.s.}}}0\).
+However, \[\E(X_n^2) = n^2 \cdot \Pr(X_n = n^2) + 0  \cdot \Pr(X_n = 0) = n \to \infty\] hence \(X_n\) does not converge in mean square to 0.
 \end{example}
 
 \hypertarget{relationship-between-convergences}{%
@@ -6073,7 +6072,7 @@ The \(\chi^2\)-distribution is an important distribution in statistics.
 It is closely linked with the normal, Student's \(t\) and \(F\) distributions. Inference for the variance parameter \(\sigma^2\) relies on \(\chi^2\)-distributions.
 More importantly, most goodness-of-fit tests are based on \(\chi^2\)-distributions.
 
-\begin{definition}[$\chi^2$-distribution]
+\begin{definition}[\(\chi^2\)-distribution]
 \protect\hypertarget{def:chisq}{}\label{def:chisq}Let \(Z_1,\dots,Z_k \iid \N(0,1)\), i.e.~each \(Z_i\) has pdf \(f(z_i) = (2\pi)^{-1/2}e^{-z_i^2/2}\) for \(i=1,\dots,k\).
 Then,
 \[X = Z_1^2 + \dots + Z_k^2 = \sum_{i=1}^k Z_i^2\]
@@ -6165,7 +6164,7 @@ statistics, because:
   constructed based on the \(t\)-distribution.
 \end{itemize}
 
-\begin{definition}[$t$-distribution]
+\begin{definition}[\(t\)-distribution]
 Suppose we have two random variable \(Z\sim\N(0,1)\) and \(X\sim\chi^2_k\) such that \(X\) and \(Z\) are independent.
 Then, the distribution of the random variable
 \[T = \frac{Z}{\sqrt{X/k}}\] is called the \(t\)-distribution with \(k\in\bbN\)
@@ -6291,7 +6290,7 @@ The \(F\)-distribution is another notable distribution in
 statistics. It commonly arises as the null distribution of a test
 statistic, particularly in the analysis of variance (ANOVA).
 
-\begin{definition}[$F$-distribution]
+\begin{definition}[\(F\)-distribution]
 Let \(X_1 \sim \chi^2_{k_1}\) and \(X_2 \sim \chi^2_{k_2}\).
 Then, the distribution of \[Y = \frac{X_1/k_1}{X_2/k_2}\] is called the \(F\)-distribution with \((k_1,k_2)\) degrees of freedom.
 We write \(Y\sim F_{k_1,k_2}\).
@@ -6347,8 +6346,8 @@ Define
 \end{itemize}
 
 Consider the ``total sum of squares'' \(TSS = \sum_{i,j}(Y_{ij} - \bar Y)^2\), which can be decomposed into \[TSS = 
-  \myoverbrace{\sum_{i,j} (Y_{ij} - \bar Y_j)^2}{WSS} +
-  \myoverbrace{\sum_{j} n_j(\bar Y_j - \bar Y)^2}{BSS}\] where
+  \overbrace{\sum_{i,j} (Y_{ij} - \bar Y_j)^2}^{WSS} +
+  \overbrace{\sum_{j} n_j(\bar Y_j - \bar Y)^2}^{BSS}\] where
 
 \begin{itemize}
 \tightlist
