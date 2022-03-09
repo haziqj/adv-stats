@@ -319,7 +319,7 @@
 
 \title{SM-4331 Advanced Statistics}
 \author{Dr Haziq Jamil}
-\date{2022-02-10}
+\date{2022-03-09}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -8121,7 +8121,27 @@ In this example, the plug-in estimator for \(\cI(\theta)\) happens to be the sam
 \hypertarget{hypothesis-testing}{%
 \chapter{Hypothesis testing}\label{hypothesis-testing}}
 
-Hello
+In point estimation, the goal was to obtain the best estimate for an unknown parameter value \(\theta\).
+Another kind of inference activity that one might want to do is to test specific hypotheses about \(\theta\).
+For instance, we might want to know what the data says about \(\theta\) taking on a specific value \(\theta=\theta_0\).
+Traditionally, there are two viewpoints to hypothesis testing.
+One is the Fisherian view, and the other is the Neyman-Pearson method.
+
+The Fisherian view of hypothesis testing is to construct a suitable test statistic and derive a probability value for the event that the observed test statistic falls in an extreme (or even more so) value based on the data, under the assumption that a particular null hypothesis is true.
+The idea here is that the so-called \(p\)-values gives an indication of the likelihood of the null hypothesis being plausible.
+Low \(p\)-values give support for the rejection of the null in favour of an alternative hypothesis.
+
+In the Neyman-Pearson approach, a specific cut-off region must be specific beforehand, and the test statistic or equivalently the \(p\)-value is compared to this cut-off region.
+If it falls within a `rejection region', then the null hypothesis is rejected.
+The \(p\)-values still retain their meaning, but the framework of the test is now reduced to a statistical decision (reject/not reject).
+The advantage of this framework is that it allows us to gauge the performances of the test (i.e.~evaluating the false positives and false negatives).
+
+The structure of this chapter is to discuss the Fisher and Neyman-Pearson approaches to hypothesis testing.
+In each approach, we will discuss the general method of finding a test and executing it accordingly.
+This usually involves deriving a suitable test statistic, finding out what its distribution is, and use that to calculate \(p\)-values.
+
+We will find that the maximum likelihood method gives a nice optimality criterion for statistical testing.
+In addition, when the test statistic does not have a known distribution, we can make use of asymptotic distributions just like we did in Chapter 4.
 
 \hypertarget{learning-objectives-4}{%
 \subsection*{Learning objectives}\label{learning-objectives-4}}
@@ -8132,11 +8152,13 @@ By the end of this chapter, you will be able to:
 \begin{itemize}
 \tightlist
 \item
-  do this
+  Construct appropriate test statistics based on the problem at hand, and compute \(p\)-values accordingly.
 \item
-  do that
+  Use the likelihood ratio test approach to construct test statistics.
 \item
-  and this
+  Evaluate statistical tests based on size and power.
+\item
+  Use asymptotic evaluations in the case where distributions are not easily derived.
 \end{itemize}
 
 \hypertarget{readings-4}{%
