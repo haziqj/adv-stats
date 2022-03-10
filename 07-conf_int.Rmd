@@ -1,13 +1,26 @@
 # Interval estimation
 
+Often times, we would want to give a set of plausible values for the estimate of an unknown parameter value $\theta$, rather than just a single point estimate.
+Such sets are called as confidence sets, and that is the focus of this chapter.
+While estimating $\theta$ with a set, rather than a point, seems imprecise, what we gain by using interval estimators is some assurances that the interval will contain the true value.
+
+The two methods for finding interval estimators are by making use of pivotal quantities and through the inversion of hypothesis tests.
+Once again, the maximum likelihood method, by way of the likelihood ratio test, gives a 'free' way of finding interval estimators.
+
+To establish coverage probabilities of interval estimators, it is pertinent to know what the distribution of the pivotal quantities used are. 
+This is not easy to do in all instances, so approximations can be employed here.
+Besides the usual asymptotics, we will also learn about the Bootstrap method.
+
+
 ### Learning objectives {-}
 
 ::: {.learningobjectives}
 By the end of this chapter, you will be able to:
 
-- do this
-- do that
-- and this
+- Understand the concept of coverage probabilities of interval estimators
+- Construct interval estimators by way of pivotal quantities and inverting test statistics
+- Use the asymptotic test statistics to construct approximate confidence intervals
+- Use the bootstrap method to compute standard errors as well as to compute three kinds of bootstrap intervals
 :::
 
 ### Readings {-}
@@ -1286,7 +1299,11 @@ ggplot() +
 
    (c) 100 people are given a standard antibiotic to treat an infection and another 100 are given a new antibiotic. In the first group, 90 people recover; in the second group, 85 people recover. Let $p$ be the probability of recovery with the standard antibiotic and $q$ the probability of recovery with the new antibiotic. Provide an 80\% confidence interval for the difference $\theta = p-q$. **[3 marks]**
 
-4. Let $X_1,\dots,X_n$ be a sample from $\N(\mu,1)$. Let $\theta = e^\mu$, and we estimate $\theta$ by $\hat\theta=e^{\bar X}$, where $\bar X = n^{-1}\sum_{i=1}^n X_i$. Describe how to obtain a bootstrap estimator $v_{boot}=\widehat{\Var}(\hat{\theta})$ for $\Var(\hat{\theta})$. **[3 marks]**
+3. Let $X_1,\dots,X_n$ be a sample from $\N(\mu,1)$. Let $\theta = e^\mu$, and we estimate $\theta$ by $\hat\theta=e^{\bar X}$, where $\bar X = n^{-1}\sum_{i=1}^n X_i$. 
+
+   (a) Describe how to obtain a bootstrap estimator $v_{boot}=\widehat{\Var}(\hat{\theta})$ for $\Var(\hat{\theta})$. **[4 marks]**
+   
+   (b) What is a 90% normal bootstrap interval for $\theta$? **[2 marks]**
 
 
 

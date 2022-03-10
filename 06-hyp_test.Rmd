@@ -941,19 +941,19 @@ and $z(a)$ is the top $a$-th point, $0\leq a\leq 1$, of the standard normal dist
 
 1. Suppose that $X_1,\dots,X_n$ and $Y_1,\dots,Y_m$ are two independent random samples from two exponential distributions with mean $\theta$ and $\mu$ respectively.
 
-   (a) Find the LRT of $H_0:\theta = \mu$ versus $H_1:\theta\neq\mu$. **[4 marks]**
+   (a) Find the LRT of $H_0:\theta = \mu$ versus $H_1:\theta\neq\mu$. **[5 marks]**
 
    (b) Show that the test in part (a) can be based on the statistic
     $$
     T = \frac{\sum_{i=1}^n X_i}{\sum_{i=1}^n X_i + \sum_{j=1}^m Y_j}.
     $$
-   **[2 marks]**
+   **[3 marks]**
 
     (c) Specify the asymptotic distribution of the LRT statistic under $H_0$ found in a. **[1 mark]**
 
 2. Let $X_1,\dots,X_n\iid\Unif(0,\theta)$ and let $Y=\max\{X_1,\dots,X_n\}$. We want to test $H_0:\theta = 1/2$ versus $H_1:\theta > 1/2$. 
 
-   (a) Explain briefly why the Wald test would not be appropriate in this case. **[1 mark]**
+   (a) State the distribution of the Wald test statistic in this case, and explain briefly why the Wald test would not be appropriate in this case. **[2 mark]**
    
    
    Suppose we decide to test this hypothesis by rejecting $H_0$ when $Y > c$.
