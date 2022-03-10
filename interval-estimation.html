@@ -24,7 +24,7 @@
 <meta name="author" content="Dr Haziq Jamil" />
 
 
-<meta name="date" content="2022-03-09" />
+<meta name="date" content="2022-03-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -465,14 +465,23 @@ TeX: {extensions: ["cancel.js"]}
             <section class="normal" id="section-">
 <div id="interval-estimation" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Interval estimation<a href="interval-estimation.html#interval-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Often times, we would want to give a set of plausible values for the estimate of an unknown parameter value <span class="math inline">\(\theta\)</span>, rather than just a single point estimate.
+Such sets are called as confidence sets, and that is the focus of this chapter.
+While estimating <span class="math inline">\(\theta\)</span> with a set, rather than a point, seems imprecise, what we gain by using interval estimators is some assurances that the interval will contain the true value.</p>
+<p>The two methods for finding interval estimators are by making use of pivotal quantities and through the inversion of hypothesis tests.
+Once again, the maximum likelihood method, by way of the likelihood ratio test, gives a ‘free’ way of finding interval estimators.</p>
+<p>To establish coverage probabilities of interval estimators, it is pertinent to know what the distribution of the pivotal quantities used are.
+This is not easy to do in all instances, so approximations can be employed here.
+Besides the usual asymptotics, we will also learn about the Bootstrap method.</p>
 <div id="learning-objectives-5" class="section level3 unnumbered hasAnchor">
 <h3>Learning objectives<a href="interval-estimation.html#learning-objectives-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="learningobjectives">
 <p>By the end of this chapter, you will be able to:</p>
 <ul>
-<li>do this</li>
-<li>do that</li>
-<li>and this</li>
+<li>Understand the concept of coverage probabilities of interval estimators</li>
+<li>Construct interval estimators by way of pivotal quantities and inverting test statistics</li>
+<li>Use the asymptotic test statistics to construct approximate confidence intervals</li>
+<li>Use the bootstrap method to compute standard errors as well as to compute three kinds of bootstrap intervals</li>
 </ul>
 </div>
 </div>
